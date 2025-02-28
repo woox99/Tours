@@ -1,0 +1,188 @@
+*{
+    /* border: 1px solid red; */
+    padding: 0;
+    margin: 0;
+    /* margin: 0 !important; */
+}
+.navbar img{
+    height: 40px;
+}
+/* form .input-group-text{
+    border-radius: 20vw 0 0 20vw;
+
+}
+form input{
+    border-left: none !important;
+    border-radius: 0 20vw 20vw 0 !important;
+    outline: none;
+} */
+.side-bar{
+    /* border-right: 1px solid black; */
+    width: 200px;
+    min-height: 100vh;
+    border-right: 1px solid #00000015;
+}
+.side-bar a{
+    text-decoration: none;
+}
+.side-bar .category{
+    font-size: 14px;
+    cursor: pointer;
+    color: black;
+    margin-top: 2px;
+    letter-spacing: 0.25px;
+}
+.offcanvas{
+    width: 300px !important;
+    /* background: linear-gradient(90deg, #ffffff 45%, #ffffff90); */
+    background-color: #ffffff;
+    box-shadow: 5px 0px 5px #00000050;
+    opacity: 0.92;
+}
+.offcanvas a{
+    text-decoration: none;
+}
+.offcanvas .category{
+    font-size: 18px !important;
+    color: black;
+    margin-top: 10px;
+    /* margin-left: ; */
+    letter-spacing: 0.25px;
+}
+
+.main-content{
+    width: 100%;
+    overflow: hidden;
+}
+
+.jumbotron{
+    position: relative;
+    overflow: hidden;
+    /* overflow-x: hidden; */
+    /* overflow-y: visible; */
+}
+.jumbotron img{
+    /* width: 200px; */
+    opacity: 0.75;
+    overflow: hidden;
+}
+.jumbotron .btm-row{
+    margin-left: -25px !important;
+}
+.jumbotron .strip{
+    position: absolute;
+    height: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    background-color: white;
+    opacity: 0.7;
+}
+.jumbotron .quote{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    /* background-color: white; */
+    /* opacity: 0.8; */
+    /* background-color: #ffffff99; */
+}
+.jumbotron .quote .english{
+    font-size: 12px;
+}
+
+.breadcrumb a{
+    text-decoration: none;
+}
+/* .island-card img{
+    height: 35px;
+} */
+.cards{
+    justify-content: start;
+}
+.card{
+    width: 32%;
+    border: none !important;
+    margin-bottom: 20px;
+    margin-right: 10px;
+}
+@media (max-width: 992px) {
+    .cards{
+        justify-content: space-around;
+    }
+    .card{
+        width: 49%;
+        margin-right: 0;
+    }
+}
+@media (max-width: 768px) {
+    .card{
+        width: 100%;
+    }
+}
+
+.card .featured{
+    font-size: 10px;
+}
+.card .featured .line{
+    height: 3px;
+    width: 50%;
+    background: linear-gradient(70deg, #0ebeff, #ffdd40, #ae63e4, #47cf73);
+}
+.card .background{
+    position: relative;
+}
+.card img{
+    width: 100%;
+    aspect-ratio: 8/5;
+    border-radius: 5px;
+    /* border: 1px solid red; */
+}
+.card .heart-btn{
+    position: absolute;
+    top: 10px;
+    /* left: 10px; */
+    /* bottom: 5px; */
+    right: 10px;
+    z-index: 1;
+    /* background-color: #ffffff99; */
+    /* border: 1px solid white; */
+    background-image: radial-gradient(#ffffff00, #ffffff99);
+    /* opacity: 0.9; */
+    height: 45px;
+    width: 45px;
+    border-radius: 5px;
+    /* border-radius: 50%; */
+    /* filter: blur(0.5px); */
+}
+.card button{
+    position: absolute;
+    bottom: 10px;
+    right: 0;
+    z-index: 1;
+    border: none;
+    font-size: 12px;
+}
+.card .title{
+    font-weight: 700;
+    width: 70%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.card .company{
+    font-size: 14px;
+    width: 70%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.card p{
+    margin: 0;
+}
+
+.footer .title{
+    letter-spacing: 1px;
+}
