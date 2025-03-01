@@ -8,5 +8,5 @@ class BookingAdmin(admin.ModelAdmin):
 admin.site.register(Booking, BookingAdmin)
 admin.site.register(Quote)
 admin.site.register(Type) # remove
-admin.site.register(Island)
+admin.site.register(Island) # remove
 admin.site.register(Category)
