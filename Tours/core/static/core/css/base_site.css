@@ -28,7 +28,7 @@ form input{
 .side-bar .category{
     font-size: 14px;
     cursor: pointer;
-    color: black;
+    /* color: black; */
     margin-top: 2px;
     letter-spacing: 0.25px;
 }
@@ -107,6 +107,8 @@ form input{
     border: none !important;
     margin-bottom: 20px;
     margin-right: 10px;
+    /* background-color: #ededed !important; */
+
 }
 @media (max-width: 992px) {
     .cards{
@@ -136,9 +138,13 @@ form input{
 }
 .card img{
     width: 100%;
-    aspect-ratio: 8/5;
+    /* aspect-ratio: 8/5; */
+    /* max-height: 300px; */
+    /* object-fit: cover; */
     border-radius: 5px;
     /* border: 1px solid red; */
+    box-shadow: 5px -5px 10px rgba(0, 0, 0, 0.25);
+
 }
 .card .heart-btn{
     position: absolute;
@@ -147,10 +153,10 @@ form input{
     /* bottom: 5px; */
     right: 10px;
     z-index: 1;
-    /* background-color: #ffffff99; */
+    background-color: #ffffff;
+    opacity: 0.8;
     /* border: 1px solid white; */
-    background-image: radial-gradient(#ffffff00, #ffffff99);
-    /* opacity: 0.9; */
+    /* background-image: radial-gradient(#ffffff00, #ffffff99); */
     height: 45px;
     width: 45px;
     border-radius: 5px;
@@ -166,7 +172,7 @@ form input{
     font-size: 12px;
 }
 .card .title{
-    font-weight: 700;
+    /* font-weight: 700; */
     width: 70%;
     overflow: hidden;
     white-space: nowrap;

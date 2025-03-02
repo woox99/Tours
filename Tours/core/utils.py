@@ -23,6 +23,7 @@ def get_collage():
         'top_row_urls' : top_row_collage_urls,
         'bottom_row_urls' : bottom_row_collage_urls,
         'quote': Quote.objects.order_by('?').first(),
+        'collage' : True,
     }
 
 

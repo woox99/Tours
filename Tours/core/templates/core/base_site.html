@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Aloha Tours - {{current_island}}</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'core/css/base_site.css' %}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -33,31 +33,38 @@
     <div class="container-fluid d-flex p-0">
         <!-- Side Bar (lg screens) -->
         <div class="side-bar d-none d-lg-flex flex-column">
-            <!-- <p class="category fs-5 m-0 ms-3 mb-1 mt-3 fw-bolder">Islands</p>
-            <a class="category ms-4 fs-6 mb-2 text-primary text-decoration-underline">Oahu (Honolulu)</a>
-            <a class="category ms-4 fs-6 mb-2 fw-light">Big Island</a>
-            <a class="category ms-4 fs-6 mb-2 fw-light">Maui</a>
-            <a class="category ms-4 fs-6 mb-2 fw-light">Kauai</a> -->
-            <a href="" class="fs-5 ms-3 me-4 mt-4 mb-2 text-black fw-bolder">Tours</a>
+            <a href="{% url 'core:change-category' current_island 'tour' %}"
+                class="fs-5 ms-3 me-4 mt-4 mb-2 text-black fw-bolder">Tours</a>
             {% for category in tours %}
-            {% if category.is_popular %}
-            <a class="category ms-4 fs-6 mb-2 fw-light">{{category}} <small class="fw-bold text-success"
+            {% if current_category == category %}
+            <a href="{% url 'core:change-category' current_island category %}"
+                class="category ms-4 fs-6 mb-2 fw-light text-primary text-decoration-underline">{{category}}</a>
+            {% elif category.is_popular %}
+            <a href="{% url 'core:change-category' current_island category %}"
+                class="category ms-4 fs-6 mb-2 fw-light text-black">{{category}} <small class="fw-bold text-success"
                     style="font-size: 10px;">Popular!</small></a>
             {% else %}
-            <a class="category ms-4 fs-6 mb-2 fw-light">{{category}}</a>
+            <a href="{% url 'core:change-category' current_island category %}"
+                class="category ms-4 fs-6 mb-2 fw-light text-black">{{category}}</a>
             {% endif %}
             {% endfor %}
-            <a href="" class="fs-5 ms-3 me-4 mt-4 mb-2 text-black fw-bolder">Activities</a>
+            <a href="{% url 'core:change-category' current_island 'activity' %}"
+                class="fs-5 ms-3 me-4 mt-4 mb-2 text-black fw-bolder">Activities</a>
             {% for category in activities %}
-            {% if category.is_popular %}
-            <a class="category ms-4 fs-6 mb-2 fw-light">{{category}} <small class="fw-bold text-success"
+            {% if current_category == category %}
+            <a href="{% url 'core:change-category' current_island category %}"
+                class="category ms-4 fs-6 mb-2 fw-light text-primary text-decoration-underline">{{category}}</a>
+            {% elif category.is_popular %}
+            <a href="{% url 'core:change-category' current_island category %}"
+                class="category ms-4 fs-6 mb-2 fw-light text-black">{{category}} <small class="fw-bold text-success"
                     style="font-size: 10px;">Popular!</small></a>
             {% else %}
-            <a class="category ms-4 fs-6 mb-2 fw-light">{{category}}</a>
+            <a href="{% url 'core:change-category' current_island category %}"
+                class="category ms-4 fs-6 mb-2 fw-light text-black">{{category}}</a>
             {% endif %}
             {% endfor %}
-            <a class="category ms-4 fs-6 mb-2 fw-light">Others</a>
-            <!-- <a class="category ms-4 fs-6 mb-2 text-decoration-underline text-primary">Catamaran</a> -->
+            <a href="{% url 'core:change-category' current_island 'other' %}"
+                class="category ms-4 fs-6 mb-2 fw-light text-black">Others</a>
         </div>
 
         <!-- Offcanvas (md screens)-->
@@ -67,29 +74,40 @@
                 <!-- <h5 class="offcanvas-title ms-3" id="offcanvasExampleLabel">Browse Oahu Tours</h5> -->
                 <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
-            <div class="offcanvas-body">
+            <div class="offcanvas-body py-0">
                 <div class="d-flex flex-column">
-                    <a href="" class="fs-5 ms-3 me-4 mt-4 mb-2 text-black fw-bolder">Tours</a>
-                    <a class="category ms-4 fs-6 mb-2 fw-light">Bike</a>
-                    <a class="category ms-4 fs-6 mb-2 fw-light">Boat</a>
-                    <a class="category ms-4 fs-6 mb-2 fw-light">Bus</a>
-                    <a class="category ms-4 fs-6 mb-2 fw-light">Eco</a>
-                    <a class="category ms-4 fs-6 mb-2 fw-light">Food & Alcohol</a>
-                    <a class="category ms-4 fs-6 mb-2 fw-light">Helicopter</a>
-                    <a class="category ms-4 fs-6 mb-2 fw-light">Hiking <small class="fw-bold text-success"
-                            style="font-size: 10px;">Popular!</small></a>
-                    <a class="category ms-4 fs-6 mb-2 fw-light">Photography</a>
-                    <a href="" class="fs-5 ms-3 me-4 mt-4 mb-2 text-black fw-bolder">Activities</a>
-                    <a class="category ms-4 fs-6 mb-2 fw-light">Adrenaline</a>
-                    <a class="category ms-4 fs-6 mb-2 fw-light">Attraction</a>
-                    <a class="category ms-4 fs-6 mb-2 fw-light">Canoe</a>
-                    <a class="category ms-4 fs-6 mb-2 text-decoration-underline text-primary">Catamaran</a>
-                    <a class="category ms-4 fs-6 mb-2 fw-light">Culture Show</a>
-                    <a class="category ms-4 fs-6 mb-2 fw-light">Dolphin</a>
-                    <a class="category ms-4 fs-6 mb-2 fw-light">Nightlife</a>
-                    <a class="category ms-4 fs-6 mb-2 fw-light">Beach</a>
-                    <a class="category ms-4 fs-6 mb-2 fw-light">Surfing</a>
-                    <a class="category ms-4 fs-6 mb-2 fw-light">Hiking</a>
+                    <a href="{% url 'core:change-category' current_island 'tour' %}"
+                        class="fs-5 ms-3 me-4 mb-2 text-black fw-bolder">Tours</a>
+                    {% for category in tours %}
+                    {% if current_category == category %}
+                    <a href="{% url 'core:change-category' current_island category %}"
+                        class="category ms-4 fs-6 mb-2 fw-light text-primary text-decoration-underline">{{category}}</a>
+                    {% elif category.is_popular %}
+                    <a href="{% url 'core:change-category' current_island category %}"
+                        class="category ms-4 fs-6 mb-2 fw-light text-black">{{category}} <small
+                            class="fw-bold text-success" style="font-size: 10px;">Popular!</small></a>
+                    {% else %}
+                    <a href="{% url 'core:change-category' current_island category %}"
+                        class="category ms-4 fs-6 mb-2 fw-light text-black">{{category}}</a>
+                    {% endif %}
+                    {% endfor %}
+                    <a href="{% url 'core:change-category' current_island 'activity' %}"
+                        class="fs-5 ms-3 me-4 mt-4 mb-2 text-black fw-bolder">Activities</a>
+                    {% for category in activities %}
+                    {% if current_category == category %}
+                    <a href="{% url 'core:change-category' current_island category %}"
+                        class="category ms-4 fs-6 mb-2 fw-light text-primary text-decoration-underline">{{category}}</a>
+                    {% elif category.is_popular %}
+                    <a href="{% url 'core:change-category' current_island category %}"
+                        class="category ms-4 fs-6 mb-2 fw-light text-black">{{category}} <small
+                            class="fw-bold text-success" style="font-size: 10px;">Popular!</small></a>
+                    {% else %}
+                    <a href="{% url 'core:change-category' current_island category %}"
+                        class="category ms-4 fs-6 mb-2 fw-light text-black">{{category}}</a>
+                    {% endif %}
+                    {% endfor %}
+                    <a href="{% url 'core:change-category' current_island 'other' %}"
+                        class="category ms-4 fs-6 mb-2 fw-light text-black">Others</a>
                 </div>
                 <div class="text-center pb-3 mt-5">
                     <!-- <p class="m-0 text-secondary fs-1 fw-bold">connect with us</p> -->
@@ -115,10 +133,10 @@
                         {% for island in islands %}
                         {% if current_island == island %}
                         <li><a class="dropdown-item text-primary text-decoration-underline"
-                                href="#">{{current_island}}</a>
+                                href="{% url 'core:change-island' island %}">{{current_island}}</a>
                         </li>
                         {% else %}
-                        <li><a class="dropdown-item" href="{% url 'core:change-island' island=island %}">{{island}}</a>
+                        <li><a class="dropdown-item" href="{% url 'core:change-island' island %}">{{island}}</a>
                         </li>
                         {% endif %}
                         {% endfor %}
@@ -130,6 +148,7 @@
                 </div>
             </div>
             <!-- Jumbotron -->
+            {% if collage %}
             <div class="jumbotron mt-4">
                 <div class="top-row d-flex gap-1">
                     {% for url in top_row_urls %}
@@ -174,6 +193,7 @@
                     </div> -->
                 </div>
             </div>
+            {% endif %}
 
             <!-- Top Pagination Bar -->
             <!-- <div class="mt-4 d-flex justify-content-center">
@@ -203,10 +223,11 @@
                     <ul class="dropdown-menu dropdown-menu">
                         {% for island in islands %}
                         {% if current_island == island %}
-                        <li><a class="dropdown-item text-primary text-decoration-underline" href="#">{{current_island}}</a>
+                        <li><a class="dropdown-item text-primary text-decoration-underline"
+                                href="{% url 'core:change-island' island %}">{{current_island}}</a>
                         </li>
                         {% else %}
-                        <li><a class="dropdown-item" href="{% url 'core:change-island' island=island %}">{{island}}</a>
+                        <li><a class="dropdown-item" href="{% url 'core:change-island' island %}">{{island}}</a>
                         </li>
                         {% endif %}
                         {% endfor %}
@@ -218,7 +239,13 @@
                 <div class="d-flex align-items-center">
                     <button class="btn text-primary bg-body-tertiary rounde-1" type="button" data-bs-toggle="offcanvas"
                         data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
-                        <span class="">Food & Bev Tours</span>
+                        {% if not current_category %}
+                        <span class="">All Tours & Activities</span>
+                        {% elif current_category.type.name == 'Tour' %}
+                        <span class="">{{current_category}} Tours</span>
+                        {% else %}
+                        <span class="">{{current_category}}</span>
+                        {% endif %}
                     </button>
                     <!-- <button type="button" class="btn text-primary dropdown-toggle-split bg-body-tertiary rounded-1"
                         data-bs-toggle="dropdown" aria-expanded="false">
@@ -266,10 +293,10 @@
                 </div> -->
             </div>
             <!-- Booking Cards -->
-            <div class="cards d-flex flex-wrap mt-4" style="">
-                {% for booking in bookings %}
+            <div class="cards d-flex flex-wrap mt-4 align-items-end">
+                {% for booking in page_obj %}
                 <div class="card">
-                    <div style="opacity: 0;" class="d-none fw-bold featured d-lg-flex align-items-center ms-2">
+                    <div style="opacity: 1;" class="fw-bold featured d-flex align-items-center ms-2">
                         Picked by Our Team
                         <div class="bg-primary line ms-2"></div>
                     </div>
@@ -282,13 +309,13 @@
                         </div>
                     </a>
                     <div class="d-flex justify-content-between">
-                        <p class="title">{{booking.title}}</p>
+                        <p class="title fw-medium">{{booking.title}}</p>
                         <a href="{{booking.referral_link}}" class="text-decoration-none fw-semibold"><small
                                 style="font-size: 12px;">See
                                 more</small></a>
                     </div>
                     <div class="d-flex justify-content-between">
-                        <p class="company text-secondary">{{booking.company_name}} - {{booking.city}}</p>
+                        <sm class="company text-secondary" style="font-size: 12px;">{{booking.company_name}} - {{booking.category}}</sm>
                     </div>
                 </div>
                 {% endfor %}
@@ -406,17 +433,31 @@
             <div class="mt-4 mb-5 d-flex justify-content-center">
                 <nav aria-label="...">
                     <ul class="pagination">
+                        {% if page_obj.has_previous %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+                        </li>
+                        <li class="page-item"><a class="page-link" href="#">{{page_obj.previous_page_number}}</a></li>
+                        {% else %}
                         <li class="page-item disabled">
                             <span class="page-link">Previous</span>
                         </li>
-                        <li class="page-item"><a class="page-link" href="#">1</a></li>
+                        {% endif %}
+
                         <li class="page-item active" aria-current="page">
-                            <span class="page-link">2</span>
+                            <span class="page-link">{{page_obj.number}}</span>
                         </li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+
+                        {% if page_obj.has_next %}
+                        <li class="page-item"><a class="page-link" href="#">{{ page_obj.next_page_number }}</a></li>
                         <li class="page-item">
-                            <a class="page-link" href="#">Next</a>
+                            <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a>
                         </li>
+                        {% else %}
+                        <li class="page-item disabled">
+                            <a class="page-link" href="">Next</a>
+                        </li>
+                        {% endif %}
                     </ul>
                 </nav>
             </div>

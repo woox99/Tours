@@ -15,3 +15,5 @@
 2 jumbotron front end coding
 2 Front end coding
 6 Backend coding
+2 backend coding
+2 pagination
