@@ -16,8 +16,9 @@ def index(request):
 
     bookings = Booking.objects.filter(island=island)
     paginator = Paginator(bookings, 6)
-    page_number = request.GET.get('page')
+    page_number = int(request.GET.get('page',1))
     page_obj = paginator.get_page(page_number)
+    page_range = paginator.get_elided_page_range(page_number, on_each_side=1, on_ends=1)
 
     context = {
         'page_obj' : page_obj,
@@ -26,6 +27,7 @@ def index(request):
         'islands':Island.objects.all(),
         'current_island':island,
         'current_category' : None,
+        'page_range': page_range,
     }
     if page_number == str(1) or page_number == None:
         collage = get_collage()
