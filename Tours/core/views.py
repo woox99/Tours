@@ -4,6 +4,8 @@ from django.core.paginator import Paginator
 
 
 from core.models import *
+from django.db.models import Q
+
 
 import csv # debug
 
@@ -29,7 +31,7 @@ def index(request):
         'current_category' : None,
         'page_range': page_range,
     }
-    if page_number == str(1) or page_number == None:
+    if page_number == 1 or page_number == None:
         collage = get_collage()
         context.update(collage)
     return render(request, 'core/base_site.html', context)
@@ -40,8 +42,10 @@ def change_island(request, island):
     
     bookings = Booking.objects.filter(island=island)
     paginator = Paginator(bookings, 6)
-    page_number = request.GET.get('page')
+    page_number = int(request.GET.get('page',1))
     page_obj = paginator.get_page(page_number)
+    page_range = paginator.get_elided_page_range(page_number, on_each_side=1, on_ends=1)
+
 
     context = {
         'page_obj' : page_obj,
@@ -50,8 +54,10 @@ def change_island(request, island):
         'islands':Island.objects.all(),
         'current_island':island,
         'current_category' : None,
+        'page_range': page_range,
+
     }
-    if page_number == str(1) or page_number == None:
+    if page_number == 1 or page_number == None:
         collage = get_collage()
         context.update(collage)
     return render(request, 'core/base_site.html', context)
@@ -73,8 +79,10 @@ def change_category(request, island, category):
         bookings = Booking.objects.filter(island=island).filter(category=category)
 
     paginator = Paginator(bookings, 6)
-    page_number = request.GET.get('page')
+    page_number = int(request.GET.get('page',1))
     page_obj = paginator.get_page(page_number)
+    page_range = paginator.get_elided_page_range(page_number, on_each_side=1, on_ends=1)
+
 
     context = {
         'page_obj' : page_obj,
@@ -83,8 +91,37 @@ def change_category(request, island, category):
         'islands':Island.objects.all(),
         'current_island':island,
         'current_category':category,
+        'page_range': page_range,
+
     }
-    if page_number == str(1) or page_number == None:
+    if page_number == 1 or page_number == None:
         collage = get_collage()
         context.update(collage)
     return render(request, 'core/base_site.html', context)
+
+
+
+def search(request, island):
+    island = Island.objects.filter(name=island).first()
+
+    query = request.GET.get('q', '')
+    bookings = Booking.objects.filter( Q(title__icontains=query) | Q(company_name__icontains=query) | Q(city__icontains=query) | Q(fareharbor_item_id__icontains=query) | Q(category__name__icontains=query), island=island )
+
+    paginator = Paginator(bookings, 6)
+    page_number = int(request.GET.get('page',1))
+    page_obj = paginator.get_page(page_number)
+    page_range = paginator.get_elided_page_range(page_number, on_each_side=1, on_ends=1)
+
+
+    context = {
+        'page_obj' : page_obj,
+        'tours':Category.objects.filter(type=get_object_or_404(Type, name='Tour')).order_by('name'),
+        'activities':Category.objects.filter(type=get_object_or_404(Type, name='Activity')).exclude(name='Other').order_by('name'),
+        'islands':Island.objects.all(),
+        'current_island':island,
+        'current_category': query,
+        'page_range': page_range,
+        'query':query,
+    }
+    return render(request, 'core/search.html', context)
+
