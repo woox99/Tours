@@ -136,30 +136,50 @@ form input{
 .card .background{
     position: relative;
 }
+.card .booking-image-container{
+    position: relative;
+    display: inline-block;
+    z-index: 0;
+}
+.card .booking-image-container::after{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(rgba(0, 0, 0, 0.4), #ffffff00 75px);
+    pointer-events: none; /* interaction pass through */
+}
 .card img{
     width: 100%;
     /* aspect-ratio: 8/5; */
     /* max-height: 300px; */
     /* object-fit: cover; */
-    border-radius: 5px;
+    /* border-radius: 5px; */
     /* border: 1px solid red; */
-    box-shadow: 5px -5px 10px rgba(0, 0, 0, 0.25);
+    /* box-shadow: 5px -5px 10px rgba(0, 0, 0, 0.25); */
 }
-.card .heart-btn{
+.card .company{
     position: absolute;
-    top: 10px;
-    /* left: 10px; */
-    /* bottom: 5px; */
-    right: 10px;
-    z-index: 1;
-    background-color: #ffffff;
-    opacity: 0.8;
-    /* border: 1px solid white; */
+    top: 5px;
+    left: 5px;
+    z-index: 10;
+    font-size: 14px;
+    width: 70%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    color: #ffffff !important;
+}
+.card .favorite-btn{
+    position: absolute;
+    top: 0px;
+    right: 8px;
+    z-index: 10;
+    /* background-color: #ffffff; */
+    /* opacity: 0.6; */
     /* background-image: radial-gradient(#ffffff00, #ffffff99); */
-    height: 45px;
-    width: 45px;
-    border-radius: 5px;
-    /* border-radius: 50%; */
     /* filter: blur(0.5px); */
 }
 .card button{
@@ -170,16 +190,12 @@ form input{
     border: none;
     font-size: 12px;
 }
+.card .body{
+    width: 80%;
+}
 .card .title{
     /* font-weight: 700; */
-    width: 70%;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-}
-.card .company{
-    font-size: 14px;
-    width: 70%;
+    /* width: 70%; */
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
