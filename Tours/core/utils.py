@@ -1,6 +1,8 @@
 import random
 from django.templatetags.static import static
-from core.models import Quote
+from core.models import *
+from django.utils.timezone import now 
+from datetime import timedelta 
 
 def get_collage():
     asset_ids = []
@@ -26,6 +28,17 @@ def get_collage():
         'collage' : True,
     }
 
+
+# Randomizes bookings weights if booking hasn't been clicked in 24hrs
+def randomize_booking_weights():
+    bookings = Booking.objects.all()
+    for booking in bookings:
+        delta = now() - booking.modified
+        if delta > timedelta(days=1):
+            new_weight = random.randint(0, len(bookings))
+            booking.weight = new_weight
+            booking.save()
+    return
 
 
 

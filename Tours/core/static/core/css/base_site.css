@@ -4,6 +4,14 @@
     margin: 0;
     /* margin: 0 !important; */
 }
+.navbar{
+    /* position: relative; */
+}
+.navbar .logo{
+    /* position: absolute;
+    top: 0px;
+    left: 0px; */
+}
 .navbar img{
     height: 40px;
 }
@@ -18,7 +26,7 @@ form input{
 } */
 .side-bar{
     /* border-right: 1px solid black; */
-    width: 200px;
+    width: 210px;
     min-height: 100vh;
     border-right: 1px solid #00000015;
 }
@@ -172,15 +180,11 @@ form input{
     text-overflow: ellipsis;
     color: #ffffff !important;
 }
-.card .favorite-btn{
+.card .bookmark-btn{
     position: absolute;
     top: 0px;
     right: 8px;
     z-index: 10;
-    /* background-color: #ffffff; */
-    /* opacity: 0.6; */
-    /* background-image: radial-gradient(#ffffff00, #ffffff99); */
-    /* filter: blur(0.5px); */
 }
 .card button{
     position: absolute;

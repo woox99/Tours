@@ -1,22 +1,26 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from core.utils import get_collage
 from django.core.paginator import Paginator
 
 
+
+from core.utils import *
 from core.models import *
 from django.db.models import Q
 
 
+
 import csv # debug
 
-
-# Create your views here.
 def index(request):
+    # Randomizes bookings weights if booking hasn't been clicked in 1 days
+    randomize_booking_weights()
+    return redirect('core:home')
 
-    # if session
+def home(request):
+
     island = Island.objects.filter(name='Oahu').first()
 
-    bookings = Booking.objects.filter(island=island)
+    bookings = Booking.objects.filter(island=island).order_by('-weight')
     paginator = Paginator(bookings, 6)
     page_number = int(request.GET.get('page',1))
     page_obj = paginator.get_page(page_number)
@@ -38,13 +42,14 @@ def index(request):
 
 
 def change_island(request, island):
+
     island = Island.objects.filter(name=island).first()
     
-    bookings = Booking.objects.filter(island=island)
+    bookings = Booking.objects.filter(island=island).order_by('-weight')
     paginator = Paginator(bookings, 6)
     page_number = int(request.GET.get('page',1))
     page_obj = paginator.get_page(page_number)
-    page_range = paginator.get_elided_page_range(page_number, on_each_side=1, on_ends=1)
+    page_range = paginator.get_elided_page_range(page_number, on_each_side=0, on_ends=1)
 
 
     context = {
@@ -70,13 +75,14 @@ def change_category(request, island, category):
     if Type.objects.filter(name=category).exists():
         type = get_object_or_404(Type, name=category)
         bookings = Booking.objects.filter(island=island, category__type=type)
+        bookings = Booking.objects.filter(island=island, category__type=type).order_by('-weight')
         if category == 'tour':
             category = 'All Tours'
         else:
             category = 'All Activities'
     else:
         category = Category.objects.filter(name=category).first()
-        bookings = Booking.objects.filter(island=island).filter(category=category)
+        bookings = Booking.objects.filter(island=island).filter(category=category).order_by('-weight')
 
     paginator = Paginator(bookings, 6)
     page_number = int(request.GET.get('page',1))
@@ -98,7 +104,6 @@ def change_category(request, island, category):
         collage = get_collage()
         context.update(collage)
     return render(request, 'core/base_site.html', context)
-
 
 
 def search(request, island):

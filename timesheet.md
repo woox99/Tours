@@ -18,3 +18,4 @@
 2 backend coding
 2 pagination
 2 search
+1 booking card redesign - frontend coding

@@ -12,6 +12,7 @@ class Quote(models.Model):
 
 class Type(models.Model):
     name = models.CharField(max_length=50)
+    views = models.IntegerField(default=0)
 
     def __str__(self):
         return self.name
@@ -21,6 +22,7 @@ class Category(models.Model):
     name = models.CharField(max_length=50)
     type = models.ForeignKey(Type, on_delete=models.CASCADE)
     is_popular = models.BooleanField(default=False)
+    views = models.IntegerField(default=0)
 
     def __str__(self):
         return self.name
@@ -28,6 +30,7 @@ class Category(models.Model):
 
 class Island(models.Model):
     name = models.CharField(max_length=50)
+    views = models.IntegerField(default=0)
 
     def __str__(self):
         return self.name
@@ -42,6 +45,10 @@ class Booking(models.Model):
     fareharbor_item_id = models.IntegerField()
     referral_link = models.URLField()
     image_URL = models.URLField()
+    views = models.IntegerField(default=0)
+    weight = models.IntegerField(default=2500)
+    modified = models.DateTimeField(auto_now=True)
+
 
     def __str__(self):
         return self.title
