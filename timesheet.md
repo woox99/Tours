@@ -19,3 +19,4 @@
 2 pagination
 2 search
 1 booking card redesign - frontend coding
+3 weight algo - backend coding

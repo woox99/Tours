@@ -29,17 +29,42 @@ def get_collage():
     }
 
 
-# Randomizes bookings weights if booking hasn't been clicked in 24hrs
+# Randomizes bookings weights if booking hasn't been clicked in days=1
 def randomize_booking_weights():
-    bookings = Booking.objects.all()
+    bookings = Booking.objects.filter(modified__lt=now() - timedelta(days=1))
+
+    updated_bookings = []
+    total_bookings = bookings.count()
+
     for booking in bookings:
-        delta = now() - booking.modified
-        if delta > timedelta(days=1):
-            new_weight = random.randint(0, len(bookings))
-            booking.weight = new_weight
-            booking.save()
+        booking.weight = random.randint(0, total_bookings)
+        booking.modified = now()
+        updated_bookings.append(booking)
+
+    Booking.objects.bulk_update(updated_bookings, ['weight', 'modified'])
     return
 
+
+def get_tours(island):
+    tours = []
+    type = Type.objects.filter(name='Tour').first()
+
+    tour_set = Category.objects.filter(type=type).order_by('name')
+    for category in tour_set:
+        if len(category.booking_set.filter(island=island)):
+            tours.append(category)
+    return tours
+
+
+def get_activities(island):
+    activities = []
+    type = Type.objects.filter(name='Activity').first()
+
+    activity_set = Category.objects.filter(type=type).exclude(name='Other').order_by('name')
+    for category in activity_set:
+        if len(category.booking_set.filter(island=island)):
+            activities.append(category)
+    return activities
 
 
     # # Import Fareharbor csv data script

@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 
 
 # Create your models here.
@@ -53,6 +54,12 @@ class Booking(models.Model):
     def __str__(self):
         return self.title
     
+
+class SiteVisit(models.Model):
+    created = models.DateTimeField(auto_now_add=True)
+    
+    def __str__(self):
+        return timezone.localtime(self.created).strftime('%b %d, %I:%M %p')
 
 
 

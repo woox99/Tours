@@ -10,3 +10,4 @@ admin.site.register(Quote)
 admin.site.register(Type) # remove
 admin.site.register(Island) # remove
 admin.site.register(Category)
+admin.site.register(SiteVisit)

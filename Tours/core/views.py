@@ -1,11 +1,11 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.core.paginator import Paginator
-
+from django.contrib.auth.models import User
 
 
 from core.utils import *
 from core.models import *
-from django.db.models import Q
+from django.db.models import Q, F
 
 
 
@@ -14,22 +14,27 @@ import csv # debug
 def index(request):
     # Randomizes bookings weights if booking hasn't been clicked in 1 days
     randomize_booking_weights()
+    if not request.user.is_authenticated:
+        SiteVisit.objects.create()
     return redirect('core:home')
 
 def home(request):
-
+    page_number = int(request.GET.get('page',1))
     island = Island.objects.filter(name='Oahu').first()
 
     bookings = Booking.objects.filter(island=island).order_by('-weight')
     paginator = Paginator(bookings, 6)
-    page_number = int(request.GET.get('page',1))
     page_obj = paginator.get_page(page_number)
     page_range = paginator.get_elided_page_range(page_number, on_each_side=1, on_ends=1)
 
+    if not request.user.is_authenticated and page_number == 1:
+        island.views = F('views') + 1
+        island.save()
+
     context = {
         'page_obj' : page_obj,
-        'tours':Category.objects.filter(type=get_object_or_404(Type, name='Tour')).order_by('name'),
-        'activities':Category.objects.filter(type=get_object_or_404(Type, name='Activity')).exclude(name='Other').order_by('name'),
+        'tours': get_tours(island),
+        'activities': get_activities(island),
         'islands':Island.objects.all(),
         'current_island':island,
         'current_category' : None,
@@ -42,21 +47,23 @@ def home(request):
 
 
 def change_island(request, island):
-
+    page_number = int(request.GET.get('page',1))
     island = Island.objects.filter(name=island).first()
+    
+    if not request.user.is_authenticated and page_number == 1:
+        island.views = F('views') + 1
+        island.save()
     
     bookings = Booking.objects.filter(island=island).order_by('-weight')
     paginator = Paginator(bookings, 6)
-    page_number = int(request.GET.get('page',1))
     page_obj = paginator.get_page(page_number)
     page_range = paginator.get_elided_page_range(page_number, on_each_side=0, on_ends=1)
 
-
     context = {
         'page_obj' : page_obj,
-        'tours':Category.objects.filter(type=get_object_or_404(Type, name='Tour')).order_by('name'),
-        'activities':Category.objects.filter(type=get_object_or_404(Type, name='Activity')).exclude(name='Other').order_by('name'),
-        'islands':Island.objects.all(),
+        'tours': get_tours(island),
+        'activities': get_activities(island),
+        'islands': Island.objects.all(),
         'current_island':island,
         'current_category' : None,
         'page_range': page_range,
@@ -69,6 +76,7 @@ def change_island(request, island):
 
 
 def change_category(request, island, category):
+    page_number = int(request.GET.get('page',1))
     island = Island.objects.filter(name=island).first()
 
     # If category is type instead of category, get all in that type
@@ -83,17 +91,19 @@ def change_category(request, island, category):
     else:
         category = Category.objects.filter(name=category).first()
         bookings = Booking.objects.filter(island=island).filter(category=category).order_by('-weight')
+        if not request.user.is_authenticated and page_number == 1:
+            category.views = F('views') + 1
+            category.save()
 
     paginator = Paginator(bookings, 6)
-    page_number = int(request.GET.get('page',1))
     page_obj = paginator.get_page(page_number)
     page_range = paginator.get_elided_page_range(page_number, on_each_side=1, on_ends=1)
 
 
     context = {
         'page_obj' : page_obj,
-        'tours':Category.objects.filter(type=get_object_or_404(Type, name='Tour')).order_by('name'),
-        'activities':Category.objects.filter(type=get_object_or_404(Type, name='Activity')).exclude(name='Other').order_by('name'),
+        'tours': get_tours(island),
+        'activities': get_activities(island),
         'islands':Island.objects.all(),
         'current_island':island,
         'current_category':category,
