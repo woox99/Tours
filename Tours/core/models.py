@@ -12,26 +12,26 @@ class Quote(models.Model):
 
 
 class Type(models.Model):
-    name = models.CharField(max_length=50)
-    views = models.IntegerField(default=0)
+    name = models.CharField(max_length=50, unique=True)
+    clicks = models.IntegerField(default=0)
 
     def __str__(self):
         return self.name
 
 
 class Category(models.Model):
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=50, unique=True)
     type = models.ForeignKey(Type, on_delete=models.CASCADE)
     is_popular = models.BooleanField(default=False)
-    views = models.IntegerField(default=0)
+    clicks = models.IntegerField(default=0)
 
     def __str__(self):
         return self.name
 
 
 class Island(models.Model):
-    name = models.CharField(max_length=50)
-    views = models.IntegerField(default=0)
+    name = models.CharField(max_length=50, unique=True)
+    clicks = models.IntegerField(default=0)
 
     def __str__(self):
         return self.name
@@ -46,7 +46,7 @@ class Booking(models.Model):
     fareharbor_item_id = models.IntegerField()
     referral_link = models.URLField()
     image_URL = models.URLField()
-    views = models.IntegerField(default=0)
+    clicks = models.IntegerField(default=0)
     weight = models.IntegerField(default=2500)
     modified = models.DateTimeField(auto_now=True)
 
@@ -60,7 +60,15 @@ class SiteVisit(models.Model):
     
     def __str__(self):
         return timezone.localtime(self.created).strftime('%b %d, %I:%M %p')
+    
 
+class SearchQuery(models.Model):
+    query = models.TextField()
+    count = models.IntegerField(default=0)
+    island = models.ForeignKey(Island, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'"{self.query}"'
 
 
 

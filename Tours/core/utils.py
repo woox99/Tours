@@ -3,6 +3,8 @@ from django.templatetags.static import static
 from core.models import *
 from django.utils.timezone import now 
 from datetime import timedelta 
+from django.db.models import F
+
 
 def get_collage():
     asset_ids = []
@@ -67,20 +69,45 @@ def get_activities(island):
     return activities
 
 
+def increase_instance_clicks(instance):
+    instance.clicks = F('clicks') + 1
+    instance.save()
+    return
+
+
     # # Import Fareharbor csv data script
     # path = 'core/fh.csv'
     # with open(path, newline='', encoding='utf-8') as csvfile:
     #     reader = csv.DictReader(csvfile)
     #     for row in reader:
     #         # print(reader.fieldnames)
+
+    #         # Create Categories and Types
+    #         try:
+    #             category = Category.objects.get(name=row["category"])
+    #         except Category.DoesNotExist:
+    #             try:
+    #                 type = Type.objects.get(name=row["item_type"])
+    #             except Type.DoesNotExist:
+    #                 type = Type.objects.create(name=row["item_type"])
+    #             type = Type.objects.get(name=row["item_type"])
+    #             category = Category.objects.create(name=row["category"], type=type)
+
+    #         # Create Islands
+    #         try:
+    #             island = Island.objects.get(name=row["island"])
+    #         except Island.DoesNotExist:
+    #             island = Island.objects.create(name=row["island"])
+
+    #         # Create Booking
     #         try:
     #             booking = Booking(
     #                 title=row["item_name"],
     #                 company_name=row["company_name"],
     #                 city=row["city"],
-    #                 category=Category.objects.get(name=row["category"]),
-    #                 type=Type.objects.get(name=row["item_type"]),
-    #                 island=Island.objects.get(name=row["island"]),
+    #                 category=category,
+    #                 # type=Type.objects.get(name=row["item_type"]),
+    #                 island=island,
     #                 fareharbor_item_id=int(row["item_id"]),
     #                 referral_link=row["referral_link"],
     #                 image_URL=row["image_URL"],
@@ -88,14 +115,3 @@ def get_activities(island):
     #             booking.save()
     #         except Exception as e:
     #             print(f"Skipping row due to error: {e}")
-
-            # try:
-            #     category = Category.objects.get(name=row["category"])
-            # except Category.DoesNotExist:
-            #     type = Type.objects.get(name=row["item_type"])
-            #     category = Category.objects.create(name=row["category"], type=type)
-            
-            # try:
-            #     island = Island.objects.get(name=row["island"])
-            # except Island.DoesNotExist:
-            #     island = Island.objects.create(name=row["island"])
