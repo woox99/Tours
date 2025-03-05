@@ -13,7 +13,6 @@ class Quote(models.Model):
 
 class Type(models.Model):
     name = models.CharField(max_length=50, unique=True)
-    clicks = models.IntegerField(default=0)
 
     def __str__(self):
         return self.name
@@ -23,7 +22,6 @@ class Category(models.Model):
     name = models.CharField(max_length=50, unique=True)
     type = models.ForeignKey(Type, on_delete=models.CASCADE)
     is_popular = models.BooleanField(default=False)
-    clicks = models.IntegerField(default=0)
 
     def __str__(self):
         return self.name
@@ -31,7 +29,6 @@ class Category(models.Model):
 
 class Island(models.Model):
     name = models.CharField(max_length=50, unique=True)
-    clicks = models.IntegerField(default=0)
 
     def __str__(self):
         return self.name
@@ -57,6 +54,7 @@ class Booking(models.Model):
 
 class SiteVisit(models.Model):
     created = models.DateTimeField(auto_now_add=True)
+    ref = models.CharField(max_length=100, default=None)
     
     def __str__(self):
         return timezone.localtime(self.created).strftime('%b %d, %I:%M %p')
@@ -66,8 +64,9 @@ class SearchQuery(models.Model):
     query = models.TextField()
     island = models.ForeignKey(Island, on_delete=models.CASCADE)
     count = models.IntegerField(default=1)
-    results = models.IntegerField(default=0)
+    results = models.IntegerField(default=1)
     created = models.DateTimeField(auto_now_add=True)
+
 
     def __str__(self):
         return f'"{self.query}"'

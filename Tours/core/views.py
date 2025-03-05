@@ -10,10 +10,18 @@ import csv # debug
 
 def index(request):
     randomize_booking_weights()
-
+    if not request.user.is_authenticated:
+        ref = request.GET.get('ref', '')
+        ref = '?ref=' + ref
+        SiteVisit.objects.create(ref=ref)
     return redirect('core:change-island', island='Oahu')
 
 def change_island(request, island):
+    try:
+        island = Island.objects.get(name=island)
+    except Island.DoesNotExist:
+        return redirect('core:change-island', island='Oahu')
+    
     island = Island.objects.get(name=island)
     bookings = Booking.objects.filter(island=island).order_by('-weight')
     page_number = int(request.GET.get('page',1))
@@ -41,7 +49,7 @@ def change_category(request, island, category):
     try:
         island = Island.objects.get(name=island)
     except Island.DoesNotExist:
-        return redirect('/')
+        return redirect('core:change-island', island='Oahu')
 
     # If category is type instead of category, get all in that type
     if Type.objects.filter(name=category).exists():
@@ -77,32 +85,45 @@ def change_category(request, island, category):
     return render(request, 'core/base_site.html', context)
 
 
-def get_search(request, island):
+def search_log(request, island):
     try:
         island = Island.objects.get(name=island)
     except Island.DoesNotExist:
-        return redirect('/')
+        return redirect('core:change-island', island='Oahu')
     
     query = request.GET.get('q', '')
+
     if request.user.is_authenticated:
         return redirect(f'/{island}/search?q={query}')
+    
     elif SearchQuery.objects.filter(query=query, island=island).exists():
+        new_search_query = SearchQuery.objects.create(query=query, island=island)
         results = len(Booking.objects.filter( Q(title__icontains=query) | Q(company_name__icontains=query) | Q(city__icontains=query) | Q(fareharbor_item_id__icontains=query) | Q(category__name__icontains=query), island=island ))
-        SearchQuery.objects.create(query=query, island=island, results=results)
+        new_search_query.results = results
+        new_search_query.save()
+
         updated_search_queries =[]
         search_queries = SearchQuery.objects.filter(query=query, island=island)
-        new_count = len(SearchQuery.objects.filter(query=query, island=island))
+        new_count = len(search_queries)
         for search_query in search_queries:
             search_query.count = new_count
             updated_search_queries.append(search_query)
         SearchQuery.objects.bulk_update(updated_search_queries, ['count'])
+
     else:
+        new_search_query = SearchQuery.objects.create(query=query, island=island)
         results = len(Booking.objects.filter( Q(title__icontains=query) | Q(company_name__icontains=query) | Q(city__icontains=query) | Q(fareharbor_item_id__icontains=query) | Q(category__name__icontains=query), island=island ))
-        SearchQuery.objects.create(query=query, island=island, results=results)
+        new_search_query.results = results
+        new_search_query.save()
     return redirect(f'/{island}/search?q={query}')
 
+
 def search_results(request, island):
-    island = Island.objects.get(name=island)
+    try:
+        island = Island.objects.get(name=island)
+    except Island.DoesNotExist:
+        return redirect('core:change-island', island='Oahu')
+    
     query = request.GET.get('q', '')
 
     bookings = Booking.objects.filter( Q(title__icontains=query) | Q(company_name__icontains=query) | Q(city__icontains=query) | Q(fareharbor_item_id__icontains=query) | Q(category__name__icontains=query), island=island )
