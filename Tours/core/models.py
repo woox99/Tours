@@ -64,8 +64,10 @@ class SiteVisit(models.Model):
 
 class SearchQuery(models.Model):
     query = models.TextField()
-    count = models.IntegerField(default=0)
     island = models.ForeignKey(Island, on_delete=models.CASCADE)
+    count = models.IntegerField(default=1)
+    results = models.IntegerField(default=0)
+    created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f'"{self.query}"'

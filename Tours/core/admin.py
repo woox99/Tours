@@ -14,7 +14,7 @@ class QuoteAdmin(admin.ModelAdmin):
     list_display = ['hawaiian', 'english']
 
 class SearchQueryAdmin(admin.ModelAdmin):
-    list_display = ['__str__', 'island', 'count']
+    list_display = ['__str__', 'island', 'count', 'results', 'created']
 
 
 

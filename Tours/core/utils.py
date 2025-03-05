@@ -3,7 +3,6 @@ from django.templatetags.static import static
 from core.models import *
 from django.utils.timezone import now 
 from datetime import timedelta 
-from django.db.models import F
 
 
 def get_collage():
@@ -49,9 +48,10 @@ def randomize_booking_weights():
 
 def get_tours(island):
     tours = []
-    type = Type.objects.filter(name='Tour').first()
-
+    
+    type = Type.objects.get(name='Tour')
     tour_set = Category.objects.filter(type=type).order_by('name')
+
     for category in tour_set:
         if len(category.booking_set.filter(island=island)):
             tours.append(category)
@@ -60,19 +60,14 @@ def get_tours(island):
 
 def get_activities(island):
     activities = []
-    type = Type.objects.filter(name='Activity').first()
 
+    type = Type.objects.get(name='Activity')
     activity_set = Category.objects.filter(type=type).exclude(name='Other').order_by('name')
+    
     for category in activity_set:
         if len(category.booking_set.filter(island=island)):
             activities.append(category)
     return activities
-
-
-def increase_instance_clicks(instance):
-    instance.clicks = F('clicks') + 1
-    instance.save()
-    return
 
 
     # # Import Fareharbor csv data script
