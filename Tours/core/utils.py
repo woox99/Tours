@@ -2,8 +2,15 @@ import random
 from django.templatetags.static import static
 from core.models import *
 from django.utils.timezone import now 
-from datetime import timedelta 
+from django.core.paginator import Paginator
 
+
+def paginate_bookings(bookings, request, per_page=6):
+    paginator = Paginator(bookings, per_page)
+    page_number = request.GET.get('page', 1)
+    page_obj = paginator.get_page(page_number)
+    page_range = paginator.get_elided_page_range(page_number, on_each_side=0, on_ends=1)
+    return page_obj, page_range
 
 def get_collage():
     asset_ids = []
@@ -31,8 +38,7 @@ def get_collage():
 
 
 # Randomizes bookings weights if booking hasn't been clicked in days=1
-def randomize_booking_weights():
-    bookings = Booking.objects.filter(modified__lt=now() - timedelta(days=1))
+def randomize_booking_weights(bookings):
 
     updated_bookings = []
     total_bookings = bookings.count()
@@ -62,11 +68,16 @@ def get_activities(island):
     activities = []
 
     type = Type.objects.get(name='Activity')
-    activity_set = Category.objects.filter(type=type).exclude(name='Other').order_by('name')
+    activity_set = Category.objects.filter(type=type).order_by('name')
     
     for category in activity_set:
         if len(category.booking_set.filter(island=island)):
-            activities.append(category)
+            if category.name == 'Other':
+                other = category
+            else:
+                activities.append(category)
+    if other:
+        activities.append(other)
     return activities
 
 

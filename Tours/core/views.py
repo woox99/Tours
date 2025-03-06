@@ -1,33 +1,30 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.core.paginator import Paginator
 from django.contrib.auth.models import User
 
 from core.utils import *
 from core.models import *
 from django.db.models import Q
 
+from datetime import timedelta 
+
+
 import csv # debug
 
 def index(request):
-    randomize_booking_weights()
-    if not request.user.is_authenticated:
+    bookings = Booking.objects.filter(modified__lt=now() - timedelta(days=1))
+    if bookings:
+        randomize_booking_weights(bookings)
+    if request.user.is_anonymous:
         ref = request.GET.get('ref', '')
         ref = '?ref=' + ref
         SiteVisit.objects.create(ref=ref)
     return redirect('core:change-island', island='Oahu')
 
+
 def change_island(request, island):
-    try:
-        island = Island.objects.get(name=island)
-    except Island.DoesNotExist:
-        return redirect('core:change-island', island='Oahu')
-    
-    island = Island.objects.get(name=island)
+    island = get_object_or_404(Island, name=island)
     bookings = Booking.objects.filter(island=island).order_by('-weight')
-    page_number = int(request.GET.get('page',1))
-    paginator = Paginator(bookings, 6)
-    page_obj = paginator.get_page(page_number)
-    page_range = paginator.get_elided_page_range(page_number, on_each_side=0, on_ends=1)
+    page_obj, page_range = paginate_bookings(bookings, request)
 
     context = {
         'page_obj' : page_obj,
@@ -39,35 +36,16 @@ def change_island(request, island):
         'page_range': page_range,
     }
 
-    if page_number == 1:
-        collage = get_collage()
-        context.update(collage)
+    if page_obj.number == 1:
+        context.update(get_collage())
     return render(request, 'core/base_site.html', context)
 
 
 def change_category(request, island, category):
-    try:
-        island = Island.objects.get(name=island)
-    except Island.DoesNotExist:
-        return redirect('core:change-island', island='Oahu')
-
-    # If category is type instead of category, get all in that type
-    if Type.objects.filter(name=category).exists():
-        type = get_object_or_404(Type, name=category)
-        bookings = Booking.objects.filter(island=island, category__type=type).order_by('-weight')
-        if category == 'tour':
-            category = 'All Tours'
-        else:
-            category = 'All Activities'
-    else:
-        category = Category.objects.get(name=category)
-        bookings = Booking.objects.filter(island=island).filter(category=category).order_by('-weight')
-
-    paginator = Paginator(bookings, 6)
-    page_number = int(request.GET.get('page',1))
-    page_obj = paginator.get_page(page_number)
-    page_range = paginator.get_elided_page_range(page_number, on_each_side=1, on_ends=1)
-
+    island = get_object_or_404(Island, name=island)
+    category = get_object_or_404(Category, name=category)
+    bookings = Booking.objects.filter(island=island).filter(category=category).order_by('-weight')
+    page_obj, page_range = paginate_bookings(bookings, request)
 
     context = {
         'page_obj' : page_obj,
@@ -79,37 +57,30 @@ def change_category(request, island, category):
         'page_range': page_range,
     }
 
-    if page_number == 1:
-        collage = get_collage()
-        context.update(collage)
+    if page_obj.number == 1:
+        context.update(get_collage())
     return render(request, 'core/base_site.html', context)
 
 
 def search_log(request, island):
-    try:
-        island = Island.objects.get(name=island)
-    except Island.DoesNotExist:
-        return redirect('core:change-island', island='Oahu')
-    
+    island = get_object_or_404(Island, name=island)
     query = request.GET.get('q', '')
 
     if request.user.is_authenticated:
-        return redirect(f'/{island}/search?q={query}')
-    
+        return redirect(f'/{island}/search/?q={query}')
     elif SearchQuery.objects.filter(query=query, island=island).exists():
         new_search_query = SearchQuery.objects.create(query=query, island=island)
         results = len(Booking.objects.filter( Q(title__icontains=query) | Q(company_name__icontains=query) | Q(city__icontains=query) | Q(fareharbor_item_id__icontains=query) | Q(category__name__icontains=query), island=island ))
         new_search_query.results = results
         new_search_query.save()
 
-        updated_search_queries =[]
+        updated_search_queries = []
         search_queries = SearchQuery.objects.filter(query=query, island=island)
         new_count = len(search_queries)
         for search_query in search_queries:
             search_query.count = new_count
             updated_search_queries.append(search_query)
         SearchQuery.objects.bulk_update(updated_search_queries, ['count'])
-
     else:
         new_search_query = SearchQuery.objects.create(query=query, island=island)
         results = len(Booking.objects.filter( Q(title__icontains=query) | Q(company_name__icontains=query) | Q(city__icontains=query) | Q(fareharbor_item_id__icontains=query) | Q(category__name__icontains=query), island=island ))
@@ -119,20 +90,10 @@ def search_log(request, island):
 
 
 def search_results(request, island):
-    try:
-        island = Island.objects.get(name=island)
-    except Island.DoesNotExist:
-        return redirect('core:change-island', island='Oahu')
-    
+    island = get_object_or_404(Island, name=island)
     query = request.GET.get('q', '')
-
     bookings = Booking.objects.filter( Q(title__icontains=query) | Q(company_name__icontains=query) | Q(city__icontains=query) | Q(fareharbor_item_id__icontains=query) | Q(category__name__icontains=query), island=island )
-
-    paginator = Paginator(bookings, 6)
-    page_number = int(request.GET.get('page',1))
-    page_obj = paginator.get_page(page_number)
-    page_range = paginator.get_elided_page_range(page_number, on_each_side=1, on_ends=1)
-
+    page_obj, page_range = paginate_bookings(bookings, request)
 
     context = {
         'page_obj' : page_obj,
