@@ -4,6 +4,8 @@ from core.models import *
 from django.utils.timezone import now 
 from django.core.paginator import Paginator
 
+import time #debug
+
 
 def paginate_bookings(bookings, request, per_page=6):
     paginator = Paginator(bookings, per_page)
@@ -12,40 +14,26 @@ def paginate_bookings(bookings, request, per_page=6):
     page_range = paginator.get_elided_page_range(page_number, on_each_side=0, on_ends=1)
     return page_obj, page_range
 
-def get_collage():
-    asset_ids = []
-    top_row_collage_urls = []
-    bottom_row_collage_urls = []
 
-    for i in range(0, 14, 1):
-        num = random.randint(1,31)
-        while num in asset_ids:
-            num = random.randint(1,31)
-        asset_ids.append(num)
-    for i in asset_ids:
-        url = static(f'core/collage/{i}.jpg')
-        if len(top_row_collage_urls) < 8:
-            top_row_collage_urls.append(url)
-        else:
-            bottom_row_collage_urls.append(url)
-        
+def get_collage():
+    collage_img_ids = random.sample(range(1, 32), 14)
+    urls = [static(f'core/collage/{i}.jpg') for i in collage_img_ids]
+
     return {
-        'top_row_urls' : top_row_collage_urls,
-        'bottom_row_urls' : bottom_row_collage_urls,
+        'top_row_urls' : urls[:8],
+        'bottom_row_urls': urls[8:],
         'quote': Quote.objects.order_by('?').first(),
         'collage' : True,
     }
 
 
-# Randomizes bookings weights if booking hasn't been clicked in days=1
 def randomize_booking_weights(bookings):
-
     updated_bookings = []
     total_bookings = bookings.count()
 
     for booking in bookings:
         booking.weight = random.randint(0, total_bookings)
-        booking.modified = now()
+        booking.modified = now() # Must manually update modified during bulk_update()
         updated_bookings.append(booking)
 
     Booking.objects.bulk_update(updated_bookings, ['weight', 'modified'])
@@ -59,25 +47,27 @@ def get_tours(island):
     tour_set = Category.objects.filter(type=type).order_by('name')
 
     for category in tour_set:
-        if len(category.booking_set.filter(island=island)):
+        if category.booking_set.filter(island=island).exists():
             tours.append(category)
     return tours
 
 
 def get_activities(island):
     activities = []
+    other = None
 
     type = Type.objects.get(name='Activity')
     activity_set = Category.objects.filter(type=type).order_by('name')
     
     for category in activity_set:
-        if len(category.booking_set.filter(island=island)):
+        if category.booking_set.filter(island=island).exists():
             if category.name == 'Other':
                 other = category
             else:
                 activities.append(category)
     if other:
         activities.append(other)
+
     return activities
 
 

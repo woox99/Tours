@@ -9,11 +9,17 @@ from datetime import timedelta
 
 
 import csv # debug
+import time #debug
+    # start_time = time.perf_counter()  # Start timing
+    # end_time = time.perf_counter()  # End timing
+    # execution_time = end_time - start_time  # Calculate duration
+    # print(execution_time)
 
 def index(request):
-    bookings = Booking.objects.filter(modified__lt=now() - timedelta(days=1))
-    if bookings:
-        randomize_booking_weights(bookings)
+    # Randomize weights for bookings that haven't been clicked/updated in days=1
+    outdated_bookings = Booking.objects.filter(modified__lt=now() - timedelta(days=1))
+    if outdated_bookings:
+        randomize_booking_weights(outdated_bookings)
     if request.user.is_anonymous:
         ref = request.GET.get('ref', '')
         ref = '?ref=' + ref
@@ -66,33 +72,49 @@ def search_log(request, island):
     island = get_object_or_404(Island, name=island)
     query = request.GET.get('q', '')
 
+    # Only logs the search query if user is not an admin
     if request.user.is_authenticated:
         return redirect(f'/{island}/search/?q={query}')
-    elif SearchQuery.objects.filter(query=query, island=island).exists():
-        new_search_query = SearchQuery.objects.create(query=query, island=island)
-        results = len(Booking.objects.filter( Q(title__icontains=query) | Q(company_name__icontains=query) | Q(city__icontains=query) | Q(fareharbor_item_id__icontains=query) | Q(category__name__icontains=query), island=island ))
-        new_search_query.results = results
-        new_search_query.save()
+    
+    search_queries = SearchQuery.objects.filter(query=query, island=island)
 
-        updated_search_queries = []
-        search_queries = SearchQuery.objects.filter(query=query, island=island)
-        new_count = len(search_queries)
-        for search_query in search_queries:
-            search_query.count = new_count
-            updated_search_queries.append(search_query)
-        SearchQuery.objects.bulk_update(updated_search_queries, ['count'])
+    if search_queries.exists():
+        query_count = search_queries.count() + 1
+        search_queries.update(count=query_count)
     else:
-        new_search_query = SearchQuery.objects.create(query=query, island=island)
-        results = len(Booking.objects.filter( Q(title__icontains=query) | Q(company_name__icontains=query) | Q(city__icontains=query) | Q(fareharbor_item_id__icontains=query) | Q(category__name__icontains=query), island=island ))
-        new_search_query.results = results
-        new_search_query.save()
+        query_count = 1
+
+    # Save new query
+    new_search_query = SearchQuery.objects.create(
+        query=query, 
+        island=island,
+        count=query_count, 
+    )
+    results = Booking.objects.filter( 
+        Q(title__icontains=query) | 
+        Q(company_name__icontains=query) | 
+        Q(city__icontains=query) | 
+        Q(fareharbor_item_id__icontains=query) | 
+        Q(category__name__icontains=query), 
+        island=island
+    ).count()
+    new_search_query.results = results
+    new_search_query.save()
+
     return redirect(f'/{island}/search?q={query}')
 
 
 def search_results(request, island):
     island = get_object_or_404(Island, name=island)
     query = request.GET.get('q', '')
-    bookings = Booking.objects.filter( Q(title__icontains=query) | Q(company_name__icontains=query) | Q(city__icontains=query) | Q(fareharbor_item_id__icontains=query) | Q(category__name__icontains=query), island=island )
+    bookings = Booking.objects.filter( 
+        Q(title__icontains=query) | 
+        Q(company_name__icontains=query) | 
+        Q(city__icontains=query) | 
+        Q(fareharbor_item_id__icontains=query) | 
+        Q(category__name__icontains=query), 
+        island=island 
+    )
     page_obj, page_range = paginate_bookings(bookings, request)
 
     context = {
