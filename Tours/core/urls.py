@@ -5,8 +5,12 @@ app_name = 'core'
 
 urlpatterns = [
     path('', views.index, name='index'),
-    path('<str:island>/', views.change_island, name='change-island'),
+    path('<str:island>/change-island/', views.change_island, name='change-island'),
+    path('<str:island>/', views.island_results, name='island-results'),
     path('<str:island>/search-log/', views.search_log, name='search'),
     path('<str:island>/search/', views.search_results, name='search-results'),
-    path('<str:island>/<str:category>/', views.change_category, name='change-category'), # keep at bottom
+    path('<str:island>/tours/', views.tours, name='tours'),
+    path('<str:island>/activities/', views.activities, name='activities'),
+    path('<str:island>/<str:category>/change-category/', views.change_category, name='change-category'),
+    path('<str:island>/<str:category>/', views.category_results, name='category-results'), # keep at bottom
 ]

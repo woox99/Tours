@@ -3,8 +3,14 @@ from django.templatetags.static import static
 from core.models import *
 from django.utils.timezone import now 
 from django.core.paginator import Paginator
+from django.db.models import F
 
 import time #debug
+
+def log_traffic(instance):
+    instance.traffic=F('traffic') + 1
+    instance.save()
+    return
 
 
 def paginate_bookings(bookings, request, per_page=6):
@@ -67,7 +73,6 @@ def get_activities(island):
                 activities.append(category)
     if other:
         activities.append(other)
-
     return activities
 
 

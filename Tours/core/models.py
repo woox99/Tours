@@ -22,6 +22,12 @@ class Category(models.Model):
     name = models.CharField(max_length=50, unique=True)
     type = models.ForeignKey(Type, on_delete=models.CASCADE)
     is_popular = models.BooleanField(default=False)
+    traffic = models.IntegerField(default=0)
+
+    @property
+    def bookings(self):
+        return self.booking_set.all().count()
+
 
     def __str__(self):
         return self.name
@@ -29,6 +35,12 @@ class Category(models.Model):
 
 class Island(models.Model):
     name = models.CharField(max_length=50, unique=True)
+    traffic = models.IntegerField(default=0)
+
+    @property
+    def bookings(self):
+        return self.booking_set.all().count()
+
 
     def __str__(self):
         return self.name
@@ -40,10 +52,9 @@ class Booking(models.Model):
     city = models.CharField(max_length=100)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     island = models.ForeignKey(Island, on_delete=models.CASCADE)
-    fareharbor_item_id = models.IntegerField()
+    fh_id = models.IntegerField()
     referral_link = models.URLField()
     image_URL = models.URLField()
-    clicks = models.IntegerField(default=0)
     weight = models.IntegerField(default=2500)
     modified = models.DateTimeField(auto_now=True)
 

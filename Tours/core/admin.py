@@ -2,13 +2,14 @@ from django.contrib import admin
 from core.models import *
 
 class BookingAdmin(admin.ModelAdmin):
-    list_display = ['title', 'company_name', 'island', 'category', 'clicks']
+    search_fields = ['title', 'fh_id']
+    list_display = ['title', 'company_name', 'island', 'category', 'fh_id']
 
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = ['name', 'type', 'is_popular']
+    list_display = ['name', 'type', 'is_popular', 'bookings', 'traffic']
 
 class IslandAdmin(admin.ModelAdmin):
-    list_display = ['name']
+    list_display = ['name', 'bookings', 'traffic']
 
 class QuoteAdmin(admin.ModelAdmin):
     list_display = ['hawaiian', 'english']

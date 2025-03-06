@@ -49,7 +49,7 @@
     <p class="text-secondary fs-5 text-center m-0">Sorry, our team couldn't find any results for
         that.</p>
     <p class="text-secondary fs-5 text-center">Maybe you could find something fun in <a class="text-decoration-none"
-            href="{% url 'core:change-category' current_island 'tour' %}">Tours</a> or <a class="text-decoration-none" href="{% url 'core:change-category' current_island 'activity' %}">Activities</a>?</p>
+            href="{% url 'core:tours' current_island %}">Tours</a> or <a class="text-decoration-none" href="{% url 'core:activities' current_island %}">Activities</a>?</p>
 </div>
 {% endif %}
 {% endblock %}

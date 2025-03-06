@@ -118,7 +118,6 @@ form input{
     margin-bottom: 20px;
     margin-right: 10px;
     /* background-color: #ededed !important; */
-
 }
 @media (max-width: 992px) {
     .cards{
@@ -128,10 +127,18 @@ form input{
         width: 49%;
         margin-right: 0;
     }
+    .admin-options{
+        width: 45%;
+    }
 }
 @media (max-width: 768px) {
     .card{
         width: 100%;
+    }
+    .admin-options{
+        width: 95%;
+        margin-left: 10px;
+        margin-right: 10px;
     }
 }
 
@@ -209,6 +216,7 @@ form input{
 .card p{
     margin: 0;
 }
+
 
 .footer .title{
     letter-spacing: 1px;
