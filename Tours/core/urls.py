@@ -5,6 +5,7 @@ app_name = 'core'
 
 urlpatterns = [
     path('', views.index, name='index'),
+    path('booking-update/<int:pk>/', views.booking_update, name='booking-update'),
     path('<str:island>/change-island/', views.change_island, name='change-island'),
     path('<str:island>/', views.island_results, name='island-results'),
     path('<str:island>/search-log/', views.search_log, name='search'),

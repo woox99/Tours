@@ -238,11 +238,13 @@
                     <button class="btn text-primary bg-body-tertiary rounde-1" type="button" data-bs-toggle="offcanvas"
                         data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
                         {% if not current_category %}
+                        {% block breadcrumb %}
                         <span class="">All Tours & Activities</span>
+                        {% endblock %}
                         {% elif current_category.type.name == 'Tour' %}
-                        <span class="">{{current_category}} Tours</span>
+                        <span class="">{{breadcrumb}} Tours</span>
                         {% else %}
-                        <span class="">{{current_category}}</span>
+                        <span class="">{{breadcrumb}}</span>
                         {% endif %}
                     </button>
                 </div>
@@ -253,15 +255,19 @@
             {% if user.is_authenticated %}
             <div class="cards">
                 {% for booking in page_obj %}
-                <div id="{{fh_id}}" class="d-lg-flex justify-content-center mt-3">
-                    <div class="card">
+                <div id="{{booking.fh_id}}" class="d-lg-flex justify-content-center mt-3">
+                    <div class="card" {% if not booking.is_public %}style="opacity: 0.55;" {% endif %}>
                         <a class="text-decoration-none" href="{{booking.referral_link}}">
                             <div class="background">
                                 <div class="booking-image-container">
-                                    <img src="{{booking.image_URL}}" alt="" class="">
+                                    <img src="{{booking.image_URL}}" alt="">
                                 </div>
-                                <sm class="company fw-medium" style="font-size: 13px;"><i class="bi bi-buildings"></i>
-                                    {{booking.company_name}}</sm>
+                                <div class="company d-flex align-items-center gap-2">
+                                    <div class="company-icon d-flex justify-content-center align-items-center">
+                                        <i class="bi bi-buildings text-white"></i>
+                                    </div>
+                                    <sm class="company-name fw-medium"></i>{{booking.company_name}}</sm>
+                                </div>
                             </div>
                             <div class="d-flex justify-content-between px-2 px-lg-0">
                                 <div class="body d-flex flex-column">
@@ -275,35 +281,47 @@
                         </a>
                     </div>
                     <div class="admin-options">
-                        <form action="">
-                            <div class="input-group mb-3">
-                                <span class="input-group-text bg-info-subtle" id="basic-addon1">FareHarbor ID</span>
+                        <form action="{% url 'core:booking-update' booking.pk %}" method="POST">
+                            {% csrf_token %}
+                            <input type="hidden" name="current_island" value="{{current_island}}">
+                            <input type="hidden" name="current_category" value="{{current_category}}">
+                            <input type="hidden" name="page_number" value="{{page_obj.number}}">
+                            <div class="input-group mb-3 w-75">
+                                <span class="input-group-text bg-primary-subtle" id="basic-addon1">FareHarbor ID</span>
                                 <input type="text" class="form-control" aria-label="Username"
                                     aria-describedby="basic-addon1" value="{{booking.fh_id}}" disabled>
                             </div>
-                            <div class="input-group mb-3">
-                                <span class="input-group-text bg-info-subtle" id="basic-addon1">Title</span>
-                                <input type="text" class="form-control" aria-label="Username"
-                                    aria-describedby="basic-addon1" value="{{booking.title}}" name="title">
+                            <div class="form-floating">
+                                <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2"
+                                    style="height: 100px" name="title">{{booking.title}}</textarea>
+                                <label for="floatingTextarea2">Title</label>
                             </div>
-                            <div class="input-group mb-3">
-                                <span class="input-group-text bg-info-subtle" id="basic-addon1">City</span>
-                                <input type="text" class="form-control" aria-label="Username"
-                                    aria-describedby="basic-addon1" value="{{booking.city}}" name="city">
-                            </div>
-                            <select class="form-select" aria-label="Default select example">
-                                <option selected>{{booking.category}}</option>
+                            <select class="form-select mt-3" aria-label="Default select example" name="category_id">
+                                <option value="{{booking.category.id}}" selected>{{booking.category}}</option>
                                 {% for category in categories %}
                                 <option value="{{category.id}}">{{category}}</option>
                                 {% endfor %}
                             </select>
                             <div class="d-flex align-items-center justify-content-between mt-3">
+                                <input type="hidden" name="is_public" value="false">
                                 <div class="form-check form-switch">
+                                    {% if booking.is_public %}
                                     <input class="form-check-input" type="checkbox" role="switch"
-                                        id="flexSwitchCheckDefault" checked>
-                                    <label class="form-check-label" for="flexSwitchCheckDefault"> Public</label>
+                                        id="flexSwitchCheckDefault" value="true" name="is_public" checked>
+                                    {% else %}
+                                    <input class="form-check-input" type="checkbox" role="switch"
+                                        id="flexSwitchCheckDefault" value="true" name="is_public">
+                                    {% endif %}
+                                    <label class="form-check-label" for="flexSwitchCheckDefault"><small>
+                                            Public</small></label>
                                 </div>
-                                <button class="btn btn-primary">Save</button>
+                                {% if booking.is_verified %}
+                                <i class="bi bi-person-check text-primary fs-4"></i>
+                                {% endif %}
+                                <div class="">
+                                    <button class="btn btn-primary">Save</button>
+                                    <button class="btn btn-outline-danger">Delete</button>
+                                </div>
                             </div>
                         </form>
                     </div>
@@ -314,21 +332,18 @@
             {% else %}
             <div class="cards d-flex flex-wrap mt-4 align-items-end">
                 {% for booking in page_obj %}
-                <div class="card">
+                <div id="{{booking.fh_id}}" class="card">
                     <a class="text-decoration-none" href="{{booking.referral_link}}">
-                        <!-- <div style="opacity: 1;" class="fw-medium featured d-flex align-items-center ms-2 text-black">
-                        Picked by Our Team
-                        <div class="bg-primary line ms-2"></div>
-                        </div> -->
                         <div class="background">
                             <div class="booking-image-container">
                                 <img src="{{booking.image_URL}}" alt="" class="">
                             </div>
-                            <sm class="company fw-medium" style="font-size: 13px;"><i class="bi bi-buildings"></i>
-                                {{booking.company_name}}</sm>
-                            <!-- <div class="bookmark-btn text-primary">
-                                <i class="bi bi-bookmark text-white fs-2"></i>
-                            </div> -->
+                            <div class="company d-flex align-items-center gap-2">
+                                <div class="company-icon d-flex justify-content-center align-items-center">
+                                    <i class="bi bi-buildings text-white"></i>
+                                </div>
+                                <sm class="company-name fw-medium"></i>{{booking.company_name}}</sm>
+                            </div>
                         </div>
                         <div class="d-flex justify-content-between px-2 px-lg-0">
                             <div class="body d-flex flex-column">

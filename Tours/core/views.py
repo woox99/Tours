@@ -32,7 +32,10 @@ def change_island(request, island):
 
 def island_results(request, island):
     island = get_object_or_404(Island, name=island)
-    bookings = Booking.objects.filter(island=island).order_by('-weight')
+    if request.user.is_authenticated:
+        bookings = Booking.objects.filter(island=island).order_by('fh_id')
+    else:
+        bookings = Booking.objects.filter(island=island).order_by('-weight')
     page_obj, page_range = paginate_bookings(bookings, request)
 
     context = {
@@ -43,6 +46,7 @@ def island_results(request, island):
         'islands': Island.objects.all(),
         'current_island':island,
         'current_category' : None,
+        'breadcrumb' : None,
         'page_range': page_range,
     }
 
@@ -60,16 +64,21 @@ def change_category(request, island, category):
 def category_results(request, island, category):
     island = get_object_or_404(Island, name=island)
     category = get_object_or_404(Category, name=category)
-    bookings = Booking.objects.filter(island=island).filter(category=category).order_by('-weight')
+    if request.user.is_authenticated:
+        bookings = Booking.objects.filter(island=island).filter(category=category).order_by('fh_id')
+    else:
+        bookings = Booking.objects.filter(island=island).filter(category=category).order_by('-weight')
     page_obj, page_range = paginate_bookings(bookings, request)
 
     context = {
         'page_obj' : page_obj,
         'tours': get_tours(island),
         'activities': get_activities(island),
+        'categories': Category.objects.all().order_by('name'),
         'islands':Island.objects.all(),
         'current_island':island,
         'current_category':category,
+        'breadcrumb' : category,
         'page_range': page_range,
     }
 
@@ -121,7 +130,7 @@ def search_results(request, island):
         Q(title__icontains=query) | 
         Q(company_name__icontains=query) | 
         Q(city__icontains=query) | 
-        Q(fareharbor_item_id__icontains=query) | 
+        Q(fh_id__icontains=query) | 
         Q(category__name__icontains=query), 
         island=island 
     )
@@ -131,9 +140,11 @@ def search_results(request, island):
         'page_obj' : page_obj,
         'tours': get_tours(island),
         'activities': get_activities(island),
+        'categories': Category.objects.all().order_by('name'),
         'islands':Island.objects.all(),
         'current_island':island,
-        'current_category': query,
+        'current_category': None,
+        'breadcrumb' : query,
         'page_range': page_range,
         'query':query,
     }
@@ -143,7 +154,10 @@ def search_results(request, island):
 def tours(request, island):
     island = get_object_or_404(Island, name=island)
     type = get_object_or_404(Type, name='Tour')
-    bookings = Booking.objects.filter(category__type=type, island=island)
+    if request.user.is_authenticated:
+        bookings = Booking.objects.filter(category__type=type, island=island).order_by('fh_id')
+    else:
+        bookings = Booking.objects.filter(category__type=type, island=island).order_by('-weight')
 
     page_obj, page_range = paginate_bookings(bookings, request)
 
@@ -151,34 +165,61 @@ def tours(request, island):
         'page_obj' : page_obj,
         'tours': get_tours(island),
         'activities': get_activities(island),
+        'categories': Category.objects.all().order_by('name'),
         'islands':Island.objects.all(),
         'current_island':island,
-        'current_category': 'All Tours',
+        'current_category': 'tours',
+        'breadcrumb' : 'All Tours',
         'page_range': page_range,
     }
 
     if page_obj.number == 1:
         context.update(get_collage())
-    return render(request, 'core/search.html', context)
+    return render(request, 'core/base_site.html', context)
 
 
 def activities(request, island):
     island = get_object_or_404(Island, name=island)
     type = get_object_or_404(Type, name='Activity')
-    bookings = Booking.objects.filter(category__type=type, island=island)
-
+    if request.user.is_authenticated:
+        bookings = Booking.objects.filter(category__type=type, island=island).order_by('fh_id')
+    else:
+        bookings = Booking.objects.filter(category__type=type, island=island).order_by('-weight')
     page_obj, page_range = paginate_bookings(bookings, request)
 
     context = {
         'page_obj' : page_obj,
         'tours': get_tours(island),
         'activities': get_activities(island),
+        'categories': Category.objects.all().order_by('name'),
         'islands':Island.objects.all(),
         'current_island':island,
-        'current_category': 'All Tours',
+        'current_category': 'activities',
+        'breadcrumb' : 'All Activities',
         'page_range': page_range,
     }
 
     if page_obj.number == 1:
         context.update(get_collage())
-    return render(request, 'core/search.html', context)
+    return render(request, 'core/base_site.html', context)
+
+
+def booking_update(request, pk):
+    booking = get_object_or_404(Booking, pk=pk)
+    booking.title = request.POST['title']
+    booking.category = get_object_or_404(Category, pk=request.POST['category_id'])
+    booking.is_public = True if request.POST['is_public'] == 'true' else False
+    if booking.is_public:
+        booking.is_verified = True
+    booking.save()
+
+    island=request.POST['current_island']
+    page_number = request.POST['page_number']
+    if request.POST['current_category'] == 'None':
+        return redirect(reverse('core:island-results', kwargs={'island': island}) + f'?page={page_number}' + f'#{booking.fh_id}')
+    category = request.POST['current_category']
+    return redirect(reverse('core:category-results', kwargs={'island': island, 'category':category}) + f'?page={page_number}' + f'#{booking.fh_id}')
+
+
+def booking_delete(request, pk):
+    pass

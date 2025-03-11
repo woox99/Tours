@@ -52,6 +52,8 @@ class Booking(models.Model):
     city = models.CharField(max_length=100)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     island = models.ForeignKey(Island, on_delete=models.CASCADE)
+    is_public = models.BooleanField(default=True)
+    is_verified = models.BooleanField(default=False)
     fh_id = models.IntegerField()
     referral_link = models.URLField()
     image_URL = models.URLField()

@@ -4,6 +4,9 @@
     margin: 0;
     /* margin: 0 !important; */
 }
+html{
+    scroll-behavior: auto !important;
+}
 
 .navbar{
     /* position: relative; */
@@ -182,27 +185,37 @@ form input{
     top: 5px;
     left: 5px;
     z-index: 10;
-    font-size: 14px;
-    width: 70%;
+    font-size: 13px;
+    width: 90%;
+}
+.card .company .company-name{
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
     color: #ffffff !important;
+
 }
-.card .bookmark-btn{
+.card .company-icon{
+    background-color: black;
+    height: 26px;
+    width: 26px;
+    border-radius: 50%;
+    background: linear-gradient( 200deg, #00000000, #000000 80%);
+}
+/* .card .bookmark-btn{
     position: absolute;
     top: 0px;
     right: 8px;
     z-index: 10;
-}
-.card button{
+} */
+/* .card button{
     position: absolute;
     bottom: 10px;
     right: 0;
     z-index: 1;
     border: none;
     font-size: 12px;
-}
+} */
 .card .body{
     width: 80%;
 }

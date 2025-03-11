@@ -5,7 +5,9 @@ from django.utils.timezone import now
 from django.core.paginator import Paginator
 from django.db.models import F
 
+
 import time #debug
+
 
 def log_traffic(instance):
     instance.traffic=F('traffic') + 1
