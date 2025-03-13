@@ -35,7 +35,7 @@ def island_results(request, island):
     if request.user.is_authenticated:
         bookings = Booking.objects.filter(island=island).order_by('fh_id')
     else:
-        bookings = Booking.objects.filter(island=island).order_by('-weight')
+        bookings = Booking.objects.filter(island=island, is_public=True).order_by('-weight')
     page_obj, page_range = paginate_bookings(bookings, request)
 
     context = {
@@ -67,7 +67,7 @@ def category_results(request, island, category):
     if request.user.is_authenticated:
         bookings = Booking.objects.filter(island=island).filter(category=category).order_by('fh_id')
     else:
-        bookings = Booking.objects.filter(island=island).filter(category=category).order_by('-weight')
+        bookings = Booking.objects.filter(island=island, is_public=True).filter(category=category).order_by('-weight')
     page_obj, page_range = paginate_bookings(bookings, request)
 
     context = {
@@ -113,9 +113,10 @@ def search_log(request, island):
         Q(title__icontains=query) | 
         Q(company_name__icontains=query) | 
         Q(city__icontains=query) | 
-        Q(fareharbor_item_id__icontains=query) | 
+        Q(fh_id__icontains=query) | 
         Q(category__name__icontains=query), 
-        island=island
+        island=island,
+        is_public=True,
     ).count()
     new_search_query.results = results
     new_search_query.save()
@@ -126,14 +127,25 @@ def search_log(request, island):
 def search_results(request, island):
     island = get_object_or_404(Island, name=island)
     query = request.GET.get('q', '')
-    bookings = Booking.objects.filter( 
-        Q(title__icontains=query) | 
-        Q(company_name__icontains=query) | 
-        Q(city__icontains=query) | 
-        Q(fh_id__icontains=query) | 
-        Q(category__name__icontains=query), 
-        island=island 
-    )
+    if request.user.is_authenticated:
+        bookings = Booking.objects.filter( 
+            Q(title__icontains=query) | 
+            Q(company_name__icontains=query) | 
+            Q(city__icontains=query) | 
+            Q(fh_id__icontains=query) | 
+            Q(category__name__icontains=query), 
+            island=island,
+        )
+    else:
+        bookings = Booking.objects.filter( 
+            Q(title__icontains=query) | 
+            Q(company_name__icontains=query) | 
+            Q(city__icontains=query) | 
+            Q(fh_id__icontains=query) | 
+            Q(category__name__icontains=query), 
+            island=island,
+            is_public=True,
+        )
     page_obj, page_range = paginate_bookings(bookings, request)
 
     context = {
@@ -157,7 +169,7 @@ def tours(request, island):
     if request.user.is_authenticated:
         bookings = Booking.objects.filter(category__type=type, island=island).order_by('fh_id')
     else:
-        bookings = Booking.objects.filter(category__type=type, island=island).order_by('-weight')
+        bookings = Booking.objects.filter(category__type=type, island=island, is_public=True).order_by('-weight')
 
     page_obj, page_range = paginate_bookings(bookings, request)
 
@@ -184,7 +196,7 @@ def activities(request, island):
     if request.user.is_authenticated:
         bookings = Booking.objects.filter(category__type=type, island=island).order_by('fh_id')
     else:
-        bookings = Booking.objects.filter(category__type=type, island=island).order_by('-weight')
+        bookings = Booking.objects.filter(category__type=type, island=island, is_public=True).order_by('-weight')
     page_obj, page_range = paginate_bookings(bookings, request)
 
     context = {
@@ -222,4 +234,12 @@ def booking_update(request, pk):
 
 
 def booking_delete(request, pk):
-    pass
+    booking = get_object_or_404(Booking, pk=pk)
+    booking.delete()
+
+    island=request.POST['current_island']
+    page_number = request.POST['page_number']
+    if request.POST['current_category'] == 'None':
+        return redirect(reverse('core:island-results', kwargs={'island': island}) + f'?page={page_number}')
+    category = request.POST['current_category']
+    return redirect(reverse('core:category-results', kwargs={'island': island, 'category':category}) + f'?page={page_number}')

@@ -43,6 +43,9 @@ form input{
     /* color: black; */
     margin-top: 2px;
     letter-spacing: 0.25px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 .offcanvas{
     width: 300px !important;
@@ -60,6 +63,9 @@ form input{
     margin-top: 10px;
     /* margin-left: ; */
     letter-spacing: 0.25px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .main-content{
