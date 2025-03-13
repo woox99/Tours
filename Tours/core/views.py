@@ -21,16 +21,10 @@ def index(request):
         ref = request.GET.get('ref', '')
         ref = '?ref=' + ref
         SiteVisit.objects.create(ref=ref)
-    return redirect('core:island-results', island='Oahu')
+    return redirect('core:change-island', island='Oahu')
 
 
 def change_island(request, island):
-    if request.user.is_anonymous:
-        log_traffic(instance=get_object_or_404(Island, name=island))
-    return redirect('core:island-results', island)
-
-
-def island_results(request, island):
     island = get_object_or_404(Island, name=island)
     if request.user.is_authenticated:
         bookings = Booking.objects.filter(island=island).order_by('fh_id')
@@ -43,7 +37,7 @@ def island_results(request, island):
         'tours': get_tours(island),
         'activities': get_activities(island),
         'categories': Category.objects.all().order_by('name'),
-        'islands': Island.objects.all(),
+        'islands': Island.objects.all().order_by('modified'),
         'current_island':island,
         'current_category' : None,
         'breadcrumb' : None,
@@ -75,7 +69,7 @@ def category_results(request, island, category):
         'tours': get_tours(island),
         'activities': get_activities(island),
         'categories': Category.objects.all().order_by('name'),
-        'islands':Island.objects.all(),
+        'islands':Island.objects.all().order_by('modified'),
         'current_island':island,
         'current_category':category,
         'breadcrumb' : category,
@@ -153,7 +147,7 @@ def search_results(request, island):
         'tours': get_tours(island),
         'activities': get_activities(island),
         'categories': Category.objects.all().order_by('name'),
-        'islands':Island.objects.all(),
+        'islands':Island.objects.all().order_by('modified'),
         'current_island':island,
         'current_category': None,
         'breadcrumb' : query,
@@ -178,7 +172,7 @@ def tours(request, island):
         'tours': get_tours(island),
         'activities': get_activities(island),
         'categories': Category.objects.all().order_by('name'),
-        'islands':Island.objects.all(),
+        'islands':Island.objects.all().order_by('modified'),
         'current_island':island,
         'current_category': 'tours',
         'breadcrumb' : 'All Tours',
@@ -204,7 +198,7 @@ def activities(request, island):
         'tours': get_tours(island),
         'activities': get_activities(island),
         'categories': Category.objects.all().order_by('name'),
-        'islands':Island.objects.all(),
+        'islands':Island.objects.all().order_by('modified'),
         'current_island':island,
         'current_category': 'activities',
         'breadcrumb' : 'All Activities',
@@ -228,7 +222,7 @@ def booking_update(request, pk):
     island=request.POST['current_island']
     page_number = request.POST['page_number']
     if request.POST['current_category'] == 'None':
-        return redirect(reverse('core:island-results', kwargs={'island': island}) + f'?page={page_number}' + f'#{booking.fh_id}')
+        return redirect(reverse('core:change-island', kwargs={'island': island}) + f'?page={page_number}' + f'#{booking.fh_id}')
     category = request.POST['current_category']
     return redirect(reverse('core:category-results', kwargs={'island': island, 'category':category}) + f'?page={page_number}' + f'#{booking.fh_id}')
 
@@ -240,6 +234,6 @@ def booking_delete(request, pk):
     island=request.POST['current_island']
     page_number = request.POST['page_number']
     if request.POST['current_category'] == 'None':
-        return redirect(reverse('core:island-results', kwargs={'island': island}) + f'?page={page_number}')
+        return redirect(reverse('core:change-island', kwargs={'island': island}) + f'?page={page_number}')
     category = request.POST['current_category']
     return redirect(reverse('core:category-results', kwargs={'island': island, 'category':category}) + f'?page={page_number}')

@@ -35,7 +35,7 @@ class Category(models.Model):
 
 class Island(models.Model):
     name = models.CharField(max_length=50, unique=True)
-    traffic = models.IntegerField(default=0)
+    modified = models.DateTimeField(auto_now=True)
 
     @property
     def bookings(self):

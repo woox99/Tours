@@ -21,8 +21,8 @@
     <!-- Nav Bar -->
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid d-flex justify-content-between">
-            <button class="btn d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample"
-                aria-controls="offcanvasExample">
+            <button class="btn d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas"
+                aria-controls="offcanvas">
                 <span class="navbar-toggler-icon"></span>
             </button>
             {% if user.is_authenticated %}
@@ -78,8 +78,8 @@
         </div>
 
         <!-- Offcanvas (md screens)-->
-        <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample"
-            aria-labelledby="offcanvasExampleLabel">
+        <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvas"
+            aria-labelledby="offcanvasLabel">
             <div class="offcanvas-header">
                 <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
@@ -155,10 +155,6 @@
                             </li>
                             {% endif %}
                             {% endfor %}
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" href="#">Show Map</a></li>
                         </ul>
                     </div>
                 </form>
@@ -208,7 +204,7 @@
                 <small><i class="fa-solid fa-angle-right"></i></small>
                 <div class="d-flex align-items-center">
                     <button class="btn text-primary bg-body-tertiary rounde-1" type="button" data-bs-toggle="offcanvas"
-                        data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+                        data-bs-target="#offcanvas" aria-controls="offcanvas">
                         {% if not current_category %}
                         {% block breadcrumb %}
                         <span class="">All Tours & Activities</span>
@@ -280,7 +276,7 @@
                                     style="height: 100px" name="title">{{booking.title}}</textarea>
                                 <label for="floatingTextarea2">Title</label>
                             </div>
-                            <select class="form-select mt-3" aria-label="Default select example" name="category_id">
+                            <select class="form-select mt-3" aria-label="Default select" name="category_id">
                                 <option value="{{booking.category.id}}" selected>{{booking.category}}</option>
                                 {% for category in categories %}
                                 <option value="{{category.id}}">{{category}}</option>
@@ -313,11 +309,11 @@
                         </form>
                         <!-- Delete Modal -->
                         <div class="modal fade" id="deleteModal{{booking.pk}}" tabindex="-1"
-                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            aria-labelledby="ModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="exampleModalLabel"><i
+                                        <h1 class="modal-title fs-5" id="ModalLabel"><i
                                                 class="bi bi-trash text-danger"></i> Rubbish?</h1>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                             aria-label="Close"></button>

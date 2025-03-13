@@ -9,7 +9,7 @@ class CategoryAdmin(admin.ModelAdmin):
     list_display = ['name', 'type', 'is_popular', 'bookings', 'traffic']
 
 class IslandAdmin(admin.ModelAdmin):
-    list_display = ['name', 'bookings', 'traffic']
+    list_display = ['name', 'bookings']
 
 class QuoteAdmin(admin.ModelAdmin):
     list_display = ['hawaiian', 'english']
