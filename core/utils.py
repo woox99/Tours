@@ -111,7 +111,7 @@ def get_activities(island):
     #                 category=category,
     #                 # type=Type.objects.get(name=row["item_type"]),
     #                 island=island,
-    #                 fareharbor_item_id=int(row["item_id"]),
+    #                 fh_id=int(row["item_id"]),
     #                 referral_link=row["referral_link"],
     #                 image_URL=row["image_URL"],
     #             )

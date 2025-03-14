@@ -13,6 +13,7 @@ import csv # debug
 import time #debug
 
 def index(request):
+    
     # Randomize weights for bookings that haven't been clicked/updated in days=1
     outdated_bookings = Booking.objects.filter(modified__lt=now() - timedelta(days=1))
     if outdated_bookings:
@@ -21,6 +22,7 @@ def index(request):
         ref = request.GET.get('ref', '')
         ref = '?ref=' + ref
         SiteVisit.objects.create(ref=ref)
+
     return redirect('core:change-island', island='Oahu')
 
 
