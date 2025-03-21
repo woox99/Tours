@@ -26,10 +26,15 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             {% if user.is_authenticated %}
-            <a href="/admin">
-                <button class="btn btn-primary"><i class="bi bi-person-arms-up"></i> Admin
-                    Dashboard</button>
-            </a>
+            <div class="d-flex gap-2">
+                <a href="/admin">
+                    <button class="btn btn-outline-primary"><i class="bi bi-person-arms-up"></i> Admin
+                        Dashboard</button>
+                </a>
+                <a href="{% url 'core:logout' current_island %}">
+                    <button class="btn btn-outline-primary"><i class="bi bi-box-arrow-right"></i> Logout</button>
+                </a>
+            </div>
             {% else %}
             <a class="logo navbar-brand d-flex align-items-center" href="#">
                 <img class="me-2" src="{% static 'core/assets/hawaii.png' %}" alt="">
@@ -50,36 +55,35 @@
             {% for category in tours %}
             {% if current_category == category %}
             <a href="{% url 'core:change-category' current_island category %}"
-                class="category ms-4 fs-6 mb-2 fw-light text-primary text-decoration-underline">{{category}}</a>
+                class="category ps-4 fs-6 py-1 fw-light text-primary text-decoration-underline">{{category}}</a>
             {% elif category.is_popular %}
             <a href="{% url 'core:change-category' current_island category %}"
-                class="category ms-4 fs-6 mb-2 fw-light text-black">{{category}} <small class="fw-bold text-success"
+                class="category ps-4 fs-6 py-1 fw-light text-black">{{category}} <small class="fw-bold text-success"
                     style="font-size: 10px;">Popular!</small></a>
             {% else %}
             <a href="{% url 'core:change-category' current_island category %}"
-                class="category ms-4 fs-6 mb-2 fw-light text-black">{{category}}</a>
+                class="category ps-4 fs-6 py-1 fw-light text-black">{{category}}</a>
             {% endif %}
             {% endfor %}
             <a href="{% url 'core:activities' current_island %}"
-                class="fs-5 ms-3 me-4 mt-4 mb-2 text-black fw-bolder">Activities</a>
+                class="fs-5 ps-3 me-4 mt-4 py-1 text-black fw-bolder">Activities</a>
             {% for category in activities %}
             {% if current_category == category %}
             <a href="{% url 'core:change-category' current_island category %}"
-                class="category ms-4 fs-6 mb-2 fw-light text-primary text-decoration-underline">{{category}}</a>
+                class="category ps-4 fs-6 py-1 fw-light text-primary text-decoration-underline">{{category}}</a>
             {% elif category.is_popular %}
             <a href="{% url 'core:change-category' current_island category %}"
-                class="category ms-4 fs-6 mb-2 fw-light text-black">{{category}} <small class="fw-bold text-success"
+                class="category ps-4 fs-6 py-1 fw-light text-black">{{category}} <small class="fw-bold text-success"
                     style="font-size: 10px;">Popular!</small></a>
             {% else %}
             <a href="{% url 'core:change-category' current_island category %}"
-                class="category ms-4 fs-6 mb-2 fw-light text-black">{{category}}</a>
+                class="category ps-4 fs-6 py-1 fw-light text-black">{{category}}</a>
             {% endif %}
             {% endfor %}
         </div>
 
         <!-- Offcanvas (md screens)-->
-        <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvas"
-            aria-labelledby="offcanvasLabel">
+        <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvas" aria-labelledby="offcanvasLabel">
             <div class="offcanvas-header">
                 <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
@@ -161,7 +165,7 @@
             </div>
             {% endblock %}
             <!-- Jumbotron -->
-            {% if collage %}
+            {% if jumbotron %}
             <div class="jumbotron mt-4">
                 <div class="background" style="background-image: url('{% static 'core/assets/oahu.jpg' %}');"></div>
                 <div class="strip"></div>
@@ -173,8 +177,8 @@
             <!-- Breadcrumb -->
             <div class="d-flex align-items-center mt-4 gap-3 px-3 px-lg-0">
                 <div class="d-flex align-items-center">
-                    <button type="button" class="btn btn-outline-primary dropdown-toggle-split" data-bs-toggle="dropdown"
-                        aria-expanded="false">
+                    <button type="button" class="btn btn-outline-primary dropdown-toggle-split"
+                        data-bs-toggle="dropdown" aria-expanded="false">
                         {{current_island}}
                     </button>
                     <ul class="dropdown-menu dropdown-menu">
@@ -222,28 +226,34 @@
             <!-- Admin User View -->
             <div class="cards">
                 {% for booking in page_obj %}
-                <div id="{{booking.fh_id}}" class="d-lg-flex justify-content-center mt-3">
-                    <div class="card" {% if not booking.is_public %}style="opacity: 0.55;" {% endif %}>
+                <div class="d-lg-flex justify-content-center mt-3 gap-3" {% if not booking.is_public %}style='opacity: 70%;'{% endif %}>
+                    <div id="{{booking.fh_id}}" class="card">
                         <a class="text-decoration-none" href="{{booking.referral_link}}">
                             <div class="background">
                                 <div class="booking-image-container">
-                                    <img src="{{booking.image_URL}}" alt="">
-                                </div>
-                                <div class="company d-flex align-items-center gap-2">
-                                    <div class="company-icon d-flex justify-content-center align-items-center">
-                                        <i class="bi bi-buildings text-white"></i>
+                                    <div class="card-image" style="background-image: url('{{ booking.image_URL }}');">
                                     </div>
-                                    <sm class="company-name fw-medium"></i>{{booking.company_name}}</sm>
                                 </div>
+                                <div class="company d-flex flex-column gap-2">
+                                    <sm class="company-name fw-light"></i>~ {{booking.company_name}}</sm>
+                                </div>
+                                {% if booking.is_popular %}
+                                <div class="featured bg-success rounded-1 text-white py-1 px-2 fw-semibold">Popular!
+                                </div>
+                                {% endif %}
                             </div>
-                            <div class="d-flex justify-content-between px-2 px-lg-0">
+                            <div class="d-flex justify-content-between px-2 px-md-3 pt-2 pb-1">
                                 <div class="body d-flex flex-column">
                                     <p class="title fw-medium text-black">{{booking.title}}</p>
-                                    <sm class="text-secondary" style="font-size: 12px;">{{booking.city}},
-                                        {{booking.island}}
-                                        -
-                                        {{booking.category}}</sm>
+                                    <sm class="text-secondary" style="font-size: 12px;">{{booking.city}}</sm>
                                 </div>
+                            </div>
+                            <div class="tags d-flex flex-wrap gap-1 px-2 px-md-3 pb-2">
+                                {% for tag in booking.tags.all %}
+                                <div
+                                    class="tag bg-body-tertiary text-primary rounded-1 d-flex align-items-center justify-content-center py-1 px-2">
+                                    {{tag}}</div>
+                                {% endfor %}
                             </div>
                         </a>
                     </div>
@@ -254,38 +264,67 @@
                             <input type="hidden" name="current_island" value="{{current_island}}">
                             <input type="hidden" name="current_category" value="{{current_category}}">
                             <input type="hidden" name="page_number" value="{{page_obj.number}}">
-                            <div class="input-group mb-3 w-75">
-                                <span class="input-group-text bg-primary-subtle" id="basic-addon1">FareHarbor ID</span>
-                                <input type="text" class="form-control" aria-label="Username"
-                                    aria-describedby="basic-addon1" value="{{booking.fh_id}}" disabled>
+                            <div class="d-flex justify-content-between">
+                                {% if booking.is_verified %}
+                                <div class="input-group mb-3 w-50">
+                                    <span class="input-group-text bg-primary-subtle" id="basic-addon1">ID#</span>
+                                    <input type="text" class="form-control" aria-label="fh_id"
+                                        aria-describedby="basic-addon1" value="{{booking.fh_id}}" disabled>
+                                </div>
+                                {% else %}
+                                <div class="input-group mb-3 w-50">
+                                    <span class="input-group-text bg-danger-subtle" id="basic-addon1">ID#</span>
+                                    <input type="text" class="form-control" aria-label="fh_id"
+                                        aria-describedby="basic-addon1" value="{{booking.fh_id}}" disabled>
+                                </div>
+                                {% endif %}
+                                <div class="input-group mb-3 w-25">
+                                    <span class="input-group-text" id="basic-addon1"><i
+                                            class="fa-solid fa-weight-hanging"></i></span>
+                                    <input type="text" class="form-control" aria-label="weight"
+                                        aria-describedby="basic-addon1" value="{{booking.weight}}">
+                                </div>
                             </div>
-                            <div class="form-floating">
-                                <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2"
-                                    style="height: 100px" name="title">{{booking.title}}</textarea>
-                                <label for="floatingTextarea2">Title</label>
+                            <div>
+                                <input type="text" class="form-control fw-semibold" id="" value="{{booking.title}}"
+                                    name="title">
                             </div>
-                            <select class="form-select mt-3" aria-label="Default select" name="category_id">
-                                <option value="{{booking.category.id}}" selected>{{booking.category}}</option>
+                            <select class="form-select mt-3" multiple aria-label="Default select" name="category_ids"
+                                style="height: 185px;">
                                 {% for category in categories %}
+                                {% if category in booking.tags.all %}
+                                <option value="{{category.id}}" selected>{{category}}</option>
+                                {% else %}
                                 <option value="{{category.id}}">{{category}}</option>
+                                {% endif %}
                                 {% endfor %}
                             </select>
                             <div class="d-flex align-items-center justify-content-between mt-3">
                                 <input type="hidden" name="is_public" value="false">
+                                <input type="hidden" name="is_popular" value="false">
                                 <div class="form-check form-switch">
                                     {% if booking.is_public %}
                                     <input class="form-check-input" type="checkbox" role="switch"
-                                        id="flexSwitchCheckDefault" value="true" name="is_public" checked>
+                                        id="publicSwitch{{booking.pk}}" value="true" name="is_public" checked>
                                     {% else %}
                                     <input class="form-check-input" type="checkbox" role="switch"
-                                        id="flexSwitchCheckDefault" value="true" name="is_public">
+                                        id="publicSwitch{{booking.pk}}" value="true" name="is_public">
                                     {% endif %}
-                                    <label class="form-check-label" for="flexSwitchCheckDefault"><small>
-                                            Public</small></label>
+                                    <label class="form-check-label" for="publicSwitch{{booking.pk}}">
+                                        Public</label>
                                 </div>
-                                {% if booking.is_verified %}
-                                <i class="bi bi-person-check text-primary fs-4"></i>
-                                {% endif %}
+                                <div class="form-check">
+                                    {% if booking.is_popular %}
+                                    <input class="form-check-input" type="checkbox" value="true" id="popularCheckbox{{booking.pk}}"
+                                        name="is_popular" checked>
+                                    {% else %}
+                                    <input class="form-check-input" type="checkbox" value="true" id="popularCheckbox{{booking.pk}}"
+                                        name="is_popular">
+                                    {% endif %}
+                                    <label class="form-check-label text-success fw-semibold" for="popularCheckbox{{booking.pk}}">
+                                        Popular!
+                                    </label>
+                                </div>
                                 <div class="">
                                     <button class="btn btn-primary">Save</button>
                                     <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
@@ -358,34 +397,39 @@
             </div>
             {% else %}
             <!-- Anonymous User View -->
-            <div class="cards d-flex flex-wrap mt-4">
-                {% for booking in page_obj %}
-                <div id="{{booking.fh_id}}" class="card">
-                    <a class="text-decoration-none" href="{{booking.referral_link}}">
-                        <div class="background">
-                            <div class="booking-image-container">
-                                <div class="card-image" style="background-image: url('{{ booking.image_URL }}');"></div>
+                <div class="cards d-flex flex-wrap mt-4 gap-2">
+                    {% for booking in page_obj %}
+                    <div id="{{booking.fh_id}}" class="card">
+                        <a class="text-decoration-none" href="{{booking.referral_link}}">
+                            <div class="background">
+                                <div class="booking-image-container">
+                                    <div class="card-image" style="background-image: url('{{ booking.image_URL }}');"></div>
+                                </div>
+                                <div class="company d-flex flex-column gap-2">
+                                    <sm class="company-name fw-light"></i>~ {{booking.company_name}}</sm>
+                                </div>
+                                {% if booking.is_popular %}
+                                <div class="featured bg-success rounded-1 text-white py-1 px-2 fw-semibold">Popular!
+                                </div>
+                                {% endif %}
                             </div>
-                            <div class="company d-flex flex-column gap-2">
-                                <sm class="company-name fw-light"></i>~ {{booking.company_name}}</sm>
+                            <div class="d-flex justify-content-between px-2 px-md-3 pt-2 pb-1">
+                                <div class="body d-flex flex-column">
+                                    <p class="title fw-medium text-black">{{booking.title}}</p>
+                                    <sm class="text-secondary" style="font-size: 12px;">{{booking.city}}</sm>
+                                </div>
                             </div>
-                            <div class="featured bg-success rounded-1 text-white py-1 px-2 fw-semibold">Popular!</div>
-                        </div>
-                        <div class="d-flex justify-content-between px-2 px-md-3 pt-2 pb-1">
-                            <div class="body d-flex flex-column">
-                                <p class="title fw-medium text-black">{{booking.title}}</p>
-                                <sm class="text-secondary" style="font-size: 12px;">{{booking.city}}</sm>
+                            <div class="tags d-flex flex-wrap gap-1 px-2 px-md-3 pb-2">
+                                {% for tag in booking.tags.all %}
+                                <div
+                                    class="tag bg-body-tertiary text-primary rounded-1 d-flex align-items-center justify-content-center py-1 px-2">
+                                    {{tag}}</div>
+                                {% endfor %}
                             </div>
-                        </div>
-                        <div class="tags d-flex flex-wrap gap-1 px-2 px-md-3 pb-2">
-                            <div class="tag bg-body-tertiary text-primary rounded-1 d-flex align-items-center justify-content-center py-1 px-2">Boat</div>
-                            <div class="tag bg-body-tertiary text-primary rounded-1 d-flex align-items-center justify-content-center py-1 px-2">Snorkel</div>
-                            <div class="tag bg-body-tertiary text-primary rounded-1 d-flex align-items-center justify-content-center py-1 px-2">Surf</div>
-                        </div>
-                    </a>
+                        </a>
+                    </div>
+                    {% endfor %}
                 </div>
-                {% endfor %}
-            </div>
             {% endif %}
             <!-- Pagination Bar -->
             {% block pagination %}

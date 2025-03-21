@@ -2,14 +2,6 @@ from django.db import models
 from django.utils import timezone
 
 
-# Create your models here.
-class Quote(models.Model):
-    hawaiian = models.CharField(max_length=100)
-    english = models.CharField(max_length=100)
-
-    def __str__(self):
-        return f"{self.hawaiian}"
-
 
 class Type(models.Model):
     name = models.CharField(max_length=50, unique=True)
@@ -50,10 +42,12 @@ class Booking(models.Model):
     title = models.CharField(max_length=100)
     company_name = models.CharField(max_length=100)
     city = models.CharField(max_length=100)
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    tags = models.ManyToManyField('Category', related_name='bookings')
+    # category = models.ForeignKey(Category, on_delete=models.CASCADE)
     island = models.ForeignKey(Island, on_delete=models.CASCADE)
-    is_public = models.BooleanField(default=True)
+    is_public = models.BooleanField(default=False)
     is_verified = models.BooleanField(default=False)
+    is_popular = models.BooleanField(default=False)
     fh_id = models.IntegerField()
     referral_link = models.URLField()
     image_URL = models.URLField()

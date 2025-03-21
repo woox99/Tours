@@ -23,16 +23,16 @@ def paginate_bookings(bookings, request, per_page=12):
     return page_obj, page_range
 
 
-def get_collage():
-    collage_img_ids = random.sample(range(1, 32), 14)
-    urls = [static(f'core/collage/{i}.jpg') for i in collage_img_ids]
+# def get_collage():
+#     collage_img_ids = random.sample(range(1, 32), 14)
+#     urls = [static(f'core/collage/{i}.jpg') for i in collage_img_ids]
 
-    return {
-        'top_row_urls' : urls[:8],
-        'bottom_row_urls': urls[8:],
-        'quote': Quote.objects.order_by('?').first(),
-        'collage' : True,
-    }
+#     return {
+#         'top_row_urls' : urls[:8],
+#         'bottom_row_urls': urls[8:],
+#         'quote': Quote.objects.order_by('?').first(),
+#         'collage' : True,
+#     }
 
 
 def randomize_booking_weights(bookings):
@@ -48,27 +48,29 @@ def randomize_booking_weights(bookings):
     return
 
 
-def get_tours(island):
+def get_tours(island, request):
     tours = []
     
     type = Type.objects.get(name='Tour')
     tour_set = Category.objects.filter(type=type).order_by('name')
-
+    if request.user.is_authenticated:
+        return tour_set
     for category in tour_set:
-        if category.booking_set.filter(island=island).exists():
+        if category.bookings.filter(island=island, is_public=True).exists():
             tours.append(category)
     return tours
 
 
-def get_activities(island):
+def get_activities(island, request):
     activities = []
     other = None
 
     type = Type.objects.get(name='Activity')
     activity_set = Category.objects.filter(type=type).order_by('name')
-    
+    if request.user.is_authenticated:
+        return activity_set
     for category in activity_set:
-        if category.booking_set.filter(island=island).exists():
+        if category.bookings.filter(island=island, is_public=True).exists():
             if category.name == 'Other':
                 other = category
             else:
@@ -78,7 +80,7 @@ def get_activities(island):
     return activities
 
 
-    # # Import Fareharbor csv data script
+    #     # Import Fareharbor csv data script
     # path = 'core/fh.csv'
     # with open(path, newline='', encoding='utf-8') as csvfile:
     #     reader = csv.DictReader(csvfile)
@@ -108,7 +110,7 @@ def get_activities(island):
     #                 title=row["item_name"],
     #                 company_name=row["company_name"],
     #                 city=row["city"],
-    #                 category=category,
+    #                 # category=category,
     #                 # type=Type.objects.get(name=row["item_type"]),
     #                 island=island,
     #                 fh_id=int(row["item_id"]),
@@ -116,5 +118,6 @@ def get_activities(island):
     #                 image_URL=row["image_URL"],
     #             )
     #             booking.save()
+    #             booking.tags.add(category)
     #         except Exception as e:
     #             print(f"Skipping row due to error: {e}")

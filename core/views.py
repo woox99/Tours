@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth import logout
 from django.contrib.auth.models import User
 from django.urls import reverse
 
@@ -15,29 +16,71 @@ import time #debug
 def index(request):
     
     # Randomize weights for bookings that haven't been clicked/updated in days=1
-    outdated_bookings = Booking.objects.filter(modified__lt=now() - timedelta(days=1))
-    if outdated_bookings:
-        randomize_booking_weights(outdated_bookings)
+    # outdated_bookings = Booking.objects.filter(modified__lt=now() - timedelta(days=1))
+    # if outdated_bookings:
+    #     randomize_booking_weights(outdated_bookings)
     if request.user.is_anonymous:
         ref = request.GET.get('ref', '')
         ref = '?ref=' + ref
         SiteVisit.objects.create(ref=ref)
 
+
+        # Import Fareharbor csv data script
+    # path = 'core/fh.csv'
+    # with open(path, newline='', encoding='utf-8') as csvfile:
+    #     reader = csv.DictReader(csvfile)
+    #     for row in reader:
+    #         # print(reader.fieldnames)
+
+    #         # Create Categories and Types
+    #         try:
+    #             category = Category.objects.get(name=row["category"])
+    #         except Category.DoesNotExist:
+    #             try:
+    #                 type = Type.objects.get(name=row["item_type"])
+    #             except Type.DoesNotExist:
+    #                 type = Type.objects.create(name=row["item_type"])
+    #             type = Type.objects.get(name=row["item_type"])
+    #             category = Category.objects.create(name=row["category"], type=type)
+
+    #         # Create Islands
+    #         try:
+    #             island = Island.objects.get(name=row["island"])
+    #         except Island.DoesNotExist:
+    #             island = Island.objects.create(name=row["island"])
+
+    #         # Create Booking
+    #         try:
+    #             booking = Booking(
+    #                 title=row["item_name"],
+    #                 company_name=row["company_name"],
+    #                 city=row["city"],
+    #                 # category=category,
+    #                 # type=Type.objects.get(name=row["item_type"]),
+    #                 island=island,
+    #                 fh_id=int(row["item_id"]),
+    #                 referral_link=row["referral_link"],
+    #                 image_URL=row["image_URL"],
+    #             )
+    #             booking.save()
+    #             booking.tags.add(category)
+    #         except Exception as e:
+    #             print(f"Skipping row due to error: {e}")
     return redirect('core:change-island', island='Oahu')
 
 
 def change_island(request, island):
     island = get_object_or_404(Island, name=island)
     if request.user.is_authenticated:
-        bookings = Booking.objects.filter(island=island).order_by('fh_id')
+        bookings = Booking.objects.filter(island=island).order_by('-weight')
     else:
         bookings = Booking.objects.filter(island=island, is_public=True).order_by('-weight')
     page_obj, page_range = paginate_bookings(bookings, request)
 
     context = {
         'page_obj' : page_obj,
-        'tours': get_tours(island),
-        'activities': get_activities(island),
+        'tours': get_tours(island, request),
+        'activities': get_activities(island, request),
         'categories': Category.objects.all().order_by('name'),
         'islands': Island.objects.all().order_by('modified'),
         'current_island':island,
@@ -47,7 +90,7 @@ def change_island(request, island):
     }
 
     if page_obj.number == 1:
-        context.update(get_collage())
+        context.update({'jumbotron':True})
     return render(request, 'core/base_site.html', context)
 
 
@@ -61,15 +104,15 @@ def category_results(request, island, category):
     island = get_object_or_404(Island, name=island)
     category = get_object_or_404(Category, name=category)
     if request.user.is_authenticated:
-        bookings = Booking.objects.filter(island=island).filter(category=category).order_by('fh_id')
+        bookings = Booking.objects.filter(island=island, tags=category).order_by('-weight')
     else:
-        bookings = Booking.objects.filter(island=island, is_public=True).filter(category=category).order_by('-weight')
+        bookings = Booking.objects.filter(island=island, is_public=True, tags=category).order_by('-weight')
     page_obj, page_range = paginate_bookings(bookings, request)
 
     context = {
         'page_obj' : page_obj,
-        'tours': get_tours(island),
-        'activities': get_activities(island),
+        'tours': get_tours(island, request),
+        'activities': get_activities(island, request),
         'categories': Category.objects.all().order_by('name'),
         'islands':Island.objects.all().order_by('modified'),
         'current_island':island,
@@ -79,7 +122,7 @@ def category_results(request, island, category):
     }
 
     if page_obj.number == 1:
-        context.update(get_collage())
+        context.update({'jumbotron':True})
     return render(request, 'core/base_site.html', context)
 
 
@@ -110,7 +153,7 @@ def search_log(request, island):
         Q(company_name__icontains=query) | 
         Q(city__icontains=query) | 
         Q(fh_id__icontains=query) | 
-        Q(category__name__icontains=query), 
+        Q(tags__name__icontains=query), 
         island=island,
         is_public=True,
     ).count()
@@ -129,7 +172,7 @@ def search_results(request, island):
             Q(company_name__icontains=query) | 
             Q(city__icontains=query) | 
             Q(fh_id__icontains=query) | 
-            Q(category__name__icontains=query), 
+            Q(tags__name__icontains=query), 
             island=island,
         )
     else:
@@ -138,7 +181,7 @@ def search_results(request, island):
             Q(company_name__icontains=query) | 
             Q(city__icontains=query) | 
             Q(fh_id__icontains=query) | 
-            Q(category__name__icontains=query), 
+            Q(tags__name__icontains=query), 
             island=island,
             is_public=True,
         )
@@ -146,8 +189,8 @@ def search_results(request, island):
 
     context = {
         'page_obj' : page_obj,
-        'tours': get_tours(island),
-        'activities': get_activities(island),
+        'tours': get_tours(island, request),
+        'activities': get_activities(island, request),
         'categories': Category.objects.all().order_by('name'),
         'islands':Island.objects.all().order_by('modified'),
         'current_island':island,
@@ -163,16 +206,16 @@ def tours(request, island):
     island = get_object_or_404(Island, name=island)
     type = get_object_or_404(Type, name='Tour')
     if request.user.is_authenticated:
-        bookings = Booking.objects.filter(category__type=type, island=island).order_by('fh_id')
+        bookings = Booking.objects.filter(tags__type=type, island=island).order_by('-weight')
     else:
-        bookings = Booking.objects.filter(category__type=type, island=island, is_public=True).order_by('-weight')
+        bookings = Booking.objects.filter(tags__type=type, island=island, is_public=True).order_by('-weight')
 
     page_obj, page_range = paginate_bookings(bookings, request)
 
     context = {
         'page_obj' : page_obj,
-        'tours': get_tours(island),
-        'activities': get_activities(island),
+        'tours': get_tours(island, request),
+        'activities': get_activities(island, request),
         'categories': Category.objects.all().order_by('name'),
         'islands':Island.objects.all().order_by('modified'),
         'current_island':island,
@@ -182,7 +225,7 @@ def tours(request, island):
     }
 
     if page_obj.number == 1:
-        context.update(get_collage())
+        context.update({'jumbotron':True})
     return render(request, 'core/base_site.html', context)
 
 
@@ -190,15 +233,15 @@ def activities(request, island):
     island = get_object_or_404(Island, name=island)
     type = get_object_or_404(Type, name='Activity')
     if request.user.is_authenticated:
-        bookings = Booking.objects.filter(category__type=type, island=island).order_by('fh_id')
+        bookings = Booking.objects.filter(tags__type=type, island=island).order_by('-weight')
     else:
-        bookings = Booking.objects.filter(category__type=type, island=island, is_public=True).order_by('-weight')
+        bookings = Booking.objects.filter(tags__type=type, island=island, is_public=True).order_by('-weight')
     page_obj, page_range = paginate_bookings(bookings, request)
 
     context = {
         'page_obj' : page_obj,
-        'tours': get_tours(island),
-        'activities': get_activities(island),
+        'tours': get_tours(island, request),
+        'activities': get_activities(island, request),
         'categories': Category.objects.all().order_by('name'),
         'islands':Island.objects.all().order_by('modified'),
         'current_island':island,
@@ -208,17 +251,23 @@ def activities(request, island):
     }
 
     if page_obj.number == 1:
-        context.update(get_collage())
+        context.update({'jumbotron':True})
     return render(request, 'core/base_site.html', context)
 
 
 def booking_update(request, pk):
+    print(request.POST) #debug
     booking = get_object_or_404(Booking, pk=pk)
     booking.title = request.POST['title']
-    booking.category = get_object_or_404(Category, pk=request.POST['category_id'])
+    # booking.category = get_object_or_404(Category, pk=request.POST['category_id'])
     booking.is_public = True if request.POST['is_public'] == 'true' else False
-    if booking.is_public:
-        booking.is_verified = True
+    booking.is_popular = True if request.POST['is_popular'] == 'true' else False
+    booking.is_verified = True
+
+    category_ids = request.POST.getlist('category_ids')
+    if category_ids:
+        tags = Category.objects.filter(pk__in=category_ids)
+        booking.tags.set(tags)
     booking.save()
 
     island=request.POST['current_island']
@@ -239,3 +288,8 @@ def booking_delete(request, pk):
         return redirect(reverse('core:change-island', kwargs={'island': island}) + f'?page={page_number}')
     category = request.POST['current_category']
     return redirect(reverse('core:category-results', kwargs={'island': island, 'category':category}) + f'?page={page_number}')
+
+
+def logout_admin(request, island):
+    logout(request)
+    return redirect('core:change-island', island=island)
