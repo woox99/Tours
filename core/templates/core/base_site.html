@@ -163,24 +163,10 @@
             <!-- Jumbotron -->
             {% if collage %}
             <div class="jumbotron mt-4">
-                <!-- <div class="top-row d-flex gap-1">
-                    {% for url in top_row_urls %}
-                    <img src="{{url}}" alt="">
-                    {% endfor %}
-                </div>
-                <div class="btm-row d-flex gap-1 mt-1">
-                    {% for url in bottom_row_urls %}
-                    <img src="{{url}}" alt="">
-                    {% endfor %}
-                </div> -->
-                <div class="d-flex gap-1">
-                    <img src="{% static 'core/collage/3.jpg' %}" alt="">
-                    <img src="{% static 'core/collage/4.jpg' %}" alt="">
-                    <img src="{% static 'core/collage/2.jpg' %}" alt="">
-                </div>
+                <div class="background" style="background-image: url('{% static 'core/assets/oahu.jpg' %}');"></div>
                 <div class="strip"></div>
-                <div class="quote p-2 p-lg-4">
-                    <p class="fw-bold fs-1 text-center"><em>{{current_island}}</em></p>
+                <div class="island-name p-2 p-lg-4">
+                    <p class="fw-bold text-center"><em>{{current_island}}</em></p>
                 </div>
             </div>
             {% endif %}
@@ -372,7 +358,7 @@
             </div>
             {% else %}
             <!-- Anonymous User View -->
-            <div class="cards d-flex flex-wrap mt-4 align-items-end">
+            <div class="cards d-flex flex-wrap mt-4">
                 {% for booking in page_obj %}
                 <div id="{{booking.fh_id}}" class="card">
                     <a class="text-decoration-none" href="{{booking.referral_link}}">
@@ -385,13 +371,13 @@
                             </div>
                             <div class="featured bg-success rounded-1 text-white py-1 px-2 fw-semibold">Popular!</div>
                         </div>
-                        <div class="d-flex justify-content-between px-3 pt-2 pb-1">
+                        <div class="d-flex justify-content-between px-2 px-md-3 pt-2 pb-1">
                             <div class="body d-flex flex-column">
                                 <p class="title fw-medium text-black">{{booking.title}}</p>
                                 <sm class="text-secondary" style="font-size: 12px;">{{booking.city}}</sm>
                             </div>
                         </div>
-                        <div class="tags d-flex flex-wrap gap-1 px-3 pb-2">
+                        <div class="tags d-flex flex-wrap gap-1 px-2 px-md-3 pb-2">
                             <div class="tag bg-body-tertiary text-primary rounded-1 d-flex align-items-center justify-content-center py-1 px-2">Boat</div>
                             <div class="tag bg-body-tertiary text-primary rounded-1 d-flex align-items-center justify-content-center py-1 px-2">Snorkel</div>
                             <div class="tag bg-body-tertiary text-primary rounded-1 d-flex align-items-center justify-content-center py-1 px-2">Surf</div>

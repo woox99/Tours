@@ -2,34 +2,15 @@
     /* border: 1px solid red; */
     padding: 0;
     margin: 0;
-    /* margin: 0 !important; */
 }
 html{
     scroll-behavior: auto !important;
 }
 
-.navbar{
-    /* position: relative; */
-}
-.navbar .logo{
-    /* position: absolute;
-    top: 0px;
-    left: 0px; */
-}
 .navbar img{
     height: 40px;
 }
-/* form .input-group-text{
-    border-radius: 20vw 0 0 20vw;
-
-}
-form input{
-    border-left: none !important;
-    border-radius: 0 20vw 20vw 0 !important;
-    outline: none;
-} */
 .side-bar{
-    /* border-right: 1px solid black; */
     width: 210px;
     min-height: 100vh;
     border-right: 1px solid #00000015;
@@ -40,7 +21,6 @@ form input{
 .side-bar .category{
     font-size: 14px;
     cursor: pointer;
-    /* color: black; */
     margin-top: 2px;
     letter-spacing: 0.25px;
     overflow: hidden;
@@ -49,7 +29,6 @@ form input{
 }
 .offcanvas{
     width: 300px !important;
-    /* background: linear-gradient(90deg, #ffffff 45%, #ffffff90); */
     background-color: #ffffff;
     box-shadow: 5px 0px 5px #00000050;
     opacity: 0.92;
@@ -61,7 +40,6 @@ form input{
     font-size: 18px !important;
     color: black;
     margin-top: 10px;
-    /* margin-left: ; */
     letter-spacing: 0.25px;
     overflow: hidden;
     white-space: nowrap;
@@ -77,21 +55,13 @@ form input{
     position: relative;
     overflow: hidden;
     max-height: 300px;
-    /* overflow-x: hidden; */
-    /* overflow-y: visible; */
 }
-.jumbotron img{
-    /* width: 200px; */
-    width: 33%;
-    /* position: absolute; */
-    /* top: 50%; */
-    /* left: 50%; */
-    /* transform: translate(-50%, -50%); */
-    opacity: 0.75;
-    /* overflow: hidden; */
-}
-.jumbotron .btm-row{
-    margin-left: -25px !important;
+.jumbotron .background{
+    height: 300px;
+    width: 100%;
+    background-size: cover;
+    background-position: bottom;
+    opacity: 0.8;
 }
 .jumbotron .strip{
     position: absolute;
@@ -101,35 +71,40 @@ form input{
     transform: translate(-50%, -50%);
     width: 100%;
     background-color: white;
-    opacity: 0.7;
+    opacity: 0.55;
 }
-.jumbotron .quote{
+.jumbotron .island-name{
     position: absolute;
+    height: 40%;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     width: 100%;
-    /* background-color: white; */
-    /* opacity: 0.8; */
-    /* background-color: #ffffff99; */
+    font-size: 60px !important;
+    border-top: 1px solid white;
+    border-bottom: 1px solid white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
-.jumbotron .quote .english{
-    font-size: 12px;
+@media (max-width: 768px) {
+    .jumbotron .background{
+        height: 175px;
+    }
+    .jumbotron .island-name{
+        font-size: 40px !important;
+    }
 }
-
 .breadcrumb a{
     text-decoration: none;
 }
 .cards{
-    justify-content: start;
+    justify-content: space-between;
 }
 .card{
-    width: 32%;
+    width: 32.5%;
     border: none !important;
     margin-bottom: 20px;
-    margin-right: 10px;
-    /* background-color: #ededed !important; */
-
     border-radius: 0px !important;
     box-shadow: 0px 0px 5px #00000050;
 }
@@ -147,7 +122,7 @@ form input{
 }
 @media (max-width: 768px) {
     .card{
-        width: 100%;
+        width: 95%;
     }
     .admin-options{
         width: 95%;
@@ -159,17 +134,11 @@ form input{
 .card .featured{
     font-size: 10px;
 }
-.card .featured .line{
-    height: 3px;
-    width: 50%;
-    background: linear-gradient(70deg, #0ebeff, #ffdd40, #ae63e4, #47cf73);
-}
 .card .background{
     position: relative;
 }
 .card .booking-image-container{
     position: relative;
-    /* display: inline-block; */
     z-index: 0;
 }
 .card .booking-image-container::after{
@@ -187,6 +156,11 @@ form input{
     height: 250px;
     background-size: cover;
     background-position: center;
+}
+@media (max-width: 768px) {
+    .card .card-image{
+        height: 350px;
+    }
 }
 .card .company{
     position: absolute;
@@ -210,26 +184,10 @@ form input{
     font-size: 13px;
     opacity: 0.85;
 }
-/* .card .bookmark-btn{
-    position: absolute;
-    top: 0px;
-    right: 8px;
-    z-index: 10;
-} */
-/* .card button{
-    position: absolute;
-    bottom: 10px;
-    right: 0;
-    z-index: 1;
-    border: none;
-    font-size: 12px;
-} */
 .card .body{
     width: 80%;
 }
 .card .title{
-    /* font-weight: 700; */
-    /* width: 70%; */
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
