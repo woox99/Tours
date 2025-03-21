@@ -76,14 +76,19 @@ form input{
 .jumbotron{
     position: relative;
     overflow: hidden;
-    max-height: 350px;
+    max-height: 300px;
     /* overflow-x: hidden; */
     /* overflow-y: visible; */
 }
 .jumbotron img{
     /* width: 200px; */
+    width: 33%;
+    /* position: absolute; */
+    /* top: 50%; */
+    /* left: 50%; */
+    /* transform: translate(-50%, -50%); */
     opacity: 0.75;
-    overflow: hidden;
+    /* overflow: hidden; */
 }
 .jumbotron .btm-row{
     margin-left: -25px !important;
@@ -115,9 +120,6 @@ form input{
 .breadcrumb a{
     text-decoration: none;
 }
-/* .island-card img{
-    height: 35px;
-} */
 .cards{
     justify-content: start;
 }
@@ -127,6 +129,9 @@ form input{
     margin-bottom: 20px;
     margin-right: 10px;
     /* background-color: #ededed !important; */
+
+    border-radius: 0px !important;
+    box-shadow: 0px 0px 5px #00000050;
 }
 @media (max-width: 992px) {
     .cards{
@@ -164,7 +169,7 @@ form input{
 }
 .card .booking-image-container{
     position: relative;
-    display: inline-block;
+    /* display: inline-block; */
     z-index: 0;
 }
 .card .booking-image-container::after{
@@ -174,17 +179,14 @@ form input{
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(rgba(0, 0, 0, 0.5), #ffffff00 75px);
+    background: linear-gradient(rgba(0, 0, 0, 0.7), #ffffff00 75px);
     pointer-events: none; /* interaction pass through */
 }
-.card img{
+.card .card-image{
     width: 100%;
-    /* aspect-ratio: 8/5; */
-    /* max-height: 300px; */
-    /* object-fit: cover; */
-    /* border-radius: 5px; */
-    /* border: 1px solid red; */
-    /* box-shadow: 5px -5px 10px rgba(0, 0, 0, 0.25); */
+    height: 250px;
+    background-size: cover;
+    background-position: center;
 }
 .card .company{
     position: absolute;
@@ -199,14 +201,14 @@ form input{
     white-space: nowrap;
     text-overflow: ellipsis;
     color: #ffffff !important;
-
 }
-.card .company-icon{
-    background-color: black;
-    height: 26px;
-    width: 26px;
-    border-radius: 50%;
-    background: linear-gradient( 200deg, #00000000, #000000 80%);
+.card .featured{
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    z-index: 10;
+    font-size: 13px;
+    opacity: 0.85;
 }
 /* .card .bookmark-btn{
     position: absolute;
@@ -234,6 +236,10 @@ form input{
 }
 .card p{
     margin: 0;
+}
+.card .tag{
+    font-size: 11px;
+    letter-spacing: 0.75px;
 }
 
 

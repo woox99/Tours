@@ -15,7 +15,7 @@ def log_traffic(instance):
     return
 
 
-def paginate_bookings(bookings, request, per_page=6):
+def paginate_bookings(bookings, request, per_page=12):
     paginator = Paginator(bookings, per_page)
     page_number = request.GET.get('page', 1)
     page_obj = paginator.get_page(page_number)
