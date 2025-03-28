@@ -17,8 +17,8 @@ class Category(models.Model):
     traffic = models.IntegerField(default=0)
 
     @property
-    def bookings(self):
-        return self.booking_set.all().count()
+    def public_bookings_count(self):
+        return self.bookings.filter(is_public=True).count()
 
 
     def __str__(self):
@@ -43,7 +43,6 @@ class Booking(models.Model):
     company_name = models.CharField(max_length=100)
     city = models.CharField(max_length=100)
     tags = models.ManyToManyField('Category', related_name='bookings')
-    # category = models.ForeignKey(Category, on_delete=models.CASCADE)
     island = models.ForeignKey(Island, on_delete=models.CASCADE)
     is_public = models.BooleanField(default=False)
     is_verified = models.BooleanField(default=False)

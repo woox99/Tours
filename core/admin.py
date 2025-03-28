@@ -1,12 +1,12 @@
 from django.contrib import admin
 from core.models import *
 
-# class BookingAdmin(admin.ModelAdmin):
-#     search_fields = ['title', 'fh_id']
-#     list_display = ['title', 'company_name', 'island', 'category', 'fh_id']
+class BookingAdmin(admin.ModelAdmin):
+    search_fields = ['title', 'fh_id']
+    list_display = ['title', 'is_public',  'is_verified', 'is_popular', 'company_name',  'fh_id', 'island', 'weight']
 
-# class CategoryAdmin(admin.ModelAdmin):
-#     list_display = ['name', 'type', 'is_popular', 'bookings', 'traffic']
+class CategoryAdmin(admin.ModelAdmin):
+    list_display = ['name', 'type', 'is_popular', 'traffic', 'public_bookings_count']
 
 class IslandAdmin(admin.ModelAdmin):
     list_display = ['name', 'bookings']
@@ -21,8 +21,8 @@ class SiteVisitAdmin(admin.ModelAdmin):
 
 
 # Register your models here.
-# admin.site.register(Booking, BookingAdmin)
-# admin.site.register(Category, CategoryAdmin)
+admin.site.register(Booking, BookingAdmin)
+admin.site.register(Category, CategoryAdmin)
 admin.site.register(Island, IslandAdmin)
 admin.site.register(SearchQuery, SearchQueryAdmin)
 admin.site.register(SiteVisit, SiteVisitAdmin)

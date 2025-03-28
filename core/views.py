@@ -87,6 +87,8 @@ def change_island(request, island):
         'current_category' : None,
         'breadcrumb' : None,
         'page_range': page_range,
+        'jumbotron_path' : f"core/assets/{island}.jpg"
+
     }
 
     if page_obj.number == 1:
@@ -119,6 +121,7 @@ def category_results(request, island, category):
         'current_category':category,
         'breadcrumb' : category,
         'page_range': page_range,
+        'jumbotron_path' : f"core/assets/{island}.jpg",
     }
 
     if page_obj.number == 1:
@@ -222,6 +225,8 @@ def tours(request, island):
         'current_category': 'tours',
         'breadcrumb' : 'All Tours',
         'page_range': page_range,
+        'jumbotron_path' : f"core/assets/{island}.jpg",
+
     }
 
     if page_obj.number == 1:
@@ -248,6 +253,8 @@ def activities(request, island):
         'current_category': 'activities',
         'breadcrumb' : 'All Activities',
         'page_range': page_range,
+        'jumbotron_path' : f"core/assets/{island}.jpg",
+
     }
 
     if page_obj.number == 1:
