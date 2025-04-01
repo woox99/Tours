@@ -16,16 +16,16 @@ import time #debug
 def index(request):
     
     # Randomize weights for bookings that haven't been clicked/updated in days=1
-    # outdated_bookings = Booking.objects.filter(modified__lt=now() - timedelta(days=1))
-    # if outdated_bookings:
-    #     randomize_booking_weights(outdated_bookings)
+    outdated_bookings = Booking.objects.filter(modified__lt=now() - timedelta(days=1))
+    if outdated_bookings:
+        update_all_booking_weights(outdated_bookings)
     if request.user.is_anonymous:
         ref = request.GET.get('ref', '')
         ref = '?ref=' + ref
         SiteVisit.objects.create(ref=ref)
 
 
-        # Import Fareharbor csv data script
+    # # Import Fareharbor csv data script
     # path = 'core/fh.csv'
     # with open(path, newline='', encoding='utf-8') as csvfile:
     #     reader = csv.DictReader(csvfile)
@@ -72,9 +72,9 @@ def index(request):
 def change_island(request, island):
     island = get_object_or_404(Island, name=island)
     if request.user.is_authenticated:
-        bookings = Booking.objects.filter(island=island).order_by('-weight')
+        bookings = Booking.objects.filter(island=island).order_by('weight')
     else:
-        bookings = Booking.objects.filter(island=island, is_public=True).order_by('-weight')
+        bookings = Booking.objects.filter(island=island, is_public=True).order_by('weight')
     page_obj, page_range = paginate_bookings(bookings, request)
 
     context = {
@@ -106,9 +106,9 @@ def category_results(request, island, category):
     island = get_object_or_404(Island, name=island)
     category = get_object_or_404(Category, name=category)
     if request.user.is_authenticated:
-        bookings = Booking.objects.filter(island=island, tags=category).order_by('-weight')
+        bookings = Booking.objects.filter(island=island, tags=category).order_by('weight')
     else:
-        bookings = Booking.objects.filter(island=island, is_public=True, tags=category).order_by('-weight')
+        bookings = Booking.objects.filter(island=island, is_public=True, tags=category).order_by('weight')
     page_obj, page_range = paginate_bookings(bookings, request)
 
     context = {
@@ -177,7 +177,7 @@ def search_results(request, island):
             Q(fh_id__icontains=query) | 
             Q(tags__name__icontains=query), 
             island=island,
-        )
+        ).distinct().order_by('weight')
     else:
         bookings = Booking.objects.filter( 
             Q(title__icontains=query) | 
@@ -187,7 +187,7 @@ def search_results(request, island):
             Q(tags__name__icontains=query), 
             island=island,
             is_public=True,
-        )
+        ).distinct().order_by('weight')
     page_obj, page_range = paginate_bookings(bookings, request)
 
     context = {
@@ -209,9 +209,9 @@ def tours(request, island):
     island = get_object_or_404(Island, name=island)
     type = get_object_or_404(Type, name='Tour')
     if request.user.is_authenticated:
-        bookings = Booking.objects.filter(tags__type=type, island=island).order_by('-weight')
+        bookings = Booking.objects.filter(tags__type=type, island=island).order_by('weight')
     else:
-        bookings = Booking.objects.filter(tags__type=type, island=island, is_public=True).order_by('-weight')
+        bookings = Booking.objects.filter(tags__type=type, island=island, is_public=True).order_by('weight')
 
     page_obj, page_range = paginate_bookings(bookings, request)
 
@@ -238,9 +238,9 @@ def activities(request, island):
     island = get_object_or_404(Island, name=island)
     type = get_object_or_404(Type, name='Activity')
     if request.user.is_authenticated:
-        bookings = Booking.objects.filter(tags__type=type, island=island).order_by('-weight')
+        bookings = Booking.objects.filter(tags__type=type, island=island).order_by('weight')
     else:
-        bookings = Booking.objects.filter(tags__type=type, island=island, is_public=True).order_by('-weight')
+        bookings = Booking.objects.filter(tags__type=type, island=island, is_public=True).order_by('weight')
     page_obj, page_range = paginate_bookings(bookings, request)
 
     context = {
@@ -263,18 +263,22 @@ def activities(request, island):
 
 
 def booking_update(request, pk):
-    print(request.POST) #debug
     booking = get_object_or_404(Booking, pk=pk)
     booking.title = request.POST['title']
-    # booking.category = get_object_or_404(Category, pk=request.POST['category_id'])
     booking.is_public = True if request.POST['is_public'] == 'true' else False
     booking.is_popular = True if request.POST['is_popular'] == 'true' else False
-    booking.is_verified = True
-
+    booking.is_pinned = True if request.POST['is_pinned'] == 'true' else False
+    booking.weight = request.POST['weight']
+    
+    if booking.is_public:
+        booking.is_verified = True
+    
     category_ids = request.POST.getlist('category_ids')
     if category_ids:
         tags = Category.objects.filter(pk__in=category_ids)
         booking.tags.set(tags)
+
+    booking = update_booking_weight(booking)
     booking.save()
 
     island=request.POST['current_island']

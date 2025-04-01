@@ -23,29 +23,33 @@ def paginate_bookings(bookings, request, per_page=12):
     return page_obj, page_range
 
 
-# def get_collage():
-#     collage_img_ids = random.sample(range(1, 32), 14)
-#     urls = [static(f'core/collage/{i}.jpg') for i in collage_img_ids]
-
-#     return {
-#         'top_row_urls' : urls[:8],
-#         'bottom_row_urls': urls[8:],
-#         'quote': Quote.objects.order_by('?').first(),
-#         'collage' : True,
-#     }
-
-
-def randomize_booking_weights(bookings):
+def update_all_booking_weights(bookings):
     updated_bookings = []
-    total_bookings = bookings.count()
+    public_bookings_count = bookings.filter(is_public=True).count()
+    top_percentile = round(public_bookings_count / 100)
 
     for booking in bookings:
-        booking.weight = random.randint(0, total_bookings)
+        if not booking.is_pinned and not booking.is_popular and booking.is_verified:
+            booking.weight = random.randint(1, public_bookings_count)
         booking.modified = now() # Must manually update modified during bulk_update()
         updated_bookings.append(booking)
 
     Booking.objects.bulk_update(updated_bookings, ['weight', 'modified'])
     return
+
+
+def update_booking_weight(booking):
+    public_bookings_count = Booking.objects.filter(is_public=True).count()
+    # top_percentile = round(public_bookings_count / 100)
+    # print(top_percentile)
+
+    if booking.is_pinned:
+        booking.weight = 0
+    elif booking.is_popular:
+        booking.weight = random.randint(1, 20)
+    elif not booking.is_pinned and booking.weight == 0:
+        booking.weight = random.randint(1, public_bookings_count)
+    return booking
 
 
 def get_tours(island, request):

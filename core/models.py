@@ -47,10 +47,11 @@ class Booking(models.Model):
     is_public = models.BooleanField(default=False)
     is_verified = models.BooleanField(default=False)
     is_popular = models.BooleanField(default=False)
+    is_pinned = models.BooleanField(default=False)
     fh_id = models.IntegerField()
     referral_link = models.URLField()
     image_URL = models.URLField()
-    weight = models.IntegerField(default=2500)
+    weight = models.IntegerField(default=10000)
     modified = models.DateTimeField(auto_now=True)
 
 
