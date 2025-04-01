@@ -37,7 +37,7 @@
             </div>
             {% else %}
             <a class="logo navbar-brand d-flex align-items-center" href="#">
-                <img class="me-2" src="{% static 'core/assets/hawaii.png' %}" alt="">
+                <img class="me-2" src="{% static 'core/assets/Hawaii.png' %}" alt="">
                 HI Travel Advice
             </a>
             {% endif %}
@@ -167,7 +167,16 @@
             <!-- Jumbotron -->
             {% if jumbotron %}
             <div class="jumbotron mt-4">
-                <img class="background" src="{% static jumbotron_path %}" alt="">
+                {% if current_island.name == 'Oahu' %}
+                <img class="background" src="{% static 'core/assets/oahu.jpg' %}" alt="">
+                {% elif current_island.name == 'Maui' %}
+                <img class="background" src="{% static 'core/assets/maui.jpg' %}" alt="">
+                {% elif current_island.name == 'Big Island' %}
+                <img class="background" src="{% static 'core/assets/big island.jpg' %}" alt="">
+                {% elif current_island.name == 'Kauai' %}
+                <img class="background" src="{% static 'core/assets/kauai.jpg' %}" alt="">
+                {% endif %}
+                <!-- <img class="background" src="{% static jumbotron_path %}" alt=""> -->
                 <div class="strip"></div>
                 <div class="island-name">
                     <p class="fw-bold text-center"><em>{{current_island}}</em></p>
