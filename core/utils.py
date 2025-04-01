@@ -48,10 +48,10 @@ def update_booking_weight(booking):
         booking.weight = 0
     elif booking.is_popular:
         booking.weight = random.randint(1, 20)
-    elif not booking.is_pinned and booking.weight == 0:
-        booking.weight = random.randint(1, public_bookings_count)
     elif not booking.is_public:
         booking.weight = 10000
+    elif not booking.is_pinned and booking.weight == 0:
+        booking.weight = random.randint(1, public_bookings_count)
     return booking
 
 
