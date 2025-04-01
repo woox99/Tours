@@ -167,9 +167,9 @@
             <!-- Jumbotron -->
             {% if jumbotron %}
             <div class="jumbotron mt-4">
-                <div class="background" style="background-image: url('{% static jumbotron_path %}');"></div>
+                <img class="background" src="{% static jumbotron_path %}" alt="">
                 <div class="strip"></div>
-                <div class="island-name p-2 p-lg-4">
+                <div class="island-name">
                     <p class="fw-bold text-center"><em>{{current_island}}</em></p>
                 </div>
             </div>

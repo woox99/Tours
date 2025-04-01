@@ -62,9 +62,6 @@ html{
 .jumbotron .background{
     height: 300px;
     width: 100%;
-    background-size: cover;
-    background-position: bottom;
-    /* opacity: 0.8; */
 }
 .jumbotron .strip{
     position: absolute;
@@ -86,13 +83,7 @@ html{
     transform: translate(-50%, -50%);
     width: 100%;
     font-size: 70px !important;
-    /* border-top: 1px solid #ffffff90; */
-    /* border-bottom: 1px solid #ffffff90; */
-    display: flex;
-    align-items: center;
-    justify-content: center;
     color: black;
-    /* opacity: 0.8; */
 }
 @media (max-width: 768px) {
     .jumbotron .background{
