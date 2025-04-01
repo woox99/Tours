@@ -23,25 +23,26 @@ def paginate_bookings(bookings, request, per_page=12):
     return page_obj, page_range
 
 
-def update_all_booking_weights(bookings):
+def randomize_booking_weights():
     updated_bookings = []
-    public_bookings_count = bookings.filter(is_public=True).count()
-    top_percentile = round(public_bookings_count / 100)
+    bookings = Booking.objects.filter(is_public=True, is_pinned=False)
+    public_bookings_count = bookings.count()
 
     for booking in bookings:
-        if not booking.is_pinned and not booking.is_popular and booking.is_verified:
+        if booking.is_popular:
+            random.randint(1, 20)
+        else:
             booking.weight = random.randint(1, public_bookings_count)
         booking.modified = now() # Must manually update modified during bulk_update()
         updated_bookings.append(booking)
 
     Booking.objects.bulk_update(updated_bookings, ['weight', 'modified'])
+    BookingRandomization.objects.create()
     return
 
 
 def update_booking_weight(booking):
     public_bookings_count = Booking.objects.filter(is_public=True).count()
-    # top_percentile = round(public_bookings_count / 100)
-    # print(top_percentile)
 
     if booking.is_pinned:
         booking.weight = 0
@@ -49,6 +50,8 @@ def update_booking_weight(booking):
         booking.weight = random.randint(1, 20)
     elif not booking.is_pinned and booking.weight == 0:
         booking.weight = random.randint(1, public_bookings_count)
+    elif not booking.is_public:
+        booking.weight = 10000
     return booking
 
 

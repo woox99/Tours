@@ -14,11 +14,11 @@ import csv # debug
 import time #debug
 
 def index(request):
-    
-    # Randomize weights for bookings that haven't been clicked/updated in days=1
-    outdated_bookings = Booking.objects.filter(modified__lt=now() - timedelta(days=1))
-    if outdated_bookings:
-        update_all_booking_weights(outdated_bookings)
+
+    last_randomized_date = BookingRandomization.objects.last().date
+    if now() - last_randomized_date > timedelta(days=1):
+        randomize_booking_weights()
+
     if request.user.is_anonymous:
         ref = request.GET.get('ref', '')
         ref = '?ref=' + ref
