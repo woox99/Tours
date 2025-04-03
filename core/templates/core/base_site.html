@@ -432,6 +432,8 @@
                                 <div class="company d-flex flex-column gap-2">
                                     <sm class="company-name fw-light"></i>~ {{booking.company_name}}</sm>
                                 </div>
+                                <div class="promo bg-primary rounded-1 text-white py-1 px-2 fw-semibold">10% OFF Promo Code
+                                </div>
                                 {% if booking.is_popular %}
                                 <div class="featured bg-success rounded-1 text-white py-1 px-2 fw-semibold">Popular!
                                 </div>
@@ -439,7 +441,8 @@
                             </div>
                             <div class="body d-flex flex-column px-2 px-md-3 pt-2 pb-1">
                                 <p class="title fw-medium text-black">{{booking.title}}</p>
-                                <sm class="text-secondary" style="font-size: 12px;">{{booking.city}}</sm>
+                                <sm class="text-secondary" style="font-size: 12px;">Promo Code: <span class="text-black">SMART2025</span></sm>
+                                <!-- <sm class="text-secondary" style="font-size: 12px;">{{booking.city}}</sm> -->
                             </div>
                             <div class="tags d-flex flex-wrap gap-1 px-2 px-md-3 pb-2">
                                 {% for tag in booking.tags.all %}
