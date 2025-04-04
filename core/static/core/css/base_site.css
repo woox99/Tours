@@ -217,3 +217,8 @@ html{
 .footer .title{
     letter-spacing: 1px;
 }
+.footer .line{
+    height: 50px;
+    width: 1px;
+    background-color: white;
+}
