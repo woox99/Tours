@@ -7,6 +7,7 @@ html{
     scroll-behavior: auto !important;
 }
 
+
 .navbar img{
     height: 40px;
 }
@@ -70,10 +71,9 @@ html{
     left: 50%;
     transform: translate(-50%, -50%);
     width: 100%;
-    background-color: #ffffff50;
+    background-color: #00000050;
     /* opacity: 0.33; */
-    box-shadow: 0px 0px 5px #000000;
-
+    /* box-shadow: 0px 0px 5px #000000; */
 }
 .jumbotron .island-name{
     position: absolute;
@@ -82,7 +82,7 @@ html{
     left: 50%;
     transform: translate(-50%, -50%);
     width: 100%;
-    font-size: 70px !important;
+    font-size: 80px !important;
     color: black;
 }
 @media (max-width: 768px) {
@@ -105,7 +105,7 @@ html{
     margin-bottom: 20px;
     border-radius: 0px !important;
     box-shadow: 0px 0px 5px #00000050;
-    border-radius: 7px !important;
+    /* border-radius: 7px !important; */
 }
 .card:hover {
     opacity: 0.90;
@@ -121,19 +121,19 @@ html{
         width: 49%;
         margin-right: 0;
     }
-    .admin-options{
+    /* .admin-options{
         width: 55%;
-    }
+    } */
 }
 @media (max-width: 768px) {
     .card{
         width: 95%;
     }
-    .admin-options{
+    /* .admin-options{
         width: 95%;
         margin-left: 10px;
         margin-right: 10px;
-    }
+    } */
 }
 
 .card .background{
@@ -154,16 +154,16 @@ html{
     height: 100%;
     background: linear-gradient(rgba(0, 0, 0, 0.7), #ffffff00 75px);
     pointer-events: none; /* interaction pass through */
-    border-top-left-radius: 7px;
-    border-top-right-radius: 7px;
+    /* border-top-left-radius: 7px; */
+    /* border-top-right-radius: 7px; */
 }
 .card .card-image{
     width: 100%;
     height: 250px;
     background-size: cover;
     background-position: center;
-    border-top-left-radius: 7px;
-    border-top-right-radius: 7px;
+    /* border-top-left-radius: 7px; */
+    /* border-top-right-radius: 7px; */
 
 }
 @media (max-width: 768px) {
@@ -185,21 +185,14 @@ html{
     text-overflow: ellipsis;
     color: #ffffff !important;
 }
-.card .promo{
-    position: absolute;
-    bottom: 5px;
-    right: 80px;
-    z-index: 10;
-    font-size: 13px;
-    opacity: 0.85;
-}
-.card .featured{
+.card .badges{
     position: absolute;
     bottom: 5px;
     right: 5px;
     z-index: 10;
     font-size: 13px;
-    opacity: 0.85;
+    gap: 5px;
+    opacity: 0.9;
 }
 .card .body{
     width: 80%;

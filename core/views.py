@@ -263,6 +263,15 @@ def activities(request, island):
 
 
 def booking_update(request, pk):
+    if request.method == 'GET':
+        booking = get_object_or_404(Booking, pk=pk)
+
+        context = {
+            'booking' : booking,
+            'categories': Category.objects.all().order_by('name'),
+            'types' : Type.objects.all(),
+        }
+        return render(request, 'core/update.html', context)
     booking = get_object_or_404(Booking, pk=pk)
     booking.title = request.POST['title']
     booking.is_public = True if request.POST['is_public'] == 'true' else False
