@@ -121,19 +121,16 @@ html{
         width: 49%;
         margin-right: 0;
     }
-    /* .admin-options{
-        width: 55%;
-    } */
 }
 @media (max-width: 768px) {
     .card{
         width: 95%;
     }
-    /* .admin-options{
+    .admin-options{
         width: 95%;
         margin-left: 10px;
         margin-right: 10px;
-    } */
+    }
 }
 
 .card .background{
