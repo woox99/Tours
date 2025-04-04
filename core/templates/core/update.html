@@ -29,8 +29,13 @@
     }
 </style>
 
-<body class="d-flex justify-content-center align-items-center bg-body-tertiary">
-    <div class="w-75 my-5 py-3 border rounded-1 bg-white d-flex flex-wrap justify-content-around align-items-center">
+<body class="d-flex flex-column justify-content-center align-items-center bg-dark">
+    {% if current_category == "None" %}
+    <a href="{% url 'core:change-island' island=current_island %}?page={{page}}#{{booking.fh_id}}" class="text-light mt-3 text-decoration-none"><i class="bi bi-x-lg"></i> Close</a>
+    {% else %}
+    <a href="{% url 'core:category-results' island=current_island category=current_category %}?page={{page}}#{{booking.fh_id}}" class="text-light mt-3 text-decoration-none"><i class="bi bi-x-lg"></i> Close</a>
+    {% endif %}
+    <div class="my-3 py-5 border rounded-1 d-flex flex-wrap justify-content-around align-items-start bg-body-tertiary">
         <div id="{{booking.fh_id}}" class="card" {% if not booking.is_public %}style='opacity: 70%;'{% endif %}>
             <a class="text-decoration-none" href="{{booking.referral_link}}">
                 <div class="background">
@@ -67,7 +72,7 @@
                 </div>
             </a>
         </div>
-        <div class="admin-options w-50 mx-2">
+        <div class="admin-options mx-2">
             <form action="{% url 'core:booking-update' booking.pk %}" method="POST">
                 {% csrf_token %}
                 <input type="hidden" name="current_island" value="{{current_island}}">
@@ -99,7 +104,7 @@
                         name="is_pinned">
                     {% endif %}
                     <label class="form-check-label" for="pinnedCheckbox{{booking.pk}}">
-                        <i class="bi bi-pin-fill"></i>
+                        <i class="bi bi-ui-checks-grid"></i>
                     </label>
                 </div>
 
@@ -122,6 +127,13 @@
                     <span class="input-group-text" id="basic-addon1"><i class="bi bi-fonts"></i></span>
                     <input type="text" class="form-control" aria-label="title" aria-describedby="basic-addon1"
                         value="{{booking.title}}" name="title">
+                </div>
+
+                <!-- City -->
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1"><i class="bi bi-geo-alt-fill"></i></span>
+                    <input type="text" class="form-control" aria-label="city" aria-describedby="basic-addon1"
+                        value="{{booking.city}}" name="city">
                 </div>
 
                 <!-- Select -->
@@ -201,27 +213,32 @@
                         <div class="modal-body">
                             You are about to <span class="text-danger fw-medium">DELETE</span> this booking
                             forever. This action is permanent and cannot be undone. Are you sure?
-                            <div id="{{booking.fh_id}}" class="card w-100 mt-4">
+                            <div id="{{booking.fh_id}}" class="card w-75 mt-3">
                                 <a class="text-decoration-none" href="{{booking.referral_link}}">
                                     <div class="background">
                                         <div class="booking-image-container">
-                                            <div class="card-image"
-                                                style="background-image: url('{{ booking.image_URL }}');"></div>
+                                            <div class="card-image" style="background-image: url('{{ booking.image_URL }}');"></div>
                                         </div>
                                         <div class="company d-flex flex-column gap-2">
                                             <sm class="company-name fw-light"></i>~ {{booking.company_name}}</sm>
                                         </div>
-                                        {% if booking.is_popular %}
-                                        <div class="featured bg-success rounded-1 text-white py-1 px-2 fw-semibold">
-                                            Popular!
+                                        <div class="badges d-flex justify-content-end">
+                                            {% if booking.is_promo %}
+                                            <div class="promo-badge bg-primary rounded-1 text-white py-1 px-2 fw-semibold">{{booking.promo_amount}} OFF Promo Code
+                                            </div>
+                                            {% endif %}
+                                            {% if booking.is_popular %}
+                                            <div class="popular bg-info rounded-1 text-white py-1 px-2 fw-semibold">Popular!
+                                            </div>
+                                            {% endif %}
                                         </div>
-                                        {% endif %}
                                     </div>
-                                    <div class="d-flex justify-content-between px-2 px-md-3 pt-2 pb-1">
-                                        <div class="body d-flex flex-column">
-                                            <p class="title fw-medium text-black">{{booking.title}}</p>
-                                            <sm class="text-secondary" style="font-size: 12px;">{{booking.city}}</sm>
-                                        </div>
+                                    <div class="body d-flex flex-column px-2 px-md-3 pt-2 pb-1">
+                                        <p class="title fw-medium text-black">{{booking.title}}</p>
+                                        <sm class="city text-secondary">{{booking.city}}</sm>
+                                        <sm class="promo-code text-secondary" {% if not booking.is_promo %}style='opacity:0'{% endif %}>Promo Code: 
+                                            <span class="text-black" style="letter-spacing: 0.5px; font-size: 11px;">{{booking.promo_code}}</span>
+                                        </sm>
                                     </div>
                                     <div class="tags d-flex flex-wrap gap-1 px-2 px-md-3 pb-2">
                                         {% for tag in booking.tags.all %}
@@ -239,7 +256,7 @@
                                 {% csrf_token %}
                                 <input type="hidden" name="current_island" value="{{current_island}}">
                                 <input type="hidden" name="current_category" value="{{current_category}}">
-                                <input type="hidden" name="page_number" value="{{page_obj.number}}">
+                                <input type="hidden" name="page" value="{{page}}">
                                 <button type="submit" class="btn btn-danger">Yes, Delete</button>
                             </form>
                         </div>

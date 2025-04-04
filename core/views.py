@@ -285,6 +285,7 @@ def booking_update(request, pk):
         booking.weight = request.POST['weight']
         booking.promo_amount = request.POST['promo_amount']
         booking.promo_code = request.POST['promo_code']
+        booking.city = request.POST['city']
         
         if booking.is_public:
             booking.is_verified = True
@@ -303,18 +304,17 @@ def booking_update(request, pk):
         return redirect(reverse('core:change-island', kwargs={'island': island}) + f'?page={page_number}' + f'#{booking.fh_id}')
     category = request.POST['current_category']
     return redirect(reverse('core:category-results', kwargs={'island': island, 'category':category}) + f'?page={page_number}' + f'#{booking.fh_id}')
-    # return redirect('core:booking-update', pk=pk)
 
 def booking_delete(request, pk):
     booking = get_object_or_404(Booking, pk=pk)
     booking.delete()
 
     island=request.POST['current_island']
-    page_number = request.POST['page_number']
+    page_number = request.POST['page']
     if request.POST['current_category'] == 'None':
-        return redirect(reverse('core:change-island', kwargs={'island': island}) + f'?page={page_number}')
+        return redirect(reverse('core:change-island', kwargs={'island': island}) + f'?page={page_number}' + f'#{booking.fh_id}')
     category = request.POST['current_category']
-    return redirect(reverse('core:category-results', kwargs={'island': island, 'category':category}) + f'?page={page_number}')
+    return redirect(reverse('core:category-results', kwargs={'island': island, 'category':category}) + f'?page={page_number}' + f'#{booking.fh_id}')
 
 
 def logout_admin(request, island):

@@ -55,7 +55,8 @@
             {% for category in tours %}
             {% if current_category == category %}
             <a href="{% url 'core:change-category' current_island category %}"
-                class="category ps-4 fs-6 py-1 fw-light text-primary text-decoration-underline">{{category}}</a>
+                class="category ps-4 fs-6 py-1 fw-light text-primary text-decoration-underline">{{category}}
+            </a>
             {% elif category.is_popular %}
             <a href="{% url 'core:change-category' current_island category %}"
                 class="category ps-4 fs-6 py-1 fw-light text-black">{{category}} <small class="fw-bold text-success"
@@ -135,18 +136,18 @@
         </div>
 
         <div class="main-content px-lg-3">
-            <!-- Search Bar -->
-            {% block search %}
-            <div class="search mt-4 px-3 px-lg-0">
+            <!-- Large Search Bar -->
+            {% block large-search-bar %}
+            <div class="search d-lg-none mt-4 px-3 px-lg-0">
                 <form action="{% url 'core:search' current_island %}" method="GET">
                     <div class="input-group">
                         <span class="input-group-text" id="basic-addon1"><i class="bi bi-search"></i></span>
                         <input type="search" class="form-control" name="q"
                             aria-label="Text input with segmented dropdown button"
-                            placeholder="Search {{current_island}}…" style="font-size: 14px;">
-                        <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split"
-                            data-bs-toggle="dropdown" aria-expanded="false" style="font-size: 14px;">
-                            {{current_island}}
+                            placeholder="Search {{current_island}}…">
+                        <button type="button" class="btn border px-3 bg-body-tertiary text-primary dropdown-toggle dropdown-toggle-split"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Change Island
                         </button>
                         <ul class="dropdown-menu dropdown-menu-end">
                             {% for island in islands %}
@@ -184,41 +185,72 @@
             </div>
             {% endif %}
             <!-- Breadcrumb -->
-            <div class="d-flex align-items-center mt-4 gap-3 px-3 px-lg-0">
-                <div class="d-flex align-items-center">
-                    <button type="button" class="btn btn-outline-primary dropdown-toggle-split"
-                        data-bs-toggle="dropdown" aria-expanded="false">
-                        {{current_island}}
-                    </button>
-                    <ul class="dropdown-menu dropdown-menu">
-                        {% for island in islands %}
-                        {% if current_island == island %}
-                        <li><a class="dropdown-item text-primary text-decoration-underline"
-                                href="{% url 'core:change-island' island %}">{{current_island}}</a>
-                        </li>
-                        {% else %}
-                        <li><a class="dropdown-item" href="{% url 'core:change-island' island %}">{{island}}</a>
-                        </li>
-                        {% endif %}
-                        {% endfor %}
-                    </ul>
+            <div class="d-flex justify-content-between mt-4 px-3 px-lg-0">
+                <div class="d-flex align-items-center gap-2">
+                    <div class="d-flex align-items-center">
+                        <button type="button" class="btn px-3 bg-body-tertiary border border-body-tertiary dropdown-toggle-split"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            {{current_island}}
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu">
+                            {% for island in islands %}
+                            {% if current_island == island %}
+                            <li><a class="dropdown-item text-primary text-decoration-underline"
+                                    href="{% url 'core:change-island' island %}">{{current_island}}</a>
+                            </li>
+                            {% else %}
+                            <li><a class="dropdown-item" href="{% url 'core:change-island' island %}">{{island}}</a>
+                            </li>
+                            {% endif %}
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <small><i class="fa-solid fa-angle-right text-secondary"></i></small>
+                    <div class="d-flex align-items-center">
+                        <button class="btn px-3 bg-body-tertiary border border-body-tertiary text-primary" type="button" data-bs-toggle="offcanvas"
+                            data-bs-target="#offcanvas" aria-controls="offcanvas">
+                            {% if not current_category %}
+                            {% block breadcrumb %}
+                            <span class=""><i class="bi bi-list"></i> All Tours & Activities</span>
+                            {% endblock %}
+                            {% elif current_category.type.name == 'Tour' %}
+                            <span class=""><i class="bi bi-list"></i> {{breadcrumb}} Tours</span>
+                            {% else %}
+                            <span class=""><i class="bi bi-list"></i> {{breadcrumb}}</span>
+                            {% endif %}
+                        </button>
+                    </div>
                 </div>
-                <small><i class="fa-solid fa-angle-right"></i></small>
-                <div class="d-flex align-items-center">
-                    <button class="btn btn-outline-primary" type="button" data-bs-toggle="offcanvas"
-                        data-bs-target="#offcanvas" aria-controls="offcanvas">
-                        {% if not current_category %}
-                        {% block breadcrumb %}
-                        <span class="">All Tours & Activities</span>
-                        {% endblock %}
-                        {% elif current_category.type.name == 'Tour' %}
-                        <span class="">{{breadcrumb}} Tours</span>
-                        {% else %}
-                        <span class="">{{breadcrumb}}</span>
-                        {% endif %}
-                    </button>
+                {% block small-search-bar %}
+                <div class="d-none d-lg-block search px-3 px-lg-0 w-50">
+                    <form action="{% url 'core:search' current_island %}" method="GET">
+                        <div class="input-group">
+                            <span class="input-group-text" id="basic-addon1"><i class="bi bi-search"></i></span>
+                            <input type="search" class="form-control" name="q"
+                                aria-label="Text input with segmented dropdown button"
+                                placeholder="Search {{current_island}}…">
+                            <button type="button" class="btn border px-3 bg-body-tertiary text-primary dropdown-toggle dropdown-toggle-split"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                Change Island
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                {% for island in islands %}
+                                {% if current_island == island %}
+                                <li><a class="dropdown-item text-primary text-decoration-underline"
+                                        href="{% url 'core:change-island' island %}">{{current_island}}</a>
+                                </li>
+                                {% else %}
+                                <li><a class="dropdown-item" href="{% url 'core:change-island' island %}">{{island}}</a>
+                                </li>
+                                {% endif %}
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </form>
                 </div>
+                {% endblock %}
             </div>
+            <hr class="text-body-tertiary">
             <!-- Empty Message -->
             {% if not page_obj %}
             <div class="empty-message d-flex flex-column justify-content-center align-items-center w-100"
@@ -230,193 +262,7 @@
                 </p>
             </div>
             {% endif %}
-            <!-- Booking Cards -->
-            <!-- Admin User View -->
-            <!-- <div class="cards">
-                {% for booking in page_obj %}
-                <div class="d-lg-flex justify-content-center mt-3 gap-3" >
-                    <div id="{{booking.fh_id}}" class="card" {% if not booking.is_public %}style='opacity: 70%;'{% endif %}>
-                        <a class="text-decoration-none" href="{{booking.referral_link}}">
-                            <div class="background">
-                                <div class="booking-image-container">
-                                    <div class="card-image" style="background-image: url('{{ booking.image_URL }}');">
-                                    </div>
-                                </div>
-                                <div class="company d-flex flex-column gap-2">
-                                    <sm class="company-name fw-light"></i>~ {{booking.company_name}}</sm>
-                                </div>
-                                {% if booking.is_popular %}
-                                <div class="featured bg-success rounded-1 text-white py-1 px-2 fw-semibold">Popular!
-                                </div>
-                                {% endif %}
-                            </div>
-                            <div class="d-flex justify-content-between px-2 px-md-3 pt-2 pb-1">
-                                <div class="body d-flex flex-column">
-                                    <p class="title fw-medium text-black">{{booking.title}}</p>
-                                    <sm class="text-secondary" style="font-size: 12px;">{{booking.city}}</sm>
-                                </div>
-                            </div>
-                            <div class="tags d-flex flex-wrap gap-1 px-2 px-md-3 pb-2">
-                                {% for tag in booking.tags.all %}
-                                <div
-                                    class="tag bg-body-tertiary text-primary rounded-1 d-flex align-items-center justify-content-center py-1 px-2">
-                                    {{tag}}</div>
-                                {% endfor %}
-                            </div>
-                        </a>
-                    </div>
-                    <div class="admin-options">
-                        <form action="{% url 'core:booking-update' booking.pk %}" method="POST">
-                            {% csrf_token %}
-                            <input type="hidden" name="current_island" value="{{current_island}}">
-                            <input type="hidden" name="current_category" value="{{current_category}}">
-                            <input type="hidden" name="page_number" value="{{page_obj.number}}">
-                            <div class="d-flex justify-content-between">
-                                {% if booking.is_verified %}
-                                <div class="input-group mb-3 w-50">
-                                    <span class="input-group-text bg-primary-subtle" id="basic-addon1">ID#</span>
-                                    <input type="text" class="form-control" aria-label="fh_id"
-                                        aria-describedby="basic-addon1" value="{{booking.fh_id}}" disabled>
-                                </div>
-                                {% else %}
-                                <div class="input-group mb-3 w-50">
-                                    <span class="input-group-text bg-danger-subtle" id="basic-addon1">ID#</span>
-                                    <input type="text" class="form-control" aria-label="fh_id"
-                                        aria-describedby="basic-addon1" value="{{booking.fh_id}}" disabled>
-                                </div>
-                                {% endif %}
-                                <div class="input-group mb-3 w-25">
-                                    <span class="input-group-text" id="basic-addon1"><i
-                                            class="fa-solid fa-weight-hanging"></i></span>
-                                    <input type="text" class="form-control" aria-label="weight"
-                                        aria-describedby="basic-addon1" name="weight" value="{{booking.weight}}">
-                                </div>
-                            </div>
-                            <div>
-                                <input type="text" class="form-control fw-semibold" id="" value="{{booking.title}}"
-                                    name="title">
-                            </div>
-                            <select class="form-select mt-3" multiple aria-label="Default select" name="category_ids"
-                                style="height: 185px;">
-                                {% for category in categories %}
-                                {% if category in booking.tags.all %}
-                                <option value="{{category.id}}" selected>{{category}}</option>
-                                {% else %}
-                                <option value="{{category.id}}">{{category}}</option>
-                                {% endif %}
-                                {% endfor %}
-                            </select>
-                            <div class="d-flex align-items-center justify-content-between mt-3">
-                                <input type="hidden" name="is_public" value="false">
-                                <input type="hidden" name="is_popular" value="false">
-                                <input type="hidden" name="is_pinned" value="false">
-                                <div class="form-check form-switch">
-                                    {% if booking.is_public %}
-                                    <input class="form-check-input" type="checkbox" role="switch"
-                                        id="publicSwitch{{booking.pk}}" value="true" name="is_public" checked>
-                                    {% else %}
-                                    <input class="form-check-input" type="checkbox" role="switch"
-                                        id="publicSwitch{{booking.pk}}" value="true" name="is_public">
-                                    {% endif %}
-                                    <label class="form-check-label" for="publicSwitch{{booking.pk}}">
-                                        Public</label>
-                                </div>
-                                <div class="form-check">
-                                    {% if booking.is_popular %}
-                                    <input class="form-check-input" type="checkbox" value="true" id="popularCheckbox{{booking.pk}}"
-                                        name="is_popular" checked>
-                                    {% else %}
-                                    <input class="form-check-input" type="checkbox" value="true" id="popularCheckbox{{booking.pk}}"
-                                        name="is_popular">
-                                    {% endif %}
-                                    <label class="form-check-label text-success fw-semibold" for="popularCheckbox{{booking.pk}}">
-                                        Popular!
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    {% if booking.is_pinned %}
-                                    <input class="form-check-input" type="checkbox" value="true" id="pinnedCheckbox{{booking.pk}}"
-                                        name="is_pinned" checked>
-                                    {% else %}
-                                    <input class="form-check-input" type="checkbox" value="true" id="pinnedCheckbox{{booking.pk}}"
-                                        name="is_pinned">
-                                    {% endif %}
-                                    <label class="form-check-label" for="pinnedCheckbox{{booking.pk}}">
-                                        <i class="bi bi-pin-fill text-primary"></i> Pinned
-                                    </label>
-                                </div>
-                                <div class="">
-                                    <button class="btn btn-primary">Save</button>
-                                    <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
-                                        data-bs-target="#deleteModal{{booking.pk}}">
-                                        Delete
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
-                        <div class="modal fade" id="deleteModal{{booking.pk}}" tabindex="-1"
-                            aria-labelledby="ModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="ModalLabel"><i
-                                                class="bi bi-trash text-danger"></i> Rubbish?</h1>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                            aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        You are about to <span class="text-danger fw-medium">DELETE</span> this booking
-                                        forever. This action is permanent and cannot be undone. Are you sure?
-                                        <div id="{{booking.fh_id}}" class="card w-100 mt-4">
-                                            <a class="text-decoration-none" href="{{booking.referral_link}}">
-                                                <div class="background">
-                                                    <div class="booking-image-container">
-                                                        <div class="card-image" style="background-image: url('{{ booking.image_URL }}');"></div>
-                                                    </div>
-                                                    <div class="company d-flex flex-column gap-2">
-                                                        <sm class="company-name fw-light"></i>~ {{booking.company_name}}</sm>
-                                                    </div>
-                                                    {% if booking.is_popular %}
-                                                    <div class="featured bg-success rounded-1 text-white py-1 px-2 fw-semibold">Popular!
-                                                    </div>
-                                                    {% endif %}
-                                                </div>
-                                                <div class="d-flex justify-content-between px-2 px-md-3 pt-2 pb-1">
-                                                    <div class="body d-flex flex-column">
-                                                        <p class="title fw-medium text-black">{{booking.title}}</p>
-                                                        <sm class="text-secondary" style="font-size: 12px;">{{booking.city}}</sm>
-                                                    </div>
-                                                </div>
-                                                <div class="tags d-flex flex-wrap gap-1 px-2 px-md-3 pb-2">
-                                                    {% for tag in booking.tags.all %}
-                                                    <div
-                                                        class="tag bg-body-tertiary text-primary rounded-1 d-flex align-items-center justify-content-center py-1 px-2">
-                                                        {{tag}}</div>
-                                                    {% endfor %}
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary"
-                                            data-bs-dismiss="modal">Cancel</button>
-                                        <form action="{% url 'core:booking-delete' booking.pk %}" method="POST">
-                                            {% csrf_token %}
-                                            <input type="hidden" name="current_island" value="{{current_island}}">
-                                            <input type="hidden" name="current_category" value="{{current_category}}">
-                                            <input type="hidden" name="page_number" value="{{page_obj.number}}">
-                                            <button type="submit" class="btn btn-danger">Yes, Delete</button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <hr>
-                {% endfor %}
-            </div> -->
-            <!-- Anonymous User View -->
+            <!-- Boooking Cards -->
             <div class="cards d-flex flex-wrap mt-4 gap-2">
                 {% for booking in page_obj %}
                 <div id="{{booking.fh_id}}" class="card" {% if not booking.is_public %}style='opacity: 70%;'{% endif %}>
@@ -456,7 +302,7 @@
                     </a>
                     {% if user.is_authenticated %}
                     <a href="{% url 'core:booking-update' booking.pk %}?island={{current_island}}&category={{current_category}}&page={{page_obj.number}}" class="text-center text-black bg-warning p-2 m-2 text-decoration-none fw-semibold">
-                        Update Booking {{page_obj.number}}
+                        Update Booking
                     </a>
                     {% endif %}
                 </div>

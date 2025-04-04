@@ -126,6 +126,9 @@ html{
     .card{
         width: 95%;
     }
+    .update-body{
+        width: 100% !important;
+    }
     .admin-options{
         width: 95%;
         margin-left: 10px;

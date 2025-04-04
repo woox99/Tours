@@ -8,16 +8,16 @@
 
 
 <!-- Search Bar -->
-{% block search %}
+{% block large-search-bar %}
 <div class="search mt-4 px-3 px-lg-0">
     <form action="{% url 'core:search' current_island %}" method="GET">
         <div class="input-group">
             <span class="input-group-text" id="basic-addon1"><i class="bi bi-search"></i></span>
             <input type="search" class="form-control" name="q" aria-label="Text input with segmented dropdown button"
                 placeholder="" value="{{query}}" style="font-size: 14px;">
-            <button type="button" class="btn btn-outline-primary dropdown-toggle dropdown-toggle-split"
-                data-bs-toggle="dropdown" aria-expanded="false" style="font-size: 14px;">
-                {{current_island}}
+            <button type="button" class="btn border px-3 bg-body-tertiary  dropdown-toggle dropdown-toggle-split"
+                data-bs-toggle="dropdown" aria-expanded="false">
+                Change Island
             </button>
             <ul class="dropdown-menu dropdown-menu-end">
                 {% for island in islands %}
@@ -40,6 +40,9 @@
 <!-- Breadcrumb -->
 {% block breadcrumb %}
 <span class="">{{query}}</span>
+{% endblock %}
+
+{% block small-search-bar %}
 {% endblock %}
 
 
