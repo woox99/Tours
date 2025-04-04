@@ -429,8 +429,8 @@
                                 <sm class="company-name fw-light"></i>~ {{booking.company_name}}</sm>
                             </div>
                             <div class="badges d-flex justify-content-end">
-                                {% if not booking.is_popular %}
-                                <div class="promo-badge bg-primary rounded-1 text-white py-1 px-2 fw-semibold">10% OFF Promo Code
+                                {% if booking.is_promo %}
+                                <div class="promo-badge bg-primary rounded-1 text-white py-1 px-2 fw-semibold">{{booking.promo_amount}} OFF Promo Code
                                 </div>
                                 {% endif %}
                                 {% if booking.is_popular %}
@@ -441,16 +441,10 @@
                         </div>
                         <div class="body d-flex flex-column px-2 px-md-3 pt-2 pb-1">
                             <p class="title fw-medium text-black">{{booking.title}}</p>
-                            <sm class="text-secondary" style="font-size: 12px;">{{booking.city}}</sm>
-                            {% if not booking.is_popular %}
-                            <sm class="text-secondary" style="font-size: 12px;">Promo Code: 
-                                <span class="text-black" style="letter-spacing: 0.5px; font-size: 11px;">SMART2025</span>
+                            <sm class="city text-secondary">{{booking.city}}</sm>
+                            <sm class="promo-code text-secondary" {% if not booking.is_promo %}style='opacity:0'{% endif %}>Promo Code: 
+                                <span class="text-black" style="letter-spacing: 0.5px; font-size: 11px;">{{booking.promo_code}}</span>
                             </sm>
-                            {% else %}
-                            <sm class="text-secondary" style="font-size: 12px; opacity: 0;">Promo Code: 
-                                <span class="text-black" style="letter-spacing: 0.5px; font-size: 11px;">SMART2025</span>
-                            </sm>
-                            {% endif %}
                         </div>
                         <div class="tags d-flex flex-wrap gap-1 px-2 px-md-3 pb-2">
                             {% for tag in booking.tags.all %}
@@ -461,8 +455,8 @@
                         </div>
                     </a>
                     {% if user.is_authenticated %}
-                    <a href="{% url 'core:booking-update' booking.pk %}" class="text-center text-black bg-warning p-2 m-2 text-decoration-none fw-semibold">
-                        Update Booking
+                    <a href="{% url 'core:booking-update' booking.pk %}?island={{current_island}}&category={{current_category}}&page={{page_obj.number}}" class="text-center text-black bg-warning p-2 m-2 text-decoration-none fw-semibold">
+                        Update Booking {{page_obj.number}}
                     </a>
                     {% endif %}
                 </div>

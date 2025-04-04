@@ -270,33 +270,40 @@ def booking_update(request, pk):
             'booking' : booking,
             'categories': Category.objects.all().order_by('name'),
             'types' : Type.objects.all(),
+            'current_island' : request.GET.get('island'),
+            'page' : request.GET.get('page'),
+            'current_category' : request.GET.get('category'),
         }
         return render(request, 'core/update.html', context)
-    booking = get_object_or_404(Booking, pk=pk)
-    booking.title = request.POST['title']
-    booking.is_public = True if request.POST['is_public'] == 'true' else False
-    booking.is_popular = True if request.POST['is_popular'] == 'true' else False
-    booking.is_pinned = True if request.POST['is_pinned'] == 'true' else False
-    booking.weight = request.POST['weight']
-    
-    if booking.is_public:
-        booking.is_verified = True
-    
-    category_ids = request.POST.getlist('category_ids')
-    if category_ids:
-        tags = Category.objects.filter(pk__in=category_ids)
-        booking.tags.set(tags)
+    else:
+        booking = get_object_or_404(Booking, pk=pk)
+        booking.title = request.POST['title']
+        booking.is_public = True if request.POST['is_public'] == 'true' else False
+        booking.is_popular = True if request.POST['is_popular'] == 'true' else False
+        booking.is_pinned = True if request.POST['is_pinned'] == 'true' else False
+        booking.is_promo = True if request.POST['is_promo'] == 'true' else False
+        booking.weight = request.POST['weight']
+        booking.promo_amount = request.POST['promo_amount']
+        booking.promo_code = request.POST['promo_code']
+        
+        if booking.is_public:
+            booking.is_verified = True
+        
+        category_ids = request.POST.getlist('category_ids')
+        if category_ids:
+            tags = Category.objects.filter(pk__in=category_ids)
+            booking.tags.set(tags)
 
-    booking = update_booking_weight(booking)
-    booking.save()
+        booking = update_booking_weight(booking)
+        booking.save()
 
     island=request.POST['current_island']
-    page_number = request.POST['page_number']
+    page_number = request.POST['page']
     if request.POST['current_category'] == 'None':
         return redirect(reverse('core:change-island', kwargs={'island': island}) + f'?page={page_number}' + f'#{booking.fh_id}')
     category = request.POST['current_category']
     return redirect(reverse('core:category-results', kwargs={'island': island, 'category':category}) + f'?page={page_number}' + f'#{booking.fh_id}')
-
+    # return redirect('core:booking-update', pk=pk)
 
 def booking_delete(request, pk):
     booking = get_object_or_404(Booking, pk=pk)

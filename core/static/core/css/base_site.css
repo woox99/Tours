@@ -199,6 +199,9 @@ html{
     white-space: nowrap;
     text-overflow: ellipsis;
 }
+.card .city, .card .promo-code{
+    font-size: 12px;
+}
 .card p{
     margin: 0;
 }

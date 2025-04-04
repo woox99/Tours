@@ -21,7 +21,7 @@
     }
 
     .form-select option:checked {
-        background-color: #f8f9fa !important;
+        /* background-color: #f8f9fa !important; */
         color: #0d6efd;
         border-radius: 5px;
         padding: 2px 0px 2px 5px;
@@ -31,7 +31,7 @@
 
 <body class="d-flex justify-content-center align-items-center bg-body-tertiary">
     <div class="w-75 my-5 py-3 border rounded-1 bg-white d-flex flex-wrap justify-content-around align-items-center">
-        <div id="{{booking.fh_id}}" class="card" {% if not booking.is_public %}style='opacity: 70%;' {% endif %}>
+        <div id="{{booking.fh_id}}" class="card" {% if not booking.is_public %}style='opacity: 70%;'{% endif %}>
             <a class="text-decoration-none" href="{{booking.referral_link}}">
                 <div class="background">
                     <div class="booking-image-container">
@@ -41,9 +41,8 @@
                         <sm class="company-name fw-light"></i>~ {{booking.company_name}}</sm>
                     </div>
                     <div class="badges d-flex justify-content-end">
-                        {% if not booking.is_popular %}
-                        <div class="promo-badge bg-primary rounded-1 text-white py-1 px-2 fw-semibold">10% OFF Promo
-                            Code
+                        {% if booking.is_promo %}
+                        <div class="promo-badge bg-primary rounded-1 text-white py-1 px-2 fw-semibold">{{booking.promo_amount}} OFF Promo Code
                         </div>
                         {% endif %}
                         {% if booking.is_popular %}
@@ -54,16 +53,10 @@
                 </div>
                 <div class="body d-flex flex-column px-2 px-md-3 pt-2 pb-1">
                     <p class="title fw-medium text-black">{{booking.title}}</p>
-                    <sm class="text-secondary" style="font-size: 12px;">{{booking.city}}</sm>
-                    {% if not booking.is_popular %}
-                    <sm class="text-secondary" style="font-size: 12px;">Promo Code:
-                        <span class="text-black" style="letter-spacing: 0.5px; font-size: 11px;">SMART2025</span>
+                    <sm class="city text-secondary">{{booking.city}}</sm>
+                    <sm class="promo-code text-secondary" {% if not booking.is_promo %}style='opacity:0'{% endif %}>Promo Code: 
+                        <span class="text-black" style="letter-spacing: 0.5px; font-size: 11px;">{{booking.promo_code}}</span>
                     </sm>
-                    {% else %}
-                    <sm class="text-secondary" style="font-size: 12px; opacity: 0;">Promo Code:
-                        <span class="text-black" style="letter-spacing: 0.5px; font-size: 11px;">SMART2025</span>
-                    </sm>
-                    {% endif %}
                 </div>
                 <div class="tags d-flex flex-wrap gap-1 px-2 px-md-3 pb-2">
                     {% for tag in booking.tags.all %}
@@ -79,7 +72,7 @@
                 {% csrf_token %}
                 <input type="hidden" name="current_island" value="{{current_island}}">
                 <input type="hidden" name="current_category" value="{{current_category}}">
-                <input type="hidden" name="page_number" value="{{page_obj.number}}">
+                <input type="hidden" name="page" value="{{page}}">
 
                 <!-- Is Public -->
                 <input type="hidden" name="is_public" value="false">
@@ -160,14 +153,14 @@
                 </div>
 
                 <!-- Promo -->
-                <input type="hidden" name="is_popular" value="false">
+                <input type="hidden" name="is_promo" value="false">
                 <div class="form-check d-flex align-items-center gap-2 mb-3">
-                    {% if booking.is_popular %}
+                    {% if booking.is_promo %}
                     <input class="form-check-input" type="checkbox" value="true" id="promoCheckbox{{booking.pk}}"
-                        name="is_popular" checked>
+                        name="is_promo" checked>
                     {% else %}
                     <input class="form-check-input" type="checkbox" value="true" id="promoCheckbox{{booking.pk}}"
-                        name="is_popular">
+                        name="is_promo">
                     {% endif %}
                     <label class="form-check-label bg-primary text-white px-2 py-1 rounded-1 fw-semibold"
                         for="promoCheckbox{{booking.pk}}">
@@ -176,13 +169,13 @@
                 </div>
                 <div class="input-group mb-3">
                     <input type="text" class="form-control" placeholder="Amount"
-                        aria-label="Recipient's username" aria-describedby="basic-addon2">
+                        aria-label="promoAmount" aria-describedby="basic-addon2" value="{{booking.promo_amount}}" name="promo_amount">
                     <span class="input-group-text" id="basic-addon2">OFF</span>
                 </div>
                 <div class="input-group mb-3">
                     <span class="input-group-text" id="basic-addon1">Promo Code:</span>
-                    <input type="text" class="form-control" aria-label="promocode" aria-describedby="basic-addon1"
-                        value="" name="title">
+                    <input type="text" class="form-control" aria-label="" aria-describedby="basic-addon1"
+                        value="{{booking.promo_code}}" name="promo_code">
                 </div>
 
                 <!-- Save  -->
@@ -256,6 +249,11 @@
 
         </div>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://fareharbor.com/embeds/api/v1/?autolightframe=yes"></script>
 </body>
 
 </html>
