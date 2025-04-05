@@ -30,11 +30,13 @@
 </style>
 
 <body class="d-flex flex-column justify-content-center align-items-center bg-dark">
+    <!-- Close Button -->
     {% if current_category == "None" %}
     <a href="{% url 'core:change-island' island=current_island %}?page={{page}}#{{booking.fh_id}}" class="text-light mt-3 text-decoration-none"><i class="bi bi-x-lg"></i> Close</a>
     {% else %}
     <a href="{% url 'core:category-results' island=current_island category=current_category %}?page={{page}}#{{booking.fh_id}}" class="text-light mt-3 text-decoration-none"><i class="bi bi-x-lg"></i> Close</a>
     {% endif %}
+
     <div class="w-75 my-3 py-5 border rounded-1 d-flex flex-wrap justify-content-around align-items-start bg-body-tertiary">
         <div id="{{booking.fh_id}}" class="card" {% if not booking.is_public %}style='opacity: 70%;'{% endif %}>
             <a class="text-decoration-none" href="{{booking.referral_link}}">
@@ -73,7 +75,8 @@
             </a>
         </div>
         <div class="admin-options mx-2 border bg-white p-1 p-lg-4">
-            <form action="{% url 'core:booking-update' booking.pk %}" method="POST">
+            <!-- Form -->
+            <form action="{% url 'core:booking-update' booking.pk %}?island={{current_island}}&category={{current_category}}&page={{page}}" method="POST">
                 {% csrf_token %}
                 <input type="hidden" name="current_island" value="{{current_island}}">
                 <input type="hidden" name="current_category" value="{{current_category}}">

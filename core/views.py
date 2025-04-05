@@ -297,13 +297,11 @@ def booking_update(request, pk):
 
         booking = update_booking_weight(booking)
         booking.save()
-
-    island=request.POST['current_island']
-    page_number = request.POST['page']
-    if request.POST['current_category'] == 'None':
-        return redirect(reverse('core:change-island', kwargs={'island': island}) + f'?page={page_number}' + f'#{booking.fh_id}')
-    category = request.POST['current_category']
-    return redirect(reverse('core:category-results', kwargs={'island': island, 'category':category}) + f'?page={page_number}' + f'#{booking.fh_id}')
+    
+    island = request.GET.get('island')
+    category = request.GET.get('category')
+    page = request.GET.get('page')
+    return redirect(reverse('core:booking-update', kwargs={'pk':booking.pk}) + f'?island={island}&category={category}&page={page}')
 
 def booking_delete(request, pk):
     booking = get_object_or_404(Booking, pk=pk)
