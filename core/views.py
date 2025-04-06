@@ -118,7 +118,7 @@ def category_results(request, island, category):
         'categories': Category.objects.all().order_by('name'),
         'islands':Island.objects.all().order_by('modified'),
         'current_island':island,
-        'current_category':category,
+        'current_category':category.name,
         'breadcrumb' : category,
         'page_range': page_range,
         'jumbotron_path' : f"core/assets/{island}.jpg",
