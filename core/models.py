@@ -20,7 +20,6 @@ class Category(models.Model):
     def public_bookings_count(self):
         return self.bookings.filter(is_public=True).count()
 
-
     def __str__(self):
         return self.name
 

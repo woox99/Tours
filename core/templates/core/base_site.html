@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {% block head_title %}
-    <title>HI Travel Advice - {{current_island}}</title>
+    <title>Hawaii Travel Advice - {{current_island}}</title>
     {% endblock %}
     {% load static %}
     <link rel="icon" type="image/x-icon" href="{% static 'core/assets/hawaii.png' %}">
@@ -18,34 +18,7 @@
 
 <body class="m-0 p-0">
 
-    <!-- Nav Bar -->
-    <nav class="navbar navbar-expand-lg bg-light">
-        <div class="container-fluid d-flex justify-content-between">
-            <button class="btn d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas"
-                aria-controls="offcanvas">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            {% if user.is_authenticated %}
-            <div class="d-flex gap-2">
-                <a href="/admin">
-                    <button class="btn btn-warning"><i class="bi bi-person-arms-up"></i>
-                        Dashboard</button>
-                </a>
-                <a href="{% url 'core:logout' current_island %}">
-                    <button class="btn btn-warning"><i class="bi bi-box-arrow-right"></i> Logout</button>
-                </a>
-            </div>
-            {% else %}
-            <a class="logo navbar-brand d-flex align-items-center" href="#">
-                <img class="me-2" src="{% static 'core/assets/Hawaii.png' %}" alt="">
-                HI Travel Advice
-            </a>
-            {% endif %}
-            <button disabled style="opacity: 0;" type="button" class="btn btn-light d-flex align-items-center"><i
-                    class="bi bi-bookmark fs-4"></i><small
-                    class="ms-1 d-none d-lg-inline-flex">Bookmarks</small></button>
-        </div>
-    </nav>
+    
 
     <div class="container-fluid d-flex p-0">
         <!-- Side Bar (lg screens) -->
@@ -136,12 +109,40 @@
         </div>
 
         <div class="main-content px-lg-3">
+            <!-- Nav Bar -->
+            <nav class="navbar navbar-expand-lg bg-light mt-lg-3">
+                <div class="container-fluid d-flex justify-content-between justify-content-lg-center">
+                    <button class="btn d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas"
+                        aria-controls="offcanvas">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    {% if user.is_authenticated %}
+                    <div class="d-flex gap-2">
+                        <a href="/admin">
+                            <button class="btn btn-warning"><i class="bi bi-person-arms-up"></i>
+                                Dashboard</button>
+                        </a>
+                        <a href="{% url 'core:logout' current_island %}">
+                            <button class="btn btn-warning"><i class="bi bi-box-arrow-right"></i> Logout</button>
+                        </a>
+                    </div>
+                    {% else %}
+                    <a class="logo navbar-brand d-flex align-items-center" href="#">
+                        <img class="me-2" src="{% static 'core/assets/Hawaii.png' %}" alt="">
+                        Hawaii Travel Advice
+                    </a>
+                    {% endif %}
+                    <button disabled style="opacity: 0;" type="button" class="d-lg-none btn btn-light d-flex align-items-center"><i
+                            class="bi bi-bookmark fs-4"></i><small
+                            class="ms-1 d-none d-lg-inline-flex">Bookmarks</small></button>
+                </div>
+            </nav>
             <!-- Large Search Bar -->
             {% block large-search-bar %}
             <div class="search d-lg-none mt-4 px-3 px-lg-0">
                 <form action="{% url 'core:search' current_island %}" method="GET">
                     <div class="input-group">
-                        <span class="input-group-text" id="basic-addon1"><i class="bi bi-search"></i></span>
+                        <span class="input-group-text bg-white" id="basic-addon1"><i class="bi bi-search"></i></span>
                         <input type="search" class="form-control" name="q"
                             aria-label="Text input with segmented dropdown button"
                             placeholder="Search {{current_island}}…">
@@ -225,7 +226,7 @@
                 <div class="d-none d-lg-block search px-3 px-lg-0 w-50">
                     <form action="{% url 'core:search' current_island %}" method="GET">
                         <div class="input-group">
-                            <span class="input-group-text" id="basic-addon1"><i class="bi bi-search"></i></span>
+                            <span class="input-group-text bg-white" id="basic-addon1"><i class="bi bi-search"></i></span>
                             <input type="search" class="form-control" name="q"
                                 aria-label="Text input with segmented dropdown button"
                                 placeholder="Search {{current_island}}…">
@@ -263,14 +264,13 @@
             </div>
             {% endif %}
             <!-- Boooking Cards -->
-            <div class="cards d-flex flex-wrap mt-4 gap-2">
-                {% if current_category == 'Service' %}
+            <div class="cards d-flex flex-wrap mt-4 gap-2 bg-light">
+                {% if current_category.name == 'Service' %}
                 <div id="" class="card rounded-2">
                     <a class="text-decoration-none" href="">
                         <div class="background">
                             <!-- <div class="booking-image-container"> -->
-                            <div class="d-md-none card-image rounded-top-2" style="background-image: url('{% static "core/assets/wfs.png" %}');"></div>
-                            <div class="d-none d-md-block card-image rounded-top-2" style="background-image: url('{% static "core/assets/wfs.png" %}');"></div>
+                            <div class="card-image rounded-top-2" style="background-image: url('{% static "core/assets/wfs.png" %}');"></div>
                             <!-- </div> -->
                             <!-- <div class="company d-flex flex-column gap-2">
                                 <sm class="company-name fw-light"></i>~ White Font Studios</sm>
