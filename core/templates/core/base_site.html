@@ -108,9 +108,10 @@
             </div>
         </div>
 
+        {% block main-content %}
         <div class="main-content px-lg-3">
             <!-- Nav Bar -->
-            <nav class="navbar navbar-expand-lg bg-light mt-lg-3">
+            <nav class="navbar navbar-expand-lg bg-light  rounded-1">
                 <div class="container-fluid d-flex justify-content-between justify-content-lg-center">
                     <button class="btn d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas"
                         aria-controls="offcanvas">
@@ -170,13 +171,13 @@
             {% if jumbotron %}
             <div class="jumbotron mt-4">
                 {% if current_island.name == 'Oahu' %}
-                <img class="background" src="{% static 'core/assets/oahu.jpg' %}" alt="">
+                <img class="background rounded-1" src="{% static 'core/assets/oahu.jpg' %}" alt="">
                 {% elif current_island.name == 'Maui' %}
-                <img class="background" src="{% static 'core/assets/maui.jpg' %}" alt="">
+                <img class="background rounded-1" src="{% static 'core/assets/maui.jpg' %}" alt="">
                 {% elif current_island.name == 'Big Island' %}
-                <img class="background" src="{% static 'core/assets/big island.jpg' %}" alt="">
+                <img class="background rounded-1" src="{% static 'core/assets/big island.jpg' %}" alt="">
                 {% elif current_island.name == 'Kauai' %}
-                <img class="background" src="{% static 'core/assets/kauai.jpg' %}" alt="">
+                <img class="background rounded-1" src="{% static 'core/assets/kauai.jpg' %}" alt="">
                 {% endif %}
                 <!-- <img class="background" src="{% static jumbotron_path %}" alt=""> -->
                 <div class="strip"></div>
@@ -189,7 +190,7 @@
             <div class="d-flex justify-content-between mt-4 px-3 px-lg-0">
                 <div class="d-flex align-items-center gap-2">
                     <div class="d-flex align-items-center">
-                        <button type="button" class="btn px-3 bg-body-tertiary border border-body-tertiary dropdown-toggle-split"
+                        <button type="button" class="btn px-3 bg-body-tertiary  dropdown-toggle-split"
                             data-bs-toggle="dropdown" aria-expanded="false">
                             {{current_island}}
                         </button>
@@ -208,7 +209,7 @@
                     </div>
                     <small><i class="fa-solid fa-angle-right text-secondary"></i></small>
                     <div class="d-flex align-items-center">
-                        <button class="btn px-3 bg-body-tertiary border border-body-tertiary text-primary" type="button" data-bs-toggle="offcanvas"
+                        <button class="btn px-3  text-primary" type="button" data-bs-toggle="offcanvas"
                             data-bs-target="#offcanvas" aria-controls="offcanvas">
                             {% if not current_category %}
                             {% block breadcrumb %}
@@ -264,13 +265,13 @@
             </div>
             {% endif %}
             <!-- Boooking Cards -->
-            <div class="cards d-flex flex-wrap mt-4 gap-2 bg-light">
+            <div class="cards d-flex flex-wrap mt-4 gap-2 bg-light rounded-1">
                 {% if current_category.name == 'Service' %}
                 <div id="" class="card rounded-2">
                     <a class="text-decoration-none" href="">
                         <div class="background">
                             <!-- <div class="booking-image-container"> -->
-                            <div class="card-image rounded-top-2" style="background-image: url('{% static "core/assets/wfs.png" %}');"></div>
+                            <div class="card-image rounded-top-2" style="background-image: url('{% static "core/assets/garett.png" %}');"></div>
                             <!-- </div> -->
                             <!-- <div class="company d-flex flex-column gap-2">
                                 <sm class="company-name fw-light"></i>~ White Font Studios</sm>
@@ -292,7 +293,7 @@
                                 Service</div> -->
                         </div>
                     </a>
-                    <a href="" class="text-center text-white bg-primary p-2 mb-2 mx-2 text-decoration-none fw-semibold rounded-1">
+                    <a href="{% url 'core:contact' %}" target="_blank" class="text-center text-white bg-primary p-2 mb-2 mx-2 text-decoration-none fw-semibold rounded-1">
                         View Free Details
                     </a>
                 </div>
@@ -385,6 +386,7 @@
             </div>
             {% endblock %}
         </div>
+        {% endblock %}
 
     </div>
 

@@ -37,7 +37,7 @@
     <a href="{% url 'core:category-results' island=current_island category=current_category %}?page={{page}}#{{booking.fh_id}}" class="text-light mt-3 text-decoration-none"><i class="bi bi-x-lg"></i> Close</a>
     {% endif %}
 
-    <div class="w-75 my-3 py-5 border rounded-1 d-flex flex-wrap justify-content-around align-items-start bg-body-tertiary">
+    <div class="w-75 my-3 py-5 border rounded-4 d-flex flex-wrap justify-content-around align-items-start bg-body-tertiary">
         <div id="{{booking.fh_id}}" class="card" {% if not booking.is_public %}style='opacity: 70%;'{% endif %}>
             <a class="text-decoration-none" href="{{booking.referral_link}}">
                 <div class="background">
@@ -76,7 +76,7 @@
         </div>
         <div class="admin-options mx-2 border bg-white p-1 p-lg-4">
             <!-- Form -->
-            <form action="{% url 'core:booking-update' booking.pk %}?island={{current_island}}&category={{current_category}}&page={{page}}" method="POST">
+            <form action="{% url 'core:booking-update' booking.pk %}?island={{current_island}}&category={{current_category}}&page={{page}}" method="POST" >
                 {% csrf_token %}
                 <input type="hidden" name="current_island" value="{{current_island}}">
                 <input type="hidden" name="current_category" value="{{current_category}}">
@@ -112,7 +112,7 @@
                 </div>
 
                 <!-- Booking Weight -->
-                <div class="input-group mb-3 w-50">
+                <div class="input-group mb-3 w-50" >
                     <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-weight-hanging"></i></span>
                     <input type="text" class="form-control" aria-label="weight" aria-describedby="basic-addon1"
                         name="weight" value="{{booking.weight}}">

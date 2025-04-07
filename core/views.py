@@ -315,6 +315,10 @@ def booking_delete(request, pk):
     return redirect(reverse('core:category-results', kwargs={'island': island, 'category':category}) + f'?page={page_number}' + f'#{booking.fh_id}')
 
 
+def contact(request):
+    return render(request, 'core/contact.html')
+
+
 def logout_admin(request, island):
     logout(request)
     return redirect('core:change-island', island=island)

@@ -7,6 +7,7 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('booking-update/<int:pk>/', views.booking_update, name='booking-update'),
     path('booking-delete/<int:pk>/', views.booking_delete, name='booking-delete'),
+    path('contact/', views.contact, name='contact'),
     path('<str:island>/', views.change_island, name='change-island'),
     path('<str:island>/search-log/', views.search_log, name='search'),
     path('<str:island>/search/', views.search_results, name='search-results'),
