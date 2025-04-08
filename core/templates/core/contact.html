@@ -17,9 +17,10 @@
 </head>
 
 <body>
-    <div class="d-flex justify-content-evenly flex-wrap my-5">
+    <div class="d-flex justify-content-evenly flex-wrap my-3">
         <div class="" style="width: 40%;">
-            <h1 class="fw-semibold">Hi, I'm Garett!</h1>
+            <a href="" class="btn btn-primary"><i class="bi bi-arrow-90deg-left"></i> Back</a>
+            <h1 class="fw-semibold mt-3">Hi, I'm Garett!</h1>
             <h3 class="text-primary">I build web applications of all sizes.</h3>
             <p class="mt-4">Reach out to me to discuss what you're looking for in a website. Modern applications need to
                 be blazing fast with a clean design, and feel smooth to navigate.</p>
@@ -33,7 +34,7 @@
                 <span>
                     <i class="bi bi-backpack text-primary fs-3"></i>
                     <p class="fw-semibold fs-5 mt-1 mb-1">Blog</p>
-                    <p class="text-secondary">Supplement your journey with a blog or create next biggest social media
+                    <p class="text-secondary">Supplement your journey with a blog or create the next largest social media
                         platform.</p>
                 </span>
                 <span>
@@ -50,12 +51,11 @@
                 </span>
             </div>
         </div>
-        <div class="">
-            <h3 class="mb-3">Contact Me</h3>
+        <div class="mt-5">
+            <h4 class="mb-3">Contact Us</h4>
             <div class="form-floating mb-3">
                 <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
                 <label for="floatingInput">First Name</label>
-                <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
             </div>
             <div class="form-floating mb-3">
                 <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
@@ -66,35 +66,42 @@
                 <input type="email" class="form-control" id="floatingInput" placeholder="">
                 <label for="floatingInput">Phone Number (optional)</label>
             </div>
+            <div class="form-floating mb-3">
+                <input type="email" class="form-control" id="floatingInput" placeholder="" value="FREE45" disabled>
+                <label for="floatingInput">Promo Code</label>
+            </div>
             <div class="form-floating">
                 <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2"
                     style="height: 100px"></textarea>
                 <label for="floatingTextarea2">Short Description</label>
-                <div id="emailHelp" class="form-text">Example: I want to discuss building an ecommerce website for my
+                <div id="emailHelp" class="form-text">Example: I want to discuss building a small ecommerce website for my
                     handcrafted jewlery..</div>
             </div>
             <div class="d-flex justify-content-end mt-3">
-                <div class="btn btn-primary">Send</div>
+                <div class="btn btn-outline-primary">Send</div>
             </div>
         </div>
     </div>
 
     <!-- Footer -->
-    <footer class="footer bg-light w-100 text-center pb-1 text-primary border-top">
-        <div class="my-2">
-            <a class="text-decoration-none" href="https://www.facebook.com/groups/1747780178610364" target="_blank">
+    <footer class="footer bg-light w-100 text-center py-1 text-primary border-top">
+        <div class="">
+            <a class="text-decoration-none fb-logo" href="https://www.facebook.com/groups/1747780178610364" target="_blank">
                 <i class="bi bi-facebook fs-1 me-3"></i>
             </a>
             <a href="" target="_blank">
                 <i class="bi bi-messenger fs-1"></i>
             </a>
-            <a class="text-decoration-none" href="https://www.facebook.com/groups/1747780178610364" target="_blank">
-                <p class="m-0  title"><small>Hawaii Travel Advice</small></p>
+        </div>
+        <div class="mb-1">
+            <a class="text-decoration-none title" href="https://www.facebook.com/groups/1747780178610364" target="_blank">
+                <small>Hawaii Travel Advice</small>
             </a>
         </div>
-        <a class="text-decoration-none text-dark pb-3" style="letter-spacing: 1.5px; font-size: 12px;"
-            href="https://www.linkedin.com/in/woox99/" target="_blank"><small> Web services <span
-                    class="text-decoration-none text-secondary">Garett Janulewicz</span></small></a>
+        <div>
+            <a class="text-decoration-none text-dark pb-3 garett-contact-link"
+                            href="{% url 'core:contact' %}"><small> Web services <span class="text-decoration-none text-secondary">Garett Janulewicz</span></small></a>
+        </div>
     </footer>
 </body>
 
