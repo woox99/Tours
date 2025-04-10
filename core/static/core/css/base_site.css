@@ -140,12 +140,12 @@ html{
 
 .card .background{
     position: relative;
+    overflow: hidden;
 
 }
 .card .booking-image-container{
     position: relative;
     z-index: 0;
-
 }
 .card .booking-image-container::after{
     content: "";
@@ -187,6 +187,7 @@ html{
     text-overflow: ellipsis;
     color: #ffffff !important;
 }
+
 .card .badges{
     position: absolute;
     bottom: 5px;
@@ -197,12 +198,13 @@ html{
     opacity: 0.95;
 }
 .card .body{
-    width: 80%;
+    width: 95%;
 }
 .card .title{
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+    font-size: 14px;
 }
 .card .city, .card .promo-code{
     font-size: 12px;

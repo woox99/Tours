@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {% block head_title %}
-    <title>Hawaii Travel Advice - {{current_island}}</title>
+    <title>Hawaii Travel - {{current_island}}</title>
     {% endblock %}
     {% load static %}
     <link rel="icon" type="image/x-icon" href="{% static 'core/assets/hawaii.png' %}">
@@ -23,48 +23,39 @@
     <div class="container-fluid d-flex p-0">
         <!-- Side Bar (lg screens) -->
         <div class="side-bar d-none d-lg-flex flex-column">
-            <p class="fs-5 ms-3 me-4 mt-4 mb-2 text-black fw-bolder">Islands</p>
-            {% for island in islands %}
-            {% if current_island == island %}
-            <a href="{% url 'core:change-island' island %}"
-                class="category ps-4 fs-6 py-1 fw-light text-primary text-decoration-underline">{{island}}
-            </a>
-            {% else %}
-            <a href="{% url 'core:change-island' island %}"
-                class="category ps-4 fs-6 py-1 fw-light text-black">{{island}}
-            </a>
-            {% endif %}
-            {% endfor %}
-            <a href="{% url 'core:tours' current_island %}"
-                class="fs-5 ms-3 me-4 mt-4 mb-2 text-black fw-bolder">Tours</a>
-            {% for category in tours %}
-            {% if current_category == category %}
-            <a href="{% url 'core:change-category' current_island category %}"
-                class="category ps-4 fs-6 py-1 fw-light text-primary text-decoration-underline">{{category}}
-            </a>
-            {% elif category.is_popular %}
-            <a href="{% url 'core:change-category' current_island category %}"
-                class="category ps-4 fs-6 py-1 fw-light text-black">{{category}} <small class="fw-bold text-success"
-                    style="font-size: 10px;">Popular!</small></a>
-            {% else %}
-            <a href="{% url 'core:change-category' current_island category %}"
-                class="category ps-4 fs-6 py-1 fw-light text-black">{{category}}</a>
-            {% endif %}
-            {% endfor %}
-            <a href="{% url 'core:activities' current_island %}"
-                class="fs-5 ps-3 me-4 mt-4 py-1 text-black fw-bolder">Activities</a>
-            {% for category in activities %}
-            {% if current_category == category %}
-            <a href="{% url 'core:change-category' current_island category %}"
-                class="category ps-4 fs-6 py-1 fw-light text-primary text-decoration-underline">{{category}}</a>
-            {% elif category.is_popular %}
-            <a href="{% url 'core:change-category' current_island category %}"
-                class="category ps-4 fs-6 py-1 fw-light text-black">{{category}} <small class="fw-bold text-success"
-                    style="font-size: 10px;">Popular!</small></a>
-            {% else %}
-            <a href="{% url 'core:change-category' current_island category %}"
-                class="category ps-4 fs-6 py-1 fw-light text-black">{{category}}</a>
-            {% endif %}
+            <div class="d-flex flex-column">
+                <p class="fs-5 ms-3 me-4 mt-4 mb-2 text-black fw-bolder">Islands</p>
+                {% for island in islands %}
+                {% if current_island == island %}
+                <a href="{% url 'core:change-island' island %}"
+                    class="category ps-4 fs-6 py-1 fw-light text-primary text-decoration-underline">{{island}}
+                </a>
+                {% else %}
+                <a href="{% url 'core:change-island' island %}"
+                    class="category ps-4 fs-6 py-1 fw-light text-black">{{island}}
+                </a>
+                {% endif %}
+                {% endfor %}
+            </div>
+
+            {% for type in types %}
+                {% if type.filtered_categories %}
+                <p class="fs-5 ms-3 me-4 mt-4 mb-2 text-black fw-bolder">{{type}}</p>
+                {% endif %}
+                {% for category in type.filtered_categories %}
+                    {% if current_category == category %}
+                    <a href="{% url 'core:change-category' current_island category %}"
+                        class="category ps-4 fs-6 py-1 fw-light text-primary text-decoration-underline">{{category}}
+                    </a>
+                    {% elif category.is_popular %}
+                    <a href="{% url 'core:change-category' current_island category %}"
+                        class="category ps-4 fs-6 py-1 fw-light text-black">{{category}} <small class="fw-bold text-success"
+                            style="font-size: 10px;">Popular!</small></a>
+                    {% else %}
+                    <a href="{% url 'core:change-category' current_island category %}"
+                        class="category ps-4 fs-6 py-1 fw-light text-black">{{category}}</a>
+                    {% endif %}
+                {% endfor %}
             {% endfor %}
         </div>
 
@@ -75,38 +66,42 @@
             </div>
             <div class="offcanvas-body py-0">
                 <div class="d-flex flex-column">
-                    <a href="{% url 'core:tours' current_island %}"
-                        class="fs-5 ms-3 me-4 mb-2 text-black fw-bolder">Tours</a>
-                    {% for category in tours %}
-                    {% if current_category == category %}
-                    <a href="{% url 'core:change-category' current_island category %}"
-                        class="category ms-4 fs-6 mb-2 fw-light text-primary text-decoration-underline">{{category}}</a>
-                    {% elif category.is_popular %}
-                    <a href="{% url 'core:change-category' current_island category %}"
-                        class="category ms-4 fs-6 mb-2 fw-light text-black">{{category}} <small
-                            class="fw-bold text-success" style="font-size: 10px;">Popular!</small></a>
-                    {% else %}
-                    <a href="{% url 'core:change-category' current_island category %}"
-                        class="category ms-4 fs-6 mb-2 fw-light text-black">{{category}}</a>
-                    {% endif %}
-                    {% endfor %}
-                    <a href="{% url 'core:tours' current_island %}"
-                        class="fs-5 ms-3 me-4 mt-4 mb-2 text-black fw-bolder">Activities</a>
-                    {% for category in activities %}
-                    {% if current_category == category %}
-                    <a href="{% url 'core:change-category' current_island category %}"
-                        class="category ms-4 fs-6 mb-2 fw-light text-primary text-decoration-underline">{{category}}</a>
-                    {% elif category.is_popular %}
-                    <a href="{% url 'core:change-category' current_island category %}"
-                        class="category ms-4 fs-6 mb-2 fw-light text-black">{{category}} <small
-                            class="fw-bold text-success" style="font-size: 10px;">Popular!</small></a>
-                    {% else %}
-                    <a href="{% url 'core:change-category' current_island category %}"
-                        class="category ms-4 fs-6 mb-2 fw-light text-black">{{category}}</a>
-                    {% endif %}
+                    <div class="d-flex flex-column">
+                        <p class="fs-5 ms-3 me-4 mt-4 mb-2 text-black fw-bolder">Islands</p>
+                        {% for island in islands %}
+                        {% if current_island == island %}
+                        <a href="{% url 'core:change-island' island %}"
+                            class="category ps-4 fs-6 py-1 fw-light text-primary text-decoration-underline">{{island}}
+                        </a>
+                        {% else %}
+                        <a href="{% url 'core:change-island' island %}"
+                            class="category ps-4 fs-6 py-1 fw-light text-black">{{island}}
+                        </a>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+        
+                    {% for type in types %}
+                        {% if type.filtered_categories %}
+                        <p class="fs-5 ms-3 me-4 mt-4 mb-2 text-black fw-bolder">{{type}}</p>
+                        {% endif %}
+                        {% for category in type.filtered_categories %}
+                            {% if current_category == category %}
+                            <a href="{% url 'core:change-category' current_island category %}"
+                                class="category ps-4 fs-6 py-1 fw-light text-primary text-decoration-underline">{{category}}
+                            </a>
+                            {% elif category.is_popular %}
+                            <a href="{% url 'core:change-category' current_island category %}"
+                                class="category ps-4 fs-6 py-1 fw-light text-black">{{category}} <small class="fw-bold text-success"
+                                    style="font-size: 10px;">Popular!</small></a>
+                            {% else %}
+                            <a href="{% url 'core:change-category' current_island category %}"
+                                class="category ps-4 fs-6 py-1 fw-light text-black">{{category}}</a>
+                            {% endif %}
+                        {% endfor %}
                     {% endfor %}
                 </div>
-                <div class="text-center pb-3 mt-5">
+                <!-- <div class="text-center pb-3 mt-5">
                     <a href="https://www.facebook.com/groups/1747780178610364" target="_blank">
                         <i class="bi bi-facebook text-primary fs-1 me-3"></i>
                     </a>
@@ -116,7 +111,7 @@
                     <a href="https://www.facebook.com/groups/1747780178610364" target="_blank">
                         <p class="m-0 text-primary title"><small>Hawaii Travel Advice</small></p>
                     </a>
-                </div>
+                </div> -->
             </div>
         </div>
 
@@ -194,7 +189,7 @@
                 <div class="strip"></div>
                 <div class="strip-content d-flex flex-column justify-content-center">
                     <p class="island-name fw-bold text-center text-white m-0 lh-1 mt-3">{{current_island}}</p>
-                    <p class="text-center text-white fs-2 fw-light lh-1">Find your next Hawaiian adventure</p>
+                    <p class="text-center text-white fs-2 fw-light lh-1">Book your Hawaii adventure</p>
                 </div>
             </div>
             {% endif %}
@@ -280,7 +275,7 @@
             <div class="cards d-flex flex-wrap mt-4 gap-2 bg-light rounded-1">
                 {% if current_category.name == 'Service' %}
                 <div id="" class="card rounded-2">
-                    <a class="text-decoration-none" href="{% url 'core:contact' %}">
+                    <a class="text-decoration-none" href="{% url 'core:contact-garett' %}">
                         <div class="background">
                             <div class="card-image rounded-top-2" style="background-image: url('{% static 'core/assets/garett.png' %}');"></div>
                             <div class="badges d-flex justify-content-end">
@@ -301,9 +296,6 @@
                                 Service</div>
                         </div>
                     </a>
-                    <!-- <a href="{% url 'core:contact' %}" target="_blank" class="text-center text-white bg-primary p-2 mb-2 mx-2 text-decoration-none fw-semibold rounded-1">
-                        View Free Details
-                    </a> -->
                 </div>
                 {% endif %}
                 {% for booking in page_obj %}
@@ -330,11 +322,15 @@
                         <div class="body d-flex flex-column px-2 px-md-3 pt-2 pb-1">
                             <p class="title fw-medium text-black">{{booking.title}}</p>
                             <sm class="city text-secondary">{{booking.city}}</sm>
+                            {% if booking.is_promo %}
                             <sm class="promo-code text-secondary" {% if not booking.is_promo %}style='opacity:0'{% endif %}>Promo Code: 
                                 <span class="text-success fw-medium" style="letter-spacing: 0.5px; font-size: 11px;">{{booking.promo_code}}</span>
                             </sm>
+                            {% else %}
+                            <div class="mb-md-3"></div>
+                            {% endif %}
                         </div>
-                        <div class="tags d-flex flex-wrap gap-1 px-2 px-md-3 pb-2">
+                        <div class="tags d-flex flex-wrap gap-1 px-2 px-md-3 pb-2 ">
                             {% for tag in booking.tags.all %}
                             <div
                                 class="tag bg-body-tertiary text-primary rounded-1 d-flex align-items-center justify-content-center py-1 px-2">
@@ -402,21 +398,21 @@
     <footer class="footer bg-light w-100 text-center py-1 text-primary border-top">
         <div class="">
             <a class="text-decoration-none fb-logo" href="https://www.facebook.com/groups/1747780178610364" target="_blank">
-                <i class="bi bi-facebook fs-1 me-3"></i>
-            </a>
-            <a href="" target="_blank">
-                <i class="bi bi-messenger fs-1"></i>
+                <i class="bi bi-facebook fs-1"></i>
             </a>
         </div>
-        <div class="mb-1">
+        <div class="mb-2">
             <a class="text-decoration-none title" href="https://www.facebook.com/groups/1747780178610364" target="_blank">
-                <small>Hawaii Travel Advice</small>
+                <small>Join us on Facebook <span class="fw-semibold text-secondary"><i class="bi bi-dot"></i> 300k+ members</span></small>
             </a>
         </div>
-        <div>
-            <a class="text-decoration-none text-dark pb-3 garett-contact-link"
-                            href="{% url 'core:contact' %}"><small> Web services <span class="text-decoration-none text-secondary">Garett Janulewicz</span></small></a>
+        <div class="mb-2">
+            <a href="" class="text-decoration-none">Cancellation Policy</a> |
+            <a href="" class="text-decoration-none"> Cantact Us </a> |
+            <a href="" class="text-decoration-none"> Become an Affiliate</a>
         </div>
+        <a class="text-decoration-none text-dark pb-3 garett-contact-link"
+                            href="{% url 'core:contact-garett' %}"><small> Web services <span class="text-decoration-none text-secondary">Garett Janulewicz</span></small></a>
     </footer>
 
 

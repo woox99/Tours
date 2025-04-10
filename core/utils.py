@@ -54,37 +54,52 @@ def update_booking_weight(booking):
         booking.weight = random.randint(1, public_bookings_count)
     return booking
 
+def filter_categories(island, request):
+    types = Type.objects.all().order_by('modified')
+    if request.user.is_authenticated:
+        for type in types:
+            type.filtered_categories = [
+                cat for cat in type.category_set.all()
+                if cat.bookings.filter(island=island).exists()
+            ]
+    else:
+        for type in types:
+            type.filtered_categories = [
+                cat for cat in type.category_set.all()
+                if cat.bookings.filter(island=island, is_public=True).exists()
+            ]
+    return types
 
-def get_tours(island, request):
-    tours = []
+# def get_tours(island, request):
+#     tours = []
     
-    type = Type.objects.get(name='Tour')
-    tour_set = Category.objects.filter(type=type).order_by('name')
-    if request.user.is_authenticated:
-        return tour_set
-    for category in tour_set:
-        if category.bookings.filter(island=island, is_public=True).exists():
-            tours.append(category)
-    return tours
+#     type = Type.objects.get(name='Tour')
+#     tour_set = Category.objects.filter(type=type).order_by('name')
+#     if request.user.is_authenticated:
+#         return tour_set
+#     for category in tour_set:
+#         if category.bookings.filter(island=island, is_public=True).exists():
+#             tours.append(category)
+#     return tours
 
 
-def get_activities(island, request):
-    activities = []
-    other = None
+# def get_activities(island, request):
+#     activities = []
+#     other = None
 
-    type = Type.objects.get(name='Activity')
-    activity_set = Category.objects.filter(type=type).order_by('name')
-    if request.user.is_authenticated:
-        return activity_set
-    for category in activity_set:
-        if category.bookings.filter(island=island, is_public=True).exists():
-            if category.name == 'Other':
-                other = category
-            else:
-                activities.append(category)
-    if other:
-        activities.append(other)
-    return activities
+#     type = Type.objects.get(name='Activity')
+#     activity_set = Category.objects.filter(type=type).order_by('name')
+#     if request.user.is_authenticated:
+#         return activity_set
+#     for category in activity_set:
+#         if category.bookings.filter(island=island, is_public=True).exists():
+#             if category.name == 'Other':
+#                 other = category
+#             else:
+#                 activities.append(category)
+#     if other:
+#         activities.append(other)
+#     return activities
 
 
     #     # Import Fareharbor csv data script

@@ -78,9 +78,11 @@ def change_island(request, island):
     page_obj, page_range = paginate_bookings(bookings, request)
 
     context = {
+        'types' : filter_categories(island, request),
+
         'page_obj' : page_obj,
-        'tours': get_tours(island, request),
-        'activities': get_activities(island, request),
+        # 'tours': get_tours(island, request),
+        # 'activities': get_activities(island, request),
         'categories': Category.objects.all().order_by('name'),
         'islands': Island.objects.all().order_by('modified'),
         'current_island':island,
@@ -315,8 +317,8 @@ def booking_delete(request, pk):
     return redirect(reverse('core:category-results', kwargs={'island': island, 'category':category}) + f'?page={page_number}' + f'#{booking.fh_id}')
 
 
-def contact(request):
-    return render(request, 'core/contact.html')
+def contact_garett(request):
+    return render(request, 'core/contact_garett.html')
 
 
 def logout_admin(request, island):
