@@ -58,16 +58,22 @@ def filter_categories(island, request):
     types = Type.objects.all().order_by('modified')
     if request.user.is_authenticated:
         for type in types:
-            type.filtered_categories = [
-                cat for cat in type.category_set.all()
-                if cat.bookings.filter(island=island).exists()
-            ]
+            type.filtered_categories = sorted(
+                [
+                    cat for cat in type.category_set.all()
+                    if cat.bookings.filter(island=island).exists()
+                ],
+                key=lambda cat: cat.name.lower()
+            )
     else:
         for type in types:
-            type.filtered_categories = [
-                cat for cat in type.category_set.all()
-                if cat.bookings.filter(island=island, is_public=True).exists()
-            ]
+            type.filtered_categories = sorted(
+                [
+                    cat for cat in type.category_set.all()
+                    if cat.bookings.filter(island=island, is_public=True).exists()
+                ],
+                key=lambda cat: cat.name.lower()
+            )
     return types
 
 # def get_tours(island, request):

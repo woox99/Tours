@@ -4,13 +4,18 @@ from core.models import *
 class BookingAdmin(admin.ModelAdmin):
     search_fields = ['title', 'fh_id']
     list_display = ['title', 'is_public',  'is_verified', 'company_name',  'fh_id', 'island', 'weight', 'is_promo', 'promo_amount']
+    ordering = ['title']
+
+class TypeAdmin(admin.ModelAdmin):
+    ordering = ['modified']
 
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ['name', 'type', 'is_popular', 'traffic', 'public_bookings_count']
+    ordering = ['name']
 
 class IslandAdmin(admin.ModelAdmin):
     list_display = ['name', 'bookings']
-
+    ordering = ['modified']
 
 class SearchQueryAdmin(admin.ModelAdmin):
     list_display = ['__str__', 'island', 'count', 'results', 'created']
@@ -26,4 +31,4 @@ admin.site.register(Category, CategoryAdmin)
 admin.site.register(Island, IslandAdmin)
 admin.site.register(SearchQuery, SearchQueryAdmin)
 admin.site.register(SiteVisit, SiteVisitAdmin)
-admin.site.register(Type)
+admin.site.register(Type, TypeAdmin)

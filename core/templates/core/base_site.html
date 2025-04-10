@@ -22,7 +22,7 @@
 
     <div class="container-fluid d-flex p-0">
         <!-- Side Bar (lg screens) -->
-        <div class="side-bar d-none d-lg-flex flex-column">
+        <div class="side-bar d-none d-lg-flex flex-column pb-4">
             <div class="d-flex flex-column">
                 <p class="fs-5 ms-3 me-4 mt-4 mb-2 text-black fw-bolder">Islands</p>
                 {% for island in islands %}
@@ -196,39 +196,29 @@
             <!-- Breadcrumb -->
             <div class="d-flex justify-content-between mt-4 px-3 px-lg-0">
                 <div class="d-flex align-items-center gap-2">
+                    <small class="ms-lg-2">{{current_island}}</small>
+                    <small><i class="fa-solid fa-angle-right text-secondary"></i></small>
+                    {% if not current_category %}
                     <div class="d-flex align-items-center">
-                        <button type="button" class="btn px-3 bg-body-tertiary  dropdown-toggle-split"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            {{current_island}}
+                        <button class="btn text-primary bg-light" type="button" data-bs-toggle="offcanvas"
+                            data-bs-target="#offcanvas" aria-controls="offcanvas">
+                            {% block breadcrumb %}
+                            <small class=""><i class="bi bi-list"></i> All Bookings</small>
+                            {% endblock %}
                         </button>
-                        <ul class="dropdown-menu dropdown-menu">
-                            {% for island in islands %}
-                            {% if current_island == island %}
-                            <li><a class="dropdown-item text-primary text-decoration-underline"
-                                    href="{% url 'core:change-island' island %}">{{current_island}}</a>
-                            </li>
-                            {% else %}
-                            <li><a class="dropdown-item" href="{% url 'core:change-island' island %}">{{island}}</a>
-                            </li>
-                            {% endif %}
-                            {% endfor %}
-                        </ul>
                     </div>
+                    {% else %}
+                    <small class="">
+                        {{current_category.type}} 
+                    </small>
                     <small><i class="fa-solid fa-angle-right text-secondary"></i></small>
                     <div class="d-flex align-items-center">
-                        <button class="btn px-3  text-primary" type="button" data-bs-toggle="offcanvas"
+                        <button class="btn text-primary bg-light" type="button" data-bs-toggle="offcanvas"
                             data-bs-target="#offcanvas" aria-controls="offcanvas">
-                            {% if not current_category %}
-                            {% block breadcrumb %}
-                            <span class=""><i class="bi bi-list"></i> All Tours & Activities</span>
-                            {% endblock %}
-                            {% elif current_category.type.name == 'Tour' %}
-                            <span class=""><i class="bi bi-list"></i> {{breadcrumb}} Tours</span>
-                            {% else %}
-                            <span class=""><i class="bi bi-list"></i> {{breadcrumb}}</span>
-                            {% endif %}
+                            <small class=""><i class="bi bi-list"></i> {{breadcrumb}}</small>
                         </button>
                     </div>
+                    {% endif %}
                 </div>
                 {% block small-search-bar %}
                 <div class="d-none d-lg-block search px-3 px-lg-0 w-50">
@@ -265,10 +255,6 @@
             <div class="empty-message d-flex flex-column justify-content-center align-items-center w-100"
                 style="height: 40vh;">
                 <p class="text-secondary fs-5 text-center m-0">Sorry, no results for that.</p>
-                <p class="text-secondary fs-5 text-center">Maybe you could find something fun in <a
-                        class="text-decoration-none" href="{% url 'core:tours' current_island %}">Tours</a> or <a
-                        class="text-decoration-none" href="{% url 'core:activities' current_island %}">Activities</a>?
-                </p>
             </div>
             {% endif %}
             <!-- Boooking Cards -->

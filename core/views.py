@@ -79,18 +79,13 @@ def change_island(request, island):
 
     context = {
         'types' : filter_categories(island, request),
-
         'page_obj' : page_obj,
-        # 'tours': get_tours(island, request),
-        # 'activities': get_activities(island, request),
-        'categories': Category.objects.all().order_by('name'),
         'islands': Island.objects.all().order_by('modified'),
         'current_island':island,
         'current_category' : None,
         'breadcrumb' : None,
         'page_range': page_range,
         'jumbotron_path' : f"core/assets/{island}.jpg"
-
     }
 
     if page_obj.number == 1:
@@ -114,10 +109,8 @@ def category_results(request, island, category):
     page_obj, page_range = paginate_bookings(bookings, request)
 
     context = {
+        'types' : filter_categories(island, request),
         'page_obj' : page_obj,
-        'tours': get_tours(island, request),
-        'activities': get_activities(island, request),
-        'categories': Category.objects.all().order_by('name'),
         'islands':Island.objects.all().order_by('modified'),
         'current_island':island,
         'current_category':category,
@@ -193,10 +186,8 @@ def search_results(request, island):
     page_obj, page_range = paginate_bookings(bookings, request)
 
     context = {
+        'types' : filter_categories(island, request),
         'page_obj' : page_obj,
-        'tours': get_tours(island, request),
-        'activities': get_activities(island, request),
-        'categories': Category.objects.all().order_by('name'),
         'islands':Island.objects.all().order_by('modified'),
         'current_island':island,
         'current_category': None,
@@ -205,63 +196,6 @@ def search_results(request, island):
         'query':query,
     }
     return render(request, 'core/search.html', context)
-
-
-def tours(request, island):
-    island = get_object_or_404(Island, name=island)
-    type = get_object_or_404(Type, name='Tour')
-    if request.user.is_authenticated:
-        bookings = Booking.objects.filter(tags__type=type, island=island).order_by('weight')
-    else:
-        bookings = Booking.objects.filter(tags__type=type, island=island, is_public=True).order_by('weight')
-
-    page_obj, page_range = paginate_bookings(bookings, request)
-
-    context = {
-        'page_obj' : page_obj,
-        'tours': get_tours(island, request),
-        'activities': get_activities(island, request),
-        'categories': Category.objects.all().order_by('name'),
-        'islands':Island.objects.all().order_by('modified'),
-        'current_island':island,
-        'current_category': 'tours',
-        'breadcrumb' : 'All Tours',
-        'page_range': page_range,
-        'jumbotron_path' : f"core/assets/{island}.jpg",
-
-    }
-
-    if page_obj.number == 1:
-        context.update({'jumbotron':True})
-    return render(request, 'core/base_site.html', context)
-
-
-def activities(request, island):
-    island = get_object_or_404(Island, name=island)
-    type = get_object_or_404(Type, name='Activity')
-    if request.user.is_authenticated:
-        bookings = Booking.objects.filter(tags__type=type, island=island).order_by('weight')
-    else:
-        bookings = Booking.objects.filter(tags__type=type, island=island, is_public=True).order_by('weight')
-    page_obj, page_range = paginate_bookings(bookings, request)
-
-    context = {
-        'page_obj' : page_obj,
-        'tours': get_tours(island, request),
-        'activities': get_activities(island, request),
-        'categories': Category.objects.all().order_by('name'),
-        'islands':Island.objects.all().order_by('modified'),
-        'current_island':island,
-        'current_category': 'activities',
-        'breadcrumb' : 'All Activities',
-        'page_range': page_range,
-        'jumbotron_path' : f"core/assets/{island}.jpg",
-
-    }
-
-    if page_obj.number == 1:
-        context.update({'jumbotron':True})
-    return render(request, 'core/base_site.html', context)
 
 
 def booking_update(request, pk):
@@ -324,3 +258,60 @@ def contact_garett(request):
 def logout_admin(request, island):
     logout(request)
     return redirect('core:change-island', island=island)
+
+
+# def tours(request, island):
+#     island = get_object_or_404(Island, name=island)
+#     type = get_object_or_404(Type, name='Tour')
+#     if request.user.is_authenticated:
+#         bookings = Booking.objects.filter(tags__type=type, island=island).order_by('weight')
+#     else:
+#         bookings = Booking.objects.filter(tags__type=type, island=island, is_public=True).order_by('weight')
+
+#     page_obj, page_range = paginate_bookings(bookings, request)
+
+#     context = {
+#         'page_obj' : page_obj,
+#         'tours': get_tours(island, request),
+#         'activities': get_activities(island, request),
+#         'categories': Category.objects.all().order_by('name'),
+#         'islands':Island.objects.all().order_by('modified'),
+#         'current_island':island,
+#         'current_category': 'tours',
+#         'breadcrumb' : 'All Tours',
+#         'page_range': page_range,
+#         'jumbotron_path' : f"core/assets/{island}.jpg",
+
+#     }
+
+#     if page_obj.number == 1:
+#         context.update({'jumbotron':True})
+#     return render(request, 'core/base_site.html', context)
+
+
+# def activities(request, island):
+#     island = get_object_or_404(Island, name=island)
+#     type = get_object_or_404(Type, name='Activity')
+#     if request.user.is_authenticated:
+#         bookings = Booking.objects.filter(tags__type=type, island=island).order_by('weight')
+#     else:
+#         bookings = Booking.objects.filter(tags__type=type, island=island, is_public=True).order_by('weight')
+#     page_obj, page_range = paginate_bookings(bookings, request)
+
+#     context = {
+#         'page_obj' : page_obj,
+#         'tours': get_tours(island, request),
+#         'activities': get_activities(island, request),
+#         'categories': Category.objects.all().order_by('name'),
+#         'islands':Island.objects.all().order_by('modified'),
+#         'current_island':island,
+#         'current_category': 'activities',
+#         'breadcrumb' : 'All Activities',
+#         'page_range': page_range,
+#         'jumbotron_path' : f"core/assets/{island}.jpg",
+
+#     }
+
+#     if page_obj.number == 1:
+#         context.update({'jumbotron':True})
+#     return render(request, 'core/base_site.html', context)
