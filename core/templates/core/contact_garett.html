@@ -94,25 +94,22 @@
     <!-- Footer -->
     <footer class="footer bg-light w-100 text-center py-1 text-primary border-top">
         <div class="">
-            <a class="text-decoration-none fb-logo" href="https://www.facebook.com/groups/1747780178610364"
-                target="_blank">
+            <a class="text-decoration-none fb-logo" href="https://www.facebook.com/groups/1747780178610364" target="_blank">
                 <i class="bi bi-facebook fs-1"></i>
             </a>
         </div>
         <div class="mb-2">
-            <a class="text-decoration-none title" href="https://www.facebook.com/groups/1747780178610364"
-                target="_blank">
-                <small>Join us on Facebook <span class="fw-semibold text-secondary"><i class="bi bi-dot"></i> 300k+
-                        members</span></small>
+            <a class="text-decoration-none title" href="https://www.facebook.com/groups/1747780178610364" target="_blank">
+                <small>Join us on Facebook <span class="fw-semibold text-secondary"><i class="bi bi-dot"></i> 300k+ members</span></small>
             </a>
         </div>
         <div class="mb-2">
-            <a href="" class="text-decoration-none">Cancellation Policy</a> |
-            <a href="" class="text-decoration-none"> Cantact Us </a> |
-            <a href="" class="text-decoration-none"> Become an Affiliate</a>
+            <a href="{% url 'core:info' %}#cancellation-policy" class="text-decoration-none">Cancellation Policy</a> |
+            <a href="{% url 'core:info' %}#contact-us" class="text-decoration-none"> Cantact Us </a> |
+            <a href="{% url 'core:info' %}#become-an-affiliate" class="text-decoration-none"> Become an Affiliate</a>
         </div>
-        <a class="text-decoration-none text-dark pb-3 garett-contact-link" href="{% url 'core:contact-garett' %}"><small> Web
-                services <span class="text-decoration-none text-secondary">Garett Janulewicz</span></small></a>
+        <a class="text-decoration-none text-dark pb-3 garett-contact-link"
+                            href="{% url 'core:contact-garett' %}"><small> Web services <span class="text-decoration-none text-secondary">Garett Janulewicz</span></small></a>
     </footer>
 </body>
 

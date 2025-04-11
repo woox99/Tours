@@ -68,6 +68,10 @@ def index(request):
     #             print(f"Skipping row due to error: {e}")
     return redirect('core:change-island', island='Oahu')
 
+def info(request):
+
+    
+    return render(request, 'core/info.html')
 
 def change_island(request, island):
     island = get_object_or_404(Island, name=island)
