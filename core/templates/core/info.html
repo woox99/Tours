@@ -6,7 +6,7 @@
     <title>Hawaii Travel - Info</title>
     {% load static %}
     <link rel="icon" type="image/x-icon" href="{% static 'core/assets/hawaii.png' %}">
-    <!-- <link rel="stylesheet" href="{% static 'core/css/base_site.css' %}"> -->
+    <link rel="stylesheet" href="{% static 'core/css/base_site.css' %}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.2.1/css/all.css">
@@ -14,6 +14,9 @@
 </head>
 <body>
     <div class="p-5 d-flex flex-column align-items-center bg-light">
+        <a class="logo navbar-brand d-flex align-items-center mb-4" href="{% url 'core:home' %}">
+            <img class="me-2" style="height: 40px" src="{% static 'core/assets/Hawaii.png' %}" alt="">
+        </a>
         <div class="w-75">
             <a href="{% url 'core:index' %}" class="btn btn-primary"><i class="bi bi-arrow-90deg-left"></i> Home</a>
         </div>
@@ -65,20 +68,23 @@
         </form>
     </div>
 
-    <footer class="footer bg-white w-100 text-center py-1 text-primary border-top">
+    <!-- Footer -->
+    <footer class="footer bg-light w-100 text-center py-1 text-primary border-top">
         <div class="">
             <a class="text-decoration-none fb-logo" href="https://www.facebook.com/groups/1747780178610364" target="_blank">
                 <i class="bi bi-facebook fs-1"></i>
             </a>
         </div>
-        <div class="mb-2">
-            <a class="text-decoration-none title" href="https://www.facebook.com/groups/1747780178610364" target="_blank">
-                <small>Join us on Facebook <span class="fw-semibold text-secondary"><i class="bi bi-dot"></i> 300k+ members</span></small>
+        <div class="">
+            <a class="text-decoration-none title text-secondary" href="https://www.facebook.com/groups/1747780178610364" target="_blank">
+                <small>Join us on Facebook <span class="fw-semibold"><i class="bi bi-dot"></i> 300k+ members</span></small>
             </a>
         </div>
-        <div class="mb-2">
-            <a href="{% url 'core:info' %}#cancellation-policy" class="text-decoration-none">Cancellation Policy</a> |
-            <a href="{% url 'core:info' %}#contact-us" class="text-decoration-none"> Cantact Us </a> |
+        <div class="info-links mt-1 mb-1">
+            <a href="{% url 'core:info' %}#cancellation-policy" class="text-decoration-none">Cancellation Policy</a>
+            <span class="text-secondary"> | </span>
+            <a href="{% url 'core:info' %}#contact-us" class="text-decoration-none"> Cantact Us </a>
+            <span class="text-secondary"> | </span>
             <a href="{% url 'core:info' %}#become-an-affiliate" class="text-decoration-none"> Become an Affiliate</a>
         </div>
         <a class="text-decoration-none text-dark pb-3 garett-contact-link"

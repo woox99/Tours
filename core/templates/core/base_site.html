@@ -135,7 +135,7 @@
                         </a>
                     </div>
                     {% else %}
-                    <a class="logo navbar-brand d-flex align-items-center" href="#">
+                    <a class="logo navbar-brand d-flex align-items-center" href="{% url 'core:home' %}">
                         <img class="me-2" src="{% static 'core/assets/Hawaii.png' %}" alt="">
                     </a>
                     {% endif %}
@@ -380,12 +380,12 @@
                 <i class="bi bi-facebook fs-1"></i>
             </a>
         </div>
-        <div class="mb-2">
-            <a class="text-decoration-none title" href="https://www.facebook.com/groups/1747780178610364" target="_blank">
-                <small>Join us on Facebook <span class="fw-semibold text-secondary"><i class="bi bi-dot"></i> 300k+ members</span></small>
+        <div class="">
+            <a class="text-decoration-none title text-secondary" href="https://www.facebook.com/groups/1747780178610364" target="_blank">
+                <small>Join us on Facebook <span class="fw-semibold"><i class="bi bi-dot"></i> 300k+ members</span></small>
             </a>
         </div>
-        <div class="mb-2">
+        <div class="info-links mt-1 mb-1">
             <a href="{% url 'core:info' %}#cancellation-policy" class="text-decoration-none">Cancellation Policy</a>
             <span class="text-secondary"> | </span>
             <a href="{% url 'core:info' %}#contact-us" class="text-decoration-none"> Cantact Us </a>

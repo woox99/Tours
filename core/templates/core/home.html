@@ -38,20 +38,35 @@
         transition: transform 0.3s ease;
     }
     @media (max-width: 768px) {
-    .main-content{
-        width: 100%;
+        .main-content{
+            width: 100%;
+        }
+        .img-container img{
+            width: 140px;
+            height: 140px;
+        }
     }
-    .img-container img{
-        width: 140px;
-        height: 140px;
+    .footer .title{
+    letter-spacing: 1px;
     }
-}
+    .footer .info-links{
+        font-size: 14px;
+    }
+    .footer .garett-contact-link{
+        letter-spacing: 1.5px; 
+        font-size: 12px;
+    }
+    .footer .garett-contact-link:hover span{
+        color:#0d6efd !important;
+    }
 </style>
 <body class="bg-light text-center">
-    <div class="d-flex justify-content-center">
-        <div class="main-content d-flex flex-column align-items-center gap-3">
-            logo here
-            <p class="mt-4 fw-bold fs-4 d-flex align-items-center gap-2"><span class="text-primary fs-6">STEP <i class="bi bi-1-circle-fill"></i></span> Select Island</p>
+    <div class="d-flex justify-content-center pb-5">
+        <div class="main-content d-flex flex-column align-items-center gap-3 pt-5">
+            <a class="logo navbar-brand d-flex align-items-center mb-4" href="{% url 'core:home' %}">
+                <img class="me-2" style="height: 40px;" src="{% static 'core/assets/Hawaii.png' %}" alt="">
+            </a>
+            <p class="fw-bold fs-4 d-flex align-items-center gap-2"><span class="text-primary fs-6">STEP <i class="bi bi-1-circle-fill"></i></span> Select Island</p>
             <p class="w-75 text-center">We have combed through 2500+ things to do in Hawaii and found the best activities so you don't have to!</p>
             <div class="bg-white p-3 rounded-3 border d-flex flex-column gap-3">
                 <div class="d-flex gap-3">
@@ -59,7 +74,7 @@
                         <a href="{% url 'core:change-island' 'Oahu' %}">
                             <img class="border" src="{% static 'core/assets/oahu_sq.jpg' %}" alt="">
                             <div class="strip d-flex justify-content-center align-items-center">
-                                <p class="text-white fw-bold fs-3">Oahu</p>
+                                <p class="text-white fw-bold fs-3 mt-2">Oahu</p>
                             </div>
                         </a>
                     </div>
@@ -67,7 +82,7 @@
                         <a href="{% url 'core:change-island' 'Maui' %}">
                             <img class="border" src="{% static 'core/assets/maui_sq.jpg' %}" alt="">
                             <div class="strip d-flex justify-content-center align-items-center">
-                                <p class="text-white fw-bold fs-3">Maui</p>
+                                <p class="text-white fw-bold fs-3 mt-2">Maui</p>
                             </div>
                         </a>
                     </div>
@@ -77,7 +92,7 @@
                         <a href="{% url 'core:change-island' 'Big Island' %}">
                             <img class="border" src="{% static 'core/assets/bigisland_sq.jpg' %}" alt="">
                             <div class="strip d-flex justify-content-center align-items-center">
-                                <p class="text-white fw-bold fs-3">Big Island</p>
+                                <p class="text-white fw-bold fs-3 mt-2">Big Island</p>
                             </div>
                         </a>
                     </div>
@@ -85,7 +100,7 @@
                         <a href="{% url 'core:change-island' 'Kauai' %}">
                             <img class="border" src="{% static 'core/assets/kauai_sq.jpg' %}" alt="">
                             <div class="strip d-flex justify-content-center align-items-center">
-                                <p class="text-white fw-bold fs-3">Kauai</p>
+                                <p class="text-white fw-bold fs-3 mt-2">Kauai</p>
                             </div>
                         </a>
                     </div>
@@ -98,18 +113,18 @@
     </div>
 
         <!-- Footer -->
-        <footer class="mt-5 footer bg-white w-100 text-center py-1 text-primary border-top">
+        <footer class="footer bg-light w-100 text-center py-1 text-primary border-top">
             <div class="">
                 <a class="text-decoration-none fb-logo" href="https://www.facebook.com/groups/1747780178610364" target="_blank">
                     <i class="bi bi-facebook fs-1"></i>
                 </a>
             </div>
-            <div class="mb-2">
-                <a class="text-decoration-none title" href="https://www.facebook.com/groups/1747780178610364" target="_blank">
-                    <small>Join us on Facebook <span class="fw-semibold text-secondary"><i class="bi bi-dot"></i> 300k+ members</span></small>
+            <div class="">
+                <a class="text-decoration-none title text-secondary" href="https://www.facebook.com/groups/1747780178610364" target="_blank">
+                    <small>Join us on Facebook <span class="fw-semibold"><i class="bi bi-dot"></i> 300k+ members</span></small>
                 </a>
             </div>
-            <div class="mb-2">
+            <div class="info-links mt-1 mb-1">
                 <a href="{% url 'core:info' %}#cancellation-policy" class="text-decoration-none">Cancellation Policy</a>
                 <span class="text-secondary"> | </span>
                 <a href="{% url 'core:info' %}#contact-us" class="text-decoration-none"> Cantact Us </a>
