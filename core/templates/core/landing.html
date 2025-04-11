@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hawaii Travel - Welcome</title>
+    {% load static %}
+    <link rel="icon" type="image/x-icon" href="{% static 'core/assets/hawaii.png' %}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.2.1/css/all.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+</head>
+<style>
+    .main-content{
+        width: 600px;
+    }
+    .img-container{
+        position: relative;
+        overflow: hidden;
+    }
+    .img-container:hover img{
+        transform: scale(1.05);
+    }
+    .strip{
+        position: absolute;
+        height: 30%;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #00000050;
+        width: 100%;
+    }
+    .img-container img{
+        width: 250px;
+        height: 250px;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+    }
+    @media (max-width: 768px) {
+    .main-content{
+        width: 100%;
+    }
+    .img-container img{
+        width: 140px;
+        height: 140px;
+    }
+}
+</style>
+<body class="bg-light text-center">
+    <div class="d-flex justify-content-center">
+        <div class="main-content d-flex flex-column align-items-center gap-3">
+            logo here
+            <p class="mt-4 fw-bold fs-4 d-flex align-items-center gap-2"><span class="text-primary fs-6">STEP <i class="bi bi-1-circle-fill"></i></span> Select Island</p>
+            <p class="w-75 text-center">We have combed through 2500+ things to do in Hawaii and found the best activities so you don't have to!</p>
+            <div class="bg-white p-3 rounded-3 border d-flex flex-column gap-3">
+                <div class="d-flex gap-3">
+                    <div class="img-container rounded-2">
+                        <a href="{% url 'core:change-island' 'Oahu' %}">
+                            <img class="border" src="{% static 'core/assets/oahu_sq.jpg' %}" alt="">
+                            <div class="strip d-flex justify-content-center align-items-center">
+                                <p class="text-white fw-bold fs-3">Oahu</p>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="img-container rounded-2">
+                        <a href="{% url 'core:change-island' 'Maui' %}">
+                            <img class="border" src="{% static 'core/assets/maui_sq.jpg' %}" alt="">
+                            <div class="strip d-flex justify-content-center align-items-center">
+                                <p class="text-white fw-bold fs-3">Maui</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="d-flex gap-3">
+                    <div class="img-container rounded-2">
+                        <a href="{% url 'core:change-island' 'Big Island' %}">
+                            <img class="border" src="{% static 'core/assets/bigisland_sq.jpg' %}" alt="">
+                            <div class="strip d-flex justify-content-center align-items-center">
+                                <p class="text-white fw-bold fs-3">Big Island</p>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="img-container rounded-2">
+                        <a href="{% url 'core:change-island' 'Kauai' %}">
+                            <img class="border" src="{% static 'core/assets/kauai_sq.jpg' %}" alt="">
+                            <div class="strip d-flex justify-content-center align-items-center">
+                                <p class="text-white fw-bold fs-3">Kauai</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <p class="fw-bold fs-4 d-flex align-items-center gap-2"><span class="text-primary fs-6">STEP <i class="bi bi-2-circle-fill"></i></span> Go Adventure</p>
+            <p>OR</p>
+            <a href="{% url 'core:index' %}" class="text-decoration-none">Continue without <i class="bi bi-arrow-right-short"></i></a>
+        </div>
+    </div>
+
+        <!-- Footer -->
+        <footer class="mt-5 footer bg-white w-100 text-center py-1 text-primary border-top">
+            <div class="">
+                <a class="text-decoration-none fb-logo" href="https://www.facebook.com/groups/1747780178610364" target="_blank">
+                    <i class="bi bi-facebook fs-1"></i>
+                </a>
+            </div>
+            <div class="mb-2">
+                <a class="text-decoration-none title" href="https://www.facebook.com/groups/1747780178610364" target="_blank">
+                    <small>Join us on Facebook <span class="fw-semibold text-secondary"><i class="bi bi-dot"></i> 300k+ members</span></small>
+                </a>
+            </div>
+            <div class="mb-2">
+                <a href="{% url 'core:info' %}#cancellation-policy" class="text-decoration-none">Cancellation Policy</a>
+                <span class="text-secondary"> | </span>
+                <a href="{% url 'core:info' %}#contact-us" class="text-decoration-none"> Cantact Us </a>
+                <span class="text-secondary"> | </span>
+                <a href="{% url 'core:info' %}#become-an-affiliate" class="text-decoration-none"> Become an Affiliate</a>
+            </div>
+            <a class="text-decoration-none text-dark pb-3 garett-contact-link"
+                                href="{% url 'core:contact-garett' %}"><small> Web services <span class="text-decoration-none text-secondary">Garett Janulewicz</span></small></a>
+        </footer>
+</body>
+</html>

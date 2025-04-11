@@ -13,6 +13,10 @@ from datetime import timedelta
 import csv # debug
 import time #debug
 
+
+def landing(request):
+    return render(request, 'core/landing.html')
+
 def index(request):
 
     last_randomized_date = BookingRandomization.objects.last().date
@@ -69,9 +73,9 @@ def index(request):
     return redirect('core:change-island', island='Oahu')
 
 def info(request):
-
-    
+    # island = get_object_or_404(Island, name=island)
     return render(request, 'core/info.html')
+
 
 def change_island(request, island):
     island = get_object_or_404(Island, name=island)
