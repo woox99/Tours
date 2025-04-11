@@ -40,19 +40,19 @@
 
             {% for type in types %}
                 {% if type.filtered_categories %}
-                <p class="fs-5 ms-3 me-4 mt-4 mb-2 text-black fw-bolder">{{type}}</p>
+                <a href="{% url 'core:change-type' current_island type %}" class="fs-5 ms-3 me-4 mt-4 mb-2 text-black fw-bolder">{{type}}</a>
                 {% endif %}
                 {% for category in type.filtered_categories %}
                     {% if current_category == category %}
-                    <a href="{% url 'core:change-category' current_island category %}"
+                    <a href="{% url 'core:change-cat' current_island category %}"
                         class="category ps-4 fs-6 py-1 fw-light text-primary text-decoration-underline">{{category}}
                     </a>
                     {% elif category.is_popular %}
-                    <a href="{% url 'core:change-category' current_island category %}"
+                    <a href="{% url 'core:change-cat' current_island category %}"
                         class="category ps-4 fs-6 py-1 fw-light text-black">{{category}} <small class="fw-bold text-success"
                             style="font-size: 10px;">Popular!</small></a>
                     {% else %}
-                    <a href="{% url 'core:change-category' current_island category %}"
+                    <a href="{% url 'core:change-cat' current_island category %}"
                         class="category ps-4 fs-6 py-1 fw-light text-black">{{category}}</a>
                     {% endif %}
                 {% endfor %}
@@ -87,15 +87,15 @@
                         {% endif %}
                         {% for category in type.filtered_categories %}
                             {% if current_category == category %}
-                            <a href="{% url 'core:change-category' current_island category %}"
+                            <a href="{% url 'core:change-cat' current_island category %}"
                                 class="category ps-4 fs-6 py-1 fw-light text-primary text-decoration-underline">{{category}}
                             </a>
                             {% elif category.is_popular %}
-                            <a href="{% url 'core:change-category' current_island category %}"
+                            <a href="{% url 'core:change-cat' current_island category %}"
                                 class="category ps-4 fs-6 py-1 fw-light text-black">{{category}} <small class="fw-bold text-success"
                                     style="font-size: 10px;">Popular!</small></a>
                             {% else %}
-                            <a href="{% url 'core:change-category' current_island category %}"
+                            <a href="{% url 'core:change-cat' current_island category %}"
                                 class="category ps-4 fs-6 py-1 fw-light text-black">{{category}}</a>
                             {% endif %}
                         {% endfor %}
@@ -202,9 +202,7 @@
                     <div class="d-flex align-items-center">
                         <button class="btn text-primary bg-light" type="button" data-bs-toggle="offcanvas"
                             data-bs-target="#offcanvas" aria-controls="offcanvas">
-                            {% block breadcrumb %}
-                            <small class=""><i class="bi bi-list"></i> All Bookings</small>
-                            {% endblock %}
+                            <small class=""><i class="bi bi-list"></i> {{breadcrumb}}</small>
                         </button>
                     </div>
                     {% else %}
@@ -251,12 +249,7 @@
             </div>
             <hr class="text-body-tertiary d-none d-lg-block">
             <!-- Empty Message -->
-            {% if not page_obj %}
-            <div class="empty-message d-flex flex-column justify-content-center align-items-center w-100"
-                style="height: 40vh;">
-                <p class="text-secondary fs-5 text-center m-0">Sorry, no results for that.</p>
-            </div>
-            {% endif %}
+            {% block empty-message %}{% endblock %}
             <!-- Boooking Cards -->
             <div class="cards d-flex flex-wrap mt-4 gap-2 bg-light rounded-1">
                 {% if current_category.name == 'Service' %}

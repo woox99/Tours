@@ -37,15 +37,17 @@
 {% endblock %}
 
 
-<!-- Breadcrumb -->
-{% block breadcrumb %}
-<small class=""> <span class="text-black">Results for</span>
-    "{{query}}"</small>
-{% endblock %}
-
 {% block small-search-bar %}
 {% endblock %}
 
+{% block empty-message %}
+{% if not page_obj %}
+<div class="empty-message d-flex flex-column justify-content-center align-items-center w-100"
+    style="height: 40vh;">
+    <p class="text-secondary fs-5 text-center m-0">Sorry, no results found for "<span class="text-primary fw-semibold">{{query}}</span>".</p>
+</div>
+{% endif %}
+{% endblock %}
 
 <!-- Pagination Bar -->
 {% block pagination %}
