@@ -40,7 +40,7 @@
 
             {% for type in types %}
                 {% if type.filtered_categories %}
-                <a href="{% url 'core:change-type' current_island type %}" class="fs-5 ms-3 me-4 mt-4 mb-2 text-black fw-bolder">{{type}}</a>
+                <a href="{% url 'core:change-type' current_island type %}" class="type fs-5 ps-3 mt-2 py-2 text-black fw-bolder">{{type}}</a>
                 {% endif %}
                 {% for category in type.filtered_categories %}
                     {% if current_category == category %}
@@ -252,7 +252,7 @@
             {% block empty-message %}{% endblock %}
             <!-- Boooking Cards -->
             <div class="cards d-flex flex-wrap mt-4 gap-2 bg-light rounded-1">
-                {% if current_category.name == 'Service' %}
+                {% if current_category.name == 'Local Services' %}
                 <div id="" class="card rounded-2">
                     <a class="text-decoration-none" href="{% url 'core:contact-garett' %}">
                         <div class="background">
@@ -285,7 +285,7 @@
                                 <div class="card-image" style="background-image: url('{{ booking.image_URL }}');"></div>
                             </div>
                             <div class="company d-flex flex-column gap-2">
-                                <sm class="company-name fw-light"></i>~ {{booking.company_name}}</sm>
+                                <sm class="company-name ps-1">{{booking.company_name}}</sm>
                             </div>
                             <div class="badges d-flex justify-content-end">
                                 {% if booking.is_promo %}
@@ -298,11 +298,14 @@
                                 {% endif %}
                             </div>
                         </div>
+                    </a>
                         <div class="body d-flex flex-column px-2 px-md-3 pt-2 pb-1">
-                            <p class="title fw-medium text-black">{{booking.title}}</p>
+                            <a href="{{booking.referral_link}}" class="text-decoration-none">
+                                <p class="title fw-medium text-black">{{booking.title}}</p>
+                            </a>
                             <sm class="city text-secondary">{{booking.city}}</sm>
                             {% if booking.is_promo %}
-                            <sm class="promo-code text-secondary" {% if not booking.is_promo %}style='opacity:0'{% endif %}>Promo Code: 
+                            <sm class="promo-code text-secondary" {% if not booking.is_promo %}style='opacity:0'{% endif %}>Promo Code <i class="bi bi-dot"></i> 
                                 <span class="text-success fw-medium" style="letter-spacing: 0.5px; font-size: 11px;">{{booking.promo_code}}</span>
                             </sm>
                             {% else %}
@@ -311,12 +314,11 @@
                         </div>
                         <div class="tags d-flex flex-wrap gap-1 px-2 px-md-3 pb-2 ">
                             {% for tag in booking.tags.all %}
-                            <div
-                                class="tag bg-body-tertiary text-primary rounded-1 d-flex align-items-center justify-content-center py-1 px-2">
-                                {{tag}}</div>
+                            <div class="tag bg-body-tertiary text-primary rounded-1 d-flex align-items-center justify-content-center py-1 px-2">
+                                {{tag}}
+                            </div>
                             {% endfor %}
                         </div>
-                    </a>
                     {% if user.is_authenticated %}
                     <a href="{% url 'core:booking-update' booking.pk %}?island={{current_island}}&category={{current_category}}&page={{page_obj.number}}" class="text-center text-black bg-warning p-2 m-2 text-decoration-none fw-semibold">
                         Update Booking

@@ -19,9 +19,18 @@ html{
 .side-bar a{
     text-decoration: none;
 }
+.type{
+    margin-top: 2px;
+    letter-spacing: 0.25px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.side-bar .type:hover{
+    background-color: #f8f9fa !important;
+}
 .side-bar .category{
     font-size: 14px;
-    cursor: pointer;
     margin-top: 2px;
     letter-spacing: 0.25px;
     overflow: hidden;

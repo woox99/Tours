@@ -45,7 +45,7 @@
                         <div class="card-image" style="background-image: url('{{ booking.image_URL }}');"></div>
                     </div>
                     <div class="company d-flex flex-column gap-2">
-                        <sm class="company-name fw-light"></i>~ {{booking.company_name}}</sm>
+                        <sm class="company-name ps-1">{{booking.company_name}}</sm>
                     </div>
                     <div class="badges d-flex justify-content-end">
                         {% if booking.is_promo %}
@@ -58,21 +58,27 @@
                         {% endif %}
                     </div>
                 </div>
+            </a>
                 <div class="body d-flex flex-column px-2 px-md-3 pt-2 pb-1">
-                    <p class="title fw-medium text-black">{{booking.title}}</p>
+                    <a href="{{booking.referral_link}}" class="text-decoration-none">
+                        <p class="title fw-medium text-black">{{booking.title}}</p>
+                    </a>
                     <sm class="city text-secondary">{{booking.city}}</sm>
-                    <sm class="promo-code text-secondary" {% if not booking.is_promo %}style='opacity:0'{% endif %}>Promo Code: 
-                        <span class="text-black" style="letter-spacing: 0.5px; font-size: 11px;">{{booking.promo_code}}</span>
+                    {% if booking.is_promo %}
+                    <sm class="promo-code text-secondary" {% if not booking.is_promo %}style='opacity:0'{% endif %}>Promo Code <i class="bi bi-dot"></i> 
+                        <span class="text-success fw-medium" style="letter-spacing: 0.5px; font-size: 11px;">{{booking.promo_code}}</span>
                     </sm>
+                    {% else %}
+                    <div class="mb-md-3"></div>
+                    {% endif %}
                 </div>
-                <div class="tags d-flex flex-wrap gap-1 px-2 px-md-3 pb-2">
+                <div class="tags d-flex flex-wrap gap-1 px-2 px-md-3 pb-2 ">
                     {% for tag in booking.tags.all %}
-                    <div
-                        class="tag bg-body-tertiary text-primary rounded-1 d-flex align-items-center justify-content-center py-1 px-2">
-                        {{tag}}</div>
+                    <div class="tag bg-body-tertiary text-primary rounded-1 d-flex align-items-center justify-content-center py-1 px-2">
+                        {{tag}}
+                    </div>
                     {% endfor %}
                 </div>
-            </a>
         </div>
         <div class="admin-options mx-2 border bg-white p-1 p-lg-4">
             <!-- Form -->
