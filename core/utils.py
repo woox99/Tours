@@ -78,7 +78,7 @@ def filter_categories(island, request):
 
 
 
-    #     # Import Fareharbor csv data script
+    # # Import Fareharbor csv data script
     # path = 'core/fh.csv'
     # with open(path, newline='', encoding='utf-8') as csvfile:
     #     reader = csv.DictReader(csvfile)

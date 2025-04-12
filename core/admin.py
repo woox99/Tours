@@ -3,7 +3,7 @@ from core.models import *
 
 class BookingAdmin(admin.ModelAdmin):
     search_fields = ['title', 'fh_id']
-    list_display = ['title', 'is_public',  'is_verified', 'company_name',  'fh_id', 'island', 'weight', 'is_promo', 'promo_amount']
+    list_display = ['title', 'is_public', 'company_name',  'fh_id', 'island', 'weight', 'is_promo', 'promo_amount']
     ordering = ['title']
 
 class TypeAdmin(admin.ModelAdmin):

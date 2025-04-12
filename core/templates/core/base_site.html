@@ -28,7 +28,7 @@
                 {% for island in islands %}
                 {% if current_island == island %}
                 <a href="{% url 'core:change-island' island %}"
-                    class="category ps-4 fs-6 py-1 fw-light text-primary text-decoration-underline">{{island}}
+                    class="category ps-4 fs-6 py-1 fw-light text-primary text-decoration-none"><i class="bi bi-dot"></i>{{island}}
                 </a>
                 {% else %}
                 <a href="{% url 'core:change-island' island %}"
@@ -45,7 +45,7 @@
                 {% for category in type.filtered_categories %}
                     {% if current_category == category %}
                     <a href="{% url 'core:change-cat' current_island category %}"
-                        class="category ps-4 fs-6 py-1 fw-light text-primary text-decoration-underline">{{category}}
+                        class="category ps-4 fs-6 py-1 fw-light text-primary text-decoration-none"><i class="bi bi-dot"></i>{{category}}
                     </a>
                     {% elif category.is_popular %}
                     <a href="{% url 'core:change-cat' current_island category %}"
@@ -135,7 +135,7 @@
                         </a>
                     </div>
                     {% else %}
-                    <a class="logo navbar-brand d-flex align-items-center" href="{% url 'core:home' %}">
+                    <a class="logo navbar-brand d-flex align-items-center" href="{% url 'core:index' %}">
                         <img class="me-2" src="{% static 'core/assets/Hawaii.png' %}" alt="">
                     </a>
                     {% endif %}

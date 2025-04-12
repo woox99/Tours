@@ -45,7 +45,6 @@ class Booking(models.Model):
     tags = models.ManyToManyField('Category', related_name='bookings')
     island = models.ForeignKey(Island, on_delete=models.CASCADE)
     is_public = models.BooleanField(default=False)
-    is_verified = models.BooleanField(default=False)
     is_popular = models.BooleanField(default=False)
     is_pinned = models.BooleanField(default=False)
     is_promo = models.BooleanField(default=False)

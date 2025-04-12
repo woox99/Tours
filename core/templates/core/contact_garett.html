@@ -26,7 +26,7 @@
     }
 </style>
 <body>
-    <div class="d-flex justify-content-evenly flex-wrap my-4">
+    <div class="d-flex justify-content-evenly flex-wrap py-4 bg-light">
         <div class="about px-4 p-lg-0 text-center text-lg-start">
             <div class="text-start">
                 <a href="javascript:history.back()" class="btn btn-primary"><i class="bi bi-arrow-90deg-left"></i> Back</a>
@@ -45,7 +45,7 @@
                 <span>
                     <i class="bi bi-backpack text-primary fs-3"></i>
                     <p class="fw-semibold fs-5 mt-1 mb-1">Blog</p>
-                    <p class="text-secondary">Supplement your journey with a blog or create the next largest social
+                    <p class="text-secondary">Supplement your journey with a blog or create the next big social
                         media
                         platform.</p>
                 </span>
@@ -66,6 +66,7 @@
         <form class="mt-lg-4 p-3 p-lg-0 mb-5" action="https://formspree.io/f/xblgqqav" method="POST" id="form" target="_blank">
             <hr class="d-lg-none mx-5 pb-4">
             <h4 class="mb-3">Contact Me</h4>
+            <p>This is <span class="fw-semibold">NOT</span> the contact for <span class="fw-semibold text-primary">Hawaii Travel</span>. Contact them <a href="{% url 'core:info' %}#contact-us">here</a>.</p>
             <div class="form-floating mb-3">
                 <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com"
                     name="first_name" required>
@@ -100,7 +101,7 @@
     </div>
 
     <!-- Footer -->
-    <footer class="footer bg-light w-100 text-center py-1 text-primary border-top">
+    <footer class="footer bg-white w-100 text-center py-1 text-primary border-top">
         <div class="">
             <a class="text-decoration-none fb-logo" href="https://www.facebook.com/groups/1747780178610364" target="_blank">
                 <i class="bi bi-facebook fs-1"></i>
