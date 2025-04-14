@@ -71,7 +71,7 @@
                         {% for island in islands %}
                         {% if current_island == island %}
                         <a href="{% url 'core:change-island' island %}"
-                            class="category ps-4 fs-6 py-1 fw-light text-primary text-decoration-underline">{{island}}
+                            class="category ps-4 fs-6 py-1 fw-light text-primary text-decoration-none"><i class="bi bi-dot"></i>{{island}}
                         </a>
                         {% else %}
                         <a href="{% url 'core:change-island' island %}"
@@ -88,7 +88,7 @@
                         {% for category in type.filtered_categories %}
                             {% if current_category == category %}
                             <a href="{% url 'core:change-cat' current_island category %}"
-                                class="category ps-4 fs-6 py-1 fw-light text-primary text-decoration-underline">{{category}}
+                                class="category ps-4 fs-6 py-1 fw-light text-primary text-decoration-none"><i class="bi bi-dot"></i>{{category}}
                             </a>
                             {% elif category.is_popular %}
                             <a href="{% url 'core:change-cat' current_island category %}"
@@ -118,9 +118,9 @@
         {% block main-content %}
         <div class="main-content px-lg-3">
             <!-- Nav Bar -->
-            <nav class="navbar navbar-expand-lg bg-light  rounded-1">
+            <nav class="navbar navbar-expand-lg bg-light rounded-1">
                 <div class="container-fluid d-flex justify-content-between justify-content-lg-center">
-                    <button class="btn d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas"
+                    <button class="btn d-lg-none " type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas"
                         aria-controls="offcanvas">
                         <span class="navbar-toggler-icon"></span>
                     </button>
@@ -136,7 +136,7 @@
                     </div>
                     {% else %}
                     <a class="logo navbar-brand d-flex align-items-center" href="{% url 'core:index' %}">
-                        <img class="me-2" src="{% static 'core/assets/Hawaii.png' %}" alt="">
+                        <img class="me-2" src="{% static 'core/assets/hawaii.png' %}" alt="">
                     </a>
                     {% endif %}
                     <button disabled style="opacity: 0;" type="button" class="d-lg-none btn btn-light d-flex align-items-center"><i
@@ -146,14 +146,14 @@
             </nav>
             <!-- Large Search Bar -->
             {% block large-search-bar %}
-            <div class="search d-lg-none mt-4 px-3 px-lg-0">
+            <div class="search d-lg-none mt-4 px-2 px-lg-0">
                 <form action="{% url 'core:search' current_island %}" method="GET">
                     <div class="input-group">
                         <span class="input-group-text bg-white" id="basic-addon1"><i class="bi bi-search"></i></span>
                         <input type="search" class="form-control" name="q"
                             aria-label="Text input with segmented dropdown button"
                             placeholder="Search {{current_island}}…">
-                        <button type="button" class="btn border px-3 bg-body-tertiary text-primary dropdown-toggle dropdown-toggle-split"
+                        <button type="button" class="btn border px-3 bg-body-tertiary dropdown-toggle dropdown-toggle-split"
                             data-bs-toggle="dropdown" aria-expanded="false">
                             Change Island
                         </button>
@@ -175,7 +175,7 @@
             {% endblock %}
             <!-- Jumbotron -->
             {% if jumbotron %}
-            <div class="jumbotron mt-4">
+            <div class="jumbotron mt-4 mx-2 mx-lg-0">
                 {% if current_island.name == 'Oahu' %}
                 <img class="background rounded-1" src="{% static 'core/assets/oahu.jpg' %}" alt="">
                 {% elif current_island.name == 'Maui' %}
@@ -185,11 +185,10 @@
                 {% elif current_island.name == 'Kauai' %}
                 <img class="background rounded-1" src="{% static 'core/assets/kauai.jpg' %}" alt="">
                 {% endif %}
-                <!-- <img class="background" src="{% static jumbotron_path %}" alt=""> -->
                 <div class="strip"></div>
                 <div class="strip-content d-flex flex-column justify-content-center">
-                    <p class="island-name fw-bold text-center text-white m-0 lh-1 mt-3">{{current_island}}</p>
-                    <p class="text-center text-white fs-2 fw-light lh-1">Book your Hawaii adventure</p>
+                    <p class="island-name fw-bold text-center text-white m-0 lh-1 m-0">{{current_island}}</p>
+                    <p class="text-center text-white fs-2 fw-light m-0">Book your Hawaii adventure</p>
                 </div>
             </div>
             {% endif %}
@@ -395,7 +394,7 @@
             <a href="{% url 'core:info' %}#become-an-affiliate" class="text-decoration-none"> Become an Affiliate</a>
         </div>
         <a class="text-decoration-none text-dark pb-3 garett-contact-link"
-                            href="{% url 'core:contact-garett' %}"><small> Web services <span class="text-decoration-none text-secondary">Garett Janulewicz</span></small></a>
+                            href="{% url 'core:contact-garett' %}"><small> Web services <span class="text-decoration-none text-secondary">Garett Joseph</span></small></a>
     </footer>
 
 
