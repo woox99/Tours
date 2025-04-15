@@ -40,7 +40,7 @@ class Island(models.Model):
 
 class Booking(models.Model):
     title = models.CharField(max_length=100)
-    company_name = models.CharField(max_length=100)
+    company_name = models.CharField(max_length=100, blank=True)
     city = models.CharField(max_length=100)
     tags = models.ManyToManyField('Category', related_name='bookings')
     island = models.ForeignKey(Island, on_delete=models.CASCADE)
@@ -50,9 +50,9 @@ class Booking(models.Model):
     is_promo = models.BooleanField(default=False)
     promo_amount = models.CharField(max_length=100, blank=True)
     promo_code = models.CharField(max_length=100, blank=True)
-    fh_id = models.IntegerField()
-    referral_link = models.URLField()
-    image_URL = models.URLField()
+    fh_id = models.IntegerField(blank=True)
+    referral_link = models.TextField()
+    image_URL = models.TextField()
     weight = models.IntegerField(default=10000)
     modified = models.DateTimeField(auto_now=True)
 

@@ -64,10 +64,10 @@
                         <p class="title fw-medium text-black">{{booking.title}}</p>
                     </a>
                     <sm class="city text-secondary">{{booking.city}}</sm>
-                    {% if booking.is_promo %}
-                    <sm class="promo-code text-secondary" {% if not booking.is_promo %}style='opacity:0'{% endif %}>Promo Code <i class="bi bi-dot"></i> 
-                        <span class="text-success fw-medium" style="letter-spacing: 0.5px; font-size: 11px;">{{booking.promo_code}}</span>
-                    </sm>
+                    {% if booking.promo_code %}
+                        <sm class="promo-code text-secondary" {% if not booking.promo_code %}style='opacity:0'{% endif %}>Promo Code <i class="bi bi-dot"></i> 
+                            <span class="text-success fw-medium" style="letter-spacing: 0.5px; font-size: 11px;">{{booking.promo_code}}</span>
+                        </sm>
                     {% else %}
                     <div class="mb-md-3"></div>
                     {% endif %}
