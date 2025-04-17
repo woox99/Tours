@@ -30,8 +30,8 @@ def index(request):
         SiteVisit.objects.create(ref=ref)
     return redirect('core:change-island', island='Oahu')
 
-def home(request):
 
+def home(request):
     return render(request, 'core/home.html')
 
 
@@ -42,7 +42,8 @@ def info(request):
 def error_404_view(request, exception):
     return render(request, 'core/404.html', status=404)
 
-def change_island(request, island):
+
+def view_by_island(request, island):
     island = get_object_or_404(Island, name=island)
     request.session['island'] = island.name
     if request.user.is_authenticated:
@@ -50,6 +51,9 @@ def change_island(request, island):
     else:
         bookings = Booking.objects.filter(island=island, is_public=True).order_by('weight')
     page_obj, page_range = paginate_bookings(bookings, request)
+
+    back_url = f'www.hawaiitraveltips.com/{island}/?page={page_obj.number}'
+    print(back_url) #debug
 
     context = {
         'types' : filter_categories(island, request),
@@ -59,7 +63,7 @@ def change_island(request, island):
         'current_category' : None,
         'breadcrumb' : 'All Bookings',
         'page_range': page_range,
-        'jumbotron_path' : f"core/assets/{island}.jpg"
+        'back_url': back_url,
     }
 
     if page_obj.number == 1:

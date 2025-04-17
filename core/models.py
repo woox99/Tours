@@ -18,7 +18,7 @@ class Category(models.Model):
     traffic = models.IntegerField(default=0)
 
     @property
-    def public_bookings_count(self):
+    def public_bookings(self):
         return self.bookings.filter(is_public=True).count()
 
     def __str__(self):
@@ -33,7 +33,10 @@ class Island(models.Model):
     @property
     def bookings(self):
         return self.booking_set.all().count()
-
+    
+    @property
+    def public_bookings(self):
+        return self.booking_set.filter(is_public=True).count()
 
     def __str__(self):
         return self.name
@@ -56,7 +59,6 @@ class Booking(models.Model):
     image_URL = models.URLField()
     weight = models.IntegerField(default=10000)
     modified = models.DateTimeField(auto_now=True)
-
 
     def __str__(self):
         return self.title

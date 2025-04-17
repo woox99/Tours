@@ -9,7 +9,7 @@
 
 <!-- Search Bar -->
 {% block large-search-bar %}
-<div class="search mt-4 px-3 px-lg-0">
+<div class="search mt-4 px-2 px-lg-0">
     <form action="{% url 'core:search' current_island %}" method="GET">
         <div class="input-group">
             <span class="input-group-text bg-white" id="basic-addon1"><i class="bi bi-search"></i></span>
@@ -42,9 +42,10 @@
 
 {% block empty-message %}
 {% if not page_obj %}
-<div class="empty-message d-flex flex-column justify-content-center align-items-center w-100"
-    style="height: 40vh;">
-    <p class="text-secondary fs-5 text-center m-0">Sorry, no results found for "<span class="text-primary fw-semibold">{{query}}</span>".</p>
+<div class="empty-message d-flex flex-column align-items-center w-100"
+    style="height: 50vh;">
+    <p class="fs-5 text-center m-0 px-5 pt-5">Sorry, no results found for</p>
+    <p class="px-5 text-secondary">"{{query}}"</p>
 </div>
 {% endif %}
 {% endblock %}
