@@ -15,13 +15,24 @@
 </head>
 
 <style>
+    .form-select{
+            height: 180px !important;
+        }
+    @media (max-width: 768px) {
+        .form-container{
+            width: 95% !important;
+        }
+        .form-select{
+            height: 60px !important;
+        }
+        
+    }
     .form-select option {
         padding: 2px 0px 2px 5px;
         margin-top: 1px !important;
     }
 
     .form-select option:checked {
-        /* background-color: #f8f9fa !important; */
         color: #0d6efd;
         border-radius: 5px;
         padding: 2px 0px 2px 5px;
@@ -37,7 +48,8 @@
     <a href="{% url 'core:change-cat' island=current_island category=current_category %}?page={{page}}#{{booking.fh_id}}" class="text-light mt-3 text-decoration-none"><i class="bi bi-x-lg"></i> Close</a>
     {% endif %}
 
-    <div class="w-75 my-3 py-5 border rounded-4 d-flex flex-wrap justify-content-around align-items-start bg-body-tertiary">
+    <div class="form-container w-75 my-3 py-5 border rounded-4 d-flex flex-wrap justify-content-around align-items-start bg-body-tertiary">
+        <!-- Booking Card -->
         <div id="{{booking.fh_id}}" class="card" {% if not booking.is_public %}style='opacity: 70%;'{% endif %}>
             <a class="text-decoration-none" href="{{booking.referral_link}}">
                 <div class="background">
@@ -49,36 +61,36 @@
                     </div>
                     <div class="badges d-flex justify-content-end">
                         {% if booking.is_promo %}
-                        <div class="promo-badge bg-primary rounded-1 text-white py-1 px-2 fw-semibold">{{booking.promo_amount}} OFF Promo Code
+                        <div class="promo-badge bg-theme rounded-1 text-white py-1 px-2 fw-semibold">{{booking.promo_amount}} OFF Promo Code
                         </div>
                         {% endif %}
                         {% if booking.is_popular %}
-                        <div class="popular bg-info rounded-1 text-white py-1 px-2 fw-semibold">Popular!
+                        <div class="popular bg-primary rounded-1 text-white py-1 px-2 fw-semibold">Popular!
                         </div>
                         {% endif %}
                     </div>
                 </div>
             </a>
-                <div class="body d-flex flex-column px-2 px-md-3 pt-2 pb-1">
-                    <a href="{{booking.referral_link}}" class="text-decoration-none">
-                        <p class="title fw-medium text-black">{{booking.title}}</p>
-                    </a>
-                    <sm class="city text-secondary">{{booking.city}}</sm>
-                    {% if booking.promo_code %}
-                        <sm class="promo-code text-secondary" {% if not booking.promo_code %}style='opacity:0'{% endif %}>Promo Code <i class="bi bi-dot"></i> 
-                            <span class="text-success fw-medium" style="letter-spacing: 0.5px; font-size: 11px;">{{booking.promo_code}}</span>
-                        </sm>
-                    {% else %}
-                    <div class="mb-md-3"></div>
-                    {% endif %}
+            <div class="body d-flex flex-column px-2 px-md-3 pt-2 pb-1">
+                <a href="{{booking.referral_link}}" class="text-decoration-none">
+                    <p class="title fw-medium text-black">{{booking.title}}</p>
+                </a>
+                <sm class="city text-secondary">{{booking.city}}</sm>
+                {% if booking.promo_code %}
+                <sm class="promo-code text-secondary">Promo Code <i class="bi bi-dot"></i> 
+                    <span class="text-theme fw-medium" style="letter-spacing: 0.5px; font-size: 11px;">{{booking.promo_code}}</span>
+                </sm>
+                {% else %}
+                <div class="mb-md-3"></div>
+                {% endif %}
+            </div>
+            <div class="tags d-flex flex-wrap gap-1 px-2 px-md-3 pb-2 ">
+                {% for tag in booking.tags.all %}
+                <div class="tag bg-body-tertiary text-primary rounded-1 d-flex align-items-center justify-content-center py-1 px-2">
+                    {{tag}}
                 </div>
-                <div class="tags d-flex flex-wrap gap-1 px-2 px-md-3 pb-2 ">
-                    {% for tag in booking.tags.all %}
-                    <div class="tag bg-body-tertiary text-primary rounded-1 d-flex align-items-center justify-content-center py-1 px-2">
-                        {{tag}}
-                    </div>
-                    {% endfor %}
-                </div>
+                {% endfor %}
+            </div>
         </div>
         <div class="admin-options mx-2 border bg-white p-1 p-lg-4">
             <!-- Form -->
@@ -146,8 +158,7 @@
                 </div>
 
                 <!-- Select -->
-                <select class="form-select mb-3" multiple aria-label="Default select" name="category_ids"
-                    style="height: 185px;">
+                <select class="form-select mb-3" multiple aria-label="Default select" name="category_ids">
                     {% for category in categories %}
                     {% if category in booking.tags.all %}
                     <option class="" value="{{category.id}}" selected>{{category}}</option>
@@ -222,42 +233,6 @@
                         <div class="modal-body">
                             You are about to <span class="text-danger fw-medium">DELETE</span> this booking
                             forever. This action is permanent and cannot be undone. Are you sure?
-                            <div id="{{booking.fh_id}}" class="card w-75 mt-3">
-                                <a class="text-decoration-none" href="{{booking.referral_link}}">
-                                    <div class="background">
-                                        <div class="booking-image-container">
-                                            <div class="card-image" style="background-image: url('{{ booking.image_URL }}');"></div>
-                                        </div>
-                                        <div class="company d-flex flex-column gap-2">
-                                            <sm class="company-name fw-light"></i>~ {{booking.company_name}}</sm>
-                                        </div>
-                                        <div class="badges d-flex justify-content-end">
-                                            {% if booking.is_promo %}
-                                            <div class="promo-badge bg-primary rounded-1 text-white py-1 px-2 fw-semibold">{{booking.promo_amount}} OFF Promo Code
-                                            </div>
-                                            {% endif %}
-                                            {% if booking.is_popular %}
-                                            <div class="popular bg-info rounded-1 text-white py-1 px-2 fw-semibold">Popular!
-                                            </div>
-                                            {% endif %}
-                                        </div>
-                                    </div>
-                                    <div class="body d-flex flex-column px-2 px-md-3 pt-2 pb-1">
-                                        <p class="title fw-medium text-black">{{booking.title}}</p>
-                                        <sm class="city text-secondary">{{booking.city}}</sm>
-                                        <sm class="promo-code text-secondary" {% if not booking.is_promo %}style='opacity:0'{% endif %}>Promo Code: 
-                                            <span class="text-black" style="letter-spacing: 0.5px; font-size: 11px;">{{booking.promo_code}}</span>
-                                        </sm>
-                                    </div>
-                                    <div class="tags d-flex flex-wrap gap-1 px-2 px-md-3 pb-2">
-                                        {% for tag in booking.tags.all %}
-                                        <div
-                                            class="tag bg-body-tertiary text-primary rounded-1 d-flex align-items-center justify-content-center py-1 px-2">
-                                            {{tag}}</div>
-                                        {% endfor %}
-                                    </div>
-                                </a>
-                            </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>

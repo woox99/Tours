@@ -18,8 +18,6 @@
 
 <body class="m-0 p-0">
 
-    
-
     <div class="container-fluid d-flex p-0">
         <!-- Side Bar (lg screens) -->
         <div class="side-bar d-none d-lg-flex flex-column pb-4">
@@ -176,15 +174,7 @@
             <!-- Jumbotron -->
             {% if jumbotron %}
             <div class="jumbotron mt-3 mx-2 mx-lg-0 rounded-1">
-                {% if current_island.name == 'Oahu' %}
-                <img class="background" src="{% static 'core/assets/oahu.jpg' %}" alt="">
-                {% elif current_island.name == 'Maui' %}
-                <img class="background" src="{% static 'core/assets/maui.jpg' %}" alt="">
-                {% elif current_island.name == 'Big Island' %}
-                <img class="background" src="{% static 'core/assets/big island.jpg' %}" alt="">
-                {% elif current_island.name == 'Kauai' %}
-                <img class="background" src="{% static 'core/assets/kauai.jpg' %}" alt="">
-                {% endif %}
+                <div class="background" style="background-image: url('{{ current_island.image_URL }}');"></div>
                 <div class="strip"></div>
                 <div class="strip-content d-flex flex-column justify-content-center">
                     <p class="island-name fw-bold text-center text-white m-0 lh-1 m-0">{{current_island}}</p>
@@ -251,7 +241,7 @@
             <!-- Empty Message -->
             {% block empty-message %}{% endblock %}
             <!-- Boooking Cards -->
-            <div class="cards d-flex flex-wrap mt-3 gap-2 rounded-1">
+            <div class="cards d-flex flex-wrap mt-2 mt-lg-3 gap-2 rounded-1">
                 {% for booking in page_obj %}
                 <div id="{{booking.fh_id}}" class="card" {% if not booking.is_public %}style='opacity: 70%;'{% endif %}>
                     <a class="text-decoration-none" href="{{booking.referral_link}}">
@@ -274,26 +264,26 @@
                             </div>
                         </div>
                     </a>
-                        <div class="body d-flex flex-column px-2 px-md-3 pt-2 pb-1">
-                            <a href="{{booking.referral_link}}" class="text-decoration-none">
-                                <p class="title fw-medium text-black">{{booking.title}}</p>
-                            </a>
-                            <sm class="city text-secondary">{{booking.city}}</sm>
-                            {% if booking.promo_code %}
-                            <sm class="promo-code text-secondary" {% if not booking.promo_code %}style='opacity:0'{% endif %}>Promo Code <i class="bi bi-dot"></i> 
-                                <span class="text-theme fw-medium" style="letter-spacing: 0.5px; font-size: 11px;">{{booking.promo_code}}</span>
-                            </sm>
-                            {% else %}
-                            <div class="mb-md-3"></div>
-                            {% endif %}
+                    <div class="body d-flex flex-column px-2 px-md-3 pt-2 pb-1">
+                        <a href="{{booking.referral_link}}" class="text-decoration-none">
+                            <p class="title fw-medium text-black">{{booking.title}}</p>
+                        </a>
+                        <sm class="city text-secondary">{{booking.city}}</sm>
+                        {% if booking.promo_code %}
+                        <sm class="promo-code text-secondary">Promo Code <i class="bi bi-dot"></i> 
+                            <span class="text-theme fw-medium" style="letter-spacing: 0.5px; font-size: 11px;">{{booking.promo_code}}</span>
+                        </sm>
+                        {% else %}
+                        <div class="mb-md-3"></div>
+                        {% endif %}
+                    </div>
+                    <div class="tags d-flex flex-wrap gap-1 px-2 px-md-3 pb-2 ">
+                        {% for tag in booking.tags.all %}
+                        <div class="tag bg-body-tertiary text-primary rounded-1 d-flex align-items-center justify-content-center py-1 px-2">
+                            {{tag}}
                         </div>
-                        <div class="tags d-flex flex-wrap gap-1 px-2 px-md-3 pb-2 ">
-                            {% for tag in booking.tags.all %}
-                            <div class="tag bg-body-tertiary text-primary rounded-1 d-flex align-items-center justify-content-center py-1 px-2">
-                                {{tag}}
-                            </div>
-                            {% endfor %}
-                        </div>
+                        {% endfor %}
+                    </div>
                     {% if user.is_authenticated %}
                     <a href="{% url 'core:booking-update' booking.pk %}?island={{current_island}}&category={{current_category}}&page={{page_obj.number}}" class="text-center text-black bg-warning p-2 m-2 text-decoration-none fw-semibold">
                         Update Booking

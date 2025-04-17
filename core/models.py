@@ -27,6 +27,7 @@ class Category(models.Model):
 
 class Island(models.Model):
     name = models.CharField(max_length=50, unique=True)
+    image_URL = models.URLField()
     modified = models.DateTimeField(auto_now=True)
 
     @property
@@ -50,9 +51,9 @@ class Booking(models.Model):
     is_promo = models.BooleanField(default=False)
     promo_amount = models.CharField(max_length=100, blank=True)
     promo_code = models.CharField(max_length=100, blank=True)
-    fh_id = models.IntegerField(blank=True)
-    referral_link = models.TextField()
-    image_URL = models.TextField()
+    fh_id = models.IntegerField(blank=True, null=True)
+    referral_link = models.URLField()
+    image_URL = models.URLField()
     weight = models.IntegerField(default=10000)
     modified = models.DateTimeField(auto_now=True)
 

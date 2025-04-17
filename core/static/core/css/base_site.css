@@ -8,10 +8,10 @@ html{
 }
 
 .text-theme{
-    color: #118f95 !important;
+    color: #009999 !important;
 }
 .bg-theme{
-    background-color: #118f95 !important;
+    background-color: #009999 !important;
 }
 
 .logo{
@@ -38,7 +38,7 @@ html{
     text-overflow: ellipsis;
 }
 .side-bar .type:hover{
-    background-color: #f8f9fa !important;
+    background-color: #098a9310 !important;
 }
 .side-bar .category{
     font-size: 14px;
@@ -49,7 +49,7 @@ html{
     text-overflow: ellipsis;
 }
 .side-bar .category:hover{
-    background-color: #f8f9fa;
+    background-color: #098a9310;
 }
 .offcanvas{
     width: 300px !important;
@@ -83,6 +83,8 @@ html{
 .jumbotron .background{
     height: 300px;
     width: 100%;
+    background-size: cover;
+    background-position: center;
 }
 .jumbotron .strip{
     position: absolute;
@@ -117,10 +119,10 @@ html{
         height: 175px;
     }
     .jumbotron .island-name{
-        font-size: 40px !important;
+        font-size: 50px !important;
     }
     .jumbotron .description{
-        font-size: 9px;
+        font-size: 10px;
     }
 }
 .breadcrumb a{

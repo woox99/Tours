@@ -7,7 +7,8 @@ from core.utils import *
 from core.models import *
 from django.db.models import Q
 
-from datetime import timedelta 
+from datetime import timedelta
+from django.http import Http404 
 
 
 import csv # debug
@@ -27,9 +28,10 @@ def index(request):
         ref = request.GET.get('ref', '')
         ref = '?ref=' + ref
         SiteVisit.objects.create(ref=ref)
-    return redirect('core:home')
+    return redirect('core:change-island', island='Oahu')
 
 def home(request):
+
     return render(request, 'core/home.html')
 
 
@@ -37,9 +39,12 @@ def info(request):
     return render(request, 'core/info.html')
 
 
+def error_404_view(request, exception):
+    return render(request, 'core/404.html', status=404)
+
 def change_island(request, island):
-    request.session['island'] = island
     island = get_object_or_404(Island, name=island)
+    request.session['island'] = island.name
     if request.user.is_authenticated:
         bookings = Booking.objects.filter(island=island).order_by('weight')
     else:

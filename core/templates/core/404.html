@@ -1,0 +1,17 @@
+{% extends 'core/home.html' %}
+
+{% load static %}
+
+{% block head_title %}
+<title>Hawaii Travel Tips - 404</title>
+{% endblock %}
+
+{% block message %}
+<h1 class="m-0">ERROR</h1>
+<h4 class="text-secondary m-0 px-3">The page you're looking for couldn't be found.</h4>
+<h6 class="m-0">Please select your island and try again.</h6>
+{% endblock %}
+
+{% block message2 %}
+<p class="px-3">If this keeps happening, please contact our <a href="{% url 'core:info' %}#contact-us">support team</a>.</p>
+{% endblock %}
