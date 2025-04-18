@@ -43,11 +43,14 @@ def randomize_booking_weights():
 
 def update_booking_weight(booking):
     public_bookings_count = Booking.objects.filter(is_public=True).count()
-
+    # print(booking.is_public)
+    # print(booking.weight)
     if booking.is_pinned:
         booking.weight = 0
     elif not booking.is_public:
         booking.weight = 10000
+    elif booking.is_public and int(booking.weight) == 10000:
+        booking.weight = random.randint(1, public_bookings_count)
     elif booking.is_popular and int(booking.weight) > 20:
         booking.weight = random.randint(1, 20)
     elif not booking.is_pinned and int(booking.weight) == 0:

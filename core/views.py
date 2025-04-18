@@ -9,7 +9,7 @@ from django.db.models import Q
 
 from datetime import timedelta
 from django.http import Http404 
-
+from urllib.parse import quote
 
 import csv # debug
 import time #debug
@@ -17,17 +17,61 @@ import time #debug
 
 def index(request):
 
-    last_randomized_date = BookingRandomization.objects.last().date
-    if now() - last_randomized_date > timedelta(days=1):
-        randomize_booking_weights()
+    # last_randomized_date = BookingRandomization.objects.last().date
+    # if now() - last_randomized_date > timedelta(days=1):
+    #     randomize_booking_weights()
 
     if 'island' in request.session:
         return redirect('core:change-island', island=request.session['island'])
     
-    if request.user.is_anonymous:
-        ref = request.GET.get('ref', '')
-        ref = '?ref=' + ref
-        SiteVisit.objects.create(ref=ref)
+    # if request.user.is_anonymous:
+    #     ref = request.GET.get('ref', '')
+    #     ref = '?ref=' + ref
+    #     SiteVisit.objects.create(ref=ref)
+
+
+
+    ##Import Fareharbor csv data script
+    # path = 'core/fh.csv'
+    # with open(path, newline='', encoding='utf-8') as csvfile:
+    #     reader = csv.DictReader(csvfile)
+    #     for row in reader:
+    #         # print(reader.fieldnames)
+
+    #         # Create Categories and Types
+    #         try:
+    #             category = Category.objects.get(name=row["category"])
+    #         except Category.DoesNotExist:
+    #             try:
+    #                 type = Type.objects.get(name=row["item_type"])
+    #             except Type.DoesNotExist:
+    #                 type = Type.objects.create(name=row["item_type"])
+    #             type = Type.objects.get(name=row["item_type"])
+    #             category = Category.objects.create(name=row["category"], type=type)
+
+    #         # Create Islands
+    #         try:
+    #             island = Island.objects.get(name=row["island"])
+    #         except Island.DoesNotExist:
+    #             island = Island.objects.create(name=row["island"])
+
+    #         # Create Booking
+    #         try:
+    #             booking = Booking(
+    #                 title=row["item_name"],
+    #                 company_name=row["company_name"],
+    #                 city=row["city"],
+    #                 # category=category,
+    #                 # type=Type.objects.get(name=row["item_type"]),
+    #                 island=island,
+    #                 fh_id=int(row["item_id"]),
+    #                 referral_link=row["referral_link"],
+    #                 image_URL=row["image_URL"],
+    #             )
+    #             booking.save()
+    #             booking.tags.add(category)
+    #         except Exception as e:
+    #             print(f"Skipping row due to error: {e}")
     return redirect('core:change-island', island='Oahu')
 
 
@@ -52,7 +96,7 @@ def view_by_island(request, island):
         bookings = Booking.objects.filter(island=island, is_public=True).order_by('weight')
     page_obj, page_range = paginate_bookings(bookings, request)
 
-    back_url = f'www.hawaiitraveltips.com/{island}/?page={page_obj.number}'
+    back_url = f'www.hawaiitraveltips.com/{quote(island.name)}/?page={page_obj.number}'
     print(back_url) #debug
 
     context = {
@@ -86,6 +130,8 @@ def view_by_cat(request, island, category):
         bookings = Booking.objects.filter(island=island, is_public=True, tags=category).order_by('weight')
     page_obj, page_range = paginate_bookings(bookings, request)
 
+    back_url = f'www.hawaiitraveltips.com/{quote(island.name)}/{quote(category.name)}/?page={page_obj.number}'
+
     context = {
         'types' : filter_categories(island, request),
         'page_obj' : page_obj,
@@ -94,7 +140,7 @@ def view_by_cat(request, island, category):
         'current_category': category,
         'breadcrumb' : category,
         'page_range': page_range,
-        'jumbotron_path' : f"core/assets/{island}.jpg",
+        'back_url': back_url,
     }
 
     if page_obj.number == 1:
@@ -113,6 +159,8 @@ def view_by_type(request, island, type):
         bookings = Booking.objects.filter(island=island, is_public=True, tags__in=categories).distinct().order_by('weight')
     page_obj, page_range = paginate_bookings(bookings, request)
 
+    back_url = f'www.hawaiitraveltips.com/{island}/all-{type}/?page={page_obj.number}'
+
     context = {
         'types' : filter_categories(island, request),
         'page_obj' : page_obj,
@@ -121,7 +169,7 @@ def view_by_type(request, island, type):
         'current_category': None,
         'breadcrumb' : type,
         'page_range': page_range,
-        'jumbotron_path' : f"core/assets/{island}.jpg",
+        'back_url': back_url,
     }
 
     if page_obj.number == 1:
@@ -190,6 +238,8 @@ def search_results(request, island):
         ).distinct().order_by('weight')
     page_obj, page_range = paginate_bookings(bookings, request)
 
+    back_url = f'www.hawaiitraveltips.com/{quote(island.name)}/search/?page={page_obj.number}&q={quote(query)}'
+
     context = {
         'types' : filter_categories(island, request),
         'page_obj' : page_obj,
@@ -199,6 +249,7 @@ def search_results(request, island):
         'breadcrumb' : query,
         'page_range': page_range,
         'query':query,
+        'back_url': back_url,
     }
     return render(request, 'core/search.html', context)
 

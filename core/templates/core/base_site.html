@@ -244,7 +244,7 @@
             <div class="cards d-flex flex-wrap mt-2 mt-lg-3 gap-2 rounded-1">
                 {% for booking in page_obj %}
                 <div id="{{booking.fh_id}}" class="card" {% if not booking.is_public %}style='opacity: 70%;'{% endif %}>
-                    <a class="text-decoration-none" href="{{booking.referral_link}}&back={{back_url}}">
+                    <a class="text-decoration-none" href="{{booking.referral_link}}{{back_url}}">
                         <div class="background">
                             <div class="booking-image-container">
                                 <div class="card-image" style="background-image: url('{{ booking.image_URL }}');"></div>
@@ -265,7 +265,7 @@
                         </div>
                     </a>
                     <div class="body d-flex flex-column px-2 px-md-3 pt-2 pb-1">
-                        <a href="{{booking.referral_link}}" class="text-decoration-none">
+                        <a href="{{booking.referral_link}}{{back_url}}" class="text-decoration-none">
                             <p class="title fw-medium text-black">{{booking.title}}</p>
                         </a>
                         <sm class="city text-secondary">{{booking.city}}</sm>
