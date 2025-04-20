@@ -21,17 +21,17 @@ def index(request):
     # if now() - last_randomized_date > timedelta(days=1):
     #     randomize_booking_weights()
 
-    if 'island' in request.session:
-        return redirect('core:change-island', island=request.session['island'])
+    # if 'island' in request.session:
+    #     return redirect('core:change-island', island=request.session['island'])
     
-    # if request.user.is_anonymous:
-    #     ref = request.GET.get('ref', '')
-    #     ref = '?ref=' + ref
-    #     SiteVisit.objects.create(ref=ref)
+    if request.user.is_anonymous:
+        ref = request.GET.get('ref', '')
+        ref = '?ref=' + ref
+        SiteVisit.objects.create(ref=ref)
 
 
 
-    ##Import Fareharbor csv data script
+    # #Import Fareharbor csv data script
     # path = 'core/fh.csv'
     # with open(path, newline='', encoding='utf-8') as csvfile:
     #     reader = csv.DictReader(csvfile)
@@ -96,7 +96,7 @@ def view_by_island(request, island):
         bookings = Booking.objects.filter(island=island, is_public=True).order_by('weight')
     page_obj, page_range = paginate_bookings(bookings, request)
 
-    back_url = f'www.hawaiitraveltips.com/{quote(island.name)}/?page={page_obj.number}'
+    back_url = f'&back=www.hawaiitraveltips.com/{quote(island.name)}/?page={page_obj.number}'
     print(back_url) #debug
 
     context = {
