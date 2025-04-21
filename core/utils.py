@@ -3,15 +3,12 @@ from django.templatetags.static import static
 from core.models import *
 from django.utils.timezone import now 
 from django.core.paginator import Paginator
-from django.db.models import F
+from django.db.models import F, Q
 
 
-import time #debug
-
-
-def log_traffic(instance):
-    instance.traffic=F('traffic') + 1
-    instance.save()
+# Update category traffic atomically
+def log_traffic(category):
+    Category.objects.filter(name=category).update(traffic=F('traffic') + 1)
     return
 
 
@@ -27,6 +24,8 @@ def randomize_booking_weights():
     updated_bookings = []
     bookings = Booking.objects.filter(is_public=True, is_pinned=False)
     public_bookings_count = bookings.count()
+    if public_bookings_count < 20:
+        public_bookings_count = 20
 
     for booking in bookings:
         if booking.is_popular:
@@ -43,8 +42,9 @@ def randomize_booking_weights():
 
 def update_booking_weight(booking):
     public_bookings_count = Booking.objects.filter(is_public=True).count()
-    # print(booking.is_public)
-    # print(booking.weight)
+    if public_bookings_count < 20:
+        public_bookings_count = 20
+
     if booking.is_pinned:
         booking.weight = 0
     elif not booking.is_public:
@@ -56,6 +56,7 @@ def update_booking_weight(booking):
     elif not booking.is_pinned and int(booking.weight) == 0:
         booking.weight = random.randint(1, public_bookings_count)
     return booking
+
 
 def filter_categories(island, request):
     types = Type.objects.all().order_by('modified')
@@ -80,6 +81,48 @@ def filter_categories(island, request):
     return types
 
 
+def update_booking(request, booking):
+    booking.title = request.POST['title']
+    booking.is_public = True if request.POST['is_public'] == 'true' else False
+    booking.is_popular = True if request.POST['is_popular'] == 'true' else False
+    booking.is_pinned = True if request.POST['is_pinned'] == 'true' else False
+    booking.is_promo = True if request.POST['is_promo'] == 'true' else False
+    booking.weight = request.POST['weight']
+    booking.promo_amount = request.POST['promo_amount']
+    booking.promo_code = request.POST['promo_code']
+    booking.city = request.POST['city']
+    
+    category_ids = request.POST.getlist('category_ids')
+    if category_ids:
+        tags = Category.objects.filter(pk__in=category_ids)
+        booking.tags.set(tags)
+
+    booking = update_booking_weight(booking)
+    booking.save()
+    return
+
+
+def get_search_results(request, island, query):
+    if request.user.is_authenticated:
+        results = Booking.objects.filter( 
+            Q(title__icontains=query) | 
+            Q(company_name__icontains=query) | 
+            Q(city__icontains=query) | 
+            Q(fh_id__icontains=query) | 
+            Q(tags__name__icontains=query), 
+            island=island,
+        ).distinct().order_by('weight')
+    else:
+        results = Booking.objects.filter( 
+            Q(title__icontains=query) | 
+            Q(company_name__icontains=query) | 
+            Q(city__icontains=query) | 
+            Q(fh_id__icontains=query) | 
+            Q(tags__name__icontains=query), 
+            island=island,
+            is_public=True,
+        ).distinct().order_by('weight')
+    return results
 
     # # Import Fareharbor csv data script
     # path = 'core/fh.csv'

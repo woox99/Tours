@@ -16,7 +16,7 @@
 
 <style>
     .form-select{
-            height: 180px !important;
+            height: 350px !important;
         }
     @media (max-width: 768px) {
         .form-container{
@@ -51,7 +51,7 @@
     <div class="form-container w-75 my-3 py-5 border rounded-4 d-flex flex-wrap justify-content-around align-items-start bg-body-tertiary">
         <!-- Booking Card -->
         <div id="{{booking.fh_id}}" class="card" {% if not booking.is_public %}style='opacity: 70%;'{% endif %}>
-            <a class="text-decoration-none" href="{{booking.referral_link}}">
+            <a class="text-decoration-none" href="{{booking.referral_link}}&back={{back_url}}">
                 <div class="background">
                     <div class="booking-image-container">
                         <div class="card-image" style="background-image: url('{{ booking.image_URL }}');"></div>
@@ -72,7 +72,7 @@
                 </div>
             </a>
             <div class="body d-flex flex-column px-2 px-md-3 pt-2 pb-1">
-                <a href="{{booking.referral_link}}" class="text-decoration-none">
+                <a href="{{booking.referral_link}}{{back_url}}" class="text-decoration-none">
                     <p class="title fw-medium text-black">{{booking.title}}</p>
                 </a>
                 <sm class="city text-secondary">{{booking.city}}</sm>

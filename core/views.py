@@ -2,27 +2,31 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth import logout
 from django.contrib.auth.models import User
 from django.urls import reverse
+from django.contrib.admin.views.decorators import staff_member_required
 
 from core.utils import *
 from core.models import *
-from django.db.models import Q
 
-from datetime import timedelta
-from django.http import Http404 
 from urllib.parse import quote
-
+from datetime import timedelta
 import csv # debug
 import time #debug
 
 
+
+
 def index(request):
 
-    # last_randomized_date = BookingRandomization.objects.last().date
-    # if now() - last_randomized_date > timedelta(days=1):
-    #     randomize_booking_weights()
+    # Randomize booking weights periodically
+    last_weight_randomization = BookingRandomization.objects.last()
+    if not last_weight_randomization:
+        last_weight_randomization = BookingRandomization.objects.create()
+    last_weight_randomization_date = last_weight_randomization.date
+    if now() - last_weight_randomization_date > timedelta(seconds=1):
+        randomize_booking_weights()
 
-    # if 'island' in request.session:
-    #     return redirect('core:change-island', island=request.session['island'])
+    if 'island' in request.session:
+        return redirect('core:change-island', island=request.session['island'])
     
     if request.user.is_anonymous:
         ref = request.GET.get('ref', '')
@@ -96,8 +100,7 @@ def view_by_island(request, island):
         bookings = Booking.objects.filter(island=island, is_public=True).order_by('weight')
     page_obj, page_range = paginate_bookings(bookings, request)
 
-    back_url = f'&back=www.hawaiitraveltips.com/{quote(island.name)}/?page={page_obj.number}'
-    print(back_url) #debug
+    back_url = f'www.hawaiitraveltips.com/{quote(island.name)}/?page={page_obj.number}'
 
     context = {
         'types' : filter_categories(island, request),
@@ -115,9 +118,10 @@ def view_by_island(request, island):
     return render(request, 'core/base_site.html', context)
 
 
+# Log the traffic each time a category is selected
 def log_cat_traffic(request, island, category):
     if request.user.is_anonymous:
-        log_traffic(instance=get_object_or_404(Category, name=category))
+        log_traffic(category)
     return redirect('core:view-by-cat', island, category)
 
 
@@ -159,7 +163,7 @@ def view_by_type(request, island, type):
         bookings = Booking.objects.filter(island=island, is_public=True, tags__in=categories).distinct().order_by('weight')
     page_obj, page_range = paginate_bookings(bookings, request)
 
-    back_url = f'www.hawaiitraveltips.com/{island}/all-{type}/?page={page_obj.number}'
+    back_url = f'www.hawaiitraveltips.com/{quote(island.name)}/all-{quote(type.name)}/?page={page_obj.number}'
 
     context = {
         'types' : filter_categories(island, request),
@@ -177,11 +181,11 @@ def view_by_type(request, island, type):
     return render(request, 'core/base_site.html', context)
 
 
+# Log the query and count of results for each search
 def log_search(request, island):
     island = get_object_or_404(Island, name=island)
     query = request.GET.get('q', '')
 
-    # Only logs the search query if user is not an admin
     if request.user.is_authenticated:
         return redirect(reverse('core:search-results', kwargs={'island': island.name}) + f'?q={query}')
     
@@ -199,15 +203,8 @@ def log_search(request, island):
         island=island,
         count=query_count, 
     )
-    results = Booking.objects.filter( 
-        Q(title__icontains=query) | 
-        Q(company_name__icontains=query) | 
-        Q(city__icontains=query) | 
-        Q(fh_id__icontains=query) | 
-        Q(tags__name__icontains=query), 
-        island=island,
-        is_public=True,
-    ).count()
+    # Get results count
+    results = get_search_results(request, island, query).count()
     new_search_query.results = results
     new_search_query.save()
 
@@ -217,25 +214,7 @@ def log_search(request, island):
 def search_results(request, island):
     island = get_object_or_404(Island, name=island)
     query = request.GET.get('q', '')
-    if request.user.is_authenticated:
-        bookings = Booking.objects.filter( 
-            Q(title__icontains=query) | 
-            Q(company_name__icontains=query) | 
-            Q(city__icontains=query) | 
-            Q(fh_id__icontains=query) | 
-            Q(tags__name__icontains=query), 
-            island=island,
-        ).distinct().order_by('weight')
-    else:
-        bookings = Booking.objects.filter( 
-            Q(title__icontains=query) | 
-            Q(company_name__icontains=query) | 
-            Q(city__icontains=query) | 
-            Q(fh_id__icontains=query) | 
-            Q(tags__name__icontains=query), 
-            island=island,
-            is_public=True,
-        ).distinct().order_by('weight')
+    bookings = get_search_results(request, island, query)
     page_obj, page_range = paginate_bookings(bookings, request)
 
     back_url = f'www.hawaiitraveltips.com/{quote(island.name)}/search/?page={page_obj.number}&q={quote(query)}'
@@ -254,6 +233,7 @@ def search_results(request, island):
     return render(request, 'core/search.html', context)
 
 
+@staff_member_required
 def booking_update(request, pk):
     if request.method == 'GET':
         booking = get_object_or_404(Booking, pk=pk)
@@ -269,23 +249,7 @@ def booking_update(request, pk):
         return render(request, 'core/update.html', context)
     else:
         booking = get_object_or_404(Booking, pk=pk)
-        booking.title = request.POST['title']
-        booking.is_public = True if request.POST['is_public'] == 'true' else False
-        booking.is_popular = True if request.POST['is_popular'] == 'true' else False
-        booking.is_pinned = True if request.POST['is_pinned'] == 'true' else False
-        booking.is_promo = True if request.POST['is_promo'] == 'true' else False
-        booking.weight = request.POST['weight']
-        booking.promo_amount = request.POST['promo_amount']
-        booking.promo_code = request.POST['promo_code']
-        booking.city = request.POST['city']
-        
-        category_ids = request.POST.getlist('category_ids')
-        if category_ids:
-            tags = Category.objects.filter(pk__in=category_ids)
-            booking.tags.set(tags)
-
-        booking = update_booking_weight(booking)
-        booking.save()
+        update_booking(request, booking)
     
     island = request.GET.get('island')
     category = request.GET.get('category')
@@ -293,6 +257,7 @@ def booking_update(request, pk):
     return redirect(reverse('core:booking-update', kwargs={'pk':booking.pk}) + f'?island={island}&category={category}&page={page}')
 
 
+@staff_member_required
 def booking_delete(request, pk):
     booking = get_object_or_404(Booking, pk=pk)
     booking.delete()
