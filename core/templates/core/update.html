@@ -57,7 +57,7 @@
                         <div class="card-image" style="background-image: url('{{ booking.image_URL }}');"></div>
                     </div>
                     <div class="company d-flex flex-column gap-2">
-                        <sm class="company-name ps-1">{{booking.company_name}}</sm>
+                        <small class="company-name ps-1">{{booking.company_name}}</small>
                     </div>
                     <div class="badges d-flex justify-content-end">
                         {% if booking.is_promo %}
@@ -75,11 +75,11 @@
                 <a href="{{booking.referral_link}}{{back_url}}" class="text-decoration-none">
                     <p class="title fw-medium text-black">{{booking.title}}</p>
                 </a>
-                <sm class="city text-secondary">{{booking.city}}</sm>
+                <small class="city text-secondary">{{booking.city}}</small>
                 {% if booking.promo_code %}
-                <sm class="promo-code text-secondary">Promo Code <i class="bi bi-dot"></i> 
+                <small class="promo-code text-secondary">Promo Code <i class="bi bi-dot"></i> 
                     <span class="text-theme fw-medium" style="letter-spacing: 0.5px; font-size: 11px;">{{booking.promo_code}}</span>
-                </sm>
+                </small>
                 {% else %}
                 <div class="mb-md-3"></div>
                 {% endif %}
@@ -131,29 +131,29 @@
 
                 <!-- Booking Weight -->
                 <div class="input-group mb-3 w-50" >
-                    <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-weight-hanging"></i></span>
-                    <input type="text" class="form-control" aria-label="weight" aria-describedby="basic-addon1"
+                    <span class="input-group-text" id="weight_input"><i class="fa-solid fa-weight-hanging"></i></span>
+                    <input type="text" class="form-control" aria-label="weight" aria-describedby="weight_input"
                         name="weight" value="{{booking.weight}}">
                 </div>
 
                 <!-- FareHarbor ID -->
                 <div class="input-group mb-3">
-                    <span class="input-group-text" id="basic-addon1">FareHarbor <i class="bi bi-hash"></i></span>
-                    <input type="text" class="form-control" aria-label="fh_id" aria-describedby="basic-addon1"
+                    <span class="input-group-text" id="fh_id">FareHarbor <i class="bi bi-hash"></i></span>
+                    <input type="text" class="form-control" aria-label="fh_id" aria-describedby="fh_id"
                         value="{{booking.fh_id}}" disabled>
                 </div>
 
                 <!-- Title -->
                 <div class="input-group mb-3">
-                    <span class="input-group-text" id="basic-addon1"><i class="bi bi-fonts"></i></span>
-                    <input type="text" class="form-control" aria-label="title" aria-describedby="basic-addon1"
+                    <span class="input-group-text" id="title_input"><i class="bi bi-fonts"></i></span>
+                    <input type="text" class="form-control" aria-label="title" aria-describedby="title_input"
                         value="{{booking.title}}" name="title">
                 </div>
 
                 <!-- City -->
                 <div class="input-group mb-3">
-                    <span class="input-group-text" id="basic-addon1"><i class="bi bi-geo-alt-fill"></i></span>
-                    <input type="text" class="form-control" aria-label="city" aria-describedby="basic-addon1"
+                    <span class="input-group-text" id="city_input"><i class="bi bi-geo-alt-fill"></i></span>
+                    <input type="text" class="form-control" aria-label="city" aria-describedby="city_input"
                         value="{{booking.city}}" name="city">
                 </div>
 
@@ -201,12 +201,12 @@
                 </div>
                 <div class="input-group mb-3">
                     <input type="text" class="form-control" placeholder="Amount"
-                        aria-label="promoAmount" aria-describedby="basic-addon2" value="{{booking.promo_amount}}" name="promo_amount">
-                    <span class="input-group-text" id="basic-addon2">OFF</span>
+                        aria-label="promoAmount" aria-describedby="amount_input" value="{{booking.promo_amount}}" name="promo_amount">
+                    <span class="input-group-text" id="amount_input">OFF</span>
                 </div>
                 <div class="input-group mb-3">
-                    <span class="input-group-text" id="basic-addon1">Promo Code:</span>
-                    <input type="text" class="form-control" aria-label="" aria-describedby="basic-addon1"
+                    <span class="input-group-text" id="promocode_input">Promo Code:</span>
+                    <input type="text" class="form-control" aria-label="" aria-describedby="promocode_input"
                         value="{{booking.promo_code}}" name="promo_code">
                 </div>
 

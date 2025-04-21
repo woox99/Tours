@@ -58,7 +58,7 @@
         </div>
 
         <!-- Offcanvas (md screens)-->
-        <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvas" aria-labelledby="offcanvasLabel">
+        <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvas" aria-labelledby="offcanvas">
             <div class="offcanvas-header">
                 <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
@@ -124,13 +124,8 @@
                     </button>
                     {% if user.is_authenticated %}
                     <div class="d-flex gap-2">
-                        <a href="/admin">
-                            <button class="btn btn-warning"><i class="bi bi-person-arms-up"></i>
-                                Dashboard</button>
-                        </a>
-                        <a href="{% url 'core:logout' current_island %}">
-                            <button class="btn btn-warning"><i class="bi bi-box-arrow-right"></i> Logout</button>
-                        </a>
+                        <a href="/admin" class="btn btn-warning"><i class="bi bi-person-arms-up"></i> Dashboard</a>
+                        <a href="{% url 'core:logout' current_island %}" class="btn btn-warning"><i class="bi bi-box-arrow-right"></i> Logout</a>
                     </div>
                     {% else %}
                     <a class="navbar-brand d-flex align-items-center p-0" href="{% url 'core:index' %}">
@@ -147,7 +142,7 @@
             <div class="search d-lg-none mt-3 px-2 px-lg-0">
                 <form action="{% url 'core:search' current_island %}" method="GET">
                     <div class="input-group">
-                        <span class="input-group-text bg-white" id="basic-addon1"><i class="bi bi-search"></i></span>
+                        <span class="input-group-text bg-white" id="large-search-bar"><i class="bi bi-search"></i></span>
                         <input type="search" class="form-control" name="q"
                             aria-label="Text input with segmented dropdown button"
                             placeholder="Search {{current_island}}…">
@@ -212,7 +207,7 @@
                 <div class="d-none d-lg-block search px-3 px-lg-0 w-50">
                     <form action="{% url 'core:search' current_island %}" method="GET">
                         <div class="input-group">
-                            <span class="input-group-text bg-white" id="basic-addon1"><i class="bi bi-search"></i></span>
+                            <span class="input-group-text bg-white" id="small-search-bar"><i class="bi bi-search"></i></span>
                             <input type="search" class="form-control" name="q"
                                 aria-label="Text input with segmented dropdown button"
                                 placeholder="Search {{current_island}}…">
@@ -250,7 +245,7 @@
                                 <div class="card-image" style="background-image: url('{{ booking.image_URL }}');"></div>
                             </div>
                             <div class="company d-flex flex-column gap-2">
-                                <sm class="company-name ps-1">{{booking.company_name}}</sm>
+                                <small class="company-name ps-1">{{booking.company_name}}</small>
                             </div>
                             <div class="badges d-flex justify-content-end">
                                 {% if booking.is_promo %}
@@ -268,11 +263,11 @@
                         <a href="{{booking.referral_link}}{{back_url}}" class="text-decoration-none">
                             <p class="title fw-medium text-black">{{booking.title}}</p>
                         </a>
-                        <sm class="city text-secondary">{{booking.city}}</sm>
+                        <small class="city text-secondary">{{booking.city}}</small>
                         {% if booking.promo_code %}
-                        <sm class="promo-code text-secondary">Promo Code <i class="bi bi-dot"></i> 
+                        <small class="promo-code text-secondary">Promo Code <i class="bi bi-dot"></i> 
                             <span class="text-theme fw-medium" style="letter-spacing: 0.5px; font-size: 11px;">{{booking.promo_code}}</span>
-                        </sm>
+                        </small>
                         {% else %}
                         <div class="mb-md-3"></div>
                         {% endif %}
