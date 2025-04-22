@@ -106,11 +106,11 @@ def view_by_island(request, island):
         'types' : filter_categories(island, request),
         'page_obj' : page_obj,
         'islands': Island.objects.all().order_by('modified'),
-        'current_island':island,
+        'current_island': island,
         'current_category' : None,
         'breadcrumb' : 'All Bookings',
         'page_range': page_range,
-        'back_url': back_url,
+        'back_url': quote(back_url),
     }
 
     if page_obj.number == 1:
@@ -140,11 +140,11 @@ def view_by_cat(request, island, category):
         'types' : filter_categories(island, request),
         'page_obj' : page_obj,
         'islands':Island.objects.all().order_by('modified'),
-        'current_island':island,
-        'current_category': category,
+        'current_island': island,
+        'current_category': quote(category.name),
         'breadcrumb' : category,
         'page_range': page_range,
-        'back_url': back_url,
+        'back_url': quote(back_url),
     }
 
     if page_obj.number == 1:
@@ -169,11 +169,11 @@ def view_by_type(request, island, type):
         'types' : filter_categories(island, request),
         'page_obj' : page_obj,
         'islands':Island.objects.all().order_by('modified'),
-        'current_island':island,
+        'current_island': island,
         'current_category': None,
         'breadcrumb' : type,
         'page_range': page_range,
-        'back_url': back_url,
+        'back_url': quote(back_url),
     }
 
     if page_obj.number == 1:
@@ -223,12 +223,12 @@ def search_results(request, island):
         'types' : filter_categories(island, request),
         'page_obj' : page_obj,
         'islands':Island.objects.all().order_by('modified'),
-        'current_island':island,
+        'current_island': island,
         'current_category': None,
         'breadcrumb' : query,
         'page_range': page_range,
         'query':query,
-        'back_url': back_url,
+        'back_url': quote(back_url),
     }
     return render(request, 'core/search.html', context)
 
@@ -237,7 +237,6 @@ def search_results(request, island):
 def booking_update(request, pk):
     if request.method == 'GET':
         booking = get_object_or_404(Booking, pk=pk)
-
         context = {
             'booking' : booking,
             'categories': Category.objects.all().order_by('name'),
@@ -246,6 +245,7 @@ def booking_update(request, pk):
             'page' : request.GET.get('page'),
             'current_category' : request.GET.get('category'),
         }
+        print(context['current_category'])
         return render(request, 'core/update.html', context)
     else:
         booking = get_object_or_404(Booking, pk=pk)
@@ -267,7 +267,7 @@ def booking_delete(request, pk):
     if request.POST['current_category'] == 'None':
         return redirect(reverse('core:change-island', kwargs={'island': island}) + f'?page={page_number}' + f'#{booking.fh_id}')
     category = request.POST['current_category']
-    return redirect(reverse('core:category-results', kwargs={'island': island, 'category':category}) + f'?page={page_number}' + f'#{booking.fh_id}')
+    return redirect(reverse('core:view-by-cat', kwargs={'island': island, 'category':category}) + f'?page={page_number}' + f'#{booking.fh_id}')
 
 
 def contact_garett(request):

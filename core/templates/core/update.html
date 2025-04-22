@@ -45,7 +45,7 @@
     {% if current_category == "None" %}
     <a href="{% url 'core:change-island' island=current_island %}?page={{page}}#{{booking.fh_id}}" class="text-light mt-3 text-decoration-none"><i class="bi bi-x-lg"></i> Close</a>
     {% else %}
-    <a href="{% url 'core:change-cat' island=current_island category=current_category %}?page={{page}}#{{booking.fh_id}}" class="text-light mt-3 text-decoration-none"><i class="bi bi-x-lg"></i> Close</a>
+    <a href="{% url 'core:view-by-cat' island=current_island category=current_category %}?page={{page}}#{{booking.fh_id}}" class="text-light mt-3 text-decoration-none"><i class="bi bi-x-lg"></i> Close</a>
     {% endif %}
 
     <div class="form-container w-75 my-3 py-5 border rounded-4 d-flex flex-wrap justify-content-around align-items-start bg-body-tertiary">
