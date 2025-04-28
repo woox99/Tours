@@ -141,7 +141,7 @@ def view_by_cat(request, island, category):
         'page_obj' : page_obj,
         'islands':Island.objects.all().order_by('modified'),
         'current_island': island,
-        'current_category': quote(category.name),
+        'current_category': category,
         'breadcrumb' : category,
         'page_range': page_range,
         'back_url': quote(back_url),
@@ -254,7 +254,8 @@ def booking_update(request, pk):
     island = request.GET.get('island')
     category = request.GET.get('category')
     page = request.GET.get('page')
-    return redirect(reverse('core:booking-update', kwargs={'pk':booking.pk}) + f'?island={island}&category={category}&page={page}')
+    print(category)
+    return redirect(reverse('core:booking-update', kwargs={'pk':booking.pk}) + f'?island={island}&category={quote(category)}&page={page}')
 
 
 @staff_member_required

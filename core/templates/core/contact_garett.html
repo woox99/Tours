@@ -66,7 +66,7 @@
         <form class="mt-lg-4 p-3 p-lg-0 mb-5" action="https://formspree.io/f/xvgapble" method="POST" id="form">
             <hr class="d-lg-none mx-5 pb-4">
             <h4 class="mb-3">Contact Me</h4>
-            <p>This is <span class="fw-semibold">NOT</span> the contact for <span class="fw-semibold">Hawaii Travel Tips</span>. Contact them <a href="{% url 'core:info' %}#contact-us">here</a>.</p>
+            <p>(This is not the contact for Hawaii Travel Tips. Contact them <a href="{% url 'core:info' %}#contact-us">here</a>.)</p>
             <div class="form-floating mb-3">
                 <input type="text" class="form-control" id="name_input" placeholder=""
                     name="first_name" required>
@@ -115,7 +115,7 @@
         <div class="info-links mt-1 mb-1">
             <a href="{% url 'core:info' %}#cancellation-policy" class="text-decoration-none">Cancellation Policy</a>
             <span class="text-secondary"> | </span>
-            <a href="{% url 'core:info' %}#contact-us" class="text-decoration-none"> Cantact Us </a>
+            <a href="{% url 'core:info' %}#contact-us" class="text-decoration-none"> Contact Us </a>
             <span class="text-secondary"> | </span>
             <a href="{% url 'core:info' %}#become-an-affiliate" class="text-decoration-none"> Become an Affiliate</a>
         </div>

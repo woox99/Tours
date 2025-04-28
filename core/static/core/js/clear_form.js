@@ -3,3 +3,4 @@ window.onbeforeunload = () => {
         form.reset();
     }
 }
+
