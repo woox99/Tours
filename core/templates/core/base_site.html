@@ -21,6 +21,13 @@
     <div class="container-fluid d-flex p-0">
         <!-- Side Bar (lg screens) -->
         <div class="side-bar d-none d-lg-flex flex-column pb-4">
+            {% if not jumbotron %}
+            <div class="ms-1 mt-3">
+                <a class="navbar-brand d-flex align-items-center p-0" href="{% url 'core:index' %}">
+                    <img class="side-bar-logo" src="{% static 'core/assets/logo.png' %}" alt="">
+                </a>
+            </div>
+            {% endif %}
             <div class="d-flex flex-column">
                 <p class="fs-5 ms-3 me-4 mt-4 mb-2 text-black fw-bolder">Islands</p>
                 {% for island in islands %}
@@ -116,9 +123,9 @@
         {% block main-content %}
         <div class="main-content px-lg-3">
             <!-- Nav Bar -->
-            <nav class="navbar navbar-expand-lg">
+            <nav class="navbar navbar-expand-lg d-lg-none">
                 <div class="container-fluid d-flex justify-content-between justify-content-lg-center">
-                    <button class="btn d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas"
+                    <button class="btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas"
                         aria-controls="offcanvas">
                         <span class="fs-5 navbar-toggler-icon"></span>
                     </button>
@@ -132,7 +139,7 @@
                         <img class="logo" src="{% static 'core/assets/logo.png' %}" alt="">
                     </a>
                     {% endif %}
-                    <div class="d-lg-none btn d-flex align-items-center" onclick="triggerSearchBar()">
+                    <div class="btn d-flex align-items-center" onclick="triggerSearchBar()">
                         <i class="fs-5 text-primary bi bi-search"></i>
                     </div>
                 </div>
@@ -168,23 +175,28 @@
             {% endblock %}
             <!-- Jumbotron -->
             {% if jumbotron %}
-            <div class="jumbotron">
+            <div class="d-none d-lg-flex justify-content-center">
+                <a class="navbar-brand d-flex align-items-center p-0" href="{% url 'core:index' %}">
+                    <img class="logo" src="{% static 'core/assets/logo.png' %}" alt="">
+                </a>
+            </div>
+            <div class="jumbotron mb-4">
                 <div class="background" style="background-image: url('{{ current_island.image_URL }}');"></div>
                 <div class="strip"></div>
                 <div class="strip-content d-flex flex-column justify-content-center">
                     <p class="island-name fw-bold text-center text-white m-0 lh-1 m-0">{{current_island}}</p>
-                    <p class="description text-center text-white fw-semibold m-0"></i>HAWAII TRAVEL SITE</p>
+                    <p class="description text-center text-white fw-semibold m-0"></i>HAWAII TRAVEL TIPS</p>
                     <p class="text-center text-white fs-2 fw-light m-0">Book your Hawaii adventure</p>
                 </div>
             </div>
             {% endif %}
-            <hr class="text-body-tertiary d-lg-none mx-3 mt-4">
+            <hr class="text-body-tertiary d-lg-none mx-3 mt-0">
             <!-- Breadcrumb -->
             <div class="d-flex justify-content-between mt-lg-4 px-3 px-lg-0">
                 <div class="d-flex align-items-center gap-2 flex-wrap">
                     <small class="ms-lg-2">{{current_island}}</small>
                     {% if not current_category %}
-                    <div class="d-flex align-items-center">
+                    <div class="d-flex align-items-center gap-1">
                         <small><i class="fa-solid fa-angle-right text-secondary"></i></small>
                         <button class="btn text-primary bg-light" type="button" data-bs-toggle="offcanvas"
                         data-bs-target="#offcanvas" aria-controls="offcanvas">
@@ -196,7 +208,7 @@
                     <small class="">
                         {{current_category.type}} 
                     </small>
-                    <div class="d-flex align-items-center">
+                    <div class="d-flex gap-1 align-items-center">
                         <small><i class="fa-solid fa-angle-right text-secondary"></i></small>
                         <button class="btn text-primary bg-light" type="button" data-bs-toggle="offcanvas"
                             data-bs-target="#offcanvas" aria-controls="offcanvas">

@@ -12,7 +12,7 @@
 }
 
 .logo{
-    height: 60px;
+    height: 70px;
 }
 @media (max-width: 768px) {
     .logo{
@@ -20,9 +20,13 @@
     }
 }
 .side-bar{
-    width: 210px;
+    width: 17% !important;
+    overflow: hidden;
     min-height: 100vh;
     border-right: 1px solid #00000015;
+}
+.side-bar-logo{
+    height: 45px;
 }
 .side-bar a{
     text-decoration: none;
