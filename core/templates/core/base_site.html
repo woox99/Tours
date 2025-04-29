@@ -21,15 +21,14 @@
     <div class="container-fluid d-flex p-0">
         <!-- Side Bar (lg screens) -->
         <div class="side-bar d-none d-lg-flex flex-column pb-4">
-            {% if not jumbotron %}
-            <div class="ms-1 mt-3">
+            <div class="mt-3">
                 <a class="navbar-brand d-flex align-items-center p-0" href="{% url 'core:index' %}">
                     <img class="side-bar-logo" src="{% static 'core/assets/logo.png' %}" alt="">
                 </a>
             </div>
-            {% endif %}
+            <hr class="mx-4 text-body-tertiary">
             <div class="d-flex flex-column">
-                <p class="fs-5 ms-3 me-4 mt-4 mb-2 text-black fw-bolder">Islands</p>
+                <p class="fs-5 ms-3 me-4 mt-2 mb-2 text-black fw-bolder">Islands</p>
                 {% for island in islands %}
                 {% if current_island == island %}
                 <a href="{% url 'core:change-island' island %}"
@@ -44,6 +43,7 @@
             </div>
 
             {% for type in types %}
+                <hr class="mx-4 text-body-tertiary">
                 {% if type.filtered_categories %}
                 <a href="{% url 'core:change-type' current_island type %}" class="type fs-5 ps-3 mt-2 py-2 text-black fw-bolder">{{type}}</a>
                 {% endif %}
@@ -173,14 +173,16 @@
                 </form>
             </div>
             {% endblock %}
+            <!-- Admin Buttons -->
+            {% if user.is_authenticated %}
+            <div class="d-flex justify-content-end gap-2 mt-4">
+                <a href="/admin" class="btn btn-warning"><i class="bi bi-person-arms-up"></i> Dashboard</a>
+                <a href="{% url 'core:logout' current_island %}" class="btn btn-warning"><i class="bi bi-box-arrow-right"></i> Logout</a>
+            </div>
+            {% endif %}
             <!-- Jumbotron -->
             {% if jumbotron %}
-            <div class="d-none d-lg-flex justify-content-center">
-                <a class="navbar-brand d-flex align-items-center p-0" href="{% url 'core:index' %}">
-                    <img class="logo" src="{% static 'core/assets/logo.png' %}" alt="">
-                </a>
-            </div>
-            <div class="jumbotron mb-4">
+            <div class="jumbotron my-4">
                 <div class="background" style="background-image: url('{{ current_island.image_URL }}');"></div>
                 <div class="strip"></div>
                 <div class="strip-content d-flex flex-column justify-content-center">
