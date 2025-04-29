@@ -21,11 +21,9 @@
     <div class="container-fluid d-flex p-0">
         <!-- Side Bar (lg screens) -->
         <div class="side-bar d-none d-lg-flex flex-column pb-4">
-            <div class="mt-3">
-                <a class="navbar-brand d-flex align-items-center p-0" href="{% url 'core:index' %}">
-                    <img class="side-bar-logo" src="{% static 'core/assets/logo.png' %}" alt="">
-                </a>
-            </div>
+            <a class="mt-3" href="{% url 'core:index' %}">
+                <img class="side-bar-logo" src="{% static 'core/assets/logo.png' %}" alt="logo">
+            </a>
             <hr class="mx-4 text-body-tertiary">
             <div class="d-flex flex-column">
                 <p class="fs-5 ms-3 me-4 mt-2 mb-2 text-black fw-bolder">Islands</p>
@@ -106,17 +104,6 @@
                         {% endfor %}
                     {% endfor %}
                 </div>
-                <!-- <div class="text-center pb-3 mt-5">
-                    <a href="https://www.facebook.com/groups/1747780178610364" target="_blank">
-                        <i class="bi bi-facebook text-theme fs-1 me-3"></i>
-                    </a>
-                    <a href="" target="_blank">
-                        <i class="bi bi-messenger text-theme fs-1"></i>
-                    </a>
-                    <a href="https://www.facebook.com/groups/1747780178610364" target="_blank">
-                        <p class="m-0 text-theme title"><small>Hawaii Travel Advice</small></p>
-                    </a>
-                </div> -->
             </div>
         </div>
 
@@ -136,7 +123,7 @@
                     </div>
                     {% else %}
                     <a class="navbar-brand d-flex align-items-center p-0" href="{% url 'core:index' %}">
-                        <img class="logo" src="{% static 'core/assets/logo.png' %}" alt="">
+                        <img class="logo" src="{% static 'core/assets/logo.png' %}" alt="logo">
                     </a>
                     {% endif %}
                     <div class="btn d-flex align-items-center" onclick="triggerSearchBar()">
@@ -182,7 +169,7 @@
             {% endif %}
             <!-- Jumbotron -->
             {% if jumbotron %}
-            <div class="jumbotron my-4">
+            <div class="jumbotron mb-4 mt-lg-4">
                 <div class="background" style="background-image: url('{{ current_island.image_URL }}');"></div>
                 <div class="strip"></div>
                 <div class="strip-content d-flex flex-column justify-content-center">
@@ -202,19 +189,19 @@
                         <small><i class="fa-solid fa-angle-right text-secondary"></i></small>
                         <button class="btn text-primary bg-light" type="button" data-bs-toggle="offcanvas"
                         data-bs-target="#offcanvas" aria-controls="offcanvas">
-                        <small class=""><i class="bi bi-list"></i> {{breadcrumb}}</small>
+                        <small><i class="bi bi-list"></i> {{breadcrumb}}</small>
                     </button>
                 </div>
                 {% else %}
                     <small><i class="fa-solid fa-angle-right text-secondary"></i></small>
-                    <small class="">
+                    <small>
                         {{current_category.type}} 
                     </small>
                     <div class="d-flex gap-1 align-items-center">
                         <small><i class="fa-solid fa-angle-right text-secondary"></i></small>
                         <button class="btn text-primary bg-light" type="button" data-bs-toggle="offcanvas"
                             data-bs-target="#offcanvas" aria-controls="offcanvas">
-                            <small class=""><i class="bi bi-list"></i> {{breadcrumb}}</small>
+                            <small><i class="bi bi-list"></i> {{breadcrumb}}</small>
                         </button>
                     </div>
                     {% endif %}
