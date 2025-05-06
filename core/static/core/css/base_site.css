@@ -86,6 +86,7 @@
     position: relative;
     overflow: hidden;
     max-height: 340px;
+    z-index: -2;
 }
 .jumbotron .background{
     height: 340px;
@@ -100,7 +101,6 @@
     left: 50%;
     transform: translate(-50%, -50%);
     width: 100%;
-    /* background-color: #00000070; */
     background: linear-gradient(rgba(0, 0, 0, 0.15), #00000080);
 
 }
@@ -111,7 +111,6 @@
     left: 50%;
     transform: translate(-50%, -50%);
     width: 100%;
-    /* border: 1px solid red; */
 }
 .jumbotron .island-name{
     font-family: "Walter Turncoat", cursive;
@@ -134,6 +133,33 @@
     .jumbotron .title{
         font-size: 12px;
     }
+}
+.mobile-breadcrumb .box{
+    position: relative;
+    height: 56px;
+    box-shadow: 0px 10px 15px #00000050;
+    border-radius: 20px;
+    margin-top: 8px;
+    /* ## TOP MARGIN -> IN-LINE STYLE ## */
+}
+.mobile-breadcrumb .box::after{
+    content: "";
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+    background-color: #ffc107;
+    border-radius: 10px;
+    z-index: -1;
+}
+.mobile-breadcrumb .box::before{
+    content: "";
+    position: absolute;
+    z-index: -1;
+    height: 2px;
+    width: 1000px;
+    background-color: #ffc107;
 }
 .breadcrumb a{
     text-decoration: none;

@@ -126,40 +126,11 @@
                         <img class="logo" src="{% static 'core/assets/logo.png' %}" alt="logo">
                     </a>
                     {% endif %}
-                    <div class="btn d-flex align-items-center" onclick="triggerSearchBar()">
-                        <i class="fs-5 bi bi-search"></i>
+                    <div class="btn d-flex align-items-center">
+                        <i class="d-none fs-5 bi bi-search"></i>
                     </div>
                 </div>
             </nav>
-            <!-- Large Search Bar -->
-            {% block large-search-bar %}
-            <div id="search-bar" class="search pb-3 px-2">
-                <form action="{% url 'core:search' current_island %}" method="GET">
-                    <div class="input-group">
-                        <span class="input-group-text bg-white" id="large-search-bar"><i class="bi bi-search"></i></span>
-                        <input type="search" class="form-control" name="q"
-                            aria-label="Text input with segmented dropdown button"
-                            placeholder="Search {{current_island}}…">
-                        <button type="button" class="btn border px-3 bg-body-tertiary dropdown-toggle dropdown-toggle-split"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            Change Island
-                        </button>
-                        <ul class="dropdown-menu dropdown-menu-end">
-                            {% for island in islands %}
-                            {% if current_island == island %}
-                            <li><a class="dropdown-item text-primary"
-                                    href="{% url 'core:change-island' island %}">{{current_island}}</a>
-                            </li>
-                            {% else %}
-                            <li><a class="dropdown-item" href="{% url 'core:change-island' island %}">{{island}}</a>
-                            </li>
-                            {% endif %}
-                            {% endfor %}
-                        </ul>
-                    </div>
-                </form>
-            </div>
-            {% endblock %}
             <!-- Admin Buttons -->
             {% if user.is_authenticated %}
             <div class="d-none d-lg-flex justify-content-end gap-2 mt-4">
@@ -169,7 +140,7 @@
             {% endif %}
             <!-- Jumbotron -->
             {% if jumbotron %}
-            <div class="jumbotron mb-4 mt-lg-4">
+            <div class="jumbotron mt-lg-4">
                 <div class="background" style="background-image: url('{{ current_island.image_URL }}');"></div>
                 <div class="gradient"></div>
                 <div class="jumbotron-content d-flex flex-column justify-content-center">
@@ -179,8 +150,62 @@
                 </div>
             </div>
             {% endif %}
-            <!-- Breadcrumb -->
-            <div class="d-flex justify-content-between mt-lg-4 px-3 px-lg-0">
+            <!-- Mobile Breadcrumb -->
+            <div class="mobile-breadcrumb d-lg-none" {% if jumbotron %}style='margin-top:-30px;'{% endif %}>
+                <div class="box fw-bold gap-2 rounded-2 mx-4 bg-body-tertiary d-flex justify-content-center align-items-center">
+                    <span class="">{{current_island}}</span>
+                    {% if not current_category %}
+                    <i class="fa-solid fa-angle-right text-body-tertiary"></i>
+                    <span>{{breadcrumb}}</span>
+                    {% else %}
+                    <i class="fa-solid fa-angle-right text-body-tertiary"></i>
+                    <span>{{current_category.type}}</span>
+                    <i class="fa-solid fa-angle-right text-body-tertiary"></i>
+                    <span>{{breadcrumb}}</span>
+                    {% endif %}
+                </div>
+                <div class="buttons d-flex justify-content-center gap-3 mt-3">
+                    <button type="button" class="btn btn-outline-dark rounded-pill px-3 py-1"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            <small class="d-flex align-items-center gap-1"><i class="bi bi-map"></i> Island</small>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        {% for island in islands %}
+                        {% if current_island == island %}
+                        <li><a class="dropdown-item text-primary"
+                                href="{% url 'core:change-island' island %}">{{current_island}}</a>
+                        </li>
+                        {% else %}
+                        <li><a class="dropdown-item" href="{% url 'core:change-island' island %}">{{island}}</a>
+                        </li>
+                        {% endif %}
+                        {% endfor %}
+                    </ul>
+                    <button class="btn btn-outline-dark rounded-pill px-3 py-1" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas"
+                        aria-controls="offcanvas">
+                        <small class="d-flex align-items-center gap-1"><i class="bi bi-list"></i> Category</small>
+                    </button>
+                    <button class="btn btn-outline-dark rounded-pill px-3 py-1" onclick="triggerSearchBar()">
+                        <small class="d-flex align-items-center gap-1"><i class="bi bi-search"></i> Search</small>
+                    </button>
+                </div>
+                <hr class="text-secondary mx-5">
+            </div>
+            <!-- Mobile Search Bar -->
+            {% block large-search-bar %}
+            <div id="search-bar" class="search pb-3 mx-5 d-lg-none">
+                <form action="{% url 'core:search' current_island %}" method="GET">
+                    <div class="input-group">
+                        <span class="input-group-text bg-white" id="large-search-bar"><i class="bi bi-search"></i></span>
+                        <input type="search" class="form-control" name="q"
+                            aria-label="Text input with segmented dropdown button"
+                            placeholder="Search {{current_island}}…">
+                    </div>
+                </form>
+            </div>
+            {% endblock %}
+            <!-- lg Breadcrumb -->
+            <div class="d-none d-lg-flex justify-content-between mt-lg-4 px-3 px-lg-0">
                 <div class="d-flex align-items-center gap-2 flex-wrap fw-semibold">
                     <span class="ms-lg-2">{{current_island}}</span>
                     {% if not current_category %}
