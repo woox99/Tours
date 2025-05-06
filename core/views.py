@@ -27,56 +27,17 @@ def index(request):
         randomize_booking_weights()
 
     if 'island' in request.session:
-        return redirect('core:change-island', island=request.session['island'])
+        try:
+            current_island = Island.objects.get(name=request.session['island'])
+            return redirect('core:change-island', island=current_island)  
+        except Island.DoesNotExist:
+            return redirect('core:change-island', island=island)
     
     if request.user.is_anonymous:
         ref = request.GET.get('ref', '')
         ref = '?ref=' + ref
         SiteVisit.objects.create(ref=ref)
 
-
-
-    # #Import Fareharbor csv data script
-    # path = 'core/fh.csv'
-    # with open(path, newline='', encoding='utf-8') as csvfile:
-    #     reader = csv.DictReader(csvfile)
-    #     for row in reader:
-    #         # print(reader.fieldnames)
-
-    #         # Create Categories and Types
-    #         try:
-    #             category = Category.objects.get(name=row["category"])
-    #         except Category.DoesNotExist:
-    #             try:
-    #                 type = Type.objects.get(name=row["item_type"])
-    #             except Type.DoesNotExist:
-    #                 type = Type.objects.create(name=row["item_type"])
-    #             type = Type.objects.get(name=row["item_type"])
-    #             category = Category.objects.create(name=row["category"], type=type)
-
-    #         # Create Islands
-    #         try:
-    #             island = Island.objects.get(name=row["island"])
-    #         except Island.DoesNotExist:
-    #             island = Island.objects.create(name=row["island"])
-
-    #         # Create Booking
-    #         try:
-    #             booking = Booking(
-    #                 title=row["item_name"],
-    #                 company_name=row["company_name"],
-    #                 city=row["city"],
-    #                 # category=category,
-    #                 # type=Type.objects.get(name=row["item_type"]),
-    #                 island=island,
-    #                 fh_id=int(row["item_id"]),
-    #                 referral_link=row["referral_link"],
-    #                 image_URL=row["image_URL"],
-    #             )
-    #             booking.save()
-    #             booking.tags.add(category)
-    #         except Exception as e:
-    #             print(f"Skipping row due to error: {e}")
     return redirect('core:change-island', island=island)
 
 
@@ -90,7 +51,8 @@ def info(request):
 
 
 def error_404_view(request, exception):
-    return render(request, 'core/404.html', status=404)
+    islands = Island.objects.all().order_by('modified')
+    return render(request, 'core/404.html', {'islands':islands}, status=404)
 
 
 def view_by_island(request, island):
