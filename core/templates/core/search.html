@@ -6,38 +6,85 @@
 <title>Hawaii Travel Tips - {{query}}</title>
 {% endblock %}
 
+<!-- Jumbotron -->
+{% block jumbotron %}
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&family=Walter+Turncoat&display=swap');
+    .search-header{
+        font-family: "Walter Turncoat", cursive;
+        font-weight: 400;
+        font-style: normal;
+        font-size: 60px !important;    
+    }
+</style>
+<div class="search-header d-none d-lg-flex d-flex justify-content-center">
+    Searching {{current_island}}
+</div>
+<div class="d-none d-lg-flex justify-content-center search px-2">
+    <form action="{% url 'core:search' current_island %}" method="GET" class="w-50">
+        <div class="input-group">
+            <span class="input-group-text bg-white rounded-start-pill" id="basic-addon1"><i class="bi bi-search"></i></span>
+            <input type="search" class="form-control rounded-end-pill" name="q" aria-label="Text input with segmented dropdown button"
+                placeholder="" value="{{query}}" style="font-size: 14px;">
+        </div>
+    </form>
+</div>
+{% endblock %}
 
-<!-- Search Bar -->
-{% block large-search-bar %}
-<div class="search mt-4 px-2 px-lg-0">
+{% block mobile-breadcrumb %}
+<style>
+    .box{
+    font-family: "Walter Turncoat", cursive;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 20px !important;
+    }
+</style>
+<div class="mobile-breadcrumb d-lg-none" {% if jumbotron %}style='margin-top:-30px;'{% endif %}>
+    <div class="box fw-bold gap-2 rounded-2 mx-4 bg-body-tertiary d-flex justify-content-center align-items-center">
+        Searching {{current_island}}
+    </div>
+    <div class="buttons d-flex justify-content-center gap-3 mt-3">
+        <a href="{% url 'core:change-island' current_island %}" class="btn btn-outline-dark rounded-pill fw-medium px-3">
+            <i class="bi bi-arrow-90deg-left me-2"></i>Back
+        </a>
+        <button type="button" class="btn btn-outline-dark rounded-pill fw-medium px-3"
+                data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="fa-regular fa-map me-2"></i>Island
+        </button>
+        <ul class="dropdown-menu dropdown-menu-end">
+            {% for island in islands %}
+            {% if current_island == island %}
+            <li><a class="dropdown-item text-primary"
+                    href="{% url 'core:change-island' island %}">{{current_island}}</a>
+            </li>
+            {% else %}
+            <li><a class="dropdown-item" href="{% url 'core:change-island' island %}">{{island}}</a>
+            </li>
+            {% endif %}
+            {% endfor %}
+        </ul>
+        <button class="btn btn-outline-dark rounded-pill fw-medium px-3" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas"
+            aria-controls="offcanvas">
+            <i class="fa-solid fa-bars me-2"></i>Category
+        </button>
+    </div>
+    <hr class="text-secondary mx-5">
+</div>
+<div class="search pb-3 mx-4 d-lg-none">
     <form action="{% url 'core:search' current_island %}" method="GET">
         <div class="input-group">
-            <span class="input-group-text bg-white" id="basic-addon1"><i class="bi bi-search"></i></span>
-            <input type="search" class="form-control" name="q" aria-label="Text input with segmented dropdown button"
-                placeholder="" value="{{query}}" style="font-size: 14px;">
-            <button type="button" class="btn border px-3 bg-body-tertiary  dropdown-toggle dropdown-toggle-split"
-                data-bs-toggle="dropdown" aria-expanded="false">
-                Change Island
-            </button>
-            <ul class="dropdown-menu dropdown-menu-end">
-                {% for island in islands %}
-                {% if current_island == island %}
-                <li><a class="dropdown-item text-primary text-decoration-underline"
-                        href="{% url 'core:change-island' island %}">{{current_island}}</a>
-                </li>
-                {% else %}
-                <li><a class="dropdown-item" href="{% url 'core:change-island' island %}">{{island}}</a>
-                </li>
-                {% endif %}
-                {% endfor %}
-            </ul>
+            <span class="input-group-text rounded-start-pill" id="large-search-bar"><i class="bi bi-search"></i></span>
+            <input type="search" class="form-control rounded-end-pill" name="q" value="{{query}}"
+                aria-label="Text input with segmented dropdown button"
+                placeholder="Search {{current_island}}">
         </div>
     </form>
 </div>
 {% endblock %}
 
 
-{% block small-search-bar %}
+{% block lg-breadcrumb %}
 {% endblock %}
 
 {% block empty-message %}
@@ -47,6 +94,8 @@
     <p class="fs-5 text-center m-0 px-5 pt-5">Sorry, no results found for</p>
     <p class="px-5 text-secondary">"{{query}}"</p>
 </div>
+{% else %}
+<p class="mt-2 text-center">Search results for "<em>{{query}}</em>":</p>
 {% endif %}
 {% endblock %}
 

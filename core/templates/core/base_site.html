@@ -86,7 +86,7 @@
         
                     {% for type in types %}
                         {% if type.filtered_categories %}
-                        <p class="fs-5 ms-3 me-4 mt-4 mb-2 text-black fw-bolder">{{type}}</p>
+                        <a href="{% url 'core:change-type' current_island type %}" class="fs-5 ms-3 me-4 mt-4 mb-2 text-black fw-bolder">{{type}}</a>
                         {% endif %}
                         {% for category in type.filtered_categories %}
                             {% if current_category == category %}
@@ -110,26 +110,21 @@
         {% block main-content %}
         <div class="main-content px-lg-3">
             <!-- Nav Bar -->
-            <nav class="navbar navbar-expand-lg d-lg-none">
-                <div class="container-fluid d-flex justify-content-between justify-content-lg-center">
-                    <button class="btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas"
-                        aria-controls="offcanvas">
-                        <span class="fs-5 navbar-toggler-icon"></span>
-                    </button>
-                    {% if user.is_authenticated %}
-                    <div class="d-flex gap-2">
-                        <a href="/admin" class="btn btn-warning"><i class="bi bi-person-arms-up"></i> Dashboard</a>
-                        <a href="{% url 'core:logout' current_island %}" class="btn btn-warning"><i class="bi bi-box-arrow-right"></i> Logout</a>
-                    </div>
-                    {% else %}
-                    <a class="navbar-brand d-flex align-items-center p-0" href="{% url 'core:index' %}">
-                        <img class="logo" src="{% static 'core/assets/logo.png' %}" alt="logo">
-                    </a>
-                    {% endif %}
-                    <div class="btn d-flex align-items-center">
-                        <i class="d-none fs-5 bi bi-search"></i>
-                    </div>
+            <nav class="navbar navbar-expand-lg d-lg-none p-2">
+                <button class="btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas"
+                    aria-controls="offcanvas">
+                    <span class="fs-5 navbar-toggler-icon"></span>
+                </button>
+                {% if user.is_authenticated %}
+                <div class="d-flex gap-2">
+                    <a href="/admin" class="btn btn-warning"><i class="bi bi-person-arms-up"></i> Dashboard</a>
+                    <a href="{% url 'core:logout' current_island %}" class="btn btn-warning"><i class="bi bi-box-arrow-right"></i> Logout</a>
                 </div>
+                {% else %}
+                <a class="logo-link navbar-brand d-flex align-items-center p-0" href="{% url 'core:index' %}">
+                    <img class="logo" src="{% static 'core/assets/logo.png' %}" alt="logo">
+                </a>
+                {% endif %}
             </nav>
             <!-- Admin Buttons -->
             {% if user.is_authenticated %}
@@ -139,6 +134,7 @@
             </div>
             {% endif %}
             <!-- Jumbotron -->
+            {% block jumbotron %}
             {% if jumbotron %}
             <div class="jumbotron mt-lg-4">
                 <div class="background" style="background-image: url('{{ current_island.image_URL }}');"></div>
@@ -150,7 +146,9 @@
                 </div>
             </div>
             {% endif %}
+            {% endblock %}
             <!-- Mobile Breadcrumb -->
+            {% block mobile-breadcrumb %}
             <div class="mobile-breadcrumb d-lg-none" {% if jumbotron %}style='margin-top:-30px;'{% endif %}>
                 <div class="box fw-bold gap-2 rounded-2 mx-4 bg-body-tertiary d-flex justify-content-center align-items-center">
                     <span class="">{{current_island}}</span>
@@ -165,9 +163,9 @@
                     {% endif %}
                 </div>
                 <div class="buttons d-flex justify-content-center gap-3 mt-3">
-                    <button type="button" class="btn btn-outline-dark rounded-pill px-3 py-1"
+                    <button type="button" class="btn btn-outline-dark rounded-pill fw-medium px-3"
                             data-bs-toggle="dropdown" aria-expanded="false">
-                            <small class="d-flex align-items-center gap-1"><i class="bi bi-map"></i> Island</small>
+                            <i class="fa-regular fa-map me-2"></i>Island
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end">
                         {% for island in islands %}
@@ -181,30 +179,30 @@
                         {% endif %}
                         {% endfor %}
                     </ul>
-                    <button class="btn btn-outline-dark rounded-pill px-3 py-1" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas"
+                    <button class="btn btn-outline-dark rounded-pill fw-medium px-3" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas"
                         aria-controls="offcanvas">
-                        <small class="d-flex align-items-center gap-1"><i class="bi bi-list"></i> Category</small>
+                        <i class="fa-solid fa-bars me-2"></i>Category
                     </button>
-                    <button class="btn btn-outline-dark rounded-pill px-3 py-1" onclick="triggerSearchBar()">
-                        <small class="d-flex align-items-center gap-1"><i class="bi bi-search"></i> Search</small>
+                    <button class="btn btn-outline-dark rounded-pill fw-medium px-3" onclick="triggerSearchBar()">
+                        <i class="fa-solid fa-magnifying-glass me-2"></i>Search
                     </button>
                 </div>
                 <hr class="text-secondary mx-5">
             </div>
-            <!-- Mobile Search Bar -->
-            {% block large-search-bar %}
-            <div id="search-bar" class="search pb-3 mx-5 d-lg-none">
+            <div id="search-bar" class="search pb-3 mx-4 d-lg-none">
                 <form action="{% url 'core:search' current_island %}" method="GET">
                     <div class="input-group">
-                        <span class="input-group-text bg-white" id="large-search-bar"><i class="bi bi-search"></i></span>
-                        <input type="search" class="form-control" name="q"
+                        <span class="input-group-text rounded-start-pill" id="large-search-bar"><i class="bi bi-search"></i></span>
+                        <input type="search" class="form-control rounded-end-pill" name="q"
                             aria-label="Text input with segmented dropdown button"
-                            placeholder="Search {{current_island}}…">
+                            placeholder="Search {{current_island}}">
                     </div>
                 </form>
             </div>
             {% endblock %}
+
             <!-- lg Breadcrumb -->
+            {% block lg-breadcrumb %}
             <div class="d-none d-lg-flex justify-content-between mt-lg-4 px-3 px-lg-0">
                 <div class="d-flex align-items-center gap-2 flex-wrap fw-semibold">
                     <span class="ms-lg-2">{{current_island}}</span>
@@ -218,7 +216,6 @@
                     <span>{{breadcrumb}}</span>
                     {% endif %}
                 </div>
-                {% block small-search-bar %}
                 <div class="d-none d-lg-block search px-3 px-lg-0 w-50">
                     <form action="{% url 'core:search' current_island %}" method="GET">
                         <div class="input-group">
@@ -245,9 +242,8 @@
                         </div>
                     </form>
                 </div>
-                {% endblock %}
             </div>
-            <!-- <hr class="text-body-tertiary d-none d-lg-block"> -->
+            {% endblock %}
             <!-- Empty Message -->
             {% block empty-message %}{% endblock %}
             <!-- Boooking Cards -->

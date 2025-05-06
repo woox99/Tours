@@ -12,7 +12,15 @@
 .bg-theme{
     background-color: #009999 !important;
 }
-
+.navbar{
+    position: relative;
+}
+.navbar .logo-link{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
 .logo{
     height: 70px;
 }
@@ -188,6 +196,7 @@
     .card{
         width: 49%;
         margin-right: 0;
+        margin-bottom: 5px;
     }
 }
 @media (max-width: 768px) {
