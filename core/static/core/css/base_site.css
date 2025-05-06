@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&family=Walter+Turncoat&display=swap');
+
 *{
     /* border: 1px solid red; */
     padding: 0;
@@ -83,40 +85,43 @@
 .jumbotron{
     position: relative;
     overflow: hidden;
-    max-height: 300px;
+    max-height: 340px;
 }
 .jumbotron .background{
-    height: 300px;
+    height: 340px;
     width: 100%;
     background-size: cover;
     background-position: center;
 }
-.jumbotron .strip{
+.jumbotron .gradient{
     position: absolute;
     height: 100%;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     width: 100%;
-    background-color: #00000060;
-    background: linear-gradient(rgba(0, 0, 0, 0.15), #00000070);
+    /* background-color: #00000070; */
+    background: linear-gradient(rgba(0, 0, 0, 0.15), #00000080);
 
 }
-.jumbotron .strip-content{
+.jumbotron .jumbotron-content{
     position: absolute;
     height: 50%;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     width: 100%;
-
+    /* border: 1px solid red; */
 }
 .jumbotron .island-name{
-    font-size: 80px !important;
+    font-family: "Walter Turncoat", cursive;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 110px !important;
 }
-.jumbotron .description{
-    font-size: 18px;
-    letter-spacing: 1.5px;
+.jumbotron .title{
+    font-size: 22px;
+    letter-spacing: 3px;
 }
 
 @media (max-width: 768px) {
@@ -126,7 +131,7 @@
     .jumbotron .island-name{
         font-size: 60px !important;
     }
-    .jumbotron .description{
+    .jumbotron .title{
         font-size: 12px;
     }
 }

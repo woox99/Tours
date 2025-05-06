@@ -16,6 +16,7 @@ import time #debug
 
 
 def index(request):
+    island = Island.objects.all().order_by('modified').first()
 
     # Randomize booking weights periodically
     last_weight_randomization = BookingRandomization.objects.last()
@@ -76,11 +77,12 @@ def index(request):
     #             booking.tags.add(category)
     #         except Exception as e:
     #             print(f"Skipping row due to error: {e}")
-    return redirect('core:change-island', island='Oahu')
+    return redirect('core:change-island', island=island)
 
 
 def home(request):
-    return render(request, 'core/home.html')
+    islands = Island.objects.all().order_by('modified')
+    return render(request, 'core/home.html', {'islands':islands})
 
 
 def info(request):

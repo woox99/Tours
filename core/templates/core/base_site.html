@@ -41,9 +41,9 @@
             </div>
 
             {% for type in types %}
+            {% if type.filtered_categories %}
                 <hr class="mx-4 text-body-tertiary">
-                {% if type.filtered_categories %}
-                <a href="{% url 'core:change-type' current_island type %}" class="type fs-5 ps-3 mt-2 py-2 text-black fw-bolder">{{type}}</a>
+                <a href="{% url 'core:change-type' current_island type %}" class="type fs-5 ps-3 py-2 pt-0 text-black fw-bolder">{{type}}</a>
                 {% endif %}
                 {% for category in type.filtered_categories %}
                     {% if current_category == category %}
@@ -127,7 +127,7 @@
                     </a>
                     {% endif %}
                     <div class="btn d-flex align-items-center" onclick="triggerSearchBar()">
-                        <i class="fs-5 text-primary bi bi-search"></i>
+                        <i class="fs-5 bi bi-search"></i>
                     </div>
                 </div>
             </nav>
@@ -162,7 +162,7 @@
             {% endblock %}
             <!-- Admin Buttons -->
             {% if user.is_authenticated %}
-            <div class="d-flex justify-content-end gap-2 mt-4">
+            <div class="d-none d-lg-flex justify-content-end gap-2 mt-4">
                 <a href="/admin" class="btn btn-warning"><i class="bi bi-person-arms-up"></i> Dashboard</a>
                 <a href="{% url 'core:logout' current_island %}" class="btn btn-warning"><i class="bi bi-box-arrow-right"></i> Logout</a>
             </div>
@@ -171,39 +171,26 @@
             {% if jumbotron %}
             <div class="jumbotron mb-4 mt-lg-4">
                 <div class="background" style="background-image: url('{{ current_island.image_URL }}');"></div>
-                <div class="strip"></div>
-                <div class="strip-content d-flex flex-column justify-content-center">
+                <div class="gradient"></div>
+                <div class="jumbotron-content d-flex flex-column justify-content-center">
                     <p class="island-name fw-bold text-center text-white m-0 lh-1 m-0">{{current_island}}</p>
-                    <p class="description text-center text-white fw-semibold m-0"></i>HAWAII TRAVEL TIPS</p>
-                    <p class="text-center text-white fs-2 fw-light m-0">Book your Hawaii adventure</p>
+                    <p class="title text-center text-white fw-semibold m-0"></i>HAWAII TRAVEL TIPS<span style="font-size: 12px;">.com</span></p>
+                    <p class="text-center text-white fs-1 fw-light m-0 mt-3">Book your Hawaii adventure</p>
                 </div>
             </div>
             {% endif %}
-            <hr class="text-body-tertiary d-lg-none mx-3 mt-0">
             <!-- Breadcrumb -->
             <div class="d-flex justify-content-between mt-lg-4 px-3 px-lg-0">
-                <div class="d-flex align-items-center gap-2 flex-wrap">
-                    <small class="ms-lg-2">{{current_island}}</small>
+                <div class="d-flex align-items-center gap-2 flex-wrap fw-semibold">
+                    <span class="ms-lg-2">{{current_island}}</span>
                     {% if not current_category %}
-                    <div class="d-flex align-items-center gap-1">
-                        <small><i class="fa-solid fa-angle-right text-secondary"></i></small>
-                        <button class="btn text-primary bg-light" type="button" data-bs-toggle="offcanvas"
-                        data-bs-target="#offcanvas" aria-controls="offcanvas">
-                        <small><i class="bi bi-list"></i> {{breadcrumb}}</small>
-                    </button>
-                </div>
-                {% else %}
-                    <small><i class="fa-solid fa-angle-right text-secondary"></i></small>
-                    <small>
-                        {{current_category.type}} 
-                    </small>
-                    <div class="d-flex gap-1 align-items-center">
-                        <small><i class="fa-solid fa-angle-right text-secondary"></i></small>
-                        <button class="btn text-primary bg-light" type="button" data-bs-toggle="offcanvas"
-                            data-bs-target="#offcanvas" aria-controls="offcanvas">
-                            <small><i class="bi bi-list"></i> {{breadcrumb}}</small>
-                        </button>
-                    </div>
+                    <i class="fa-solid fa-angle-right text-body-tertiary"></i>
+                    <span>{{breadcrumb}}</span>
+                    {% else %}
+                    <i class="fa-solid fa-angle-right text-body-tertiary"></i>
+                    <span>{{current_category.type}}</span>
+                    <i class="fa-solid fa-angle-right text-body-tertiary"></i>
+                    <span>{{breadcrumb}}</span>
                     {% endif %}
                 </div>
                 {% block small-search-bar %}
@@ -211,9 +198,9 @@
                     <form action="{% url 'core:search' current_island %}" method="GET">
                         <div class="input-group">
                             <span class="input-group-text bg-white" id="small-search-bar"><i class="bi bi-search"></i></span>
-                            <input type="search" class="form-control" name="q"
+                            <input type="search" class="form-control " name="q"
                                 aria-label="Text input with segmented dropdown button"
-                                placeholder="Search {{current_island}}…">
+                                placeholder="Search {{current_island}}">
                             <button type="button" class="btn border px-3 bg-body-tertiary dropdown-toggle dropdown-toggle-split"
                                 data-bs-toggle="dropdown" aria-expanded="false">
                                 Change Island
@@ -235,7 +222,7 @@
                 </div>
                 {% endblock %}
             </div>
-            <hr class="text-body-tertiary d-none d-lg-block">
+            <!-- <hr class="text-body-tertiary d-none d-lg-block"> -->
             <!-- Empty Message -->
             {% block empty-message %}{% endblock %}
             <!-- Boooking Cards -->
