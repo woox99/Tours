@@ -147,6 +147,7 @@
     height: 56px;
     box-shadow: 0px 10px 15px #00000050;
     border-radius: 20px;
+    font-size: 14px;
     margin-top: 8px;
     /* ## TOP MARGIN -> IN-LINE STYLE ## */
 }
@@ -168,6 +169,9 @@
     height: 2px;
     width: 1000px;
     background-color: #ffc107;
+}
+.mobile-breadcrumb .page-number{
+    font-size: 11px !important;
 }
 .breadcrumb a{
     text-decoration: none;

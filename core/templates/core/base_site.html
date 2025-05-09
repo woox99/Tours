@@ -150,22 +150,25 @@
             <!-- Mobile Breadcrumb -->
             {% block mobile-breadcrumb %}
             <div class="mobile-breadcrumb d-lg-none" {% if jumbotron %}style='margin-top:-30px;'{% endif %}>
-                <div class="box fw-bold gap-2 rounded-2 mx-4 bg-body-tertiary d-flex justify-content-center align-items-center">
-                    <span class="">{{current_island}}</span>
-                    {% if not current_category %}
-                    <i class="fa-solid fa-angle-right text-body-tertiary"></i>
-                    <span>{{breadcrumb}}</span>
-                    {% else %}
-                    <i class="fa-solid fa-angle-right text-body-tertiary"></i>
-                    <span>{{current_category.type}}</span>
-                    <i class="fa-solid fa-angle-right text-body-tertiary"></i>
-                    <span>{{breadcrumb}}</span>
-                    {% endif %}
+                <div class="box rounded-2 mx-4 bg-body-tertiary d-flex flex-column align-items-center justify-content-center ">
+                    <div class="d-flex align-items-center justify-content-center gap-2 mt-3 fw-medium">
+                        <span class="">{{current_island}}</span>
+                        {% if not current_category %}
+                        <i class="fa-solid fa-angle-right text-body-tertiary"></i>
+                        <span>{{breadcrumb}}</span>
+                        {% else %}
+                        <i class="fa-solid fa-angle-right text-body-tertiary"></i>
+                        <span>{{current_category.type}}</span>
+                        <i class="fa-solid fa-angle-right text-body-tertiary"></i>
+                        <span>{{breadcrumb}}</span>
+                        {% endif %}
+                    </div>
+                    <p class="page-number text-center text-secondary fw-medium">Page {{page_obj.number}} of {{page_obj.paginator.num_pages}}</p>
                 </div>
                 <div class="buttons d-flex justify-content-center gap-3 mt-3">
-                    <button type="button" class="btn btn-outline-dark rounded-pill fw-medium px-3"
+                    <button type="button" class="btn btn-outline-dark rounded-pill fw-medium px-3 py-1"
                             data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="fa-regular fa-map me-2"></i>Island
+                            <small><i class="fa-regular fa-map me-2"></i>Island</small>
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end">
                         {% for island in islands %}
@@ -179,12 +182,12 @@
                         {% endif %}
                         {% endfor %}
                     </ul>
-                    <button class="btn btn-outline-dark rounded-pill fw-medium px-3" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas"
+                    <button class="btn btn-outline-dark rounded-pill fw-medium px-3 py-1" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas"
                         aria-controls="offcanvas">
-                        <i class="fa-solid fa-bars me-2"></i>Category
+                        <small><i class="fa-solid fa-bars me-2"></i>Category</small>
                     </button>
-                    <button class="btn btn-outline-dark rounded-pill fw-medium px-3" onclick="triggerSearchBar()">
-                        <i class="fa-solid fa-magnifying-glass me-2"></i>Search
+                    <button class="btn btn-outline-dark rounded-pill fw-medium px-3 py-1" onclick="triggerSearchBar()">
+                        <small><i class="fa-solid fa-magnifying-glass me-2"></i>Search</small>
                     </button>
                 </div>
                 <hr class="text-secondary mx-5">
@@ -200,7 +203,6 @@
                 </form>
             </div>
             {% endblock %}
-
             <!-- lg Breadcrumb -->
             {% block lg-breadcrumb %}
             <div class="d-none d-lg-flex justify-content-between mt-lg-4 px-3 px-lg-0">

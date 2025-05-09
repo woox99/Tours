@@ -18,9 +18,20 @@
     .form-select{
             height: 350px !important;
         }
+    .admin-options{
+        width: 75%;
+    }
+    .fh_url{
+        word-break: break-word;
+        overflow-wrap: break-word;
+        white-space: normal;
+    }
     @media (max-width: 768px) {
         .form-container{
             width: 95% !important;
+        }
+        .admin-options{
+            width: 95%;
         }
         .form-select{
             height: 60px !important;
@@ -48,7 +59,7 @@
     <a href="{% url 'core:view-by-cat' island=current_island category=current_category %}?page={{page}}#{{booking.fh_id}}" class="text-light mt-3 text-decoration-none"><i class="bi bi-x-lg"></i> Close</a>
     {% endif %}
 
-    <div class="form-container w-75 my-3 py-5 border rounded-4 d-flex flex-wrap justify-content-around align-items-start bg-body-tertiary">
+    <div class="form-container w-75 my-3 py-5 border rounded-4 bg-body-tertiary d-flex flex-column align-items-center">
         <!-- Booking Card -->
         <div id="{{booking.fh_id}}" class="card" {% if not booking.is_public %}style='opacity: 70%;'{% endif %}>
             <a class="text-decoration-none" href="{{booking.referral_link}}&back={{back_url}}">
@@ -80,8 +91,6 @@
                 <small class="promo-code text-secondary">Promo Code <i class="bi bi-dot"></i> 
                     <span class="text-theme fw-medium" style="letter-spacing: 0.5px; font-size: 11px;">{{booking.promo_code}}</span>
                 </small>
-                {% else %}
-                <div class="mb-md-3"></div>
                 {% endif %}
             </div>
             <div class="tags d-flex flex-wrap gap-1 px-2 px-md-3 pb-2 ">
@@ -92,7 +101,7 @@
                 {% endfor %}
             </div>
         </div>
-        <div class="admin-options mx-2 border bg-white p-1 p-lg-4">
+        <div class="admin-options mx-2 mt-4 border bg-white p-4">
             <!-- Form -->
             <form action="{% url 'core:booking-update' booking.pk %}?island={{current_island|urlencode}}&category={{current_category|urlencode}}&page={{page}}" method="POST" >
                 {% csrf_token %}
@@ -141,6 +150,11 @@
                     <span class="input-group-text" id="fh_id">FareHarbor <i class="bi bi-hash"></i></span>
                     <input type="text" class="form-control" aria-label="fh_id" aria-describedby="fh_id"
                         value="{{booking.fh_id}}" disabled>
+                </div>
+
+                <!-- FH URL -->
+                <div class="fh_url mb-3">
+                    <i class="bi bi-link-45deg"></i><a href="{{booking.referral_link}}&back=www.hawaiitraveltips.com">{{booking.referral_link}}&back=www.hawaiitraveltips.com</a>
                 </div>
 
                 <!-- Title -->

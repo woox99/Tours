@@ -45,12 +45,12 @@
         Searching {{current_island}}
     </div>
     <div class="buttons d-flex justify-content-center gap-3 mt-3">
-        <a href="{% url 'core:change-island' current_island %}" class="btn btn-outline-dark rounded-pill fw-medium px-3">
-            <i class="bi bi-arrow-90deg-left me-2"></i>Back
+        <a href="{% url 'core:change-island' current_island %}" class="btn btn-outline-primary rounded-pill fw-medium px-3 py-1 me-3">
+            <small><i class="bi bi-arrow-90deg-left me-2"></i>Back</small>
         </a>
-        <button type="button" class="btn btn-outline-dark rounded-pill fw-medium px-3"
+        <button type="button" class="btn btn-outline-dark rounded-pill fw-medium px-3 py-1"
                 data-bs-toggle="dropdown" aria-expanded="false">
-                <i class="fa-regular fa-map me-2"></i>Island
+                <small><i class="fa-regular fa-map me-2"></i>Island</small>
         </button>
         <ul class="dropdown-menu dropdown-menu-end">
             {% for island in islands %}
@@ -64,9 +64,9 @@
             {% endif %}
             {% endfor %}
         </ul>
-        <button class="btn btn-outline-dark rounded-pill fw-medium px-3" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas"
+        <button class="btn btn-outline-dark rounded-pill fw-medium px-3 py-1" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas"
             aria-controls="offcanvas">
-            <i class="fa-solid fa-bars me-2"></i>Category
+            <small><i class="fa-solid fa-bars me-2"></i>Category</small>
         </button>
     </div>
     <hr class="text-secondary mx-5">
