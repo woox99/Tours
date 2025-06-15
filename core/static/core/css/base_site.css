@@ -30,7 +30,7 @@
     }
 }
 .side-bar{
-    width: 17% !important;
+    width: 19% !important;
     overflow: hidden;
     min-height: 100vh;
     border-right: 1px solid #00000015;
@@ -121,9 +121,6 @@
     width: 100%;
 }
 .jumbotron .island-name{
-    font-family: "Walter Turncoat", cursive;
-    font-weight: 400;
-    font-style: normal;
     font-size: 110px !important;
 }
 .jumbotron .title{

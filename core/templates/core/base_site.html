@@ -20,7 +20,7 @@
 
     <div class="container-fluid d-flex p-0">
         <!-- Side Bar (lg screens) -->
-        <div class="side-bar d-none d-lg-flex flex-column pb-4">
+        <div class="side-bar d-none d-lg-flex flex-column pb-4 ps-2">
             <a class="mt-3" href="{% url 'core:index' %}">
                 <img class="side-bar-logo" src="{% static 'core/assets/logo.png' %}" alt="logo">
             </a>
@@ -43,7 +43,7 @@
             {% for type in types %}
             {% if type.filtered_categories %}
                 <hr class="mx-4 text-body-tertiary">
-                <a href="{% url 'core:change-type' current_island type %}" class="type fs-5 ps-3 py-2 pt-0 text-black fw-bolder">{{type}}</a>
+                <a href="{% url 'core:change-type' current_island type %}" class="type fs-5 ps-3 py-2 m-0 text-black fw-bolder">{{type}}</a>
                 {% endif %}
                 {% for category in type.filtered_categories %}
                     {% if current_category == category %}
@@ -140,8 +140,8 @@
                 <div class="background" style="background-image: url('{{ current_island.image_URL }}');"></div>
                 <div class="gradient"></div>
                 <div class="jumbotron-content d-flex flex-column justify-content-center">
-                    <p class="island-name fw-bold text-center text-white m-0 lh-1 m-0">{{current_island}}</p>
-                    <p class="title text-center text-white fw-semibold m-0"></i>HAWAII TRAVEL TIPS<span style="font-size: 12px;">.com</span></p>
+                    <p class="island-name fw-bold text-center text-white m-0 lh-1 m-0">{{current_island.title}}</p>
+                    <p class="title text-center text-white fw-semibold m-0 mt-3"></i>HAWAII TRAVEL TIPS</p>
                     <p class="text-center text-white fs-1 fw-light m-0 mt-3">Book your Hawaii adventure</p>
                 </div>
             </div>
