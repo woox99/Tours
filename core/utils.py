@@ -126,9 +126,11 @@ def get_search_results(request, island, query):
 
     # # Import Fareharbor csv data script
     # path = 'core/fh.csv'
-    # with open(path, newline='', encoding='utf-8') as csvfile:
+    # # with open(path, newline='', encoding='utf-8') as csvfile:
+    # with open(path, newline='', encoding='utf-8-sig') as csvfile:
     #     reader = csv.DictReader(csvfile)
     #     for row in reader:
+    #         # print(row)
     #         # print(reader.fieldnames)
 
     #         # Create Categories and Types
