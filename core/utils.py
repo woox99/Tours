@@ -4,6 +4,7 @@ from core.models import *
 from django.utils.timezone import now 
 from django.core.paginator import Paginator
 from django.db.models import F, Q
+from django.shortcuts import get_object_or_404
 
 
 # Update category traffic atomically
@@ -91,7 +92,8 @@ def update_booking(request, booking):
     booking.promo_amount = request.POST['promo_amount']
     booking.promo_code = request.POST['promo_code']
     booking.city = request.POST['city']
-    
+    booking.island = get_object_or_404(Island, pk=request.POST['island_id'])
+
     category_ids = request.POST.getlist('category_ids')
     if category_ids:
         tags = Category.objects.filter(pk__in=category_ids)

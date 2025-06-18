@@ -202,6 +202,7 @@ def booking_update(request, pk):
     if request.method == 'GET':
         booking = get_object_or_404(Booking, pk=pk)
         context = {
+            'islands':Island.objects.all().order_by('modified'),
             'booking' : booking,
             'categories': Category.objects.all().order_by('name'),
             'types' : Type.objects.all(),
@@ -209,7 +210,6 @@ def booking_update(request, pk):
             'page' : request.GET.get('page'),
             'current_category' : request.GET.get('category'),
         }
-        print(context['current_category'])
         return render(request, 'core/update.html', context)
     else:
         booking = get_object_or_404(Booking, pk=pk)
@@ -218,7 +218,6 @@ def booking_update(request, pk):
     island = request.GET.get('island')
     category = request.GET.get('category')
     page = request.GET.get('page')
-    print(category)
     return redirect(reverse('core:booking-update', kwargs={'pk':booking.pk}) + f'?island={island}&category={quote(category)}&page={page}')
 
 

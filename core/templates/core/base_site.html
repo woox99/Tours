@@ -151,7 +151,7 @@
             {% block mobile-breadcrumb %}
             <div class="mobile-breadcrumb d-lg-none" {% if jumbotron %}style='margin-top:-30px;'{% endif %}>
                 <div class="box rounded-2 mx-4 bg-body-tertiary d-flex flex-column align-items-center justify-content-center ">
-                    <div class="d-flex align-items-center justify-content-center gap-2 mt-3 fw-medium">
+                    <div class="d-flex align-items-center justify-content-center gap-2 fw-medium">
                         <span class="">{{current_island}}</span>
                         {% if not current_category %}
                         <i class="fa-solid fa-angle-right text-body-tertiary"></i>
@@ -163,7 +163,7 @@
                         <span>{{breadcrumb}}</span>
                         {% endif %}
                     </div>
-                    <p class="page-number text-center text-secondary fw-medium">Page {{page_obj.number}} of {{page_obj.paginator.num_pages}}</p>
+                    <!-- <p class="page-number text-center text-secondary fw-medium">Page {{page_obj.number}} of {{page_obj.paginator.num_pages}}</p> -->
                 </div>
                 <div class="buttons d-flex justify-content-center gap-3 mt-3">
                     <button type="button" class="btn btn-outline-dark rounded-pill fw-medium px-3 py-1"
@@ -331,7 +331,7 @@
     </div>
 
     <!-- Footer -->
-    <footer class="footer bg-light w-100 text-center py-1 border-top">
+    <footer class="footer bg-light w-100 text-center pt-3 border-top">
         <div class="">
             <a class="text-decoration-none" href="https://www.facebook.com/groups/1747780178610364" target="_blank">
                 <i class="bi bi-facebook fs-1"></i>
@@ -342,12 +342,12 @@
                 <small>Join us on Facebook <span class="fw-semibold"><i class="bi bi-dot"></i> 300k+ members</span></small>
             </a>
         </div>
-        <div class="info-links mt-1 mb-1 text-theme">
-            <a href="{% url 'core:info' %}#cancellation-policy" class="text-decoration-none">Cancellation Policy</a>
-            <span class="text-secondary"> | </span>
-            <a href="{% url 'core:info' %}#contact-us" class="text-decoration-none"> Contact Us </a>
-            <span class="text-secondary"> | </span>
-            <a href="{% url 'core:info' %}#become-an-affiliate" class="text-decoration-none"> Become an Affiliate</a>
+        <div class="info-links mt-1 mb-3 text-theme">
+            <a href="{% url 'core:info' %}#cancellation-policy" class="text-decoration-none fs-6">Cancellation Policy</a>
+            <span class="text-secondary mx-2">|</span>
+            <a href="{% url 'core:info' %}#contact-us" class="text-decoration-none fs-6">Contact Us</a>
+            <span class="text-secondary mx-2">|</span>
+            <a href="{% url 'core:info' %}#become-an-affiliate" class="text-decoration-none fs-6">Become an Affiliate</a>
         </div>
         <a class="text-decoration-none text-dark pb-3 garett-contact-link"
                             href="{% url 'core:contact-garett' %}"><small> Web services <span class="text-decoration-none text-secondary">Garett Joseph</span></small></a>

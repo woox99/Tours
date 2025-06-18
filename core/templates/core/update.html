@@ -15,7 +15,7 @@
 </head>
 
 <style>
-    .form-select{
+    .category-select{
             height: 350px !important;
         }
     .admin-options{
@@ -33,7 +33,7 @@
         .admin-options{
             width: 95%;
         }
-        .form-select{
+        .category-select{
             height: 60px !important;
         }
         
@@ -164,15 +164,29 @@
                         value="{{booking.title}}" name="title">
                 </div>
 
+                <!-- Island Select -->
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="island_input">Island</span>
+                    <select class="island-select form-select" aria-label="island" aria-describedby="island_input" name="island_id">
+                        {% for island in islands %}
+                        {% if island == booking.island %}
+                        <option class="" value="{{island.id}}" selected>{{island}}</option>
+                        {% else %}
+                        <option class="" value="{{island.id}}">{{island}}</option>
+                        {% endif %}
+                        {% endfor %}
+                    </select>
+                </div>
+
                 <!-- City -->
                 <div class="input-group mb-3">
-                    <span class="input-group-text" id="city_input"><i class="bi bi-geo-alt-fill"></i></span>
+                    <span class="input-group-text" id="city_input">City</span>
                     <input type="text" class="form-control" aria-label="city" aria-describedby="city_input"
                         value="{{booking.city}}" name="city">
                 </div>
 
-                <!-- Select -->
-                <select class="form-select mb-3" multiple aria-label="Default select" name="category_ids">
+                <!-- Category Select -->
+                <select class="category-select form-select mb-3" multiple aria-label="Default select" name="category_ids">
                     {% for category in categories %}
                     {% if category in booking.tags.all %}
                     <option class="" value="{{category.id}}" selected>{{category}}</option>
