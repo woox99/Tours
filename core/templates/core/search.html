@@ -9,15 +9,11 @@
 <!-- Jumbotron -->
 {% block jumbotron %}
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&family=Walter+Turncoat&display=swap');
     .search-header{
-        font-family: "Walter Turncoat", cursive;
-        font-weight: 400;
-        font-style: normal;
         font-size: 60px !important;    
     }
 </style>
-<div class="search-header d-none d-lg-flex d-flex justify-content-center">
+<div class="search-header d-none d-lg-flex d-flex justify-content-center mt-4">
     Searching {{current_island}}
 </div>
 <div class="d-none d-lg-flex justify-content-center search px-2">
@@ -34,14 +30,11 @@
 {% block mobile-breadcrumb %}
 <style>
     .box{
-    font-family: "Walter Turncoat", cursive;
-    font-weight: 400;
-    font-style: normal;
     font-size: 20px !important;
     }
 </style>
 <div class="mobile-breadcrumb d-lg-none" {% if jumbotron %}style='margin-top:-30px;'{% endif %}>
-    <div class="box fw-bold gap-2 rounded-2 mx-4 bg-body-tertiary d-flex justify-content-center align-items-center">
+    <div class="box fw-semibold gap-2 rounded-2 mx-4 bg-body-tertiary d-flex justify-content-center align-items-center">
         Searching {{current_island}}
     </div>
     <div class="buttons d-flex justify-content-center gap-3 mt-3">
@@ -92,7 +85,7 @@
 <div class="empty-message d-flex flex-column align-items-center w-100"
     style="height: 50vh;">
     <p class="fs-5 text-center m-0 px-5 pt-5">Sorry, no results found for</p>
-    <p class="px-5 text-secondary">"{{query}}"</p>
+    <p class="fs-5 px-5">"<em>{{query}}</em>"</p>
 </div>
 {% else %}
 <p class="mt-2 text-center">Search results for "<em>{{query}}</em>":</p>
