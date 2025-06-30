@@ -105,26 +105,29 @@
     </div>
 
         <!-- Footer -->
-        <footer class="footer bg-white w-100 text-center py-1 text-primary border-top">
+    <footer class="footer bg-white w-100 text-center pt-3 border-top">
         <div class="">
             <a class="text-decoration-none" href="https://www.facebook.com/groups/1747780178610364" target="_blank">
                 <i class="bi bi-facebook fs-1"></i>
             </a>
         </div>
-        <div class="">
+        <div class="info-links">
             <a class="text-decoration-none title text-secondary" href="https://www.facebook.com/groups/1747780178610364" target="_blank">
-                <small>Join us on Facebook <span class="fw-semibold"><i class="bi bi-dot"></i> 300k+ members</span></small>
+                Join us on Facebook
             </a>
         </div>
-        <div class="info-links mt-1 mb-3 text-theme">
-            <a href="{% url 'core:info' %}#cancellation-policy" class="text-decoration-none">Cancellation Policy</a>
-            <span class="text-secondary mx-2">|</span>
-            <a href="{% url 'core:info' %}#contact-us" class="text-decoration-none">Contact Us</a>
-            <span class="text-secondary mx-2">|</span>
-            <a href="{% url 'core:info' %}#become-an-affiliate" class="text-decoration-none">Become an Affiliate</a>
+        <div class="info-links mt-2 mb-3 text-theme">
+            <div>
+                <a href="{% url 'core:info' %}#cancellation-policy" class="text-decoration-none">Cancellation Policy</a>
+                <span class="text-secondary">|</span>
+                <a href="{% url 'core:info' %}#become-an-affiliate" class="text-decoration-none">Become an Affiliate</a>
+            </div>
+            <div>
+                <a href="{% url 'core:info' %}#contact-us" class="text-decoration-none">Contact Us</a>
+            </div>
         </div>
-        <a class="text-decoration-none text-dark pb-3 garett-contact-link"
+        <a class="text-decoration-none text-dark garett-contact-link"
                             href="{% url 'core:contact-garett' %}"><small> Web services <span class="text-decoration-none text-secondary">Garett Joseph</span></small></a>
-        </footer>
+    </footer>
 </body>
 </html>
