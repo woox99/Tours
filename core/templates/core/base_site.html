@@ -5,7 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {% block head_title %}
-    <title>Hawaii Travel Tips - {{current_island}}</title>
+    {% if not current_category %}
+    <title>Hawaii Travel Tips | {{current_island}}</title>
+    {% else %}
+    <title>Hawaii Travel Tips | {{current_category}}</title>
+    {% endif %}
     {% endblock %}
     {% load static %}
     <link rel="icon" type="image/x-icon" href="{% static 'core/assets/logo_sq.png' %}">
