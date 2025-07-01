@@ -6,9 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {% block head_title %}
     {% if not current_category %}
-    <title>Hawaii Travel Tips | {{current_island}}</title>
+    <title>{{current_island}} - Hawaii Travel Tips</title>
     {% else %}
-    <title>Hawaii Travel Tips | {{current_category}}</title>
+    <title>{{current_category}} - Hawaii Travel Tips</title>
     {% endif %}
     {% endblock %}
     {% load static %}
