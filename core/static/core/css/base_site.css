@@ -41,7 +41,7 @@
 .side-bar a{
     text-decoration: none;
 }
-.type{
+.side-bar .type{
     margin-top: 2px;
     letter-spacing: 2px !important;
     overflow: hidden;

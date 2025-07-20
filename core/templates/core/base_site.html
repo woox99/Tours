@@ -100,7 +100,7 @@
         
                     {% for type in types %}
                         {% if type.filtered_categories %}
-                        <p class="type fs-5 ps-3 py-2 m-0 mt-3 text-black text-uppercase">{{type}}</p>
+                        <p class="type fs-5 ps-3 py-2 m-0 mt-3 text-uppercase">{{type}}</p>
                         {% endif %}
                         {% for category in type.filtered_categories %}
                             {% if current_category == category %}
