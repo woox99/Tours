@@ -16,8 +16,6 @@ import time #debug
 
 
 def index(request):
-    island = Island.objects.all().order_by('modified').first()
-
     # Randomize booking weights periodically
     last_weight_randomization = BookingRandomization.objects.last()
     if not last_weight_randomization:
@@ -28,31 +26,32 @@ def index(request):
 
     if 'island' in request.session:
         try:
-            current_island = Island.objects.get(name=request.session['island'])
-            return redirect('core:change-island', island=current_island)  
+            island = Island.objects.get(name=request.session['island'])
         except Island.DoesNotExist:
-            return redirect('core:change-island', island=island)
+            island = Island.objects.all().order_by('modified').first()
     
-    if request.user.is_anonymous:
-        ref = request.GET.get('ref', '')
-        ref = '?ref=' + ref
-        SiteVisit.objects.create(ref=ref)
+    if request.user.is_authenticated:
+        bookings = Booking.objects.filter(island=island).order_by('weight')
+    else:
+        bookings = Booking.objects.filter(island=island, is_public=True).order_by('weight')
+    page_obj, page_range = paginate_bookings(bookings, request)
 
-    return redirect('core:change-island', island=island)
+    back_url = f'www.hawaiitraveltips.com/{quote(island.name)}/?page={page_obj.number}'
 
+    context = {
+        'types' : filter_categories(island, request),
+        'page_obj' : page_obj,
+        'islands': Island.objects.all().order_by('modified'),
+        'current_island': island,
+        'current_category' : None,
+        'breadcrumb' : 'All Bookings',
+        'page_range': page_range,
+        'back_url': quote(back_url),
+    }
 
-def home(request):
-    islands = Island.objects.all().order_by('modified')
-    return render(request, 'core/home.html', {'islands':islands})
-
-
-def info(request):
-    return render(request, 'core/info.html')
-
-
-def error_404_view(request, exception):
-    islands = Island.objects.all().order_by('modified')
-    return render(request, 'core/404.html', {'islands':islands}, status=404)
+    if page_obj.number == 1:
+        context.update({'jumbotron':True})
+    return render(request, 'core/base_site.html', context)
 
 
 def view_by_island(request, island):
@@ -80,6 +79,15 @@ def view_by_island(request, island):
     if page_obj.number == 1:
         context.update({'jumbotron':True})
     return render(request, 'core/base_site.html', context)
+
+
+def info(request):
+    return render(request, 'core/info.html')
+
+
+def error_404_view(request, exception):
+    islands = Island.objects.all().order_by('modified')
+    return render(request, 'core/404.html', {'islands':islands}, status=404)
 
 
 # Log the traffic each time a category is selected

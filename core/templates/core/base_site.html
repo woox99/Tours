@@ -4,6 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Discover the best adventures on {{current_island}}. Find tours, activities, and things to do in Hawaii.">
+    <meta name="keywords" content="keyword1, keyword2, keyword3">
     {% block head_title %}
     {% if not current_category %}
     <title>{{current_island}} - Hawaii Travel Tips</title>
@@ -21,6 +23,14 @@
 </head>
 
 <body class="m-0 p-0">
+    <!-- Indexing -->
+    {% if not current_category %}
+    <h1 class="visually-hidden">Best things to do and activities on {{ current_island }}</h1>
+    {% else %}
+    <h1 class="visually-hidden">Best {{current_category}} activities {{ current_island }}</h1>
+    {% endif %}
+
+
 
     <div class="container-fluid d-flex p-0">
         <!-- Side Bar (lg screens) -->
