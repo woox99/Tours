@@ -43,7 +43,7 @@
 }
 .type{
     margin-top: 2px;
-    letter-spacing: 2px;
+    letter-spacing: 2px !important;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
