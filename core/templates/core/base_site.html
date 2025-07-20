@@ -40,7 +40,7 @@
             </a>
             <hr class="mx-4 text-body-tertiary">
             <div class="d-flex flex-column">
-                <p class="type fs-5 ms-3 me-4 mt-2 mb-2 text-black">ISLAND</p>
+                <p class="type fs-5 ms-3 me-4 mt-2 mb-2 text-black" style="letter-spacing: 1.5px;">ISLAND</p>
                 {% for island in islands %}
                 {% if current_island == island %}
                 <a href="{% url 'core:change-island' island %}"
@@ -57,7 +57,7 @@
             {% for type in types %}
             {% if type.filtered_categories %}
                 <hr class="mx-4 text-body-tertiary">
-                <p class="type fs-5 ps-3 py-2 m-0 text-black text-uppercase">{{type}}</p>
+                <p class="type fs-5 ps-3 py-2 m-0 text-black text-uppercase" style="letter-spacing: 1.5px;">{{type}}</p>
                 {% endif %}
                 {% for category in type.filtered_categories %}
                     {% if current_category == category %}
