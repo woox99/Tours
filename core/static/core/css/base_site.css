@@ -48,9 +48,6 @@
     white-space: nowrap;
     text-overflow: ellipsis;
 }
-.side-bar .type:hover{
-    background-color: #f8f9fa !important;
-}
 .side-bar .category{
     font-size: 14px;
     margin-top: 2px;

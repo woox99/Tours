@@ -57,7 +57,7 @@
             {% for type in types %}
             {% if type.filtered_categories %}
                 <hr class="mx-4 text-body-tertiary">
-                <a href="{% url 'core:change-type' current_island type %}" class="type fs-5 ps-3 py-2 m-0 text-black fw-bolder">{{type}}</a>
+                <p class="type fs-5 ps-3 py-2 m-0 text-black fw-bolder">{{type}}</p>
                 {% endif %}
                 {% for category in type.filtered_categories %}
                     {% if current_category == category %}
@@ -100,7 +100,7 @@
         
                     {% for type in types %}
                         {% if type.filtered_categories %}
-                        <a href="{% url 'core:change-type' current_island type %}" class="fs-5 ms-3 me-4 mt-4 mb-2 text-black fw-bolder">{{type}}</a>
+                        <p class="type fs-5 ps-3 py-2 m-0 text-black fw-bolder">{{type}}</p>
                         {% endif %}
                         {% for category in type.filtered_categories %}
                             {% if current_category == category %}

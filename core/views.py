@@ -124,35 +124,6 @@ def view_by_cat(request, island, category):
     return render(request, 'core/base_site.html', context)
 
 
-def view_by_type(request, island, type):
-    island = get_object_or_404(Island, name=island)
-    type = get_object_or_404(Type, name=type)
-    categories = Category.objects.filter(type=type)
-
-    if request.user.is_authenticated:
-        bookings = Booking.objects.filter(island=island, tags__in=categories).distinct().order_by('weight')
-    else:
-        bookings = Booking.objects.filter(island=island, is_public=True, tags__in=categories).distinct().order_by('weight')
-    page_obj, page_range = paginate_bookings(bookings, request)
-
-    back_url = f'www.hawaiitraveltips.com/{quote(island.name)}/all-{quote(type.name)}/?page={page_obj.number}'
-
-    context = {
-        'types' : filter_categories(island, request),
-        'page_obj' : page_obj,
-        'islands':Island.objects.all().order_by('modified'),
-        'current_island': island,
-        'current_category': None,
-        'breadcrumb' : type,
-        'page_range': page_range,
-        'back_url': quote(back_url),
-    }
-
-    if page_obj.number == 1:
-        context.update({'jumbotron':True})
-    return render(request, 'core/base_site.html', context)
-
-
 # Log the query and count of results for each search
 def log_search(request, island):
     island = get_object_or_404(Island, name=island)
@@ -249,4 +220,34 @@ def contact_garett(request):
 def logout_admin(request, island):
     logout(request)
     return redirect('core:change-island', island=island)
+
+
+
+# def view_by_type(request, island, type):
+#     island = get_object_or_404(Island, name=island)
+#     type = get_object_or_404(Type, name=type)
+#     categories = Category.objects.filter(type=type)
+
+#     if request.user.is_authenticated:
+#         bookings = Booking.objects.filter(island=island, tags__in=categories).distinct().order_by('weight')
+#     else:
+#         bookings = Booking.objects.filter(island=island, is_public=True, tags__in=categories).distinct().order_by('weight')
+#     page_obj, page_range = paginate_bookings(bookings, request)
+
+#     back_url = f'www.hawaiitraveltips.com/{quote(island.name)}/all-{quote(type.name)}/?page={page_obj.number}'
+
+#     context = {
+#         'types' : filter_categories(island, request),
+#         'page_obj' : page_obj,
+#         'islands':Island.objects.all().order_by('modified'),
+#         'current_island': island,
+#         'current_category': None,
+#         'breadcrumb' : type,
+#         'page_range': page_range,
+#         'back_url': quote(back_url),
+#     }
+
+#     if page_obj.number == 1:
+#         context.update({'jumbotron':True})
+#     return render(request, 'core/base_site.html', context)
 
