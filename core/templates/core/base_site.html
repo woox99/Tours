@@ -4,7 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Discover the best adventures on {{current_island}}. Find tours, activities, and things to do in Hawaii.">
+    {% if not current_category %}
+    <meta name="description" content="Discover the best tours and activities on {{current_island}}, including boat cruises, hiking adventures, and more. Book with trusted local providers now!">
+    {% else %}
+    <meta name="description" content="{{current_category.description_element}}">
+    {% endif %}
     <meta name="keywords" content="keyword1, keyword2, keyword3">
     {% block head_title %}
     {% if not current_category %}
@@ -23,14 +27,6 @@
 </head>
 
 <body class="m-0 p-0">
-    <!-- Indexing -->
-    {% if not current_category %}
-    <h1 class="visually-hidden">Best things to do and activities on {{ current_island }}</h1>
-    {% else %}
-    <h1 class="visually-hidden">Best {{current_category}} activities {{ current_island }}</h1>
-    {% endif %}
-
-
 
     <div class="container-fluid d-flex p-0">
         <!-- Side Bar (lg screens) -->
@@ -123,6 +119,12 @@
 
         {% block main-content %}
         <div class="main-content px-lg-3">
+            <!-- Indexing -->
+            {% if not current_category %}
+            <h1 class="visually-hidden">Best Things to Do in {{current_island}} - Hawaii</h1>
+            {% else %}
+            <h1 class="visually-hidden">{{current_category.header_element}}</h1>
+            {% endif %}
             <!-- Nav Bar -->
             <nav class="navbar navbar-expand-lg d-lg-none p-2">
                 <button class="btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas"
@@ -155,8 +157,8 @@
                 <div class="gradient"></div>
                 <div class="jumbotron-content d-flex flex-column justify-content-center">
                     <p class="island-name fw-bold text-center text-white m-0 lh-1 m-0">{{current_island.title}}</p>
-                    <p class="title text-center text-white fw-semibold m-0 mt-3"></i>HAWAII TRAVEL TIPS</p>
-                    <p class="text-center text-white fs-1 fw-light m-0 mt-3">Book your Hawaii adventure</p>
+                    <p class="text-center text-white fs-1 fw-light m-0 mt-4">Begin your Hawaii adventure</p>
+                    <p class="title text-center text-white fw-semibold m-0">HAWAII TRAVEL TIPS</p>
                 </div>
             </div>
             {% endif %}
