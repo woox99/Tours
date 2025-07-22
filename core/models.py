@@ -17,7 +17,10 @@ class Category(models.Model):
     is_popular = models.BooleanField(default=False)
     traffic = models.IntegerField(default=0)
     header_element = models.CharField(max_length=60, blank=True)
-    description_element = models.CharField(max_length=150, blank=True)
+
+    @property
+    def total_bookings(self):
+        return self.bookings.count()
 
     @property
     def public_bookings(self):
@@ -34,7 +37,7 @@ class Island(models.Model):
     modified = models.DateTimeField(auto_now=True)
 
     @property
-    def bookings(self):
+    def total_bookings(self):
         return self.booking_set.all().count()
     
     @property

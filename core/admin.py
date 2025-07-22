@@ -10,11 +10,11 @@ class TypeAdmin(admin.ModelAdmin):
     ordering = ['modified']
 
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = ['name', 'type', 'public_bookings', 'is_popular', 'traffic']
+    list_display = ['name', 'type', 'total_bookings', 'public_bookings', 'is_popular', 'traffic']
     ordering = ['name']
 
 class IslandAdmin(admin.ModelAdmin):
-    list_display = ['name', 'bookings', 'public_bookings']
+    list_display = ['name', 'total_bookings', 'public_bookings']
     ordering = ['modified']
 
 class SearchQueryAdmin(admin.ModelAdmin):
