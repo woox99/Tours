@@ -29,13 +29,14 @@ def home(request):
 
 
 def view_by_island(request, island):
-    # # Randomize booking weights periodically
-    # last_weight_randomization = BookingRandomization.objects.last()
-    # if not last_weight_randomization:
-    #     last_weight_randomization = BookingRandomization.objects.create()
-    # last_weight_randomization_date = last_weight_randomization.date
-    # if now() - last_weight_randomization_date > timedelta(seconds=1):
-    #     randomize_booking_weights()
+    # Randomize booking weights periodically
+    last_weight_randomization = BookingRandomization.objects.last()
+    if not last_weight_randomization:
+        last_weight_randomization = BookingRandomization.objects.create()
+    last_weight_randomization_date = last_weight_randomization.date
+    if now() - last_weight_randomization_date > timedelta(days=1):
+        randomize_booking_weights()
+
     island = get_object_or_404(Island, name=island)
     request.session['island'] = island.name
     if request.user.is_authenticated:
