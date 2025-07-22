@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Oops! The page you're looking for doesn't exist. Explore top tours and activities across Hawaii's islands instead.">
+    <meta name="robots" content="noindex, follow">
     <title>Hawaii Travel Tips - 404</title>
     {% load static %}
     <link rel="icon" type="image/x-icon" href="{% static 'core/assets/logo_sq.png' %}">
@@ -77,7 +79,7 @@
             </a>
             <h1 class="m-0">ERROR</h1>
             <h4 class="text-secondary m-0 px-3">The page you're looking for couldn't be found.</h4>
-            <h6 class="m-0">Please select your island and try again.</h6>
+            <h6 class="m-0">Please select an island and try again.</h6>
             <div class="bg-white rounded-2 border p-4 d-flex flex-column gap-4">
                 {% for island in islands %}
                     <div class="image-container rounded-1">
@@ -95,7 +97,7 @@
     </div>
 
         <!-- Footer -->
-    <footer class="footer bg-white w-100 text-center pt-3 border-top">
+    <footer class="footer bg-white w-100 text-center py-3 border-top">
         <div class="">
             <a class="text-decoration-none" href="https://www.facebook.com/groups/1747780178610364" target="_blank">
                 <i class="bi bi-facebook fs-1"></i>

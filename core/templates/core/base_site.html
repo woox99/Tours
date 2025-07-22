@@ -115,12 +115,6 @@
 
         {% block main-content %}
         <div class="main-content px-lg-3">
-            <!-- Indexing -->
-            {% if not current_category %}
-            <h1 class="visually-hidden">Best Things to Do in {{current_island}} - Hawaii</h1>
-            {% else %}
-            <h1 class="visually-hidden">{{current_category.header_element}} in {{current_island}} - Hawaii</h1>
-            {% endif %}
             <!-- Nav Bar -->
             <nav class="navbar navbar-expand-lg d-lg-none p-2">
                 <button class="btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas"
@@ -144,6 +138,20 @@
                 <a href="/admin" class="btn btn-warning"><i class="bi bi-person-arms-up"></i> Dashboard</a>
                 <a href="{% url 'core:logout' current_island %}" class="btn btn-warning"><i class="bi bi-box-arrow-right"></i> Logout</a>
             </div>
+            {% endif %}
+            <!-- Indexing -->
+            {% if not current_category %}
+                <h1 class="visually-hidden">Best Things to Do in {{current_island}} - Hawaii</h1>
+                {% if user.is_authenticated %}
+                <h3 class="mt-2 text-primary text-decoration-underline">Best Things to Do in {{current_island}} - Hawaii</h3>
+                <p>Discover the best tours and activities on {{current_island}}, including boat cruises, hiking adventures, and more. Book with trusted local providers now!</p>
+                {% endif %}
+            {% else %}
+                <h1 class="visually-hidden">{{current_category.header_element}} in {{current_island}} - Hawaii</h1>
+                {% if user.is_authenticated %}
+                <h3 class="mt-2 text-primary text-decoration-underline">{{current_category.header_element}} in {{current_island}} - Hawaii</h1>
+                <p>Discover the best tours and activities on {{current_island}}, including boat cruises, hiking adventures, and more. Book with trusted local providers now!</p>
+                {% endif %}
             {% endif %}
             <!-- Jumbotron -->
             {% block jumbotron %}
@@ -343,7 +351,7 @@
     </div>
 
     <!-- Footer -->
-    <footer class="footer bg-light w-100 text-center pt-3 border-top">
+    <footer class="footer bg-light w-100 text-center py-3 border-top">
         <div class="">
             <a class="text-decoration-none" href="https://www.facebook.com/groups/1747780178610364" target="_blank">
                 <i class="bi bi-facebook fs-1"></i>
