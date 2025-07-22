@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hawaii Travel Tips - Info</title>
+    <meta property="og:site_name" content="Hawaii Travel Tips">
+    <meta name="description" content="Contact Hawaii Travel Tips to ask questions, share feedback, or become a travel activity affiliate. We’re here to help make your Hawaiian adventure unforgettable.">
+    <title>Contact Hawaii Travel Tips - Ask Questions or Become a Partner</title>
     {% load static %}
     <link rel="icon" type="image/x-icon" href="{% static 'core/assets/logo_sq.png' %}">
     <link rel="stylesheet" href="{% static 'core/css/base_site.css' %}">
@@ -27,13 +29,15 @@
 </style>
 <body>
     <div class="d-flex flex-column align-items-center bg-light">
-        <div class="container py-5">
-            <a href="{% url 'core:index' %}" class="btn btn-outline-primary ms-3"><i class="bi bi-arrow-90deg-left"></i> Home</a>
-            <div class="mt-4 text-center">
-                <a href="{% url 'core:index' %}">
+        <!-- SEO -->
+        <h1 class="visually-hidden">Contact Hawaii Travel Tips - Ask Questions or Become a Partner</h1>
+        <div class="container pb-5">
+            <div class="my-4 text-center">
+                <a href="{% url 'core:home' %}">
                     <img class="logo" src="{% static 'core/assets/logo.png' %}" alt="">
                 </a>
             </div>
+            <a href="{% url 'core:home' %}" class="btn btn-outline-primary mb-3"><i class="bi bi-arrow-90deg-left"></i> Back</a>
             <div class="mt-2 border rounded-2 py-3 px-4 bg-white">
                 <h4 class="mt-3">Small Team, Big Mission</h4>
                 <p class="text-secondary">At Hawaii Travel Tips, our mission is to make your Hawaiian adventure unforgettable by connecting you with the best tours and activities across all the islands. From thrilling outdoor excursions to cultural experiences and relaxing getaways, we’re here to help you discover the true spirit of Aloha with ease, trust, and local insight.</p>
@@ -42,7 +46,7 @@
             <span id="cancellation-policy"></span>
             <!-- Cancellation Policy -->
             <div class="mt-4 border rounded-2 py-3 px-4  bg-white">
-                <h1 class="text-theme fw-bold">Cancellation Policy</h1>
+                <h2 class="text-theme fw-bold">Cancellation Policy</h2>
                 <h4 class="mt-3">Need to cancel your reservation?</h4>
                 <p class="text-secondary mb-2">Your peace of mind is important to us. Since we do not process payments directly, all cancellations must be handled through the individual tour or activity provider you booked with. Each provider has their own cancellation and refund policy, so we recommend reviewing their terms carefully before booking.</p>
                 <p class="text-secondary">If you need help finding contact information or have questions, feel free to reach out—we’re happy to assist however we can.</p>
@@ -51,7 +55,7 @@
             <span id="become-an-affiliate" ></span>
             <!-- Become an affiliate -->
             <div class="mt-4 border rounded-2 py-3 px-4  bg-white">
-                <h1 class="text-theme fw-bold">Become an Affiliate</h1>
+                <h2 class="text-theme fw-bold">Become an Affiliate</h2>
                 <h4 class="mt-3">Want to Become Part of Our Ohana?</h4>
                 <p class="text-secondary mb-2">Partnering with us is completely free—and a great way to grow your visibility across multiple booking platforms. We welcome businesses that align with our mission to share the spirit of Hawaiʻi through unforgettable experiences.</p>
                 <p class="text-secondary">If you’re passionate about providing quality tours or activities on the islands, we’d love to hear from you.</p>
@@ -67,6 +71,8 @@
             <div class="mt-4 pt-4 border rounded-2 bg-white">
                 <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSe128ZWhsXrGvaqVYDjzqddSJlhh8Go-AzoltGF822B4LJ6qg/viewform?embedded=true" width="100%" height="900" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
             </div>
+            <a href="{% url 'core:home' %}" class="btn btn-outline-primary mt-3"><i class="bi bi-arrow-90deg-left"></i> Back</a>
+
             <!-- <form class="px-2 mt-5" action="https://formspree.io/f/xwpoenze" method="POST">
                 <h4 class="ms-2 mb-3">Say Hello to Our Team</h4>
                 <div class="form-floating mb-3">

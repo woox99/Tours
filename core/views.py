@@ -16,45 +16,26 @@ import time #debug
 
 
 def index(request):
-    # Randomize booking weights periodically
-    last_weight_randomization = BookingRandomization.objects.last()
-    if not last_weight_randomization:
-        last_weight_randomization = BookingRandomization.objects.create()
-    last_weight_randomization_date = last_weight_randomization.date
-    if now() - last_weight_randomization_date > timedelta(seconds=1):
-        randomize_booking_weights()
+    return redirect('/Oahu/', permanent=True)
 
+
+def home(request):
     if 'island' in request.session:
         try:
             island = Island.objects.get(name=request.session['island'])
         except Island.DoesNotExist:
             island = Island.objects.all().order_by('modified').first()
-    
-    if request.user.is_authenticated:
-        bookings = Booking.objects.filter(island=island).order_by('weight')
-    else:
-        bookings = Booking.objects.filter(island=island, is_public=True).order_by('weight')
-    page_obj, page_range = paginate_bookings(bookings, request)
-
-    back_url = f'www.hawaiitraveltips.com/{quote(island.name)}/?page={page_obj.number}'
-
-    context = {
-        'types' : filter_categories(island, request),
-        'page_obj' : page_obj,
-        'islands': Island.objects.all().order_by('modified'),
-        'current_island': island,
-        'current_category' : None,
-        'breadcrumb' : 'All Bookings',
-        'page_range': page_range,
-        'back_url': quote(back_url),
-    }
-
-    if page_obj.number == 1:
-        context.update({'jumbotron':True})
-    return render(request, 'core/base_site.html', context)
+    return redirect(f'/{island}')
 
 
 def view_by_island(request, island):
+    # # Randomize booking weights periodically
+    # last_weight_randomization = BookingRandomization.objects.last()
+    # if not last_weight_randomization:
+    #     last_weight_randomization = BookingRandomization.objects.create()
+    # last_weight_randomization_date = last_weight_randomization.date
+    # if now() - last_weight_randomization_date > timedelta(seconds=1):
+    #     randomize_booking_weights()
     island = get_object_or_404(Island, name=island)
     request.session['island'] = island.name
     if request.user.is_authenticated:

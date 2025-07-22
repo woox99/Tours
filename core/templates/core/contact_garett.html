@@ -4,9 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    {% block head_title %}
-    <title>Hawaii Travel - Hi, I'm Garett</title>
-    {% endblock %}
+    <meta property="og:site_name" content="Hawaii Travel Tips">
+    <meta name="description" content="Professional web design and development services by Garett Joseph. Custom websites built for businesses in Hawaii and beyond.">
+    <title>Web Design & Development Services by Garett Joseph</title>
     {% load static %}
     <link rel="icon" type="image/x-icon" href="{% static 'core/assets/logo_sq.png' %}">
     <link rel="stylesheet" href="{% static 'core/css/base_site.css' %}">
@@ -31,7 +31,9 @@
             <div class="text-start">
                 <a href="javascript:history.back()" class="btn btn-primary"><i class="bi bi-arrow-90deg-left"></i> Back</a>
             </div>
-            <h1 class="fw-semibold mt-5">Hi, I'm Garett!</h1>
+            <!-- SEO -->
+            <h1 class="visually-hidden">Web Design & Development Services by Garett Joseph</h1>
+            <h2 class="fw-semibold mt-5">Hi, I'm Garett!</h2>
             <h3 class="text-primary">I build web applications of all sizes.</h3>
             <p class="mt-4">Reach out to me to discuss what you're looking for in a website. Modern applications need to
                 be blazing fast with a clean design, and feel intuitive to navigate—thats what I do.</p>
@@ -67,7 +69,7 @@
         <form class="mt-lg-4 p-3 p-lg-0 mb-5" action="https://formspree.io/f/xvgapble" method="POST" id="form">
             <hr class="d-lg-none mx-5 pb-4">
             <h4 class="mb-3">Contact Me</h4>
-            <p>(This is not the contact for Hawaii Travel Tips. Contact them <a href="{% url 'core:info' %}#contact-us">here</a>.)</p>
+            <p>This is not the contact for Hawaii Travel Tips. Contact them <a href="{% url 'core:info' %}#contact-us">here</a>.</p>
             <div class="form-floating mb-3">
                 <input type="text" class="form-control" id="name_input" placeholder=""
                     name="first_name" required>
@@ -100,32 +102,6 @@
             </div>
         </form>
     </div>
-
-    <!-- Footer -->
-    <footer class="footer bg-white w-100 text-center py-3 border-top">
-        <div class="">
-            <a class="text-decoration-none" href="https://www.facebook.com/groups/1747780178610364" target="_blank">
-                <i class="bi bi-facebook fs-1"></i>
-            </a>
-        </div>
-        <div class="info-links">
-            <a class="text-decoration-none title text-secondary" href="https://www.facebook.com/groups/1747780178610364" target="_blank">
-                Join us on Facebook
-            </a>
-        </div>
-        <div class="info-links mt-2 mb-3 text-theme">
-            <div>
-                <a href="{% url 'core:info' %}#cancellation-policy" class="text-decoration-none">Cancellation Policy</a>
-                <span class="text-secondary">|</span>
-                <a href="{% url 'core:info' %}#become-an-affiliate" class="text-decoration-none">Become an Affiliate</a>
-            </div>
-            <div>
-                <a href="{% url 'core:info' %}#contact-us" class="text-decoration-none">Contact Us</a>
-            </div>
-        </div>
-        <a class="text-decoration-none text-dark garett-contact-link"
-                            href="{% url 'core:contact-garett' %}"><small> Web services <span class="text-decoration-none text-secondary">Garett Joseph</span></small></a>
-    </footer>
 
     <script src="{% static './core/js/clear_form.js'%}"></script>
 </body>
