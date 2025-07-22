@@ -16,7 +16,7 @@ class Category(models.Model):
     type = models.ForeignKey(Type, on_delete=models.CASCADE)
     is_popular = models.BooleanField(default=False)
     traffic = models.IntegerField(default=0)
-    header_element = models.CharField(max_length=60, blank=True)
+    header_element = models.CharField(max_length=60, blank=False)
 
     @property
     def total_bookings(self):

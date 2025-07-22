@@ -37,8 +37,9 @@
                 <p class="type fs-5 ms-3 me-4 mt-2 mb-2 text-black" style="letter-spacing: 1.5px;">ISLAND</p>
                 {% for island in islands %}
                 {% if current_island == island %}
-                <p class="ps-4 fs-6 py-1 fw-light text-primary text-decoration-none m-0"><i class="bi bi-dot"></i>{{island}}
-                </p>
+                <a href="{% url 'core:change-island' island %}" 
+                    class="category ps-4 fs-6 py-1 fw-light text-primary text-decoration-none"><i class="bi bi-dot"></i>{{island}}
+                </a>
                 {% else %}
                 <a href="{% url 'core:change-island' island %}"
                     class="category ps-4 fs-6 py-1 fw-light text-black">{{island}}
@@ -54,8 +55,9 @@
                 {% endif %}
                 {% for category in type.filtered_categories %}
                     {% if current_category == category %}
-                    <p class="ps-4 pe-2 fs-6 py-1 fw-light text-primary text-decoration-none m-0"><i class="bi bi-dot"></i>{{category}}
-                    </p>
+                    <a href="{% url 'core:change-cat' current_island category %}"
+                        class="ps-4 pe-2 fs-6 py-1 fw-light text-primary text-decoration-none m-0"><i class="bi bi-dot"></i>{{category}}
+                    </a>
                     {% elif category.is_popular %}
                     <a href="{% url 'core:change-cat' current_island category %}"
                         class="category ps-4 pe-2 fs-6 py-1 fw-light text-black">{{category}} <small class="fw-bold text-theme"
@@ -79,9 +81,9 @@
                         <p class="type fs-5 ms-3 me-4 mt-4 mb-2 text-black text-uppercase" style="letter-spacing: 1.5px;">Island</p>
                         {% for island in islands %}
                         {% if current_island == island %}
-                        <p 
-                            class="m-0 ps-4 fs-6 py-1 fw-light text-primary text-decoration-none"><i class="bi bi-dot"></i>{{island}}
-                        </p>
+                        <a href="{% url 'core:change-island' island %}" 
+                            class="category ps-4 fs-6 py-1 fw-light text-primary text-decoration-none"><i class="bi bi-dot"></i>{{island}}
+                        </a>
                         {% else %}
                         <a href="{% url 'core:change-island' island %}"
                             class="category ps-4 fs-6 py-1 fw-light text-black">{{island}}
