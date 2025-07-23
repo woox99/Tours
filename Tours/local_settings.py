@@ -21,6 +21,10 @@ DEBUG = False
 ALLOWED_HOSTS = ['hawaiitraveltips.com', 'www.hawaiitraveltips.com']
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+SECURE_SSL_REDIRECT = True
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
+
 
 CSRF_TRUSTED_ORIGINS = [
     'https://hawaiitraveltips.com',

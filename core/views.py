@@ -73,10 +73,10 @@ def error_404_view(request, exception):
 
 
 # Log the traffic each time a category is selected
-def log_cat_traffic(request, island, category):
-    if request.user.is_anonymous:
-        log_traffic(category)
-    return redirect('core:view-by-cat', island, category)
+# def log_cat_traffic(request, island, category):
+#     if request.user.is_anonymous:
+#         log_traffic(category)
+#     return redirect('core:view-by-cat', island, category)
 
 
 def view_by_cat(request, island, category):
