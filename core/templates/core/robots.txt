@@ -2,7 +2,6 @@ User-agent: *
 Disallow: /admin/
 Disallow: /accounts/
 Disallow: /private/
-Disallow: /media/
 Disallow: /*?page=*
 Allow: /
 
