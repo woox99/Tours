@@ -13,19 +13,26 @@ import csv # debug
 import time #debug
 
 
-
-
-def index(request):
-    return redirect('/Oahu/', permanent=True)
-
+# def index(request):
+#     return redirect('/Oahu/', permanent=True)
 
 def home(request):
+    print(request.session['island'])
     if 'island' in request.session:
         try:
             island = Island.objects.get(name=request.session['island'])
         except Island.DoesNotExist:
             island = Island.objects.all().order_by('modified').first()
-    return redirect(f'/{island}')
+    return render(request, 'core/home_redirect.html', {'island': island})
+
+
+# def home(request):
+#     if 'island' in request.session:
+#         try:
+#             island = Island.objects.get(name=request.session['island'])
+#         except Island.DoesNotExist:
+#             island = Island.objects.all().order_by('modified').first()
+#     return render(request, 'core/home_redirect.html', {'island': island})
 
 
 def view_by_island(request, island):
