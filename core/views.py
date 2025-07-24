@@ -23,7 +23,16 @@ def home(request):
             island = Island.objects.get(name=request.session['island'])
         except Island.DoesNotExist:
             island = Island.objects.all().order_by('modified').first()
-    return render(request, 'core/home_redirect.html', {'island': island})
+
+    context = {
+        'types' : filter_categories(island, request),
+        # 'page_obj' : page_obj,
+        'islands': Island.objects.all().order_by('modified'),
+        'current_island': island,
+        'current_category' : None,
+        # 'breadcrumb' : 'All Bookings',
+    }
+    return render(request, 'core/home_redirect.html',  context)
 
 
 # def home(request):
