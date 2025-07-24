@@ -48,4 +48,4 @@ class CategoryByIslandSitemap(Sitemap):
 
     def location(self, obj):
         island, category = obj
-        return reverse('core:view-by-cat', args=[island.name, category.name])
+        return reverse('core:change-cat', args=[island.name, category.name])
