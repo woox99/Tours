@@ -34,6 +34,7 @@ class Island(models.Model):
     name = models.CharField(max_length=50, unique=True)
     title = models.CharField(max_length=50, blank=True)
     image_URL = models.URLField()
+    image_mobile_URL = models.URLField()
     modified = models.DateTimeField(auto_now=True)
 
     @property

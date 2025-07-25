@@ -92,12 +92,9 @@
     max-height: 340px;
     z-index: -2;
 }
-.jumbotron .background{
-    height: 340px;
-    width: 100%;
-    background-size: cover;
-    background-position: center;
-}
+
+/* .jumbotron .background is in a style tag in the html */
+
 .jumbotron .gradient{
     position: absolute;
     height: 100%;
