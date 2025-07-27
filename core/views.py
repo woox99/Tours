@@ -17,20 +17,28 @@ import time #debug
 #     return redirect('/Oahu/', permanent=True)
 
 def home(request):
-    print(request.session['island'])
+    # for booking in Booking.objects.all():
+    #     if 'filestackcontent.com/' in booking.image_URL and 'resize=width:500/' not in booking.image_URL:
+    #         booking.image_URL = booking.image_URL.replace(
+    #             'filestackcontent.com/',
+    #             'filestackcontent.com/resize=width:500/'
+    #         )
+    #         # booking.save()
+    #     print(booking.image_URL)
+
     if 'island' in request.session:
         try:
             island = Island.objects.get(name=request.session['island'])
         except Island.DoesNotExist:
             island = Island.objects.all().order_by('modified').first()
+    else:
+        island = Island.objects.all().order_by('modified').first()
 
     context = {
         'types' : filter_categories(island, request),
-        # 'page_obj' : page_obj,
         'islands': Island.objects.all().order_by('modified'),
         'current_island': island,
         'current_category' : None,
-        # 'breadcrumb' : 'All Bookings',
     }
     return render(request, 'core/home_redirect.html',  context)
 

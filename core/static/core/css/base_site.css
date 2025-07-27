@@ -86,52 +86,8 @@
     display: none;
 }
 
-.jumbotron{
-    position: relative;
-    overflow: hidden;
-    max-height: 340px;
-    z-index: -2;
-}
+/* .jumbotron is in an internal <style> block */
 
-/* .jumbotron .background is in a style tag in the html */
-
-.jumbotron .gradient{
-    position: absolute;
-    height: 100%;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 100%;
-    background: linear-gradient(rgba(0, 0, 0, 0.15), #00000080);
-
-}
-.jumbotron .jumbotron-content{
-    position: absolute;
-    height: 50%;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 100%;
-}
-.jumbotron .island-name{
-    font-size: 110px !important;
-}
-.jumbotron .title{
-    font-size: 22px;
-    letter-spacing: 3px;
-}
-
-@media (max-width: 768px) {
-    .jumbotron .background{
-        height: 220px;
-    }
-    .jumbotron .island-name{
-        font-size: 60px !important;
-    }
-    .jumbotron .title{
-        font-size: 12px;
-    }
-}
 .mobile-breadcrumb .box{
     position: relative;
     height: 56px;
