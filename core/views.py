@@ -20,8 +20,8 @@ def home(request):
                 'filestackcontent.com/',
                 'filestackcontent.com/resize=width:500/'
             )
-            # booking.save()
-        print(booking.image_URL)
+            booking.save()
+        # print(booking.image_URL)
 
     for booking in Booking.objects.all():
         if '&back=BACKLINK' in booking.referral_link:
@@ -29,8 +29,8 @@ def home(request):
                 '&back=BACKLINK',
                 ''
             )
-            # booking.save()
-        print(booking.referral_link)
+            booking.save()
+        # print(booking.referral_link)
 
     if 'island' in request.session:
         try:
