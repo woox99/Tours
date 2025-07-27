@@ -13,18 +13,24 @@ import csv # debug
 import time #debug
 
 
-# def index(request):
-#     return redirect('/Oahu/', permanent=True)
-
 def home(request):
-    # for booking in Booking.objects.all():
-    #     if 'filestackcontent.com/' in booking.image_URL and 'resize=width:500/' not in booking.image_URL:
-    #         booking.image_URL = booking.image_URL.replace(
-    #             'filestackcontent.com/',
-    #             'filestackcontent.com/resize=width:500/'
-    #         )
-    #         # booking.save()
-    #     print(booking.image_URL)
+    for booking in Booking.objects.all():
+        if 'filestackcontent.com/' in booking.image_URL and 'resize=width:500/' not in booking.image_URL:
+            booking.image_URL = booking.image_URL.replace(
+                'filestackcontent.com/',
+                'filestackcontent.com/resize=width:500/'
+            )
+            # booking.save()
+        print(booking.image_URL)
+
+    for booking in Booking.objects.all():
+        if '&back=BACKLINK' in booking.referral_link:
+            booking.referral_link = booking.referral_link.replace(
+                '&back=BACKLINK',
+                ''
+            )
+            # booking.save()
+        print(booking.referral_link)
 
     if 'island' in request.session:
         try:
