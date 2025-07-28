@@ -56,6 +56,11 @@
 </head>
 
 <style>
+    
+    .jumbotron {
+        position: relative;
+        z-index: -2;
+    }
     .jumbotron .background {
         position: relative;
         z-index: -2;
@@ -70,6 +75,58 @@
         background-position: center;
         top: 0;
         left: 0;
+    }
+    .jumbotron .background::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(rgba(0, 0, 0, 0.15), #00000080);
+        z-index: 1;
+        pointer-events: none;
+    }
+    .jumbotron .background p{
+        position: relative;
+        z-index: 2;
+        color: white;
+        text-align: center;
+    }
+    .jumbotron .island-name {
+        font-size: 110px;
+        font-weight: bold;
+        margin: 0;
+        line-height: 1;
+    }
+    .jumbotron .tagline {
+        text-align: center;
+        color: white;
+        font-size: 2.5rem;
+        font-weight: 300;
+        margin: 0;
+        margin-top: 1.5rem;
+    }
+    .jumbotron .title {
+        text-align: center;
+        color: white;
+        font-weight: 600;
+        margin: 0;
+        font-size: 22px;
+        letter-spacing: 3px;
+    }
+    @media (max-width: 768px) {
+        .jumbotron .island-name {
+            margin-top: 2rem;
+            font-size: 70px;
+        }
+        .jumbotron .tagline {
+            margin-top: 3rem;
+            font-size: 28px;
+        }
+        .jumbotron .title {
+            font-size: 18px;
+        }
     }
     @media (max-width: 600px) {
         .jumbotron .background {
