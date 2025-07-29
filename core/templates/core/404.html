@@ -117,30 +117,36 @@
         </div>
     </div>
 
-        <!-- Footer -->
-    <footer class="footer bg-white w-100 text-center py-3 border-top">
+    <!-- Footer -->
+    <footer class="footer bg-theme w-100 text-center py-3 border-top">
         <div class="">
-            <a class="text-decoration-none" href="https://www.facebook.com/groups/1747780178610364" target="_blank">
-                <i class="bi bi-facebook fs-1"></i>
+            <a href="https://www.facebook.com/groups/1747780178610364"
+                target="_blank" rel="noopener noreferrer"
+                aria-label="Visit our Facebook group">
+                <i class="bi bi-facebook fs-1 text-white"></i>
             </a>
         </div>
         <div class="info-links">
-            <a class="text-decoration-none title text-secondary" href="https://www.facebook.com/groups/1747780178610364" target="_blank">
+            <a class="text-decoration-none title text-white" 
+                href="https://www.facebook.com/groups/1747780178610364" target="_blank"
+                aria-label="Join our Facebook group"
+                rel="noopener noreferrer">
                 Join us on Facebook
             </a>
         </div>
-        <div class="info-links mt-2 mb-3 text-theme">
-            <div>
-                <a href="{% url 'core:info' %}#cancellation-policy" class="link text-decoration-none">Cancellation Policy</a>
-                <span class="text-secondary">|</span>
-                <a href="{% url 'core:info' %}#become-an-affiliate" class="link text-decoration-none">Become an Affiliate</a>
+        <p class="title text-white mt-3 m-0 fs-5">HAWAII TRAVEL TIPS</p>
+        <div class="info-links mt-1 mb-3 text-white">
+            <div class="text-white">
+                <a href="{% url 'core:info' %}#cancellation-policy" class="link text-decoration-none text-white">Cancellation Policy</a>
+                <span class="text-white">|</span>
+                <a href="{% url 'core:info' %}#become-an-affiliate" class="link text-decoration-none text-white">Become an Affiliate</a>
             </div>
             <div>
-                <a href="{% url 'core:info' %}#contact-us" class="link text-decoration-none">Contact Us</a>
+                <a href="{% url 'core:info' %}#contact-us" class="link text-decoration-none text-white">Contact Us</a>
             </div>
         </div>
         <a class="text-decoration-none text-dark garett-contact-link"
-                            href="{% url 'core:contact-garett' %}"><small> Web services <span class="text-decoration-none text-secondary">Garett Joseph</span></small></a>
+                            href="{% url 'core:contact-garett' %}"><small> Web services <span class="text-decoration-none">Garett Joseph</span></small></a>
     </footer>
 </body>
 </html>
