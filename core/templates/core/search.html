@@ -2,9 +2,10 @@
 
 {% load static %}
 
-{% block head_title %}
+{% block head %}
+<meta name="description" content='Search results for "{{ query }}" in {{ current_island.name }} on Hawaii Travel Tips.'>
 <meta name="robots" content="noindex, follow">
-<title>Hawaii Travel Tips results for "{{query}}" in {{current_island}} - Hawaii</title>
+<title>Hawaii Travel Tips Results for "{{query}}" in {{current_island.name}} - Hawaii</title>
 {% endblock %}
 
 <!-- Jumbotron -->

@@ -2,11 +2,11 @@
 
 {% load static %}
 
-{% block head_title %}
+{% block head %}
 <meta http-equiv="refresh" content="0; URL=/{{current_island}}/" />
 <link rel="canonical" href="https://www.hawaiitraveltips.com/Oahu/" />
 <meta name="robots" content="noindex, follow">
-<title>Redirecting to beautiful {{current_island}}</title>
+<title>Redirecting to beautiful {{current_island.name}}</title>
 {% endblock %}
 
 {% block main-content %}
