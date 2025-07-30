@@ -66,15 +66,74 @@
 <style>
     .jumbotron{
         position: relative;
-        height: 380px;
-        overflow: hidden;
-    }
-    .jumbotron img{
-        position: absolute;
         width: 100%;
         height: 380px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        justify-content: center; 
+        align-items: center;
+        text-align: center;
+    }
+    /* Gradient */
+    .jumbotron::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(rgba(0, 0, 0, 0.15), #00000080);
+        z-index: -1;
+    }
+    .jumbotron picture,
+    .jumbotron img{
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
         object-fit: cover;
         object-position: center;
+        z-index: -2;
+    }
+    .hero-text p{
+        position: relative;
+        z-index: 0;
+        color: white;
+        text-align: center;
+    }
+    .hero-text .island-name {
+        font-size: 110px;
+        font-weight: bold;
+        margin: 0;
+        line-height: 1;
+    }
+    .hero-text .tagline {
+        text-align: center;
+        color: white;
+        font-size: 2.5rem;
+        font-weight: 300;
+        margin: 0;
+        margin-top: 1.5rem;
+    }
+    .hero-text .title {
+        text-align: center;
+        color: white;
+        font-weight: 600;
+        margin: 0;
+        font-size: 22px;
+        letter-spacing: 3px;
+    }
+    @media (max-width: 992px) {
+        .hero-text .island-name {
+            margin-top: 2rem;
+            font-size: 70px;
+        }
+        .hero-text .tagline {
+            margin-top: 3rem;
+            font-size: 28px;
+        }
+        .hero-text .title {
+            font-size: 18px;
+        }
     }
 
     /* .jumbotron {
@@ -301,6 +360,11 @@
             {% block jumbotron %}
             {% if jumbotron %}
             <div class="jumbotron mt-lg-4">
+                <div class="hero-text">
+                    <p class="island-name">{{ current_island.title }}</p>
+                    <p class="tagline">Begin your Hawaii adventure</p>
+                    <p class="title">HAWAII TRAVEL TIPS</p>
+                </div>
                 <picture>
                     <source 
                         media="(max-width: 600px)" 
@@ -310,7 +374,7 @@
                         src="{{ current_island.image_URL }}" 
                         alt="Hero Image"
                         fetchpriority="high"
-                    >
+                        >
                 </picture>
             </div>
             <!-- <div class="jumbotron mt-lg-4">
