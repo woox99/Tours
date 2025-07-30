@@ -41,10 +41,7 @@
     <!-- Manifest -->
     <link rel="manifest" href="{% static 'core/site.webmanifest' %}">
 
-    <!-- Remove stylesheet from critical path -->
-    <link rel="preload" href="{% static 'core/css/base_site.css' %}" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="{% static 'core/css/base_site.css' %}"></noscript>
-    <!-- <link rel="stylesheet" href="{% static 'core/css/base_site.css' %}"> -->
+    <link rel="stylesheet" href="{% static 'core/css/base_site.css' %}">
     
     <!-- Preconnect -->
     <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
