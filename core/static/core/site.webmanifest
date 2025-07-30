@@ -7,12 +7,12 @@
     "theme_color": "#008080",
     "icons": [
         {
-            "src": "https://hawaii-travel-tips.s3.us-east-2.amazonaws.com/icons/icon-192.png",
+            "src": "https://hawaii-travel-tips.s3.us-east-2.amazonaws.com/favicon_192_192.png",
             "sizes": "192x192",
             "type": "image/png"
         },
         {
-            "src": "https://hawaii-travel-tips.s3.us-east-2.amazonaws.com/icons/icon-512.png",
+            "src": "https://hawaii-travel-tips.s3.us-east-2.amazonaws.com/favicon_512_512.png",
             "sizes": "512x512",
             "type": "image/png"
         }

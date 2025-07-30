@@ -5,10 +5,10 @@
 }
 
 .text-theme{
-    color: #009999 !important;
+    color: #008080 !important;
 }
 .bg-theme{
-    background-color: #009999 !important;
+    background-color: #008080 !important;
 }
 .navbar{
     position: relative;
@@ -84,7 +84,10 @@
     display: none;
 }
 
-    
+.lg-breadcrumb p{
+    font-size: 14px;
+    letter-spacing: 0.25px;
+}    
 .mobile-breadcrumb .box{
     position: relative;
     height: 56px;
@@ -113,7 +116,10 @@
     width: 1000px;
     background-color: #ffc107;
 }
-
+.mobile-breadcrumb p{
+    font-size: 14px;
+    letter-spacing: 0.25px;
+}
 .cards{
     justify-content: flex-start;
     align-items: flex-start; 
