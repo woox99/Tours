@@ -86,7 +86,10 @@ def view_by_island(request, island):
 
 
 def info(request):
-    return render(request, 'core/info.html')
+    context = {
+        'islands': Island.objects.all().order_by('modified'),
+    }
+    return render(request, 'core/info.html', context)
 
 
 def error_404_view(request, exception):

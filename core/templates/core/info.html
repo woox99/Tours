@@ -51,29 +51,91 @@
 </head>
 
 <style>
+    .navbar{
+        position: relative;
+    }
+    .navbar .logo-link{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
     .logo{
         height: 100px;
     }
-    .container{
-        width: 75%;
+    @media (max-width: 992px) {
+        .logo{
+            height: 50px;
+        }
     }
-    @media (max-width: 768px) {
-    .container{
-        width: 100%;
-    }
+
+.offcanvas{
+    width: 300px !important;
+    background-color: #ffffff;
+    box-shadow: 5px 0px 5px #00000050;
+    opacity: 0.92;
+}
+.offcanvas a{
+    text-decoration: none;
+}
+.offcanvas .category{
+    font-size: 18px !important;
+    color: black;
+    margin-top: 10px;
+    letter-spacing: 0.25px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 </style>
 <body>
     <div class="d-flex flex-column align-items-center bg-light">
         <!-- SEO -->
         <h1 class="visually-hidden">Contact Hawaii Travel Tips - Ask Questions or Become a Partner</h1>
+
+        <!-- Offcanvas (md screens)-->
+        <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvas" aria-labelledby="offcanvas">
+            <div class="offcanvas-header">
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body py-0 pb-5">
+                <div class="d-flex flex-column">
+                    <div class="d-flex flex-column">
+                        <p class="type fs-5 ms-3 me-4 mt-4 mb-2 text-black text-uppercase" style="letter-spacing: 1.5px;">Island</p>
+                        {% for island in islands %}
+                        <a href="{% url 'core:change-island' island %}"
+                            class="category ps-4 fs-6 py-1 fw-light text-black">{{island}}
+                        </a>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="container pb-5">
-            <div class="my-4 text-center">
+            <!-- Nav Bar -->
+            <nav class="navbar navbar-expand-lg d-lg-none p-2">
+                <button class="btn" 
+                    type="button" 
+                    data-bs-toggle="offcanvas" 
+                    data-bs-target="#offcanvas"
+                    aria-controls="offcanvas"
+                    aria-label="Open navigation menu">
+                    <span class="fs-5 navbar-toggler-icon"></span>
+                </button>
+                <a class="logo-link navbar-brand d-flex align-items-center p-0" href="{% url 'core:home' %}">
+                    <img class="logo" src="https://hawaii-travel-tips.s3.us-east-2.amazonaws.com/logo_mobile.webp" alt="website logo">
+                </a>
+            </nav>
+            <!-- Desktop Logo -->
+            <div class="my-4 text-center d-none d-lg-block">
                 <a href="{% url 'core:home' %}">
                     <img class="logo" src="https://hawaii-travel-tips.s3.us-east-2.amazonaws.com/logo.png" alt="">
                 </a>
             </div>
-            <a href="{% url 'core:home' %}" class="btn btn-outline-primary mb-3"><i class="bi bi-arrow-90deg-left"></i> Back</a>
+            <!-- Back Button -->
+            <a href="{% url 'core:home' %}" class="d-none d-lg-inline-block btn btn-outline-primary mb-3"><i class="bi bi-arrow-90deg-left"></i> Back</a>
+            <!-- Info Cards -->
             <div class="mt-2 border rounded-2 py-3 px-4 bg-white">
                 <p class="fs-4 mt-3">Small Team, Big Mission</p>
                 <p class="text-secondary">At Hawaii Travel Tips, our mission is to make your Hawaiian adventure unforgettable by connecting you with the best tours and activities across all the islands. From thrilling outdoor excursions to cultural experiences and relaxing getaways, we’re here to help you discover the true spirit of Aloha with ease, trust, and local insight.</p>
@@ -111,5 +173,8 @@
         </div>
     </div>
     <script src="{% static './core/js/clear_form.js'%}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
 </body>
 </html>
