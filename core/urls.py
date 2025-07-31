@@ -9,7 +9,6 @@ urlpatterns = [
     path("robots.txt", TemplateView.as_view(template_name="core/robots.txt", content_type="text/plain")),
     path('robots.txt/', RedirectView.as_view(url='/robots.txt', permanent=True)),
     path('', views.home, name='home'),
-    # path('home/', views.home, name='home'),
     path('info/', views.info, name='info'),
     path('booking-update/<int:pk>/', views.booking_update, name='booking-update'),
     path('booking-delete/<int:pk>/', views.booking_delete, name='booking-delete'),
@@ -18,6 +17,5 @@ urlpatterns = [
     path('<str:island>/search-log/', views.log_search, name='search'),
     path('<str:island>/search/', views.search_results, name='search-results'),
     path('<str:island>/logout/', views.logout_admin, name='logout'),
-    # path('<str:island>/<str:category>/log-cat-traffic/', views.log_cat_traffic, name='change-cat'),
     path('<str:island>/<str:category>/', views.view_by_cat, name='change-cat'), # keep at bottom
 ]

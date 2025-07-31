@@ -41,15 +41,6 @@ def home(request):
     return render(request, 'core/home_redirect.html',  context)
 
 
-# def home(request):
-#     if 'island' in request.session:
-#         try:
-#             island = Island.objects.get(name=request.session['island'])
-#         except Island.DoesNotExist:
-#             island = Island.objects.all().order_by('modified').first()
-#     return render(request, 'core/home_redirect.html', {'island': island})
-
-
 def view_by_island(request, island):
     # Randomize booking weights periodically
     last_weight_randomization = BookingRandomization.objects.last()
@@ -95,13 +86,6 @@ def info(request):
 def error_404_view(request, exception):
     islands = Island.objects.all().order_by('modified')
     return render(request, 'core/404.html', {'islands':islands}, status=404)
-
-
-# Log the traffic each time a category is selected
-# def log_cat_traffic(request, island, category):
-#     if request.user.is_anonymous:
-#         log_traffic(category)
-#     return redirect('core:view-by-cat', island, category)
 
 
 def view_by_cat(request, island, category):
@@ -228,33 +212,4 @@ def logout_admin(request, island):
     logout(request)
     return redirect('core:change-island', island=island)
 
-
-
-# def view_by_type(request, island, type):
-#     island = get_object_or_404(Island, name=island)
-#     type = get_object_or_404(Type, name=type)
-#     categories = Category.objects.filter(type=type)
-
-#     if request.user.is_authenticated:
-#         bookings = Booking.objects.filter(island=island, tags__in=categories).distinct().order_by('weight')
-#     else:
-#         bookings = Booking.objects.filter(island=island, is_public=True, tags__in=categories).distinct().order_by('weight')
-#     page_obj, page_range = paginate_bookings(bookings, request)
-
-#     back_url = f'www.hawaiitraveltips.com/{quote(island.name)}/all-{quote(type.name)}/?page={page_obj.number}'
-
-#     context = {
-#         'types' : filter_categories(island, request),
-#         'page_obj' : page_obj,
-#         'islands':Island.objects.all().order_by('modified'),
-#         'current_island': island,
-#         'current_category': None,
-#         'breadcrumb' : type,
-#         'page_range': page_range,
-#         'back_url': quote(back_url),
-#     }
-
-#     if page_obj.number == 1:
-#         context.update({'jumbotron':True})
-#     return render(request, 'core/base_site.html', context)
 

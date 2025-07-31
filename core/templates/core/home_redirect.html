@@ -11,19 +11,23 @@
 
 {% block main-content %}
 <div class="main-content px-lg-3">
-    <!-- Jumbotron -->
     <div class="jumbotron mt-lg-4">
-        <div class="background" style="background-image: url('{{ current_island.image_URL }}');"></div>
-        <div class="gradient"></div>
-        <div class="jumbotron-content d-flex flex-column justify-content-center">
-            <p class="island-name fw-bold text-center text-white m-0 lh-1 m-0">{{current_island.title}}</p>
-            <p class="text-center text-white fs-1 fw-light m-0 mt-4">Begin your Hawaii adventure</p>
-            <p class="title text-center text-white fw-semibold m-0">HAWAII TRAVEL TIPS</p>
+        <div class="hero-text">
+            <p class="island-name">{{ current_island.title }}</p>
+            <p class="tagline">Begin your Hawaii adventure</p>
+            <p class="title">HAWAII TRAVEL TIPS</p>
         </div>
-    </div>
-    <div class="redirect-message" style="height: 100vh;">
-        <p class="fs-5 text-center mt-5">Redirecting your adventures to {{current_island}}...</p>
-        <p class="text-center m-0">Click <a href="/{{current_island}}/">here</a> if page doesn't load.</p>
+        <picture>
+            <source 
+                media="(max-width: 600px)" 
+                srcset="{{ current_island.image_mobile_URL }}"
+            >
+            <img 
+                src="{{ current_island.image_URL }}" 
+                alt="Hero Image"
+                fetchpriority="high"
+                >
+        </picture>
     </div>
 </div>
 {% endblock %}
