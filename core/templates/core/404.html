@@ -47,50 +47,10 @@
     .select-body{
         width: 500px;
     }
-    .image-container{
-        position: relative;
-        overflow: hidden;
-    }
-    .image{
-        width: 280px;
-        height: 160px;
-        background-size: cover;
-        background-position: center;
-        transition: transform 0.3s ease;
-
-    }
-    .image-container:hover .image{
-        transform: scale(1.025);
-    }
-    .strip{
-        position: absolute;
-        height: 40%;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        background-color: #00000050;
-        width: 100%;
-    }
     @media (max-width: 768px) {
         .main-content{
             width: 100%;
         }
-    }
-    .footer .title{
-    letter-spacing: 1px;
-    }
-    .footer .info-links{
-        font-size: 14px;
-    }
-    .footer .info-links .link{
-    letter-spacing: 0.6px;
-    }
-    .footer .garett-contact-link{
-        letter-spacing: 1.5px; 
-        font-size: 12px;
-    }
-    .footer .garett-contact-link:hover span{
-        color:#0d6efd !important;
     }
 </style>
 <body class="bg-light text-center">
@@ -99,55 +59,16 @@
             <a class="mb-4" href="{% url 'core:home' %}">
                 <img class="logo" src="https://hawaii-travel-tips.s3.us-east-2.amazonaws.com/logo.png" alt="">
             </a>
-            <h1 class="m-0">404 ERROR</h1>
+            <h1 class="m-0 mt-5 mt-lg-0">404 ERROR</h1>
             <h4 class="text-secondary m-0 px-3">The page you're looking for couldn't be found.</h4>
-            <h6 class="m-0">Please select an island and try again.</h6>
-            <div class="bg-white rounded-2 border p-4 d-flex flex-column gap-4">
+            <div class="bg-white rounded-2 border p-4 mt-3 d-flex flex-column gap-2">
+                <h6 class="m-0">Please select an island and try again</h6>
                 {% for island in islands %}
-                    <div class="image-container rounded-1">
-                        <a href="{% url 'core:change-island' island %}">
-                            <div class="image" style="background-image: url('{{ island.image_URL }}');"></div>
-                            <div class="strip d-flex justify-content-center align-items-center">
-                                <p class="text-white fw-bold fs-3 m-0">{{island}}</p>
-                            </div>
-                        </a>
-                    </div>
+                <a href="{% url 'core:change-island' island %}">{{island.title}}</a>
                 {% endfor %}
             </div>
             <p class="px-3">If this keeps happening, please contact our <a href="{% url 'core:info' %}#contact-us">support team</a>.</p>
         </div>
     </div>
-
-    <!-- Footer -->
-    <footer class="footer bg-theme w-100 text-center py-3 border-top">
-        <div class="">
-            <a href="https://www.facebook.com/groups/1747780178610364"
-                target="_blank" rel="noopener noreferrer"
-                aria-label="Visit our Facebook group">
-                <i class="bi bi-facebook fs-1 text-white"></i>
-            </a>
-        </div>
-        <div class="info-links">
-            <a class="text-decoration-none title text-white" 
-                href="https://www.facebook.com/groups/1747780178610364" target="_blank"
-                aria-label="Join our Facebook group"
-                rel="noopener noreferrer">
-                Join us on Facebook
-            </a>
-        </div>
-        <p class="title text-white mt-3 m-0 fs-5">HAWAII TRAVEL TIPS</p>
-        <div class="info-links mt-1 mb-3 text-white">
-            <div class="text-white">
-                <a href="{% url 'core:info' %}#cancellation-policy" class="link text-decoration-none text-white">Cancellation Policy</a>
-                <span class="text-white">|</span>
-                <a href="{% url 'core:info' %}#become-an-affiliate" class="link text-decoration-none text-white">Become an Affiliate</a>
-            </div>
-            <div>
-                <a href="{% url 'core:info' %}#contact-us" class="link text-decoration-none text-white">Contact Us</a>
-            </div>
-        </div>
-        <a class="text-decoration-none text-dark garett-contact-link"
-                            href="{% url 'core:contact-garett' %}"><small> Web services <span class="text-decoration-none">Garett Joseph</span></small></a>
-    </footer>
 </body>
 </html>

@@ -139,12 +139,12 @@
     }
 </style>
 
-<body class="m-0 p-0">
+<body class="m-0 p-0 mt-5 mt-lg-0">
 
     <div class="container-fluid d-flex p-0">
         <!-- Side Bar (lg screens) -->
         <div class="side-bar d-none d-lg-flex flex-column pb-4 ps-2">
-            <a class="mt-3" href="{% url 'core:home' %}">
+            <a class="logo-container mt-3" href="{% url 'core:home' %}">
                 <img class="side-bar-logo" src="https://hawaii-travel-tips.s3.us-east-2.amazonaws.com/logo.png" alt="website logo">
             </a>
             <hr class="mx-4 text-body-tertiary">
@@ -233,7 +233,7 @@
         {% block main-content %}
         <div class="main-content px-lg-3">
             <!-- Nav Bar -->
-            <nav class="navbar navbar-expand-lg d-lg-none p-2">
+            <nav class="fixed-top navbar navbar-expand-lg d-lg-none p-2 bg-white border-bottom">
                 <button class="btn" 
                     type="button" 
                     data-bs-toggle="offcanvas" 
@@ -338,8 +338,10 @@
                         aria-controls="offcanvas">
                         <small><i class="bi bi-funnel me-2"></i></i>Filter</small>
                     </button>
-                    <button class="btn btn-outline-dark rounded-pill fw-medium px-4 py-1" onclick="triggerSearchBar()">
-                        <i class="bi bi-search"></i></i>
+                    <button class="btn btn-outline-dark rounded-pill fw-medium px-4 py-1"
+                            onclick="triggerSearchBar()"
+                            aria-label="Open search bar">
+                        <i class="bi bi-search"></i>
                     </button>
                 </div>
                 <hr class="text-secondary mx-5">

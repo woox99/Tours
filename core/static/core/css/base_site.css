@@ -35,6 +35,7 @@
 }
 .side-bar-logo{
     width: 95% !important;
+    aspect-ratio: 16 / 7;
 }
 .side-bar a{
     text-decoration: none;
