@@ -515,9 +515,10 @@
     <script src="{% static 'core/js/base_site.js' %}" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-        crossorigin="anonymous"></script>
+        crossorigin="anonymous"
+        defer></script>
     <!-- Script only loads on desktop -->
-    <script>
+    <!-- <script>
         window.addEventListener("load", () => {
             if (window.innerWidth >= 768) {
                 const script = document.createElement('script');
@@ -526,7 +527,7 @@
                 document.body.appendChild(script);
             }
         });
-    </script>
+    </script> -->
     <!-- <script type="text/javascript" src="https://fareharbor.com/embeds/api/v1/?autolightframe=yes"></script> -->
 </body>
 
