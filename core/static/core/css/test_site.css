@@ -87,11 +87,17 @@ body p {
 }
 
 #hero .island-links a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    line-height: 1.2;
+    width: 125px;
     text-decoration: none;
     color: white;
     background-color: rgba(0, 0, 0, 0.5);
     font-weight: 500;
-    padding: 4px 35px;
+    padding: 10px;
     border-radius: 9999px;
 }
 
@@ -114,7 +120,7 @@ body p {
 }
 
 #hero .island-name {
-    font-size: 120px;
+    font-size: 150px;
     font-weight: bold;
     line-height: 1;
 }
@@ -160,6 +166,16 @@ body p {
         height: 480px;
     }
 
+    #hero .island-links a {
+        width: unset;
+        padding: 8px 22px;
+        font-size: 12px;
+    }
+
+    #hero .explore-link{
+        display: none;
+    }
+
     #hero .island-name {
         margin-top: 2rem;
         font-size: 70px;
@@ -179,14 +195,6 @@ body p {
         /* top: 60px; */
     }
 
-    #hero .island-links a {
-        padding: 5px 20px;
-        font-size: 12px;
-    }
-
-    #hero .explore-link{
-        display: none;
-    }
 }
 
 #hero picture,
