@@ -213,7 +213,7 @@ def logout_admin(request, island):
     return redirect('core:change-island', island=island)
 
 
-@staff_member_required
+# @staff_member_required
 def test_site(request):
     island = get_object_or_404(Island, name="Maui")
     # island = get_object_or_404(Island, name=island)
