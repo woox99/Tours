@@ -213,3 +213,32 @@ def logout_admin(request, island):
     return redirect('core:change-island', island=island)
 
 
+@staff_member_required
+def test_site(request):
+    island = get_object_or_404(Island, name="Maui")
+    # island = get_object_or_404(Island, name=island)
+    request.session['island'] = island.name
+    if request.user.is_authenticated:
+        bookings = Booking.objects.filter(island=island).order_by('weight')
+    else:
+        bookings = Booking.objects.filter(island=island, is_public=True).order_by('weight')
+    page_obj, page_range = paginate_bookings(bookings, request)
+
+    back_url = f'www.hawaiitraveltips.com/{quote(island.name)}/?page={page_obj.number}'
+
+    context = {
+        'types' : filter_categories(island, request),
+        'page_obj' : page_obj,
+        'islands': Island.objects.all().order_by('modified'),
+        'current_island': island,
+        'current_category' : None,
+        'breadcrumb' : 'All Bookings',
+        'page_range': page_range,
+        'back_url': quote(back_url),
+    }
+
+    if page_obj.number == 1:
+        context.update({'jumbotron':True})
+    return render(request, 'core/test_site.html', context)
+
+
