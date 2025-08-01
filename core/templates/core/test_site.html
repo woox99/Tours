@@ -130,7 +130,16 @@
         </div>
     </div>
     <!-- Hero Section -->
-    <header id="hero" class="p-0">
+    <header id="hero" class="">
+        <div class="island-links">
+            {% for island in islands %}
+            {% if island == current_island %}
+            <a class="selected" href="">{{island.title}}</a>
+            {% else %}
+            <a href="">{{island.title}}</a>
+            {% endif %}
+            {% endfor %}
+        </div>
         <div class="hero-text">
             <p class="island-name">{{ current_island.title }}</p>
             <p class="tagline">Begin your Hawaii adventure</p>
