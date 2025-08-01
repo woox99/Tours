@@ -235,6 +235,7 @@ def test_site(request):
         'breadcrumb' : 'All Bookings',
         'page_range': page_range,
         'back_url': quote(back_url),
+        'bookings' : bookings,
     }
 
     if page_obj.number == 1:

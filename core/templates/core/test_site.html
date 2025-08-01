@@ -145,6 +145,11 @@
             <p class="tagline">Begin your Hawaii adventure</p>
             <p class="title">HAWAII TRAVEL TIPS</p>
         </div>
+        <a href="#main" class="explore-link">
+            <p style="font-size: 32px; font-weight: 700;">{{bookings.count}}+</p>
+            <p style="font-size: 14px;">Adventures to Choose From!</p>
+            <p style="font-size: 14px; margin-top: 10px; text-decoration: underline;">Explore<i class="bi bi-arrow-down-short"></i></p>
+        </a>
         <picture>
             <source media="(max-width: 600px)" srcset="{{ current_island.image_mobile_URL }}">
             <img src="{{ current_island.image_URL }}" alt="Hero Image" fetchpriority="high">

@@ -9,6 +9,11 @@ body {
     padding-top: 60px;
 }
 
+body p {
+    padding: 0;
+    margin: 0;
+}
+
 #navbar {
     height: 60px;
 }
@@ -73,80 +78,116 @@ body {
     background: linear-gradient(rgba(0, 0, 0, 0.15), #00000080);
     z-index: -1;
 }
-#hero .island-links{
+
+#hero .island-links {
     display: flex;
     gap: 15px;
+    position: absolute;
+    top: 40px;
 }
-#hero .island-links a{
+
+#hero .island-links a {
     text-decoration: none;
     color: white;
-    font-size: 20px;
     background-color: rgba(0, 0, 0, 0.5);
     font-weight: 500;
-    padding: 5px 35px;
+    padding: 4px 35px;
     border-radius: 9999px;
 }
-#hero .island-links .selected{
+
+#hero .island-links .selected {
     text-decoration: underline;
     background-color: rgba(0, 0, 0, .75);
     border: 2px solid black;
 }
-#hero .island-links a:hover{
+
+#hero .island-links a:hover {
     background-color: rgba(0, 0, 0, .75);
 
 }
 
-.hero-text p {
+#hero .hero-text p {
     position: relative;
     z-index: 0;
     color: white;
     text-align: center;
 }
 
-.hero-text .island-name {
+#hero .island-name {
     font-size: 120px;
     font-weight: bold;
-    margin: 0;
     line-height: 1;
 }
 
-.hero-text .tagline {
+#hero .tagline {
     text-align: center;
     color: white;
     font-size: 4rem;
     font-weight: 300;
-    margin: 0;
     margin-top: 1.5rem;
 }
 
-.hero-text .title {
+#hero .title {
     text-align: center;
     color: white;
     font-weight: 600;
-    margin: 0;
     font-size: 22px;
     letter-spacing: 3px;
 }
 
+#hero .explore-link {
+    position: absolute;
+    left: 15px;
+    bottom: 15px;
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.9);
+    background-color: rgba(0, 0, 0, 0.65);
+    width: 160px;
+    height: 160px;
+    padding: 20px;
+    text-align: left;
+    border-radius: 10px;
+}
+
+#hero .explore-link:hover {
+    background-color: rgba(0, 0, 0, 0.75);
+}
+
+/* #hero .explore-link p = inline */
+
 @media (max-width: 992px) {
-    #hero{
+    #hero {
         height: 480px;
     }
+
     #hero .island-name {
         margin-top: 2rem;
         font-size: 70px;
     }
 
     #hero .tagline {
-        margin-top: 3rem;
         font-size: 28px;
+        margin-top: 3rem;
     }
 
     #hero .title {
         font-size: 18px;
     }
-}
 
+    #hero .island-links {
+        gap: 8px;
+        /* top: 60px; */
+    }
+
+    #hero .island-links a {
+        padding: 5px 20px;
+        font-size: 12px;
+    }
+
+    #hero .explore-link{
+        display: none;
+    }
+}
 
 #hero picture,
 #hero img {
