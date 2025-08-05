@@ -72,17 +72,6 @@
 </head>
 
 <body>
-    <!-- Nav Bar -->
-    <nav id="navbar" class="fixed-top navbar navbar-expand-lg p-2 bg-white border-bottom">
-        <button class="btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas"
-            aria-controls="offcanvas" aria-label="Open navigation menu">
-            <span class="fs-5 navbar-toggler-icon"></span>
-        </button>
-        <a class="logo-link navbar-brand d-flex align-items-center p-0" href="{% url 'core:home' %}">
-            <img class="logo" src="https://hawaii-travel-tips.s3.us-east-2.amazonaws.com/logo_mobile.webp"
-                alt="website logo">
-        </a>
-    </nav>
     <!-- Offcanvas (md screens)-->
     <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvas" aria-labelledby="offcanvas">
         <div class="offcanvas-header">
@@ -129,13 +118,20 @@
             </div>
         </div>
     </div>
+    <!-- Nav Bar -->
+    <nav id="navbar">
+        <button id="menu-toggle" aria-label="Open navigation menu" data-bs-toggle="offcanvas" data-bs-target="#offcanvas">
+            ☰
+        </button>
+        <a class="logo-link" href="{% url 'core:home' %}">
+            <img class="logo" src="https://hawaii-travel-tips.s3.us-east-2.amazonaws.com/logo_mobile.webp" alt="website logo">
+        </a>
+    </nav>
     <!-- Hero Section -->
-    <header id="hero" class="">
+    <header id="hero">
         <div class="island-links">
             {% for island in islands %}
-            {% if island == current_island %}
-            <a class="selected" href="">{{island.title}}</a>
-            {% else %}
+            {% if island != current_island %}
             <a href="">{{island.title}}</a>
             {% endif %}
             {% endfor %}
@@ -148,7 +144,7 @@
         <a href="#main" class="explore-link">
             <p style="font-size: 32px; font-weight: 700;">{{bookings.count}}+</p>
             <p style="font-size: 14px;">Adventures to Choose From!</p>
-            <p style="font-size: 14px; margin-top: 10px; text-decoration: underline;">Explore<i class="bi bi-arrow-down-short"></i></p>
+            <p style="font-size: 14px; margin-top: 10px; text-decoration: underline;">Explore</p>
         </a>
         <picture>
             <source media="(max-width: 600px)" srcset="{{ current_island.image_mobile_URL }}">
