@@ -1,3 +1,10 @@
+.text-theme{
+    color: #008080 !important;
+}
+.bg-theme{
+    background-color: #008080 !important;
+}
+
 /* Offcanvas */
 #offcanvas {
     width: 300px !important;
@@ -20,3 +27,85 @@
     text-overflow: ellipsis;
 }
 
+/* Main */
+#main .main-header {
+    border-radius: 0px 0px 20px 20px;
+    padding-top: 70px;
+}
+
+.truncate-text {
+    line-height: 24px;
+    max-height: 48px;
+    overflow: hidden;
+    position: relative;
+    transition: max-height 0.3s ease;
+}
+
+.truncate-text.expanded {
+    max-height: 100vh;
+    /* change this ?? */
+}
+
+.read-more-btn {
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0;
+}
+
+/* Booking Cards */
+#booking-cards{
+    justify-content: center;
+}
+.booking-card{
+    width: 480px;
+    box-shadow: 0px 0px 5px #00000050;
+
+    /* Change */
+    height: 900px;
+}
+
+.booking-card .image-container{
+    position: relative;
+    z-index: 0;
+    width: 100%;
+    aspect-ratio: 16/9;
+}
+
+.booking-card img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+.booking-card .title{
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.booking-card .city{
+    font-size: 13px;
+}
+.booking-card .description{
+    font-size: 15px;
+}
+.booking-card .tag{
+    font-size: 13px;
+}
+.booking-card .detail-button{
+    
+}
+.booking-card .bi-clock,
+.booking-card .bi-currency-dollar{
+    color: #0d6efd;
+    width: 30px;
+    height: 30px;
+}
+.booking-card .price{
+    position: relative;
+}
+.booking-card .from-text{
+    position: absolute;
+    top: -8px;
+    right: 0;
+}
