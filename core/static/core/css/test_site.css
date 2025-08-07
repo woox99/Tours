@@ -1,7 +1,8 @@
-.text-theme{
+.text-theme {
     color: #008080 !important;
 }
-.bg-theme{
+
+.bg-theme {
     background-color: #008080 !important;
 }
 
@@ -29,11 +30,15 @@
 
 /* Main */
 #main .main-header {
-    border-radius: 0px 0px 20px 20px;
+    /* border-radius: 0px 0px 20px 20px; */
     padding-top: 70px;
 }
 
-.truncate-text {
+.main-header h1 {
+    font-size: 48px;
+}
+
+/* .truncate-text {
     line-height: 24px;
     max-height: 48px;
     overflow: hidden;
@@ -43,7 +48,6 @@
 
 .truncate-text.expanded {
     max-height: 100vh;
-    /* change this ?? */
 }
 
 .read-more-btn {
@@ -51,24 +55,33 @@
     background: none;
     border: none;
     padding: 0;
-}
+} */
 
 /* Booking Cards */
-#booking-cards{
+#booking-cards {
     justify-content: center;
     align-items: flex-start;
 }
-.booking-card{
+
+.booking-card {
     width: 480px;
     box-shadow: 0px 0px 5px #00000050;
 }
-.booking-card .image-container{
+
+@media (max-width: 500px) {
+    .booking-card {
+        width: 95%;
+    }
+}
+
+.booking-card .image-container {
     position: relative;
     z-index: 0;
     width: 100%;
     aspect-ratio: 3/2;
 }
-.booking-card .image-container::after{
+
+.booking-card .image-container::after {
     content: "";
     position: absolute;
     top: 0;
@@ -76,31 +89,38 @@
     width: 100%;
     height: 100%;
     background: linear-gradient(rgba(0, 0, 0, 0.7), #ffffff00 100px);
-    pointer-events: none; /* interaction pass through */
+    pointer-events: none;
+    /* interaction pass through */
 }
-.booking-card .company-info{
+
+.booking-card .company-info {
     position: relative;
     z-index: 1;
 }
+
 .booking-card .company-name,
-.booking-card .company-rating{
+.booking-card .company-rating {
     font-size: 14px;
     letter-spacing: 0.5px;
 }
-.booking-card .company-reviews{
+
+.booking-card .company-reviews {
     font-size: 12px;
 }
+
 .booking-card .bi-star-fill,
-.bi-star-half{
+.bi-star-half {
     color: #ffd400;
     width: 13px;
     height: 13px;
 }
-.booking-card .badges{
+
+.booking-card .badges {
     position: relative;
     z-index: 1;
 }
-.booking-card img{
+
+.booking-card img {
     position: absolute;
     top: 0;
     left: 0;
@@ -109,41 +129,67 @@
     object-fit: cover;
     object-position: center;
 }
-.booking-card .title{
+
+.booking-card .title {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
 }
-.booking-card .city{
+
+.booking-card .city {
     font-size: 13px;
 }
-.booking-card .description{
+
+.booking-card .description {
     font-size: 15px;
+    text-align: justify;
 }
-.booking-card .tag{
+@media (max-width: 992px) {
+    .booking-card .description {
+        font-size: 13px;
+    }
+}
+
+.booking-card .tag {
     font-size: 13px;
     letter-spacing: 0.5px;
 }
+@media (max-width: 992px){
+    .tag{
+        font-size: 12px;
+    }
+}
 .booking-card .bi-clock,
-.booking-card .bi-currency-dollar{
+.booking-card .bi-currency-dollar {
     color: #0d6efd;
     width: 25px;
-    height: 25px;
+    height: auto;
 }
+
 .booking-card .duration,
-.booking-card .price{
+.booking-card .price {
     position: relative;
 }
+
 .booking-card .duration-text,
-.booking-card .from-text{
+.booking-card .from-text {
     position: absolute;
     top: -10px;
     right: 0;
     letter-spacing: 0.5px;
 }
-.booking-card .detail-button{
+
+@media (max-width: 992px) {
+    .booking-card .duration-text,
+    .booking-card .from-text {
+        top: -15px;
+    }
+}
+
+.booking-card .detail-button {
     letter-spacing: 1.5px;
 }
-.booking-card .promo-code-text{
+
+.booking-card .promo-code-text {
     letter-spacing: 0.5px;
 }
