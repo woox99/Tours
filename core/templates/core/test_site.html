@@ -400,98 +400,11 @@
             {% endif %}
         </div>
         <!-- Booking Cards -->
-        <div id="booking-cards" class=" d-flex flex-wrap gap-3">
+        <article id="booking-cards" class=" d-flex flex-wrap gap-3">
             {% for booking in page_obj %}
-            <div class="booking-card border bg-white">
-                <a class="text-decoration-none" href="{{booking.referral_link}}&back={{back_url}}" rel="sponsored">
-                    <div class="image-container py-1 px-2 d-flex flex-column justify-content-between">
-                        <div class="company-info text-white">
-                            <span class="company-name">{{booking.company_name}}</span>
-                            <div class="d-flex flex-column">
-                                <div class="company-rating d-flex align-items-center gap-1">
-                                    <span>4.8</span>
-                                    {% for i in "1234" %}
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                        class="bi bi-star-fill" viewBox="0 0 16 16">
-                                        <path
-                                            d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-                                    </svg>
-                                    {% endfor %}
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                        class="bi bi-star-half" viewBox="0 0 16 16">
-                                        <path
-                                            d="M5.354 5.119 7.538.792A.52.52 0 0 1 8 .5c.183 0 .366.097.465.292l2.184 4.327 4.898.696A.54.54 0 0 1 16 6.32a.55.55 0 0 1-.17.445l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256a.5.5 0 0 1-.146.05c-.342.06-.668-.254-.6-.642l.83-4.73L.173 6.765a.55.55 0 0 1-.172-.403.6.6 0 0 1 .085-.302.51.51 0 0 1 .37-.245zM8 12.027a.5.5 0 0 1 .232.056l3.686 1.894-.694-3.957a.56.56 0 0 1 .162-.505l2.907-2.77-4.052-.576a.53.53 0 0 1-.393-.288L8.001 2.223 8 2.226z" />
-                                    </svg>
-                                </div>
-                                <span class="company-reviews">2,991 Google Reviews</span>
-                            </div>
-                        </div>
-                        <div class="badges d-flex justify-content-end gap-2">
-                            {% if booking.is_promo %}
-                            <div class="promo-badge bg-theme rounded-1 text-white py-1 px-2 fw-semibold">
-                                {{booking.promo_amount}} OFF Promo Code
-                            </div>
-                            {% endif %}
-                            {% if booking.is_popular %}
-                            <div class="popular bg-primary rounded-1 text-white py-1 px-2 fw-semibold">Popular!
-                            </div>
-                            {% endif %}
-                        </div>
-                        <img src="{{booking.image_URL}}" alt="">
-                    </div>
-                </a>
-                <div class="d-flex flex-column gap-2 p-3 p-md-4">
-                    <span class="title fw-bold">{{booking.title}}</span>
-                    <span class="city text-secondary">{{booking.city}}, {{current_island}}</span>
-                    <p class="description">Set off on a two-hour Turtle Canyon snorkeling tour aboard a 50-ft or 55-ft
-                        catamaran. Explore vibrant coral reefs and swim alongside Hawaii’s green sea turtles just off
-                        Waikiki Beach. This unforgettable adventure offers stunning marine life, clear waters, and a
-                        memorable experience. Book your tour today!</p>
-                    <div class="tags d-flex gap-2 pe-2">
-                        {% for tag in booking.tags.all %}
-                        <div
-                            class="tag bg-body-tertiary text-black rounded-1 d-flex align-items-center justify-content-center py-1 px-2">
-                            {{tag}}
-                        </div>
-                        {% endfor %}
-                    </div>
-                    <div class="d-flex justify-content-around mt-3">
-                        <div class="d-flex align-items-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                class="bi bi-clock" viewBox="0 0 16 16">
-                                <path
-                                    d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71z" />
-                                <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0" />
-                            </svg>
-                            <div class="duration d-flex flex-column">
-                                <span class="fs-2 fw-semibold ms-1">2hr</span>
-                                <span class="duration-text text-secondary">duration</span>
-                            </div>
-                        </div>
-                        <div class="border-start" style="height: 50px;"></div>
-                        <div class="d-flex align-items-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                class="bi bi-currency-dollar" viewBox="0 0 16 16">
-                                <path
-                                    d="M4 10.781c.148 1.667 1.513 2.85 3.591 3.003V15h1.043v-1.216c2.27-.179 3.678-1.438 3.678-3.3 0-1.59-.947-2.51-2.956-3.028l-.722-.187V3.467c1.122.11 1.879.714 2.07 1.616h1.47c-.166-1.6-1.54-2.748-3.54-2.875V1H7.591v1.233c-1.939.23-3.27 1.472-3.27 3.156 0 1.454.966 2.483 2.661 2.917l.61.162v4.031c-1.149-.17-1.94-.8-2.131-1.718zm3.391-3.836c-1.043-.263-1.6-.825-1.6-1.616 0-.944.704-1.641 1.8-1.828v3.495l-.2-.05zm1.591 1.872c1.287.323 1.852.859 1.852 1.769 0 1.097-.826 1.828-2.2 1.939V8.73z" />
-                            </svg>
-                            <div class="price d-flex flex-column">
-                                <span class="fs-2 fw-semibold">75</span>
-                                <span class="from-text text-secondary">from</span>
-                            </div>
-                        </div>
-                    </div>
-                    <a class="detail-button text-white text-center py-3 bg-primary text-decoration-none fw-semibold"
-                        href="{{booking.referral_link}}&back={{back_url}}" rel="sponsored">MORE
-                        DETAILS</a>
-                    {% if booking.is_promo %}
-                    <span class="text-center mt-2">Promo Code <span
-                            class="promo-code-text text-theme fw-bold">{{booking.promo_code}}</span></span>
-                    {% endif %}
-                </div>
-            </div>
+                {% include "core/components/booking_card.html" %}
             {% endfor %}
-        </div>
+        </article>
     </main>
     <!-- Footer -->
     <footer id="footer" class="bg-dark text-white py-4 mt-1">

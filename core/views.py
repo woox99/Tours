@@ -14,6 +14,7 @@ import time #debug
 
 
 def home(request):
+    #  # change booking image URL
     # for booking in Booking.objects.all():
     #     # if 'filestackcontent.com/' in booking.image_URL and 'resize=width:500/' not in booking.image_URL:
     #     if 'filestackcontent.com/' in booking.image_URL:
@@ -23,6 +24,7 @@ def home(request):
     #         )
     #         # booking.save()
     #     print(booking.image_URL)
+
 
     if 'island' in request.session:
         try:
