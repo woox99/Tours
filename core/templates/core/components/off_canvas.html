@@ -1,0 +1,68 @@
+<style>
+    #offcanvas {
+        width: 300px !important;
+        background-color: #ffffff;
+        box-shadow: 5px 0px 5px #00000050;
+        opacity: 0.92;
+    }
+
+    #offcanvas a {
+        text-decoration: none;
+    }
+
+    #offcanvas .category {
+        font-size: 18px !important;
+        color: black;
+        margin-top: 10px;
+        letter-spacing: 0.25px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+</style>
+
+<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvas" aria-labelledby="offcanvas">
+    <div class="offcanvas-header">
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body py-0 pb-5">
+        <div class="d-flex flex-column">
+            <div class="d-flex flex-column">
+                <p class="type fs-5 ms-3 me-4 mt-4 mb-2 text-black text-uppercase" style="letter-spacing: 1.5px;">
+                    Island</p>
+                {% for island in islands %}
+                {% if current_island == island %}
+                <a href="{% url 'core:change-island' island %}"
+                    class="category ps-4 fs-6 py-1 fw-light text-primary text-decoration-none"><i
+                        class="bi bi-dot"></i>{{island}}
+                </a>
+                {% else %}
+                <a href="{% url 'core:change-island' island %}"
+                    class="category ps-4 fs-6 py-1 fw-light text-black">{{island}}
+                </a>
+                {% endif %}
+                {% endfor %}
+            </div>
+
+            {% for type in types %}
+            {% if type.filtered_categories %}
+            <p class="type fs-5 ps-3 py-2 m-0 mt-3 text-uppercase" style="letter-spacing: 1.5px;">{{type}}</p>
+            {% endif %}
+            {% for category in type.filtered_categories %}
+            {% if current_category == category %}
+            <p class="m-0 ps-4 fs-6 py-1 fw-light text-primary text-decoration-none"><i
+                    class="bi bi-dot"></i>{{category}}
+            </p>
+            {% elif category.is_popular %}
+            <a href="{% url 'core:change-cat' current_island category %}"
+                class="category ps-4 fs-6 py-1 fw-light text-black">{{category}} <small class="fw-bold text-theme"
+                    style="font-size: 10px;">Popular!</small></a>
+            {% else %}
+            <a href="{% url 'core:change-cat' current_island category %}"
+                class="category ps-4 fs-6 py-1 fw-light text-black">{{category}}</a>
+            {% endif %}
+            {% endfor %}
+            {% endfor %}
+        </div>
+    </div>
+</div>
