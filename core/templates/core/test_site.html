@@ -365,15 +365,29 @@
     <!-- Main Content -->
     <main id="main" class="bg-body-tertiary">
         <!-- Header -->
-        <section class="main-header bg-dark text-light px-5 pb-5">
+        <section class="header bg-dark text-light px-3 px-md-5 pb-lg-4">
             {% if not current_category %}
-            <h1 class="fw-bold">Best Things to Do in {{current_island}}</h1>
-            <p class="mt-3">
+            <h1>Best Things to Do in {{current_island}}</h1>
+            <p class="mt-3 opacity-75">
                 Discover unforgettable experiences on {{current_island}}, from scenic boat tours, waterfall hikes,
                 snorkeling with sea turtles, and more. Handpicked local guides, real-time availability, and easy
                 booking—discover the best of {{current_island}} now.
             </p>
-            <details class="mt-4">
+            <div class="header-photos">
+                <div class="sm-photo-container d-flex flex-column">
+                    <span class="fw-light ms-2">Pink Sails Waikiki</span>
+                    <img class="sm-photo"
+                        src="https://cdn.filestackcontent.com/resize=width:480,fit:max/output=format:webp,quality:50,strip:true,compress:true/8XOuPpykTUuTcZKWqe08"
+                        alt="">
+                </div>
+                <div class="d-flex flex-column">
+                    <span class="fw-light ms-2">Diamond Head Cruises</span>
+                    <img class="lg-photo"
+                        src="https://cdn.filestackcontent.com/resize=width:480,fit:max/output=format:webp,quality:70,strip:true,compress:true/aWaY9QSQpWecWK4m7xy3"
+                        alt="">
+                </div>
+            </div>
+            <!-- <details class="mt-4">
                 <summary class="text-decoration-underline text-light">Read more</summary>
                 <p class="mt-3">
                     Discover unforgettable experiences on {{current_island}}, from scenic boat tours, waterfall hikes,
@@ -381,7 +395,7 @@
                     booking—discover the best of {{current_island}} now.
                 </p>
                 <p class="mt-2">Universal Paragraph here</p>
-            </details>
+            </details> -->
             {% else %}
             <h1>{{current_category.header_element}} in {{current_island}}</h1>
             <details class="mt-4">
@@ -391,25 +405,31 @@
             </details>
             {% endif %}
         </section>
+        <!-- <p class="sub-header ps-5 py-5 fs-5 fw-semibold text-dark">
+            Whether you're seeking thrills, relaxation, or cultural experiences, there's something perfect waiting for
+            you on {{current_island}}!
+        </p> -->
 
         <!-- Buttons -->
-        <div class="buttons py-4 d-flex justify-content-center">
-            <div class="btn btn-dark">☰ {{current_island}}</div>
+        <div class="change-island mb-3 text-center">
+            <p class="fw-5 text-dark">Not the Island you are looking for? <span
+                    class="text-decoration-underline">{{current_island}}</span></p>
             {% if current_category %}
-            <div class="btn btn-dark">☰ {{current_category}}</div>
+            <span class="mx-2">/</span>
+            <div class="text-black fw-semibold text-decoration-underline">{{current_category}}</div>
             {% endif %}
         </div>
         <!-- Booking Cards -->
         <article id="booking-cards" class=" d-flex flex-wrap gap-3">
             {% for booking in page_obj %}
-                {% include "core/components/booking_card.html" %}
+            {% include "core/components/booking_card.html" %}
             {% endfor %}
         </article>
     </main>
     <!-- Footer -->
     <footer id="footer" class="bg-dark text-white py-4 mt-1">
         <div class="container text-center">
-            <p class="mb-0">&copy; 2025 Your Company. All rights reserved.</p>
+            <p class="mb-0">&copy; 2025 Hawaii Travel Tips. All rights reserved.</p>
         </div>
     </footer>
 

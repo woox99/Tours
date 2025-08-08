@@ -29,37 +29,90 @@
 }
 
 /* Main */
-#main .main-header {
+#main .header {
     /* border-radius: 0px 0px 20px 20px; */
     padding-top: 70px;
 }
-
-.main-header h1 {
-    font-size: 48px;
-}
-
-/* .truncate-text {
-    line-height: 24px;
-    max-height: 48px;
-    overflow: hidden;
+#main .header{
     position: relative;
-    transition: max-height 0.3s ease;
+}
+@media (max-width: 1200px){
+    #main .header{
+        padding-bottom: 180px !important;
+    }
+}
+@media (max-width: 768px){
+    #main .header{
+        padding-bottom: 280px !important;
+    }
+
+}
+#main h1 {
+    font-size: 48px;
+    width: 33%;
+}
+@media (max-width: 992px){
+    #main h1 {
+        width: 50%;
+    }
+}
+@media (max-width: 768px){
+    #main h1 {
+        width: 80%;
+    }
 }
 
-.truncate-text.expanded {
-    max-height: 100vh;
+#main .header p {
+    text-align: justify;
+    width: 60%;
+    /* border: 1px solid red; */
+}
+@media (max-width: 768px){
+    #main .header p{
+        width: 100%;
+    }
+}
+#main .header-photos{
+    position: absolute;
+    bottom: -35px;
+    right: 40px;
+    font-size: 12px;
+}
+#main .sm-photo,
+#main .lg-photo{
+    aspect-ratio: 1;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 8px;
+    border: 5px solid #212529;
+}
+#main .sm-photo{
+    width: 200px;
+}
+#main .lg-photo{
+    width: 250px;
+}
+#main .sm-photo-container {
+    position: absolute;
+    left: -160px;
+    bottom: -50px;
+}
+#main .lg-photo {
+
+}
+#main .sub-header{
+    width: 60%;
+    /* border: 1px solid red; */
+}
+#main .change-island{
+    margin-top: 100px;
 }
 
-.read-more-btn {
-    cursor: pointer;
-    background: none;
-    border: none;
-    padding: 0;
-} */
 
 /* Booking Cards */
 #booking-cards {
     justify-content: center;
     align-items: flex-start;
-}
 
+    /* margin-top: 300px; */
+}
