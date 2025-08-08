@@ -51,14 +51,14 @@
     font-size: 48px;
     width: 33%;
 }
-@media (max-width: 992px){
+@media (max-width: 1200px){
     #main h1 {
-        width: 50%;
+        width: 100%;
     }
 }
 @media (max-width: 768px){
     #main h1 {
-        width: 80%;
+        width: 100%;
     }
 }
 
