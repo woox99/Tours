@@ -276,50 +276,8 @@
     <!-- Main Content -->
     <main id="main" class="bg-body-tertiary">
         <!-- Header -->
-        <section class="header bg-dark text-light px-3 px-md-5 pb-lg-4">
-            {% if not current_category %}
-            <h1>Best Things to Do in {{current_island}}</h1>
-            <p class="mt-3 opacity-75">
-                Discover unforgettable experiences on {{current_island}}, from scenic boat tours, waterfall hikes,
-                snorkeling with sea turtles, and more. Handpicked local guides, real-time availability, and easy
-                booking—discover the best of {{current_island}} now.
-            </p>
-            <div class="header-photos">
-                <div class="sm-photo-container d-flex flex-column">
-                    <span class="fw-light ms-2">Pink Sails Waikiki</span>
-                    <img class="sm-photo"
-                        src="https://cdn.filestackcontent.com/resize=width:480,fit:max/output=format:webp,quality:50,strip:true,compress:true/8XOuPpykTUuTcZKWqe08"
-                        alt="">
-                </div>
-                <div class="d-flex flex-column">
-                    <span class="fw-light ms-2">Diamond Head Cruises</span>
-                    <img class="lg-photo"
-                        src="https://cdn.filestackcontent.com/resize=width:480,fit:max/output=format:webp,quality:70,strip:true,compress:true/aWaY9QSQpWecWK4m7xy3"
-                        alt="">
-                </div>
-            </div>
-            <!-- <details class="mt-4">
-                <summary class="text-decoration-underline text-light">Read more</summary>
-                <p class="mt-3">
-                    Discover unforgettable experiences on {{current_island}}, from scenic boat tours, waterfall hikes,
-                    snorkeling with sea turtles, and more. Handpicked local guides, real-time availability, and easy
-                    booking—discover the best of {{current_island}} now.
-                </p>
-                <p class="mt-2">Universal Paragraph here</p>
-            </details> -->
-            {% else %}
-            <h1>{{current_category.header_element}} in {{current_island}}</h1>
-            <details class="mt-4">
-                <summary class="text-decoration-underline text-light">Read more</summary>
-                <p class="mt-3">Category description here</p>
-                <p class="mt-2">Universal Paragraph here</p>
-            </details>
-            {% endif %}
-        </section>
-        <!-- <p class="sub-header ps-5 py-5 fs-5 fw-semibold text-dark">
-            Whether you're seeking thrills, relaxation, or cultural experiences, there's something perfect waiting for
-            you on {{current_island}}!
-        </p> -->
+        {% include 'core/components/header.html' %}
+
 
         <!-- Buttons -->
         <div class="change-island mb-3 text-center">
