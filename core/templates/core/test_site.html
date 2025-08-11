@@ -83,161 +83,6 @@
             padding: 0;
             margin: 0;
         }
-
-        /* Hero section */
-        #hero {
-            position: relative;
-            width: 100%;
-            height: calc(100vh - 60px);
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-        }
-
-        /* Gradient */
-        #hero::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(rgba(0, 0, 0, 0.15), #00000080);
-            z-index: -1;
-        }
-
-        #hero .island-links {
-            position: absolute;
-            z-index: 1;
-            display: flex;
-            gap: 15px;
-            top: 40px;
-        }
-
-        #hero .island-links a {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-
-            line-height: 1.2;
-            width: 125px;
-            text-decoration: none;
-            font-size: 14px;
-            color: white;
-            background-color: rgba(0, 0, 0, 0.5);
-            font-weight: 500;
-            padding: 8px;
-            border-radius: 9999px;
-            border: 1px solid #000000;
-        }
-
-        #hero .island-links a:hover {
-            background-color: rgba(0, 0, 0, .75);
-        }
-
-        #hero .hero-text p {
-            position: relative;
-            z-index: 0;
-            color: white;
-            text-align: center;
-        }
-
-        #hero .island-name {
-            font-size: 150px;
-            font-weight: bold;
-            letter-spacing: -5px;
-            line-height: 1;
-        }
-
-        #hero .tagline {
-            text-align: center;
-            color: white;
-            font-size: 4rem;
-            font-weight: 300;
-            margin-top: 1.5rem;
-        }
-
-        #hero .title {
-            text-align: center;
-            color: white;
-            font-weight: 600;
-            font-size: 22px;
-            letter-spacing: 3px;
-        }
-
-        #hero .explore-link {
-            position: absolute;
-            left: 15px;
-            bottom: 15px;
-            text-decoration: none;
-            color: rgba(255, 255, 255, 0.9);
-            background-color: rgba(0, 0, 0, 0.65);
-            width: 160px;
-            height: 160px;
-            padding: 20px;
-            text-align: left;
-            border-radius: 10px;
-        }
-
-        #hero .explore-link:hover {
-            background-color: rgba(0, 0, 0, 0.75);
-        }
-
-
-        @media (max-width: 992px) {
-            #hero {
-                height: 480px;
-                justify-content: start;
-            }
-
-            #hero .island-links a {
-                width: unset;
-                padding: 8px 22px;
-                font-size: 12px;
-            }
-
-            #hero .explore-link {
-                left: 10px;
-                bottom: 10px;
-                height: 145px;
-                width: 145px;
-                padding: 10px;
-            }
-
-            #hero .hero-text {
-                margin-top: 80px;
-            }
-
-            #hero .island-name {
-                margin-top: 2rem;
-                font-size: 70px;
-            }
-
-            #hero .tagline {
-                font-size: 28px;
-            }
-
-            #hero .title {
-                font-size: 18px;
-            }
-
-            #hero .island-links {
-                gap: 8px;
-            }
-
-        }
-
-        #hero picture,
-        #hero img {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: center;
-            z-index: -2;
-        }
     </style>
 </head>
 
@@ -247,31 +92,8 @@
     {% include 'core/components/off_canvas.html' %}
     <!-- Nav Bar -->
     {% include "core/components/navbar.html" %}
-
-    <!-- Hero Section -->
-    <header id="hero">
-        <div class="island-links">
-            {% for island in islands %}
-            {% if island != current_island %}
-            <a href="{% url 'core:change-island' island %}">{{island.title}}</a>
-            {% endif %}
-            {% endfor %}
-        </div>
-        <div class="hero-text">
-            <p class="island-name">{{ current_island.title }}</p>
-            <p class="tagline">Begin your Hawaii adventure</p>
-            <p class="title">HAWAII TRAVEL TIPS</p>
-        </div>
-        <a href="#main" class="explore-link">
-            <p style="font-size: 32px; font-weight: 700;">{{bookings.count}}+</p>
-            <p style="font-size: 14px;">Adventures to Choose From!</p>
-            <p style="font-size: 14px; margin-top: 10px; text-decoration: underline;">Explore</p>
-        </a>
-        <picture>
-            <source media="(max-width: 600px)" srcset="{{ current_island.image_mobile_URL }}">
-            <img src="{{ current_island.image_URL }}" alt="Hero Image" fetchpriority="high">
-        </picture>
-    </header>
+    <!-- Hero -->
+    {% include 'core/components/hero.html' %}
 
     <!-- Main Content -->
     <main id="main" class="bg-body-tertiary">
@@ -288,12 +110,15 @@
             <div class="text-black fw-semibold text-decoration-underline">{{current_category}}</div>
             {% endif %}
         </div>
+
         <!-- Booking Cards -->
         <section id="booking-cards" class=" d-flex flex-wrap gap-3">
             {% for booking in page_obj %}
-            {% include "core/components/booking_card.html" %}
+                {% include "core/components/booking_card.html" %}
             {% endfor %}
         </section>
+
+        
     </main>
 
     <!-- Footer -->
