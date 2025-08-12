@@ -10,305 +10,193 @@
     {% load static %}
     <!-- Standard favicons -->
     <link rel="icon" type="image/x-icon" href="https://hawaii-travel-tips.s3.us-east-2.amazonaws.com/favicon.ico">
-    <link rel="icon" type="image/png" sizes="16x16" href="https://hawaii-travel-tips.s3.us-east-2.amazonaws.com/favicon_16_16.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="https://hawaii-travel-tips.s3.us-east-2.amazonaws.com/favicon_32_32.png">
+    <link rel="icon" type="image/png" sizes="16x16"
+        href="https://hawaii-travel-tips.s3.us-east-2.amazonaws.com/favicon_16_16.png">
+    <link rel="icon" type="image/png" sizes="32x32"
+        href="https://hawaii-travel-tips.s3.us-east-2.amazonaws.com/favicon_32_32.png">
     <!-- Apple Touch -->
-    <link rel="apple-touch-icon" sizes="180x180" href="https://hawaii-travel-tips.s3.us-east-2.amazonaws.com/favicon_180_180.png">
+    <link rel="apple-touch-icon" sizes="180x180"
+        href="https://hawaii-travel-tips.s3.us-east-2.amazonaws.com/favicon_180_180.png">
     <!-- Android/Chrome -->
-    <link rel="icon" type="image/png" sizes="192x192" href="https://hawaii-travel-tips.s3.us-east-2.amazonaws.com/favicon_192_192.png">
-    <link rel="icon" type="image/png" sizes="512x512" href="https://hawaii-travel-tips.s3.us-east-2.amazonaws.com/favicon_512_512.png">
+    <link rel="icon" type="image/png" sizes="192x192"
+        href="https://hawaii-travel-tips.s3.us-east-2.amazonaws.com/favicon_192_192.png">
+    <link rel="icon" type="image/png" sizes="512x512"
+        href="https://hawaii-travel-tips.s3.us-east-2.amazonaws.com/favicon_512_512.png">
     <!-- Manifest -->
     <link rel="manifest" href="{% static 'core/site.webmanifest' %}">
 
-    <link rel="stylesheet" href="{% static 'core/css/base_site.css' %}">
-    
+    <link rel="stylesheet" href="{% static 'core/css/base_site_v2.css' %}">
+    <link rel="stylesheet" href="{% static 'core/css/update.css' %}">
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.2.1/css/all.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
 
-<style>
-    .category-select{
-            height: 350px !important;
-        }
-    .admin-options{
-        width: 75%;
-    }
-    .fh_url{
-        word-break: break-word;
-        overflow-wrap: break-word;
-        white-space: normal;
-    }
-    @media (max-width: 768px) {
-        .form-container{
-            width: 95% !important;
-        }
-        .admin-options{
-            width: 95%;
-        }
-        .category-select{
-            height: 60px !important;
-        }
-        
-    }
-    .form-select option {
-        padding: 2px 0px 2px 5px;
-        margin-top: 1px !important;
-    }
+<body class="d-flex">
+    <div class="card-container bg-body-tertiary">
+        {% include 'core/components/booking_card.html' %}
+    </div>
+    <div class="right">
+        <!-- Form 1 -->
+        <form class="d-flex flex-column"
+            action="{% url 'core:booking-update' booking.pk %}?island={{current_island|urlencode}}&category={{current_category|urlencode}}&page={{page}}"
+            method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="current_island" value="{{current_island}}">
+            <input type="hidden" name="current_category" value="{{current_category}}">
+            <input type="hidden" name="page" value="{{page}}">
 
-    .form-select option:checked {
-        color: #0d6efd;
-        border-radius: 5px;
-        padding: 2px 0px 2px 5px;
-        margin-top: 1px !important;
-    }
-</style>
+            <!-- fh_id -->
+            <label for="">
+                FareHarbor ID : {{booking.fh_id}}
+            </label>
 
-<body class="d-flex flex-column justify-content-center align-items-center bg-dark">
-    <!-- Close Button -->
-    {% if current_category == "None" %}
-    <a href="{% url 'core:change-island' island=current_island %}?page={{page}}#{{booking.fh_id}}" class="text-light mt-3 text-decoration-none"><i class="bi bi-x-lg"></i> Close</a>
-    {% else %}
-    <a href="{% url 'core:view-by-cat' island=current_island category=current_category %}?page={{page}}#{{booking.fh_id}}" class="text-light mt-3 text-decoration-none"><i class="bi bi-x-lg"></i> Close</a>
-    {% endif %}
+            <!-- weight -->
+            <label for="">
+                Weight : {{booking.weight}}
+            </label>
 
-    <div class="form-container w-75 my-3 py-5 border rounded-4 bg-body-tertiary d-flex flex-column align-items-center">
-        <!-- Booking Card -->
-        <div id="{{booking.fh_id}}" class="card" {% if not booking.is_public %}style='opacity: 70%;'{% endif %}>
-            <a class="text-decoration-none" href="{{booking.referral_link}}&back={{back_url}}">
-                <div class="background">
-                    <div class="booking-image-container">
-                        <div class="card-image" style="background-image: url('{{ booking.image_URL }}');"></div>
-                    </div>
-                    <div class="company d-flex flex-column gap-2">
-                        <small class="company-name ps-1">{{booking.company_name}}</small>
-                    </div>
-                    <div class="badges d-flex justify-content-end">
-                        {% if booking.is_promo %}
-                        <div class="promo-badge bg-theme rounded-1 text-white py-1 px-2 fw-semibold">{{booking.promo_amount}} OFF Promo Code
-                        </div>
-                        {% endif %}
-                        {% if booking.is_popular %}
-                        <div class="popular bg-primary rounded-1 text-white py-1 px-2 fw-semibold">Popular!
-                        </div>
-                        {% endif %}
-                    </div>
-                </div>
-            </a>
-            <div class="body d-flex flex-column px-2 px-md-3 pt-2 pb-1">
-                <a href="{{booking.referral_link}}{{back_url}}" class="text-decoration-none">
-                    <p class="title fw-medium text-black">{{booking.title}}</p>
-                </a>
-                <small class="city text-secondary">{{booking.city}}</small>
-                {% if booking.promo_code %}
-                <small class="promo-code text-secondary">Promo Code <i class="bi bi-dot"></i> 
-                    <span class="text-theme fw-medium" style="letter-spacing: 0.5px; font-size: 11px;">{{booking.promo_code}}</span>
-                </small>
+
+            <!-- referral_link -->
+            <label for="">
+                URL:
+                <a href="{{booking.referral_link}}&back=www.hawaiitraveltips.com">{{booking.referral_link}}</a>
+            </label>
+
+            <!-- is_public -->
+            <input type="hidden" name="is_public" value="false">
+            <div>
+                {% if booking.is_public %}
+                <input type="checkbox" id="is_public" name="is_public" value="true" checked>
+                {% else %}
+                <input type="checkbox" id="is_public" name="is_public" value="false">
                 {% endif %}
+                <label for="is_public">Public</label>
             </div>
-            <div class="tags d-flex flex-wrap gap-1 px-2 px-md-3 pb-2 ">
-                {% for tag in booking.tags.all %}
-                <div class="tag bg-body-tertiary text-primary rounded-1 d-flex align-items-center justify-content-center py-1 px-2">
-                    {{tag}}
-                </div>
-                {% endfor %}
+
+
+
+            <!-- is_pinned -->
+            <input type="hidden" name="is_pinned" value="false">
+            <div>
+                {% if booking.is_pinned %}
+                <input type="checkbox" id="is_pinned" name="is_pinned" value="true" checked>
+                {% else %}
+                <input type="checkbox" id="is_pinned" name="is_pinned" value="false">
+                {% endif %}
+                <label for="is_pinned">Pinned to Start</label>
             </div>
-        </div>
-        <div class="admin-options mx-2 mt-4 border bg-white p-4">
-            <!-- Form -->
-            <form action="{% url 'core:booking-update' booking.pk %}?island={{current_island|urlencode}}&category={{current_category|urlencode}}&page={{page}}" method="POST" >
-                {% csrf_token %}
-                <input type="hidden" name="current_island" value="{{current_island}}">
-                <input type="hidden" name="current_category" value="{{current_category}}">
-                <input type="hidden" name="page" value="{{page}}">
 
-                <!-- Is Public -->
-                <input type="hidden" name="is_public" value="false">
-                <div class="form-check form-switch mb-3">
-                    {% if booking.is_public %}
-                    <input class="form-check-input" type="checkbox" role="switch" id="publicSwitch{{booking.pk}}"
-                        value="true" name="is_public" checked>
+
+
+            <!-- title -->
+            <div>
+                <label for="title">Title</label>
+                <input type="text" id="title" name="title" size="60" value="{{booking.title}}">
+            </div>
+
+
+            <!-- details -->
+            <div class="d-flex flex-column">
+                <label for="details">Details</label>
+                <textarea name="details" id="details">{{booking.details}}</textarea>
+            </div>
+
+            <!-- city -->
+            <div>
+                <label for="city">City</label>
+                <input type="text" id="city" name="city" size="30">
+            </div>
+
+            <!-- island.pk -->
+            <div>
+                <label for="island_input">Island</label>
+                <select id="island_input" name="island_id">
+                    {% for island in islands %}
+                    {% if island == booking.island %}
+                    <option value="{{island.id}}" selected>{{island}}</option>
                     {% else %}
-                    <input class="form-check-input" type="checkbox" role="switch" id="publicSwitch{{booking.pk}}"
-                        value="true" name="is_public">
-                    {% endif %}
-                    <label class="form-check-label fw-semibold" for="publicSwitch{{booking.pk}}">
-                        Public</label>
-                </div>
-
-                <!-- Pinned to Top -->
-                <input type="hidden" name="is_pinned" value="false">
-                <div class="form-check mb-3">
-                    {% if booking.is_pinned %}
-                    <input class="form-check-input" type="checkbox" value="true" id="pinnedCheckbox{{booking.pk}}"
-                        name="is_pinned" checked>
-                    {% else %}
-                    <input class="form-check-input" type="checkbox" value="true" id="pinnedCheckbox{{booking.pk}}"
-                        name="is_pinned">
-                    {% endif %}
-                    <label class="form-check-label" for="pinnedCheckbox{{booking.pk}}">
-                        <i class="bi bi-ui-checks-grid"></i>
-                    </label>
-                </div>
-
-                <!-- Booking Weight -->
-                <div class="input-group mb-3 w-50" >
-                    <span class="input-group-text" id="weight_input"><i class="fa-solid fa-weight-hanging"></i></span>
-                    <input type="text" class="form-control" aria-label="weight" aria-describedby="weight_input"
-                        name="weight" value="{{booking.weight}}">
-                </div>
-
-                <!-- FareHarbor ID -->
-                <div class="input-group mb-3">
-                    <span class="input-group-text" id="fh_id">FareHarbor <i class="bi bi-hash"></i></span>
-                    <input type="text" class="form-control" aria-label="fh_id" aria-describedby="fh_id"
-                        value="{{booking.fh_id}}" disabled>
-                </div>
-
-                <!-- FH URL -->
-                <div class="fh_url mb-3">
-                    <i class="bi bi-link-45deg"></i><a href="{{booking.referral_link}}&back=www.hawaiitraveltips.com">{{booking.referral_link}}&back=www.hawaiitraveltips.com</a>
-                </div>
-
-                <!-- Title -->
-                <div class="input-group mb-3">
-                    <span class="input-group-text" id="title_input"><i class="bi bi-fonts"></i></span>
-                    <input type="text" class="form-control" aria-label="title" aria-describedby="title_input"
-                        value="{{booking.title}}" name="title">
-                </div>
-
-                <!-- Island Select -->
-                <div class="input-group mb-3">
-                    <span class="input-group-text" id="island_input">Island</span>
-                    <select class="island-select form-select" aria-label="island" aria-describedby="island_input" name="island_id">
-                        {% for island in islands %}
-                        {% if island == booking.island %}
-                        <option class="" value="{{island.id}}" selected>{{island}}</option>
-                        {% else %}
-                        <option class="" value="{{island.id}}">{{island}}</option>
-                        {% endif %}
-                        {% endfor %}
-                    </select>
-                </div>
-
-                <!-- City -->
-                <div class="input-group mb-3">
-                    <span class="input-group-text" id="city_input">City</span>
-                    <input type="text" class="form-control" aria-label="city" aria-describedby="city_input"
-                        value="{{booking.city}}" name="city">
-                </div>
-
-                <!-- Category Select -->
-                <select class="category-select form-select mb-3" multiple aria-label="Default select" name="category_ids">
-                    {% for category in categories %}
-                    {% if category in booking.tags.all %}
-                    <option class="" value="{{category.id}}" selected>{{category}}</option>
-                    {% else %}
-                    <option class="" value="{{category.id}}">{{category}}</option>
+                    <option value="{{island.id}}">{{island}}</option>
                     {% endif %}
                     {% endfor %}
                 </select>
-
-                <!-- Popular -->
-                <input type="hidden" name="is_popular" value="false">
-                <div class="form-check d-flex align-items-center gap-2 mb-3">
-                    {% if booking.is_popular %}
-                    <input class="form-check-input" type="checkbox" value="true" id="popularCheckbox{{booking.pk}}"
-                        name="is_popular" checked>
-                    {% else %}
-                    <input class="form-check-input" type="checkbox" value="true" id="popularCheckbox{{booking.pk}}"
-                        name="is_popular">
-                    {% endif %}
-                    <label class="form-check-label bg-info text-white px-2 py-1 rounded-1 fw-semibold"
-                        for="popularCheckbox{{booking.pk}}">
-                        Popular!
-                    </label>
-                </div>
-
-                <!-- Promo -->
-                <input type="hidden" name="is_promo" value="false">
-                <div class="form-check d-flex align-items-center gap-2 mb-3">
-                    {% if booking.is_promo %}
-                    <input class="form-check-input" type="checkbox" value="true" id="promoCheckbox{{booking.pk}}"
-                        name="is_promo" checked>
-                    {% else %}
-                    <input class="form-check-input" type="checkbox" value="true" id="promoCheckbox{{booking.pk}}"
-                        name="is_promo">
-                    {% endif %}
-                    <label class="form-check-label bg-primary text-white px-2 py-1 rounded-1 fw-semibold"
-                        for="promoCheckbox{{booking.pk}}">
-                        XX OFF Promo Code
-                    </label>
-                </div>
-                <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Amount"
-                        aria-label="promoAmount" aria-describedby="amount_input" value="{{booking.promo_amount}}" name="promo_amount">
-                    <span class="input-group-text" id="amount_input">OFF</span>
-                </div>
-                <div class="input-group mb-3">
-                    <span class="input-group-text" id="promocode_input">Promo Code:</span>
-                    <input type="text" class="form-control" aria-label="" aria-describedby="promocode_input"
-                        value="{{booking.promo_code}}" name="promo_code">
-                </div>
-
-                <!-- Save  -->
-                <div class="d-flex justify-content-end gap-2">
-                        <button class="btn btn-primary">Save</button>
-                        <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
-                            data-bs-target="#deleteModal{{booking.pk}}">
-                            Delete
-                        </button>
-                </div>
-            </form>
-
-            <!-- Delete Modal -->
-            <div class="modal fade" id="deleteModal{{booking.pk}}" tabindex="-1" aria-labelledby="ModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="ModalLabel"><i class="bi bi-trash text-danger"></i>
-                                Rubbish?</h1>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            You are about to <span class="text-danger fw-medium">DELETE</span> this booking
-                            forever. This action is permanent and cannot be undone. Are you sure?
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                            <form action="{% url 'core:booking-delete' booking.pk %}" method="POST">
-                                {% csrf_token %}
-                                <input type="hidden" name="current_island" value="{{current_island}}">
-                                <input type="hidden" name="current_category" value="{{current_category}}">
-                                <input type="hidden" name="page" value="{{page}}">
-                                <button type="submit" class="btn btn-danger">Yes, Delete</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
             </div>
 
-        </div>
+            <div class="mt-5">
+                <hr>
+            </div>
+
+
+            <!-- City -->
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="city_input">City</span>
+                <input type="text" class="form-control" aria-label="city" aria-describedby="city_input"
+                    value="{{booking.city}}" name="city">
+            </div>
+
+            <!-- Category Select -->
+            <select class="category-select form-select mb-3" multiple aria-label="Default select" name="category_ids">
+                {% for category in categories %}
+                {% if category in booking.tags.all %}
+                <option class="" value="{{category.id}}" selected>{{category}}</option>
+                {% else %}
+                <option class="" value="{{category.id}}">{{category}}</option>
+                {% endif %}
+                {% endfor %}
+            </select>
+
+            <!-- Popular -->
+            <input type="hidden" name="is_popular" value="false">
+            <div class="form-check d-flex align-items-center gap-2 mb-3">
+                {% if booking.is_popular %}
+                <input class="form-check-input" type="checkbox" value="true" id="popularCheckbox{{booking.pk}}"
+                    name="is_popular" checked>
+                {% else %}
+                <input class="form-check-input" type="checkbox" value="true" id="popularCheckbox{{booking.pk}}"
+                    name="is_popular">
+                {% endif %}
+                <label class="form-check-label bg-info text-white px-2 py-1 rounded-1 fw-semibold"
+                    for="popularCheckbox{{booking.pk}}">
+                    Popular!
+                </label>
+            </div>
+
+            <!-- Promo -->
+            <input type="hidden" name="is_promo" value="false">
+            <div class="form-check d-flex align-items-center gap-2 mb-3">
+                {% if booking.is_promo %}
+                <input class="form-check-input" type="checkbox" value="true" id="promoCheckbox{{booking.pk}}"
+                    name="is_promo" checked>
+                {% else %}
+                <input class="form-check-input" type="checkbox" value="true" id="promoCheckbox{{booking.pk}}"
+                    name="is_promo">
+                {% endif %}
+                <label class="form-check-label bg-primary text-white px-2 py-1 rounded-1 fw-semibold"
+                    for="promoCheckbox{{booking.pk}}">
+                    XX OFF Promo Code
+                </label>
+            </div>
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" placeholder="Amount" aria-label="promoAmount"
+                    aria-describedby="amount_input" value="{{booking.promo_amount}}" name="promo_amount">
+                <span class="input-group-text" id="amount_input">OFF</span>
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="promocode_input">Promo Code:</span>
+                <input type="text" class="form-control" aria-label="" aria-describedby="promocode_input"
+                    value="{{booking.promo_code}}" name="promo_code">
+            </div>
+
+            <!-- Save  -->
+            <div class="d-flex justify-content-end gap-2">
+                <button class="btn btn-primary">Save</button>
+                <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
+                    data-bs-target="#deleteModal{{booking.pk}}">
+                    Delete
+                </button>
+            </div>
+        </form>
     </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-        crossorigin="anonymous"></script>
-    <script type="text/javascript" src="https://fareharbor.com/embeds/api/v1/?autolightframe=yes"></script>
-    <script type="application/ld+json">
-    {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    "name": "Hawaii Travel Tips",
-    "alternateName": "hawaiitraveltips.com",
-    "url": "https://www.hawaiitraveltips.com"
-    }
-    "sameAs": [
-        "https://www.facebook.com/groups/1747780178610364",
-    ]
-    </script>
 </body>
-
-</html>

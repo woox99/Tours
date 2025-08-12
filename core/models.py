@@ -60,6 +60,8 @@ class Island(models.Model):
 class Booking(models.Model):
     title = models.CharField(max_length=100)
     company_name = models.CharField(max_length=100, blank=True)
+    company_rating = models.CharField(max_length=10, blank=True)
+    company_reviews = models.CharField(max_length=10, blank=True)
     city = models.CharField(max_length=100)
     tags = models.ManyToManyField('Category', related_name='bookings')
     island = models.ForeignKey(Island, on_delete=models.CASCADE)

@@ -87,8 +87,8 @@ def update_booking(request, booking):
     booking.is_public = True if request.POST['is_public'] == 'true' else False
     booking.is_popular = True if request.POST['is_popular'] == 'true' else False
     booking.is_pinned = True if request.POST['is_pinned'] == 'true' else False
+    booking.details = request.POST['details']
     booking.is_promo = True if request.POST['is_promo'] == 'true' else False
-    booking.weight = request.POST['weight']
     booking.promo_amount = request.POST['promo_amount']
     booking.promo_code = request.POST['promo_code']
     booking.city = request.POST['city']
@@ -100,7 +100,8 @@ def update_booking(request, booking):
         booking.tags.set(tags)
 
     booking = update_booking_weight(booking)
-    booking.save()
+    # booking.save()
+    print(booking.island)
     return
 
 
