@@ -3,7 +3,9 @@
 <header id="hero">
     <div class="island-links">
         {% for island in islands %}
-        {% if island != current_island %}
+        {% if island == current_island %}
+        <a class="selected" href="{% url 'core:change-island' island %}">{{island.title}}</a>
+        {% else %}
         <a href="{% url 'core:change-island' island %}">{{island.title}}</a>
         {% endif %}
         {% endfor %}

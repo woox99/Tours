@@ -71,6 +71,8 @@ def view_by_island(request, island):
         'breadcrumb' : 'All Bookings',
         'page_range': page_range,
         'back_url': quote(back_url),
+        'bookings' : bookings,
+
     }
 
     if page_obj.number == 1:
@@ -110,6 +112,7 @@ def view_by_cat(request, island, category):
         'breadcrumb' : category,
         'page_range': page_range,
         'back_url': quote(back_url),
+        'bookings' : bookings,
     }
 
     if page_obj.number == 1:

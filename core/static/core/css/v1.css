@@ -1,0 +1,262 @@
+*{
+    /* border: 1px solid red; */
+    padding: 0;
+    margin: 0;
+}
+body{
+    margin-top: 60px !important;
+}
+.text-theme{
+    color: #008080 !important;
+}
+.bg-theme{
+    background-color: #008080 !important;
+}
+.navbar{
+    position: relative;
+}
+.navbar .logo-link{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.logo{
+    height: 70px;
+}
+@media (max-width: 992px) {
+    .logo{
+        height: 50px;
+    }
+}
+.side-bar{
+    width: 19% !important;
+    overflow: hidden;
+    min-height: 100vh;
+    border-right: 1px solid #00000015;
+}
+.side-bar-logo{
+    width: 95% !important;
+    aspect-ratio: 16 / 7;
+}
+.side-bar a{
+    text-decoration: none;
+}
+.side-bar .type{
+    margin-top: 2px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.side-bar .category{
+    font-size: 14px;
+    margin-top: 2px;
+    letter-spacing: 0.25px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.side-bar .category:hover{
+    background-color: #f8f9fa;
+}
+.offcanvas{
+    width: 300px !important;
+    background-color: #ffffff;
+    box-shadow: 5px 0px 5px #00000050;
+    opacity: 0.92;
+}
+.offcanvas a{
+    text-decoration: none;
+}
+.offcanvas .category{
+    font-size: 18px !important;
+    color: black;
+    margin-top: 10px;
+    letter-spacing: 0.25px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.main-content{
+    width: 100%;
+    overflow: hidden;
+}
+
+#search-bar{
+    display: none;
+}
+
+.lg-breadcrumb p{
+    font-size: 14px;
+    letter-spacing: 0.25px;
+}    
+.mobile-breadcrumb .box{
+    position: relative;
+    height: 56px;
+    box-shadow: 0px 10px 15px #00000050;
+    border-radius: 20px;
+    font-size: 14px;
+    margin-top: 8px;
+    /* ## TOP MARGIN -> IN-LINE STYLE ## */
+}
+.mobile-breadcrumb .box::after{
+    content: "";
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+    background-color: #ffc107;
+    border-radius: 10px;
+    z-index: -1;
+}
+/* Yellow Line Behind Box */
+.mobile-breadcrumb .box::before{
+    content: "";
+    position: absolute;
+    z-index: -1;
+    height: 2px;
+    width: 1000px;
+    background-color: #ffc107;
+}
+.mobile-breadcrumb p{
+    font-size: 14px;
+    letter-spacing: 0.25px;
+}
+.cards{
+    justify-content: flex-start;
+    align-items: flex-start; 
+}
+.card{
+    width: 32.5%;
+    border: none !important;
+    margin-bottom: 20px;
+    border-radius: 0px !important;
+    box-shadow: 0px 0px 5px #00000050;
+}
+.card:hover {
+    opacity: 0.90;
+    box-shadow: 1px 1px 5px #00000050;
+
+    transition: 0.1s ease-in-out; 
+}
+@media (max-width: 992px) {
+    .cards{
+        justify-content: space-around;
+    }
+    .card{
+        width: 49%;
+        margin-right: 0;
+        margin-bottom: 5px;
+    }
+}
+@media (max-width: 768px) {
+    .card{
+        width: 95%;
+    }
+    .update-body{
+        width: 100% !important;
+    }
+    .admin-options{
+        width: 95%;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+}
+
+.card .background{
+    position: relative;
+    overflow: hidden;
+
+}
+.card .booking-image-container{
+    position: relative;
+    z-index: 0;
+    width: 100%;
+    aspect-ratio: 4/3;
+}
+.card .booking-image-container::after{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(rgba(0, 0, 0, 0.7), #ffffff00 75px);
+    pointer-events: none; /* interaction pass through */
+}
+.card img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+/* @media (max-width: 768px) {
+    .card img{
+        height: 300px;
+    }
+} */
+.card .company{
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    z-index: 10;
+    font-size: 13px;
+    width: 90%;
+}
+.card .company .company-name{
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    color: #ffffff !important;
+}
+
+.card .badges{
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    z-index: 10;
+    font-size: 14px;
+    gap: 5px;
+    opacity: 0.95;
+}
+.card .body{
+    width: 95%;
+}
+.card .title{
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-size: 14px;
+}
+.card .city, .card .promo-code{
+    font-size: 12px;
+}
+.card p{
+    margin: 0;
+}
+
+.card .tag{
+    font-size: 11px;
+    letter-spacing: 0.75px;
+}
+
+
+.footer .title{
+    letter-spacing: 1px;
+}
+.footer .info-links{
+    font-size: 14px;
+}
+.footer .info-links .link{
+    letter-spacing: 0.6px;
+}
+.footer .garett-contact-link{
+    letter-spacing: 1.5px; 
+    font-size: 12px;
+}
+.footer .garett-contact-link:hover span{
+    color: white;
+}
+

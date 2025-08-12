@@ -1,115 +1,32 @@
-<style>
-    #main .header {
-        position: relative;
-        padding-top: 70px;
-        padding-bottom: 50px !important;
-    }
-
-    @media (max-width: 1200px) {
-        #main .header {
-            padding-bottom: 180px !important;
-        }
-    }
-
-    @media (max-width: 768px) {
-        #main .header {
-            padding-bottom: 150px !important;
-        }
-
-    }
-
-    #main h1 {
-        font-size: 48px;
-        width: 33%;
-    }
-
-    @media (max-width: 1200px) {
-        #main h1 {
-            width: 100%;
-        }
-    }
-
-    @media (max-width: 768px) {
-        #main h1 {
-            width: 100%;
-            font-size: 28px;
-        }
-    }
-
-    #main .header p {
-        width: 60%;
-    }
-
-    @media (max-width: 768px) {
-        #main .header p {
-            width: 100%;
-        }
-    }
-
-    #main .header-photos {
-        position: absolute;
-        bottom: -35px;
-        right: 40px;
-        font-size: 12px;
-    }
-
-
-    #main .sm-photo,
-    #main .lg-photo {
-        aspect-ratio: 1;
-        object-fit: cover;
-        object-position: center;
-        border-radius: 8px;
-        border: 5px solid #212529;
-    }
-
-
-    #main .lg-photo {
-        width: 250px;
-    }
-
-    #main .sm-photo {
-        width: 200px;
-    }
-    
-    @media (max-width: 768px) {
-        #main .lg-photo{
-            width: 150px;
-        }
-        #main .sm-photo{
-            width: 120px;
-        }
-    }
-    
-    #main .sm-photo-container {
-        position: absolute;
-        left: -160px;
-        bottom: -50px;
-        transform-origin: center;
-        transform: rotate(-8deg);
-    }
-
-    @media (max-width: 768px) {
-        #main .sm-photo-container {
-            left: -80px;
-            bottom: -35px;
-        }
-    }
-</style>
-
-<section class="header bg-dark text-light px-3 px-md-5 pb-lg-4">
+<section class="header bg-dark text-light px-3 px-md-5">
     {% if not current_category %}
     <h1>Best Things to Do in {{current_island}}</h1>
-    <p class="mt-3 opacity-75">
-        Discover unforgettable experiences on {{current_island}}, from scenic boat tours, waterfall hikes,
-        snorkeling with sea turtles, and more. Handpicked local guides, real-time availability, and easy
-        booking—discover the best of {{current_island}} now.
-    </p>
+    {% else %}
+    <h1>{{current_category.header_element}} in {{current_island}}</h1>
+    {% endif %}
+
+    {% if jumbotron %}
+    {% if not current_category %}
+    <p>Island Description</p>
+    {% else %}
+    <p>Category Description</p>
+    {% endif %}
+    {% else %}
+    <details class="mt-4">
+        <summary class="text-decoration-underline text-light opacity-75">Read more</summary>
+        {% if not current_category %}
+        <p class="mt-3 opacity-75">Island Description</p>
+        {% else %}
+        <p class="mt-3 opacity-75">Category Description</p>
+        {% endif %}
+    </details>
+    {% endif %}
+
     <div class="header-photos">
         <div class="sm-photo-container d-flex flex-column">
             <img class="sm-photo"
-            src="https://cdn.filestackcontent.com/resize=width:480,fit:max/output=format:webp,quality:50,strip:true,compress:true/8XOuPpykTUuTcZKWqe08"
-            alt="">
+                src="https://cdn.filestackcontent.com/resize=width:480,fit:max/output=format:webp,quality:50,strip:true,compress:true/8XOuPpykTUuTcZKWqe08"
+                alt="">
             <span class="text-dark ms-1">Pink Sails Waikiki</span>
         </div>
         <div class="d-flex flex-column">
@@ -119,21 +36,8 @@
                 alt="">
         </div>
     </div>
-    <!-- <details class="mt-4">
-                <summary class="text-decoration-underline text-light">Read more</summary>
-                <p class="mt-3">
-                    Discover unforgettable experiences on {{current_island}}, from scenic boat tours, waterfall hikes,
-                    snorkeling with sea turtles, and more. Handpicked local guides, real-time availability, and easy
-                    booking—discover the best of {{current_island}} now.
-                </p>
-                <p class="mt-2">Universal Paragraph here</p>
-            </details> -->
-    {% else %}
-    <h1>{{current_category.header_element}} in {{current_island}}</h1>
-    <details class="mt-4">
-        <summary class="text-decoration-underline text-light">Read more</summary>
-        <p class="mt-3">Category description here</p>
-        <p class="mt-2">Universal Paragraph here</p>
-    </details>
-    {% endif %}
 </section>
+
+<!-- Discover unforgettable experiences on {{current_island}}, from scenic boat tours, waterfall hikes,
+            snorkeling with sea turtles, and more. Handpicked local guides, real-time availability, and easy
+            booking—discover the best of {{current_island}} now. -->
