@@ -18,20 +18,37 @@ body {
 }
 
 .booking-card {
-    transform: scale(0.80);
+    transform: scale(0.90);
 }
 
 .right {
     position: absolute;
     top: 0;
     right: 0;
-
-    border: 1px solid red;
-    width: 800px;
+    width: calc(100vw - 700px);
 }
 
+#category_ids{
+    position: fixed;
+    left: 440px;
+    top: 0;
+    width: 200px;
+    height: 100vh;
+    padding-bottom: 50px;
+}
 textarea[name='details'] {
     width: 400px;
     height: 100px;
     resize: vertical;
+}
+
+select[name='category_ids']{
+    width: 400px;
+    height: 200px;
+}
+
+.buttons{
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
 }

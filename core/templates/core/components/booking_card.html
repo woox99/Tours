@@ -7,8 +7,9 @@
             <div class="company-info text-white">
                 <span class="company-name">{{booking.company_name}}</span>
                 <div class="d-flex flex-column">
+                    {% if booking.company_rating %}
                     <div class="company-rating d-flex align-items-center gap-1">
-                        <span>4.8</span>
+                        <span>{{booking.company_rating}}</span>
                         {% for i in "1234" %}
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                             class="bi bi-star-fill" viewBox="0 0 16 16">
@@ -22,7 +23,10 @@
                                 d="M5.354 5.119 7.538.792A.52.52 0 0 1 8 .5c.183 0 .366.097.465.292l2.184 4.327 4.898.696A.54.54 0 0 1 16 6.32a.55.55 0 0 1-.17.445l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256a.5.5 0 0 1-.146.05c-.342.06-.668-.254-.6-.642l.83-4.73L.173 6.765a.55.55 0 0 1-.172-.403.6.6 0 0 1 .085-.302.51.51 0 0 1 .37-.245zM8 12.027a.5.5 0 0 1 .232.056l3.686 1.894-.694-3.957a.56.56 0 0 1 .162-.505l2.907-2.77-4.052-.576a.53.53 0 0 1-.393-.288L8.001 2.223 8 2.226z" />
                         </svg>
                     </div>
-                    <span class="company-reviews">2,991 Google Reviews</span>
+                    {% endif %}
+                    {% if booking.company_reviews %}
+                    <span class="company-reviews">{{booking.company_reviews}} Google Reviews</span>
+                    {% endif %}
                 </div>
             </div>
             <div class="badges d-flex justify-content-end gap-2">
@@ -42,7 +46,7 @@
     <!-- Card Body -->
     <div class="d-flex flex-column gap-2 p-3" {% if not booking.is_public %}style="opacity: .6;"{% endif %}>
         <h2 class="title fw-semibold fs-6 m-0">{{booking.title}}</h2>
-        <span class="city text-secondary">{{booking.city}}, {{current_island}}</span>
+        <span class="city text-secondary">{{booking.city}}, {{booking.island}}</span>
         <p class="details">{{booking.details}}{% if booking.details %}<a class="ellipsis" href="{{booking.referral_link}}&back={{back_url}}" rel="sponsored">Learn More</a>{% endif %}</p>
         <div class="tags d-flex gap-2 pe-2">
             {% for tag in booking.tags.all %}
