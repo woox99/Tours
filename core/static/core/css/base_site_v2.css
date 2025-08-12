@@ -288,11 +288,11 @@ body p {
     font-size: 13px;
 }
 
-.booking-card .description {
+.booking-card .details {
     position: relative;
     font-size: 15px;
     line-height: 22px;
-    height: 110px;
+    max-height: 110px;
     overflow: hidden;
     text-align: justify;
 }
@@ -348,6 +348,7 @@ body p {
 .booking-card .detail-button {
     letter-spacing: 1.5px;
 }
+
 
 .booking-card .promo-code-text {
     letter-spacing: 0.5px;
