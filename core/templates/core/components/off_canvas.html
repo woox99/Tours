@@ -33,8 +33,7 @@
                 {% for island in islands %}
                 {% if current_island == island %}
                 <a href="{% url 'core:change-island' island %}"
-                    class="category ps-4 fs-6 py-1 fw-light text-primary text-decoration-none"><i
-                        class="bi bi-dot"></i>{{island}}
+                    class="category ps-4 fs-6 py-1 text-decoration-underline"><i class="bi bi-dot"></i>{{island}}
                 </a>
                 {% else %}
                 <a href="{% url 'core:change-island' island %}"
@@ -50,7 +49,7 @@
             {% endif %}
             {% for category in type.filtered_categories %}
             {% if current_category == category %}
-            <p class="m-0 ps-4 fs-6 py-1 fw-light text-primary text-decoration-none"><i
+            <p class="m-0 ps-4 fs-6 py-1 text-decoration-underline"><i
                     class="bi bi-dot"></i>{{category}}
             </p>
             {% elif category.is_popular %}

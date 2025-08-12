@@ -10,7 +10,7 @@
         content="Discover the best tours and activities on {{current_island}}, including boat cruises, hiking adventures, and more. Book with trusted local providers now!">
 
     <meta property="og:site_name" content="Hawaii Travel Tips">
-    <meta property="og:title" content="Best Things to Do in {{ current_island.name }} - Hawaii">
+    <meta property="og:title" content="Best Things to Do in {{ current_island.name }}">
     <meta property="og:description" content="Discover the best tours and activities on {{ current_island.name }}...">
     <meta property="og:image" content="{{ current_island.image_URL }}">
     <meta property="og:url" content="{{ request.build_absolute_uri }}">
@@ -24,9 +24,9 @@
 
     {% block head %}
     {% if not current_category %}
-    <title>Best Things to Do in {{current_island.name}} - Hawaii</title>
+    <title>Best Things to Do in {{current_island.name}}</title>
     {% else %}
-    <title>{{current_category.header_element}} in {{current_island.name}} - Hawaii</title>
+    <title>{{current_category.header_element}} in {{current_island.name}}</title>
     {% endif %}
     {% endblock %}
 
@@ -46,8 +46,6 @@
         href="https://hawaii-travel-tips.s3.us-east-2.amazonaws.com/favicon_512_512.png">
     <!-- Manifest -->
     <link rel="manifest" href="{% static 'core/site.webmanifest' %}">
-
-    <link rel="stylesheet" href="{% static 'core/css/test_site.css' %}">
 
     <!-- Preconnect Bootstrap-->
     <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
@@ -75,6 +73,14 @@
             box-sizing: border-box;
         }
 
+        .text-theme {
+            color: #008080 !important;
+        }
+
+        .bg-theme {
+            background-color: #008080 !important;
+        }
+
         body {
             padding-top: 60px;
         }
@@ -83,11 +89,22 @@
             padding: 0;
             margin: 0;
         }
+
+        /* Main */
+        #main .change-island {
+            margin-top: 100px;
+        }
+
+        /* Booking Cards */
+        #booking-cards {
+            justify-content: center;
+            align-items: flex-start;
+        }
     </style>
 </head>
 
 
-<body>
+<body class="bg-body-tertiary">
     <!-- Offcanvas (md screens)-->
     {% include 'core/components/off_canvas.html' %}
     <!-- Nav Bar -->
@@ -96,29 +113,68 @@
     {% include 'core/components/hero.html' %}
 
     <!-- Main Content -->
-    <main id="main" class="bg-body-tertiary">
+    <main id="main" class="">
         <!-- Header -->
         {% include 'core/components/header.html' %}
 
-
         <!-- Buttons -->
-        <div class="change-island mb-3 text-center">
-            <p class="fw-5 text-dark">Not the Island you are looking for? <span
-                    class="text-decoration-underline">{{current_island}}</span></p>
+        <div class="change-island mb-3 d-flex justify-content-center align-items-center">
+            <p class="fw-5 text-dark">Not the Island you are looking for?</p>
+            <span class="btn text-decoration-underline" data-bs-toggle="offcanvas" data-bs-target="#offcanvas">{{current_island}}</span>
             {% if current_category %}
-            <span class="mx-2">/</span>
-            <div class="text-black fw-semibold text-decoration-underline">{{current_category}}</div>
+            <span class="">/</span>
+            <div class="btn text-black text-decoration-underline" data-bs-toggle="offcanvas" data-bs-target="#offcanvas">{{current_category}}</div>
             {% endif %}
         </div>
 
         <!-- Booking Cards -->
-        <section id="booking-cards" class=" d-flex flex-wrap gap-3">
+        <section id="booking-cards" class="d-flex flex-wrap gap-3">
             {% for booking in page_obj %}
-                {% include "core/components/booking_card.html" %}
+            {% include "core/components/booking_card.html" %}
             {% endfor %}
         </section>
 
-        
+        <!-- Pagination Bar -->
+        <div class="mt-4 pb-5 d-flex justify-content-center">
+            <nav aria-label="...">
+                <ul class="pagination">
+                    {% if page_obj.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" rel="prev" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+                    </li>
+                    {% else %}
+                    <li class="page-item disabled">
+                        <span class="page-link">Previous</span>
+                    </li>
+                    {% endif %}
+
+                    {% for page_number in page_range %}
+                    {% if page_number == page_obj.number %}
+                    <li class="page-item active" aria-current="page">
+                        <span class="page-link">{{page_number}}</span>
+                    </li>
+                    {% elif page_number == "…" or page_number == None %}
+                    <li class="page-item" aria-current="page">
+                        <span class="page-link">{{page_number}}</span>
+                    </li>
+                    {% else %}
+                    <li class="page-item"><a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
+                    </li>
+                    {% endif %}
+                    {% endfor %}
+
+                    {% if page_obj.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" rel="next" href="?page={{ page_obj.next_page_number }}">Next</a>
+                    </li>
+                    {% else %}
+                    <li class="page-item disabled">
+                        <a class="page-link" href="">Next</a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
     </main>
 
     <!-- Footer -->

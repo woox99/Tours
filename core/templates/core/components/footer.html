@@ -1,10 +1,79 @@
 <style>
+    #footer {
+        position: relative;
+        letter-spacing: 0.75px;
+    }
 
-    
+    #footer .logo {
+        position: absolute;
+        left: 50%;
+        top: -50px;
+        transform: translateX(-50%);
+        width: 100px;
+        aspect-ratio: 1/1;
+        border-radius: 3px;
+    }
+
+    #footer .logo img {
+        width: 100%;
+        aspect-ratio: 1/1;
+        object-fit: contain;
+        object-position: center;
+    }
+
+    #footer a {
+        text-decoration: none;
+        color: white;
+    }
+
+    #footer a:hover {
+        text-decoration: underline;
+    }
+
+    #footer .web-service-text {
+        font-size: 13px;
+    }
+
+    #footer .garett-link {
+        letter-spacing: 1.25px;
+    }
+
+    #footer .copyright .title{
+        letter-spacing: 1.25px;
+    }
+
+    @media (max-width: 576px) {
+        #footer .container {
+            flex-direction: column;
+            text-align: center;
+            padding-top: 2rem;
+        }
+
+        #footer .footer-right {
+            text-align: center !important;
+            margin-top: 2rem;
+        }
+    }
 </style>
 
-<footer id="footer" class="bg-dark text-white py-4 mt-1">
-    <div class="container text-center">
-        <p class="mb-0">&copy; 2025 Hawaii Travel Tips. All rights reserved.</p>
+<footer id="footer" class="bg-dark text-white py-4 mt-5">
+    <a href="#main">
+        <div class="logo bg-dark">
+            <img src="https://hawaii-travel-tips.s3.us-east-2.amazonaws.com/favicon_180_180.png" alt="">
+        </div>
+    </a>
+    <div class="container text-center d-flex justify-content-between">
+        <div class="footer-left d-flex flex-column text-start">
+            <p class="opacity-75 mb-1">All prices are in USD.</p>
+            <hr class="d-none d-md-block">
+            <a href="{% url 'core:info' %}">About Us</a>
+            <a href="{% url 'core:info' %}#cancellation-policy">Cancellation Policy</a>
+            <a href="{% url 'core:info' %}#become-an-affiliate">Become an Affiliate</a>
+            <a href="{% url 'core:info' %}#contact-us">Contact Us</a>
+        </div>
+        <div class="footer-right d-flex flex-column justify-content-end text-end fw-light">
+            <p class="web-service-text">Web services <a class="garett-link fw-normal" href="{% url 'core:contact-garett' %}">Garett Joseph</a></p>
+            <p class="copyright mb-0">&copy; 2025 <span class="title">Hawaii Travel Tips</span></p>
+        </div>
     </div>
 </footer>
