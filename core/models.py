@@ -16,7 +16,8 @@ class Category(models.Model):
     type = models.ForeignKey(Type, on_delete=models.CASCADE)
     is_popular = models.BooleanField(default=False)
     traffic = models.IntegerField(default=0)
-    header_element = models.CharField(max_length=60, blank=False)
+    page_title = models.CharField(max_length=80, default='Page Title')
+    page_description = models.TextField(default='Page Description')
 
     @property
     def total_bookings(self):
@@ -32,9 +33,16 @@ class Category(models.Model):
 
 class Island(models.Model):
     name = models.CharField(max_length=50, unique=True)
-    title = models.CharField(max_length=50, blank=True)
-    image_URL = models.URLField()
-    image_mobile_URL = models.URLField()
+    name_title = models.CharField(max_length=50, blank=True)
+    hero_URL = models.URLField()
+    hero_mobile_URL = models.URLField()
+    page_title = models.CharField(max_length=80, default='Page Title')
+    page_description = models.TextField(default='Page Description')
+    sm_featured_URL = models.URLField(blank=True)
+    sm_featured_company = models.CharField(max_length=50, blank=True)
+    lg_featured_URL = models.URLField(blank=True)
+    lg_featured_company = models.CharField(max_length=50, blank=True)
+
     modified = models.DateTimeField(auto_now=True)
 
     @property

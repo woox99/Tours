@@ -4,14 +4,14 @@
     <div class="island-links">
         {% for island in islands %}
         {% if island == current_island %}
-        <a class="selected" href="{% url 'core:change-island' island %}">{{island.title}}</a>
+        <a class="selected" href="{% url 'core:change-island' island %}">{{island.name}}</a>
         {% else %}
-        <a href="{% url 'core:change-island' island %}">{{island.title}}</a>
+        <a href="{% url 'core:change-island' island %}">{{island.name}}</a>
         {% endif %}
         {% endfor %}
     </div>
     <div class="hero-text">
-        <p class="island-name">{{ current_island.title }}</p>
+        <p class="island-name">{{ current_island.name_title }}</p>
         <p class="tagline">Begin your Hawaii adventure</p>
         <p class="title">HAWAII TRAVEL TIPS</p>
     </div>
@@ -30,7 +30,7 @@
         </div>
     </a>
     <picture>
-        <source media="(max-width: 600px)" srcset="{{ current_island.image_mobile_URL }}">
-        <img src="{{ current_island.image_URL }}" alt="Hero Image" fetchpriority="high">
+        <source media="(max-width: 600px)" srcset="{{ current_island.hero_mobile_URL }}">
+        <img src="{{ current_island.hero_URL }}" alt="Hero Image" fetchpriority="high">
     </picture>
 </header>
