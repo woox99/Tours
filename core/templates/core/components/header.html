@@ -71,7 +71,7 @@
     #main .sm-photo {
         width: 200px;
     }
-
+    
     @media (max-width: 768px) {
         #main .lg-photo{
             width: 150px;
@@ -80,11 +80,13 @@
             width: 120px;
         }
     }
-
+    
     #main .sm-photo-container {
         position: absolute;
         left: -160px;
         bottom: -50px;
+        transform-origin: center;
+        transform: rotate(-8deg);
     }
 
     @media (max-width: 768px) {
