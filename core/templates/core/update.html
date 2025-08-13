@@ -62,26 +62,26 @@
                     </select>
                 </div>
             </div>
-            <div>
+            <div class="py-4 d-flex flex-column gap-1">
                 <!-- fh_id -->
                 <div>
                     FareHarbor ID: {{booking.fh_id}}
                 </div>
-    
+
                 <!-- weight -->
                 <div>
                     Weight: {{booking.weight}}
                 </div>
-    
-    
+
+
                 <!-- referral_link -->
                 <label for="">
                     URL:
                     <a href="{{booking.referral_link}}&back=www.hawaiitraveltips.com">{{booking.referral_link}}</a>
                 </label>
-    
+
                 <hr>
-    
+
                 <!-- is_public -->
                 <input type="hidden" name="is_public" value="false">
                 <div>
@@ -90,7 +90,7 @@
                     {% else %}
                     <input type="checkbox" id="is_public" name="is_public" value="true">
                     {% endif %}
-                    <label for="is_public">Public</label>
+                    <label class="btn btn-outline-dark" for="is_public">Public</label>
                 </div>
                 <!-- is_pinned -->
                 <input type="hidden" name="is_pinned" value="false">
@@ -100,15 +100,15 @@
                     {% else %}
                     <input type="checkbox" id="is_pinned" name="is_pinned" value="true">
                     {% endif %}
-                    <label for="is_pinned">Pinned to Start</label>
+                    <label class="btn btn-outline-dark" for="is_pinned">Pinned to Start</label>
                 </div>
-    
+
                 <hr>
-    
+
                 <!-- company_name -->
                 <div>
                     <label for="company_name">Company Name</label>
-                    <input type="text" id="company_name" name="company_name" size="60" value="{{booking.company_name}}"
+                    <input type="text" id="company_name" name="company_name" size="45" value="{{booking.company_name}}"
                         disabled>
                 </div>
                 <!-- company_rating -->
@@ -123,9 +123,9 @@
                     <input type="text" id="company_reviews" name="company_reviews" value="{{booking.company_reviews}}"
                         size="10">
                 </div>
-    
+
                 <hr>
-    
+
                 <!-- title -->
                 <div>
                     <label for="title">Title</label>
@@ -154,7 +154,7 @@
                     <label for="details">Details</label>
                     <textarea name="details" id="details">{{booking.details}}</textarea>
                 </div>
-    
+
                 <hr>
 
                 <!-- duration -->
@@ -169,7 +169,7 @@
                 </div>
 
                 <hr>
-    
+
                 <!-- is_popular -->
                 <input type="hidden" name="is_popular" value="false">
                 <div class="d-flex align-items-center gap-2 mb-1">
@@ -202,7 +202,7 @@
                 </div>
                 <!-- promo_amount -->
                 <div>
-                    <input type="text" id="promo_amount" name="promo_amount" value="{{booking.promo_amount}}">
+                    <input class="text-center" type="text" id="promo_amount" name="promo_amount" value="{{booking.promo_amount}}" size="5">
                     <label for="promo_amount">OFF</label>
                 </div>
                 <!-- promo_code -->
@@ -216,11 +216,36 @@
             <!-- Save  -->
             <div class="buttons d-flex justify-content-end gap-2">
                 <button class="btn btn-primary">Save</button>
-                <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
+                <button type="button" class="btn btn-danger" data-bs-toggle="modal"
                     data-bs-target="#deleteModal{{booking.pk}}">
                     Delete
                 </button>
             </div>
+
+            <!-- Exit -->
+            <div class="exit-button">
+                {% if current_category == "None" %}
+                <a class="btn btn-warning px-4"
+                    href="{% url 'core:change-island' island=current_island %}?page={{page}}#{{booking.fh_id}}"
+                    class="text-light mt-3 text-decoration-none">Exit</a>
+                {% else %}
+                <a class="btn btn-warning px-4"
+                    href="{% url 'core:view-by-cat' island=current_island category=current_category %}?page={{page}}#{{booking.fh_id}}"
+                    class="text-light mt-3 text-decoration-none">Exit</a>
+                {% endif %}
+            </div>
         </form>
     </div>
+
+
+    <!-- Fareharbor Script only loads on desktop -->
+    <script>
+        window.addEventListener("load", () => {
+            if (window.innerWidth >= 768) {
+                const script = document.createElement('script');
+                script.src = "https://fareharbor.com/embeds/api/v1/?autolightframe=yes";
+                document.body.appendChild(script);
+            }
+        });
+    </script>
 </body>

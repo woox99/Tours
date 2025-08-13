@@ -83,6 +83,7 @@ def view_by_island(request, island):
 def info(request):
     context = {
         'islands': Island.objects.all().order_by('modified'),
+        'current_island': Island.objects.all().first(),
     }
     return render(request, 'core/info.html', context)
 

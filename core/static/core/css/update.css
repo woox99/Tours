@@ -9,6 +9,7 @@ body {
     padding: 0;
 }
 
+
 .card-container {
     position: fixed;
     top: 0;
@@ -50,5 +51,11 @@ select[name='category_ids']{
 .buttons{
     position: fixed;
     bottom: 20px;
+    right: 20px;
+}
+
+.exit-button{
+    position: fixed;
+    top: 20px;
     right: 20px;
 }
