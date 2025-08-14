@@ -40,7 +40,8 @@ def home(request):
         'current_island': island,
         'current_category' : None,
     }
-    return render(request, 'core/home_redirect.html',  context)
+    return redirect(f'/{island.name}/', permanent=True)
+    # return render(request, 'core/home_redirect.html',  context)
 
 
 def view_by_island(request, island):

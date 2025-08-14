@@ -3,14 +3,14 @@
 {% load static %}
 
 {% block head %}
-<meta http-equiv="refresh" content="0; URL=/{{current_island}}/" />
+<meta http-equiv="refresh" content="0; URL=/{{current_island.name|urlencode}}/" />
 <link rel="canonical" href="https://www.hawaiitraveltips.com/Oahu/" />
 <meta name="robots" content="noindex, follow">
 <title>Redirecting to beautiful {{current_island.name}}</title>
 {% endblock %}
 
 {% block main-content %}
-<div class="main-content px-lg-3">
+<!-- <div class="main-content px-lg-3">
     <div class="jumbotron mt-lg-4">
         <div class="hero-text">
             <p class="island-name">{{ current_island.title }}</p>
@@ -29,5 +29,5 @@
                 >
         </picture>
     </div>
-</div>
+</div> -->
 {% endblock %}
