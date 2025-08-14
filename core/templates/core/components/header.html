@@ -1,4 +1,4 @@
-<section class="header bg-dark text-light px-3 px-md-5">
+<section id="header" class="bg-dark text-light px-3 px-md-5">
     {% if not current_category %}
     <h1>{{current_island.page_title}}</h1>
     {% else %}
@@ -26,20 +26,14 @@
         {% if current_island.sm_featured_URL %}
         <div class="sm-photo-container d-flex flex-column">
             <img class="sm-photo" src="{{current_island.sm_featured_URL}}" alt="">
-            <span class="text-dark ms-1">{{current_island.sm_featured_company}}</span>
+            <span class="fw-semibold text-dark ms-1 text-center">{{current_island.sm_featured_company}}</span>
         </div>
         {% endif %}
         {% if current_island.lg_featured_URL %}
         <div class="d-flex flex-column">
-            <span class="fw-light me-2 text-end">{{current_island.lg_featured_company}}</span>
+            <span class="me-2 text-center">{{current_island.lg_featured_company}}</span>
             <img class="lg-photo" src="{{current_island.lg_featured_URL}}" alt="">
         </div>
         {% endif %}
     </div>
 </section>
-
-<!-- src="https://cdn.filestackcontent.com/resize=width:480,fit:max/output=format:webp,quality:50,strip:true,compress:true/8XOuPpykTUuTcZKWqe08" -->
-
-<!-- Discover unforgettable experiences on Oahu, from scenic boat tours, waterfall hikes,
-snorkeling with sea turtles, and more. Handpicked local guides, real-time availability, and easy
-booking—discover the best of Oahu now. -->

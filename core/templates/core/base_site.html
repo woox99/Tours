@@ -95,6 +95,8 @@
             justify-content: center;
             align-items: center;
             text-align: center;
+            /* places #hero above #header */
+            order: -1; 
         }
 
         /* Gradient */
@@ -262,20 +264,17 @@
 
 
 <body class="bg-body-tertiary">
-    <!-- Offcanvas (md screens)-->
-    {% include 'core/components/off_canvas.html' %}
-    <!-- Nav Bar -->
-    {% include "core/components/navbar.html" %}
-    <!-- Hero -->
-    {% if jumbotron %}
-    {% include 'core/components/hero.html' %}
-    {% endif %}
-
-    <!-- Main Content -->
-    <main id="main">
+    <header>
         <!-- Header -->
         {% include 'core/components/header.html' %}
-
+        <!-- Hero (placed above header in css)-->
+        {% if jumbotron %}
+        {% include 'core/components/hero.html' %}
+        {% endif %}
+    </header>
+    
+    <!-- Main Content -->
+    <main id="main">
         <!-- Buttons -->
         <div class="change-island my-3 d-block d-md-flex justify-content-center align-items-center text-center">
             <p class="fw-5 text-dark">Not the Island you are looking for?</p>
@@ -338,6 +337,10 @@
         </div>
     </main>
 
+    <!-- Nav Bar -->
+    {% include "core/components/navbar.html" %}
+    <!-- Offcanvas (md screens)-->
+    {% include 'core/components/off_canvas.html' %}
     <!-- Footer -->
     {% include 'core/components/footer.html' %}
 

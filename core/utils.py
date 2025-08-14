@@ -130,7 +130,7 @@ def get_search_results(request, island, query):
         ).distinct().order_by('weight')
     return results
 
-    #  # change booking image URL
+    #  ## CHANGING BOOKINGS
     # for booking in Booking.objects.all():
     #     # if 'filestackcontent.com/' in booking.image_URL and 'resize=width:500/' not in booking.image_URL:
     #     if 'filestackcontent.com/' in booking.image_URL:
@@ -143,7 +143,7 @@ def get_search_results(request, island, query):
 
 
 
-    # # Import Fareharbor csv data script
+    # # IMPORT FAREHARBOR FH.csv
     # path = 'core/fh.csv'
     # # with open(path, newline='', encoding='utf-8') as csvfile:
     # with open(path, newline='', encoding='utf-8-sig') as csvfile:

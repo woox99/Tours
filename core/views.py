@@ -14,17 +14,7 @@ import time #debug
 
 
 def home(request):
-    # bookings = Booking.objects.all()
-    # count = 0
-    # for booking in bookings:
-    #     if '&back=BACKLINK' in booking.referral_link:
-    #         booking.referral_link = booking.referral_link.replace(
-    #             '&back=BACKLINK',
-    #             '',
-    #         )
-    #         count += 1
-    #         print(booking.referral_link)
-    # print(count)
+
 
     if 'island' in request.session:
         try:
@@ -34,12 +24,12 @@ def home(request):
     else:
         island = Island.objects.all().order_by('modified').first()
 
-    context = {
-        'types' : filter_categories(island, request),
-        'islands': Island.objects.all().order_by('modified'),
-        'current_island': island,
-        'current_category' : None,
-    }
+    # context = {
+    #     'types' : filter_categories(island, request),
+    #     'islands': Island.objects.all().order_by('modified'),
+    #     'current_island': island,
+    #     'current_category' : None,
+    # }
     return redirect(f'/{island.name}/', permanent=True)
     # return render(request, 'core/home_redirect.html',  context)
 
@@ -50,7 +40,7 @@ def view_by_island(request, island):
     if not last_weight_randomization:
         last_weight_randomization = BookingRandomization.objects.create()
     last_weight_randomization_date = last_weight_randomization.date
-    if now() - last_weight_randomization_date > timedelta(days=1):
+    if now() - last_weight_randomization_date > timedelta(days=3):
         randomize_booking_weights()
 
     island = get_object_or_404(Island, name=island)
