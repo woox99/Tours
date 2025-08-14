@@ -64,7 +64,7 @@
             <div class="bg-white rounded-2 border p-4 mt-3 d-flex flex-column gap-2">
                 <h6 class="m-0">Please select an island and try again</h6>
                 {% for island in islands %}
-                <a href="{% url 'core:change-island' island %}">{{island.title}}</a>
+                <a href="{% url 'core:change-island' island %}">{{island.name_title}}</a>
                 {% endfor %}
             </div>
             <p class="px-3">If this keeps happening, please contact our <a href="{% url 'core:info' %}#contact-us">support team</a>.</p>

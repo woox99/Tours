@@ -62,7 +62,7 @@
     <!-- Manifest -->
     <link rel="manifest" href="{% static 'core/site.webmanifest' %}">
 
-    <link rel="stylesheet" href="{% static 'core/css/base_site_v2.css' %}">
+    <link rel="stylesheet" href="{% static 'core/css/base_site.css' %}">
 
     <!-- Preconnect Bootstrap-->
     <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
@@ -348,7 +348,7 @@
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"
         defer></script>
     <!-- Fareharbor Script only loads on desktop -->
-    <!-- <script>
+    <script>
         window.addEventListener("load", () => {
             if (window.innerWidth >= 768) {
                 const script = document.createElement('script');
@@ -356,7 +356,7 @@
                 document.body.appendChild(script);
             }
         });
-    </script> -->
+    </script>
 </body>
 
 </html>

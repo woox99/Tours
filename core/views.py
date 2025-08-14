@@ -23,15 +23,7 @@ def home(request):
             island = Island.objects.all().order_by('modified').first()
     else:
         island = Island.objects.all().order_by('modified').first()
-
-    # context = {
-    #     'types' : filter_categories(island, request),
-    #     'islands': Island.objects.all().order_by('modified'),
-    #     'current_island': island,
-    #     'current_category' : None,
-    # }
     return redirect(f'/{island.name}/', permanent=True)
-    # return render(request, 'core/home_redirect.html',  context)
 
 
 def view_by_island(request, island):
