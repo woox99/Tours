@@ -47,7 +47,9 @@
     <div class="d-flex flex-column gap-2 p-3" {% if not booking.is_public %}style="opacity: .6;"{% endif %}>
         <h2 class="title fw-semibold fs-6 m-0">{{booking.title}}</h2>
         <span class="city text-secondary">{{booking.city}}, {{booking.island}}</span>
+        {% if booking.details %}
         <p class="details">{{booking.details}}{% if booking.details %}<a class="ellipsis" href="{{booking.referral_link}}&back={{back_url}}" rel="sponsored">Learn More</a>{% endif %}</p>
+        {% endif %}
         <div class="tags d-flex gap-2 pe-2">
             {% for tag in booking.tags.all %}
             <div

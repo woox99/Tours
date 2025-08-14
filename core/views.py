@@ -14,17 +14,17 @@ import time #debug
 
 
 def home(request):
-    #  # change booking image URL
-    # for booking in Booking.objects.all():
-    #     # if 'filestackcontent.com/' in booking.image_URL and 'resize=width:500/' not in booking.image_URL:
-    #     if 'filestackcontent.com/' in booking.image_URL:
-    #         booking.image_URL = booking.image_URL.replace(
-    #             'filestackcontent.com/',
-    #             'filestackcontent.com/resize=width:720,fit:max/',
+    # bookings = Booking.objects.all()
+    # count = 0
+    # for booking in bookings:
+    #     if '&back=BACKLINK' in booking.referral_link:
+    #         booking.referral_link = booking.referral_link.replace(
+    #             '&back=BACKLINK',
+    #             '',
     #         )
-    #         # booking.save()
-    #     print(booking.image_URL)
-
+    #         count += 1
+    #         print(booking.referral_link)
+    # print(count)
 
     if 'island' in request.session:
         try:
@@ -175,6 +175,11 @@ def search_results(request, island):
 
 @staff_member_required
 def booking_update(request, pk):
+    island = request.GET.get('island')
+    category = request.GET.get('category')
+    page = request.GET.get('page')
+    back_url = f'www.hawaiitraveltips.com/{quote(island)}/'
+
     if request.method == 'GET':
         booking = get_object_or_404(Booking, pk=pk)
         context = {
@@ -185,15 +190,13 @@ def booking_update(request, pk):
             'current_island' : request.GET.get('island'),
             'page' : request.GET.get('page'),
             'current_category' : request.GET.get('category'),
+            'back_url': quote(back_url),
+
         }
         return render(request, 'core/update.html', context)
     else:
         booking = get_object_or_404(Booking, pk=pk)
         update_booking(request, booking)
-    
-    island = request.GET.get('island')
-    category = request.GET.get('category')
-    page = request.GET.get('page')
     return redirect(reverse('core:booking-update', kwargs={'pk':booking.pk}) + f'?island={island}&category={quote(category)}&page={page}')
 
 

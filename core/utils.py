@@ -105,7 +105,6 @@ def update_booking(request, booking):
 
     booking = update_booking_weight(booking)
     booking.save()
-    print(booking.is_public)
     return
 
 

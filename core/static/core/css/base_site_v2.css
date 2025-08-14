@@ -292,7 +292,7 @@ body p {
     position: relative;
     font-size: 15px;
     line-height: 22px;
-    max-height: 110px;
+    height: 110px;
     overflow: hidden;
     text-align: justify;
 }

@@ -6,12 +6,29 @@
     <meta charset="UTF-8">
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    {% if not current_category %}
     <meta name="description"
-        content="Discover the best tours and activities on {{current_island}}, including boat cruises, hiking adventures, and more. Book with trusted local providers now!">
+        content="{{current_island.page_description}}">
+    {% else %}
+    <meta name="description"
+        content="{{current_category.page_description}}">
+    {% endif %}
 
     <meta property="og:site_name" content="Hawaii Travel Tips">
-    <meta property="og:title" content="Best Things to Do in {{ current_island.name }}">
-    <meta property="og:description" content="Discover the best tours and activities on {{ current_island.name }}...">
+
+    {% if not current_category %}
+    <meta property="og:title" content="{{current_island.page_title}}">
+    {% else %}
+    <meta property="og:title" content="{{current_category.page_title}} in {{current_island.name}}">
+    {% endif %}
+
+    {% if not current_category %}
+    <meta property="og:description" content="{{current_island.page_description}}">
+    {% else %}
+    <meta property="og:description" content="{{current_category.page_description}}">
+    {% endif %}
+
     <meta property="og:image" content="{{ current_island.image_URL }}">
     <meta property="og:url" content="{{ request.build_absolute_uri }}">
 
@@ -22,13 +39,11 @@
     <link rel="canonical" href="{{ request.build_absolute_uri }}">
     {% endif %}
 
-    {% block head %}
     {% if not current_category %}
-    <title>Best Things to Do in {{current_island.name}}</title>
+    <title>{{current_island.page_title}}</title>
     {% else %}
-    <title>{{current_category.header_element}} in {{current_island.name}}</title>
+    <title>{{current_category.page_title}} in {{current_island.name}}</title>
     {% endif %}
-    {% endblock %}
 
     <!-- Standard favicons -->
     <link rel="icon" type="image/x-icon" href="https://hawaii-travel-tips.s3.us-east-2.amazonaws.com/favicon.ico">
@@ -90,8 +105,8 @@
             background: linear-gradient(rgba(0, 0, 0, 0.15), #00000080);
             z-index: -1;
         }
-        
-        
+
+
         #hero .island-links {
             position: absolute;
             z-index: 1;
@@ -100,7 +115,7 @@
             top: 15px;
         }
 
-        #hero .island-links .selected{
+        #hero .island-links .selected {
             text-decoration: underline;
             background-color: rgba(0, 0, 0, 0.7);
         }
@@ -330,7 +345,7 @@
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"
         defer></script>
     <!-- Fareharbor Script only loads on desktop -->
-    <script>
+    <!-- <script>
         window.addEventListener("load", () => {
             if (window.innerWidth >= 768) {
                 const script = document.createElement('script');
@@ -338,7 +353,7 @@
                 document.body.appendChild(script);
             }
         });
-    </script>
+    </script> -->
 </body>
 
 </html>
