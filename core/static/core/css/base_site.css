@@ -103,7 +103,18 @@ header {
     position: relative;
     padding-top: 70px;
     padding-bottom: 50px !important;
-    margin-bottom: 100px;
+    z-index: 2;
+    background-color: #131313 !important;
+}
+#header::before {
+    content: "";
+    position: absolute;
+    inset: 0; 
+    background-image: url("../assets/tribal_texture.png");
+    background-repeat: repeat-x;
+    background-size: 300px 300px;
+    opacity: 0.9;
+    z-index: -1;
 }
 
 @media (max-width: 1200px) {
@@ -200,6 +211,22 @@ header {
         left: -80px;
         bottom: -35px;
     }
+}
+
+/* Main */
+#main{
+    position: relative;
+    padding-top: 100px;
+}
+#main::before {
+    content: "";
+    position: absolute;
+    inset: 0; 
+    background-image: url("../assets/hibiscus_texture.webp");
+    background-repeat: repeat;
+    background-size: auto;
+    opacity: 0.03;
+    z-index: -1;
 }
 
 /* Booking Cards */
