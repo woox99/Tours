@@ -110,9 +110,9 @@ header {
     content: "";
     position: absolute;
     inset: 0; 
-    background-image: url("../assets/tribal_texture.png");
+    background-image: url("../assets/tribal_texture.webp");
     background-repeat: repeat-x;
-    background-size: 300px 300px;
+    background-size: 300px;
     opacity: 0.9;
     z-index: -1;
 }
