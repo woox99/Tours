@@ -1,5 +1,5 @@
 {% load static %}
-<section id="header" class="bg-dark text-light px-3 px-md-5 px-xl-3">
+<section id="header" class="bg-dark text-light px-3">
     {% if not current_category %}
     <h1>{{current_island.page_title}}</h1>
     {% else %}
@@ -23,7 +23,7 @@
     </details>
     {% endif %}
 
-    <div class="header-photos">
+    <!-- <div class="header-photos">
         {% if current_island.sm_featured_URL %}
         <div class="sm-photo-container d-flex flex-column">
             <img class="sm-photo" src="{{current_island.sm_featured_URL}}" alt="">
@@ -36,5 +36,5 @@
             <img class="lg-photo" src="{{current_island.lg_featured_URL}}" alt="">
         </div>
         {% endif %}
-    </div>
+    </div> -->
 </section>

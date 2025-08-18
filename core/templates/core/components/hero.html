@@ -2,33 +2,9 @@
 
 <div id="hero">
     <div class="hero-text">
-        <p class="island-name">{{ current_island.name_title }}</p>
-        <p class="tagline">Begin your Hawaii adventure</p>
-        <p class="title">HAWAII TRAVEL TIPS</p>
+        <span class="island-name">{{ current_island.name_title }}</span>
+        <span class="title">HAWAII TRAVEL TIPS</span>
     </div>
-    <div class="island-links">
-        {% for island in islands %}
-        {% if island == current_island %}
-        <a class="selected" href="{% url 'core:change-island' island %}">{{island.name}}</a>
-        {% else %}
-        <a href="{% url 'core:change-island' island %}">{{island.name}}</a>
-        {% endif %}
-        {% endfor %}
-    </div>
-    <a href="#header" class="explore-link">
-        <p class="d-flex align-items-start" style="font-size: 32px; font-weight: 700;">{{bookings.count}}<span
-                style="font-size: 28px;">+</span></p>
-        <p style="font-size: 14px;">Adventures to Choose From!</p>
-        <div class="d-flex align-items-end">
-            <p style="font-size: 14px; margin-top: 10px; text-decoration: underline;">Explore</p>
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                class="bi bi-arrow-down-short" viewBox="0 0 16 16">
-                <path fill-rule="evenodd"
-                    d="M8 4a.5.5 0 0 1 .5.5v5.793l2.146-2.147a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 1 1 .708-.708L7.5 10.293V4.5A.5.5 0 0 1 8 4" />
-            </svg>
-
-        </div>
-    </a>
     <picture>
         <source media="(max-width: 600px)" srcset="{{ current_island.hero_mobile_URL }}">
         <img src="{{ current_island.hero_URL }}" alt="Hero Image" fetchpriority="high">

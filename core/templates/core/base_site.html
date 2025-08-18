@@ -86,7 +86,8 @@
         #hero {
             position: relative;
             width: 100%;
-            height: calc(100vh - 60px);
+            /* height: calc(100vh - 60px); */
+            height: calc(100vh - 200px);
             overflow: hidden;
             display: flex;
             flex-direction: column;
@@ -105,43 +106,12 @@
             background: linear-gradient(rgba(0, 0, 0, 0.15), #00000080);
             z-index: -1;
         }
-
-
-        #hero .island-links {
-            position: absolute;
-            z-index: 1;
+        #hero .hero-text {
             display: flex;
-            gap: 15px;
-            top: 15px;
+            flex-direction: column;
         }
 
-        #hero .island-links .selected {
-            text-decoration: underline;
-            background-color: rgba(0, 0, 0, 0.7);
-        }
-
-        #hero .island-links a {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-
-            line-height: 1.2;
-            width: 125px;
-            text-decoration: none;
-            font-size: 14px;
-            color: white;
-            background-color: rgba(0, 0, 0, 0.5);
-            font-weight: 500;
-            padding: 8px;
-            border-radius: 9999px;
-            border: 1px solid #000000;
-        }
-
-        #hero .island-links a:hover {
-            background-color: rgba(0, 0, 0, .75);
-        }
-
-        #hero .hero-text p {
+        #hero .hero-text span {
             position: relative;
             z-index: 0;
             color: white;
@@ -149,44 +119,22 @@
         }
 
         #hero .island-name {
-            font-size: 150px;
-            font-weight: bold;
+            font-size: 125px;
+            font-weight: 800;
             line-height: 1;
+            text-transform: uppercase;
         }
 
-        #hero .tagline {
-            text-align: center;
-            color: white;
-            font-size: 4rem;
-            font-weight: 300;
-            margin-top: 1.5rem;
-        }
 
         #hero .title {
             text-align: center;
             color: white;
             font-weight: 600;
-            font-size: 22px;
+            font-size: 28px;
             letter-spacing: 3px;
         }
 
-        #hero .explore-link {
-            position: absolute;
-            left: 15px;
-            bottom: 15px;
-            text-decoration: none;
-            color: rgba(255, 255, 255, 0.9);
-            background-color: rgba(0, 0, 0, 0.65);
-            width: 160px;
-            height: 160px;
-            padding: 20px;
-            text-align: left;
-            border-radius: 10px;
-        }
 
-        #hero .explore-link:hover {
-            background-color: rgba(0, 0, 0, 0.75);
-        }
 
 
         @media (max-width: 992px) {
@@ -195,22 +143,9 @@
                 justify-content: start;
             }
 
-            #hero .island-links a {
-                width: unset;
-                padding: 8px 22px;
-                font-size: 12px;
-            }
-
-            #hero .explore-link {
-                left: 10px;
-                bottom: 10px;
-                height: 145px;
-                width: 145px;
-                padding: 10px;
-            }
-
             #hero .hero-text {
                 margin-top: 80px;
+                border: 1px solid red;
             }
 
             #hero .island-name {
@@ -218,17 +153,13 @@
                 font-size: 90px;
             }
 
-            #hero .tagline {
-                font-size: 38px;
-            }
+
 
             #hero .title {
                 font-size: 28px;
             }
 
-            #hero .island-links {
-                gap: 8px;
-            }
+
         }
 
         @media (max-width: 768px) {
@@ -237,9 +168,7 @@
                 font-size: 70px;
             }
 
-            #hero .tagline {
-                font-size: 28px;
-            }
+    
 
             #hero .title {
                 font-size: 18px;
@@ -275,8 +204,8 @@
     <!-- Main Content -->
     <main id="main" class="d-flex">
         <!-- Side Menu-->
-        <div id="side-menu" class="side-bar bg-white border-end d-none d-xl-flex flex-column py-4 ps-2">
-            <div class="d-flex flex-column">
+        <div id="side-menu" class="side-bar bg-white border-end d-none d-xl-flex flex-column pt-4 pb-5 ps-2">
+            <!-- <div class="d-flex flex-column">
                 <p class="type fs-5 ms-3 me-4 mt-2 mb-2 text-black" style="letter-spacing: 1.5px;">ISLAND</p>
                 {% for island in islands %}
                 {% if current_island == island %}
@@ -289,11 +218,11 @@
                 </a>
                 {% endif %}
                 {% endfor %}
-            </div>
+            </div> -->
 
             {% for type in types %}
             {% if type.filtered_categories %}
-            <hr class="mx-4 text-body-tertiary">
+            <!-- <hr class="mx-4 text-body-tertiary"> -->
             <p class="type fs-5 ps-3 py-2 m-0 text-black text-uppercase" style="letter-spacing: 1.5px;">{{type}}</p>
             {% endif %}
             {% for category in type.filtered_categories %}
@@ -315,7 +244,7 @@
 
         <div class="right">
             <!-- Buttons -->
-            <div class="change-island py-3 d-block d-xl-none text-center">
+            <!-- <div class="change-island py-3 d-block d-xl-none text-center">
                 <p class="fw-5 text-dark">Not the Island you are looking for?</p>
                 <span class="btn text-decoration-underline" data-bs-toggle="offcanvas"
                     data-bs-target="#offcanvas">{{current_island}}</span>
@@ -324,37 +253,14 @@
                 <div class="btn text-black text-decoration-underline" data-bs-toggle="offcanvas"
                     data-bs-target="#offcanvas">{{current_category}}</div>
                 {% endif %}
+            </div> -->
+            <div class="d-flex justify-content-center my-3 fw-semibold">
+                {% if current_category %}
+                <span>{{bookings.count}} results for {{current_island.name}} {{current_category}}</span>
+                {% else %}
+                <span>{{bookings.count}} results for {{current_island.name}}</span>
+                {% endif %}
             </div>
-
-            <!-- Next/Previous button -->
-            <!-- {% if not jumbotron %}
-            <div class="mb-3 d-flex justify-content-center">
-                <nav aria-label="pagination">
-                    <ul class="pagination m-0">
-                        {% if page_obj.has_previous %}
-                        <li class="page-item">
-                            <a class="page-link" rel="prev"
-                                href="?page={{ page_obj.previous_page_number }}">Previous</a>
-                        </li>
-                        {% else %}
-                        <li class="page-item disabled">
-                            <span class="page-link">Previous</span>
-                        </li>
-                        {% endif %}
-
-                        {% if page_obj.has_next %}
-                        <li class="page-item">
-                            <a class="page-link" rel="next" href="?page={{ page_obj.next_page_number }}">Next</a>
-                        </li>
-                        {% else %}
-                        <li class="page-item disabled">
-                            <a class="page-link" href="">Next</a>
-                        </li>
-                        {% endif %}
-                    </ul>
-                </nav>
-            </div>
-            {% endif %} -->
 
             <!-- Booking Cards -->
             <div id="booking-cards" class="d-flex flex-wrap gap-3 px-3">

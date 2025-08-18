@@ -1,5 +1,7 @@
+{% load static %}
 <!-- Nav Bar -->
-<nav id="navbar" class="px-3">
+<!-- Old Nav Bar -->
+<!-- <nav id="navbar" class="px-3">
     <button id="menu-toggle" class="btn d-xl-none d-flex justify-content-center align-items-center"
         aria-label="Open navigation menu" data-bs-toggle="offcanvas" data-bs-target="#offcanvas">
         <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
@@ -26,4 +28,40 @@
         </svg>
     </a>
     {% endif %}
+</nav> -->
+
+<!-- Nav Bar -->
+<nav id="navbar" class="px-3">
+    <a href="{% url 'core:change-island' 'oahu' %}" class="island-link">
+        <img src="{% static 'core/icons/oahu.webp' %}" alt="">
+        <div>
+            <span class="island">OAH'U</span>
+            <span class="city">WAIKIKI</span>
+        </div>
+    </a>
+    <a href="{% url 'core:change-island' 'big island' %}" class="island-link">
+        <img src="{% static 'core/icons/bigisland.webp' %}" alt="">
+        <div>
+            <span class="island">HAWAI'I</span>
+            <span class="city">BIG ISLAND</span>
+        </div>
+    </a>
+    <a class="logo-link" href="{% url 'core:home' %}">
+        <img class="logo" src="https://hawaii-travel-tips.s3.us-east-2.amazonaws.com/logo_mobile.webp"
+            alt="website logo">
+    </a>
+    <a href="{% url 'core:change-island' 'maui' %}" class="island-link">
+        <img src="{% static 'core/icons/maui.webp' %}" alt="">
+        <div>
+            <span class="island">MAUI</span>
+            <span class="city">KAHULUI</span>
+        </div>
+    </a>
+    <a href="{% url 'core:change-island' 'kauai' %}" class="island-link">
+        <img src="{% static 'core/icons/kauai.webp' %}" alt="">
+        <div>
+            <span class="island">KAUA'I</span>
+            <span class="city">LIHUE</span>
+        </div>
+    </a>
 </nav>
