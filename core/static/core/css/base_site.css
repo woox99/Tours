@@ -56,13 +56,6 @@ body p {
     height: 35px;
 }
 
-#navbar .logo-link {
-    /* position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%); */
-}
-
 #navbar .logo {
     height: 60px;
 }
@@ -103,12 +96,9 @@ body p {
     height: 40px;
 }
 
-#navbar .island-link .island {
-    /* color: white; */
-}
+
 
 #navbar .island-link .city {
-    /* color: white; */
     opacity: 0.7;
     font-size: 14px;
     letter-spacing: 1.5px;
@@ -278,7 +268,6 @@ header {
 /* Main */
 #main {
     position: relative;
-    /* padding-top: 100px; */
 }
 
 
@@ -294,16 +283,10 @@ header {
 
 #main .right {
     position: relative;
-    /* padding-top: 120px; */
     padding-bottom: 75px;
     width: 100%;
 }
 
-/* @media (max-width: 768px){
-    #main .right{
-        padding-top: 80px;
-    }
-} */
 
 #main .right::before {
     content: "";
