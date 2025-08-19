@@ -10,7 +10,7 @@ body {
 }
 
 
-.card-container {
+.update-card-container {
     position: fixed;
     top: 0;
     left: 0;
@@ -20,6 +20,7 @@ body {
 
 .booking-card {
     transform: scale(0.90);
+    width: 420px !important;
 }
 
 .right {

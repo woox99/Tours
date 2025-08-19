@@ -13,9 +13,10 @@ import csv # debug
 import time #debug
 
 
+def index(request):
+    return redirect('core:home', permanent=True)
+
 def home(request):
-
-
     if 'island' in request.session:
         try:
             island = Island.objects.get(name=request.session['island'])
@@ -23,7 +24,8 @@ def home(request):
             island = Island.objects.all().order_by('modified').first()
     else:
         island = Island.objects.all().order_by('modified').first()
-    return redirect(f'/{island.name}/', permanent=True)
+    print(island.name)
+    return redirect(f'/{island.name}/')
 
 
 def view_by_island(request, island):

@@ -183,12 +183,12 @@
         <!-- Header -->
         {% include 'core/components/header.html' %}
 
-        <!-- Hero (placed above header in css)-->
+        <!-- Hero (placed above #header in css)-->
         {% if jumbotron %}
         {% include 'core/components/hero.html' %}
         {% endif %}
 
-        <!-- Mobile Island Links -->
+        <!-- Mobile Island Links (placed above #hero in css) -->
         <div id="mobile-island-links" class="d-lg-none bg-none px-2">
             <a href="{% url 'core:change-island' 'oahu' %}" class="island-link d-flex d-lg-none">
                 <img src="{% static 'core/icons/oahu.webp' %}" alt="">
@@ -314,6 +314,13 @@
     {% include 'core/components/off_canvas.html' %}
     <!-- Footer -->
     {% include 'core/components/footer.html' %}
+    {% if user.is_authenticated %}
+    <!-- Admin Buttons -->
+    <div class="admin-buttons">
+        <a class="btn btn-warning border border-dark" href="/admin">Dashboard</a>
+        <a class="btn btn-warning border border-dark" href="{% url 'core:logout' current_island %}">Logout</a>
+    </div>
+    {% endif %}
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"

@@ -22,6 +22,14 @@ body p {
     margin: 0;
 }
 
+/* Admin Buttons */
+.admin-buttons{
+    position: fixed;
+    top: 70px;
+    right: 10px;
+    z-index: 2;
+}
+
 /* Nav Bar */
 #navbar {
     position: fixed;
@@ -316,13 +324,13 @@ header {
 }
 
 .booking-card {
-    width: 410px;
+    width: 32%;
     box-shadow: 0px 0px 5px #00000050;
 }
 
-@media (max-width: 992px) {
+@media (max-width: 1300px) {
     .booking-card {
-        width: 380px;
+        width: 47%;
     }
 }
 
@@ -332,9 +340,9 @@ header {
     }
 }
 
-@media (max-width: 500px) {
+@media (max-width: 576px) {
     .booking-card {
-        width: 95%;
+        width: 100%;
     }
 }
 
@@ -493,6 +501,16 @@ header {
     object-position: center;
 }
 
+#footer .fb-logo{
+    position: absolute;
+    top: -50px;
+    right: 15px;
+}
+#footer .fb-logo svg{
+    width: 35px;
+    height: auto;
+}
+
 #footer a {
     text-decoration: none;
     color: white;
@@ -515,14 +533,13 @@ header {
 }
 
 @media (max-width: 576px) {
-    #footer .container {
+    #footer .body{
+        padding-top: 3rem;
         flex-direction: column;
-        text-align: center;
-        padding-top: 2rem;
     }
 
     #footer .footer-right {
         text-align: center !important;
-        margin-top: 2rem;
+        margin-top: 3rem;
     }
 }

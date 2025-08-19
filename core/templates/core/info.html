@@ -59,11 +59,30 @@
     ]
     }
     </script>
+    <style>
+        #info .main {
+            position: relative;
+        }
+
+        #info .main::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("{% static 'core/assets/hibiscus_texture.webp' %}");
+            background-repeat: repeat;
+            background-size: auto;
+            opacity: 0.03;
+            z-index: -1;
+        }
+    </style>
 </head>
 
 
-<body class="bg-body-tertiary">
-    <div class="d-flex flex-column align-items-center bg-light">
+<body id="info" class="bg-light">
+    <div class="main d-flex flex-column align-items-center mb-5">
         <!-- SEO -->
         <h1 class="visually-hidden">Contact Hawaii Travel Tips - Ask Questions or Become a Partner</h1>
 
@@ -76,7 +95,7 @@
             <!-- Info Cards -->
             <div class="mt-4 border rounded-2 py-3 px-4 bg-white">
                 <p class="fs-4 mt-3">Small Team, Big Mission</p>
-                <p class="text-secondary">At Hawaii Travel Tips, our mission is to make your Hawaiian adventure
+                <p class="text-secondary my-2">At Hawaii Travel Tips, our mission is to make your Hawaiian adventure
                     unforgettable by connecting you with the best tours and activities across all the islands. From
                     thrilling outdoor excursions to cultural experiences and relaxing getaways, we’re here to help you
                     discover the true spirit of Aloha with ease, trust, and local insight.</p>
@@ -86,12 +105,13 @@
             <!-- Cancellation Policy -->
             <div class="mt-5 border rounded-2 py-3 px-4 bg-white">
                 <p class="fs-2 text-theme fw-bold">Cancellation Policy</p>
-                <p class="fs-4 mt-3">Need to cancel your reservation?</p>
-                <p class="text-secondary mb-2">Your peace of mind is important to us. Since we do not process payments
+                <p class="fs-4 mt-3 mb-2">Need to cancel your reservation?</p>
+                <p class="text-secondary">Your peace of mind is important to us. Since we do not process payments
                     directly, all cancellations must be handled through the individual tour or activity provider you
                     booked with. Each provider has their own cancellation and refund policy, so we recommend reviewing
                     their terms carefully before booking.</p>
-                <p class="text-secondary">If you need help finding contact information or have questions, feel free to
+                <p class="text-secondary my-2">If you need help finding contact information or have questions, feel free
+                    to
                     reach out—we’re happy to assist however we can.</p>
                 <a href="#contact-us">Ask for Help</a>
             </div>
@@ -100,10 +120,10 @@
             <div class="mt-5 border rounded-2 py-3 px-4  bg-white">
                 <p class="fs-2 text-theme fw-bold">Become an Affiliate</p>
                 <p class="fs-4 mt-3">Want to become part of our ohana?</p>
-                <p class="text-secondary mb-2">Partnering with us is completely free—and a great way to grow your
+                <p class="text-secondary mt-2">Partnering with us is completely free—and a great way to grow your
                     visibility across multiple booking platforms. We welcome businesses that align with our mission to
                     share the spirit of Hawaiʻi through unforgettable experiences.</p>
-                <p class="text-secondary">If you’re passionate about providing quality tours or activities on the
+                <p class="text-secondary my-2">If you’re passionate about providing quality tours or activities on the
                     islands, we’d love to hear from you.</p>
                 <a href="#contact-us">Contact Us to Learn More </a>
             </div>

@@ -8,7 +8,8 @@ app_name = 'core'
 urlpatterns = [
     path("robots.txt", TemplateView.as_view(template_name="core/robots.txt", content_type="text/plain")),
     path('robots.txt/', RedirectView.as_view(url='/robots.txt', permanent=True)),
-    path('', views.home, name='home'),
+    path('', views.index, name='index'),
+    path('home/', views.home, name='home'),
     path('info/', views.info, name='info'),
     path('booking-update/<int:pk>/', views.booking_update, name='booking-update'),
     path('booking-delete/<int:pk>/', views.booking_delete, name='booking-delete'),

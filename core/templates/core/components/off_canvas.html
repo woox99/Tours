@@ -11,7 +11,7 @@
                 {% for island in islands %}
                 {% if current_island == island %}
                 <a href="{% url 'core:change-island' island %}"
-                    class="category ps-4 fs-6 py-1 text-decoration-underline"><i class="bi bi-dot"></i>{{island}}
+                    class="category ps-4 fs-6 py-1 text-decoration-underline">{{island}}
                 </a>
                 {% else %}
                 <a href="{% url 'core:change-island' island %}"
