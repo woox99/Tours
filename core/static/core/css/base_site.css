@@ -46,6 +46,8 @@ body p {
 
 
 #navbar button {
+    position: absolute;
+    left: 1rem;
     border: none;
     background-color: #ffffff;
     font-size: 28px;
@@ -61,6 +63,9 @@ body p {
 }
 
 @media (max-width: 992px) {
+    #navbar{
+        justify-content: center;
+    }
     #navbar .logo {
         height: 50px;
     }
@@ -123,7 +128,7 @@ body p {
     justify-content: center;
     align-items: center;
     text-decoration: none;
-    color: black;
+    color: white;
     height: 100%;
     gap: 1rem;
     font-weight: 800;
@@ -132,11 +137,17 @@ body p {
 }
 
 #mobile-island-links img {
-    height: 30px;
+    height: 22px !important;
+}
+#mobile-island-links .hawaii{
+    height: 25px !important;
+}
+#mobile-island-links .kauai{
+    height: 20px !important;
 }
 
 #mobile-island-links .island-link .city {
-    opacity: 0.7;
+    opacity: 0.6 !important;
     font-size: 12px;
     letter-spacing: 1.5px;
 }
@@ -148,8 +159,7 @@ body p {
 
     #mobile-island-links .island-link {
         gap: 5px;
-        font-weight: 800;
-        line-height: 14px;
+        line-height: 11px;
         font-size: 10px;
     }
 
@@ -159,7 +169,7 @@ body p {
 
     #mobile-island-links .island-link .city {
         opacity: 0.7;
-        font-size: 8px;
+        font-size: 9px;
         letter-spacing: 1px;
     }
 }

@@ -86,7 +86,8 @@
         #hero {
             position: relative;
             width: 100%;
-            height: calc(100vh - 200px);
+            /* height: calc(100vh - 200px); */
+            height: 375px;
             overflow: hidden;
             display: flex;
             flex-direction: column;
@@ -189,16 +190,16 @@
         {% endif %}
 
         <!-- Mobile Island Links (placed above #hero in css) -->
-        <div id="mobile-island-links" class="d-lg-none bg-none px-2">
+        <div id="mobile-island-links" class="d-lg-none bg-none px-2 bg-dark">
             <a href="{% url 'core:change-island' 'oahu' %}" class="island-link d-flex d-lg-none">
                 <img src="{% static 'core/icons/oahu.webp' %}" alt="">
                 <div>
-                    <span class="island">OAH'U</span>
+                    <span class="island">O'AHU</span>
                     <span class="city">WAIKIKI</span>
                 </div>
             </a>
             <a href="{% url 'core:change-island' 'big island' %}" class="island-link d-flex d-lg-none">
-                <img src="{% static 'core/icons/bigisland.webp' %}" alt="">
+                <img class="hawaii" src="{% static 'core/icons/bigisland.webp' %}" alt="">
                 <div>
                     <span class="island">HAWAI'I</span>
                     <span class="city">BIG ISLAND</span>
@@ -212,7 +213,7 @@
                 </div>
             </a>
             <a href="{% url 'core:change-island' 'kauai' %}" class="island-link d-flex d-lg-none">
-                <img src="{% static 'core/icons/kauai.webp' %}" alt="">
+                <img class="kauai" src="{% static 'core/icons/kauai.webp' %}" alt="">
                 <div>
                     <span class="island">KAUA'I</span>
                     <span class="city">LIHUE</span>

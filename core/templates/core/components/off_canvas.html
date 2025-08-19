@@ -5,22 +5,6 @@
     </div>
     <div class="offcanvas-body py-0 pb-5">
         <div class="d-flex flex-column">
-            <div class="d-flex flex-column">
-                <p class="type fs-5 ms-3 me-4 mt-4 mb-2 text-black text-uppercase" style="letter-spacing: 1.5px;">
-                    Island</p>
-                {% for island in islands %}
-                {% if current_island == island %}
-                <a href="{% url 'core:change-island' island %}"
-                    class="category ps-4 fs-6 py-1 text-decoration-underline">{{island}}
-                </a>
-                {% else %}
-                <a href="{% url 'core:change-island' island %}"
-                    class="category ps-4 fs-6 py-1 fw-light text-black">{{island}}
-                </a>
-                {% endif %}
-                {% endfor %}
-            </div>
-
             {% for type in types %}
             {% if type.filtered_categories %}
             <p class="type fs-5 ps-3 py-2 m-0 mt-3 text-uppercase" style="letter-spacing: 1.5px;">{{type}}</p>
