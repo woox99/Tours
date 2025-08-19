@@ -60,7 +60,7 @@
     <!-- Manifest -->
     <link rel="manifest" href="{% static 'core/site.webmanifest' %}">
 
-    <link rel="stylesheet" href="{% static 'core/css/base_site.css' %}?v=4">
+    <link rel="stylesheet" href="{% static 'core/css/base_site.css' %}?v=6">
 
     <!-- Preconnect Bootstrap-->
     <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
@@ -87,7 +87,7 @@
             position: relative;
             width: 100%;
             /* height: calc(100vh - 200px); */
-            height: 375px;
+            height: 500px;
             overflow: hidden;
             display: flex;
             flex-direction: column;
@@ -190,8 +190,8 @@
         {% endif %}
 
         <!-- Mobile Island Links (placed above #hero in css) -->
-        <div id="mobile-island-links" class="d-lg-none bg-none px-2 bg-dark">
-            <a href="{% url 'core:change-island' 'oahu' %}" class="island-link d-flex d-lg-none">
+        <div id="mobile-island-links" class="d-lg-none bg-none bg-light">
+            <a href="{% url 'core:change-island' 'Oahu' %}" class="island-link d-flex d-lg-none">
                 <img src="{% static 'core/icons/oahu.webp' %}" alt="">
                 <div>
                     <span class="island">O'AHU</span>
