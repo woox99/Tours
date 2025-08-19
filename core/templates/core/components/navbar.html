@@ -1,8 +1,21 @@
 {% load static %}
 <!-- Nav Bar -->
-<!-- Old Nav Bar -->
-<!-- <nav id="navbar" class="px-3">
-    <button id="menu-toggle" class="btn d-xl-none d-flex justify-content-center align-items-center"
+<nav id="navbar" class="px-3">
+    <a href="{% url 'core:change-island' 'oahu' %}" class="island-link d-none d-lg-flex">
+        <img src="{% static 'core/icons/oahu.webp' %}" alt="">
+        <div>
+            <span class="island">OAH'U</span>
+            <span class="city">WAIKIKI</span>
+        </div>
+    </a>
+    <a href="{% url 'core:change-island' 'big island' %}" class="island-link d-none d-lg-flex">
+        <img src="{% static 'core/icons/bigisland.webp' %}" alt="">
+        <div>
+            <span class="island">HAWAI'I</span>
+            <span class="city">BIG ISLAND</span>
+        </div>
+    </a>
+    <button id="menu-toggle" class="btn d-lg-none d-flex justify-content-center align-items-center p-0"
         aria-label="Open navigation menu" data-bs-toggle="offcanvas" data-bs-target="#offcanvas">
         <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
             <path fill-rule="evenodd"
@@ -13,51 +26,22 @@
         <img class="logo" src="https://hawaii-travel-tips.s3.us-east-2.amazonaws.com/logo_mobile.webp"
             alt="website logo">
     </a>
-    {% if user.is_authenticated %}
-    <div class="d-flex gap-2">
-        <a href="/admin" class="btn btn-warning">Dashboard</a>
-        <a href="{% url 'core:logout' current_island %}" class="btn btn-warning">Logout</a>
-    </div>
-    {% else %}
-    <a href="https://www.facebook.com/groups/1747780178610364" target="_blank" aria-label="Join our Facebook group"
-        rel="noopener noreferrer">
+    <a href="https://www.facebook.com/groups/1747780178610364" class="d-lg-none" target="_blank"
+        aria-label="Join our Facebook group" rel="noopener noreferrer">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
             class="bi bi-facebook text-primary" viewBox="0 0 16 16">
             <path
                 d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951" />
         </svg>
     </a>
-    {% endif %}
-</nav> -->
-
-<!-- Nav Bar -->
-<nav id="navbar" class="px-3">
-    <a href="{% url 'core:change-island' 'oahu' %}" class="island-link">
-        <img src="{% static 'core/icons/oahu.webp' %}" alt="">
-        <div>
-            <span class="island">OAH'U</span>
-            <span class="city">WAIKIKI</span>
-        </div>
-    </a>
-    <a href="{% url 'core:change-island' 'big island' %}" class="island-link">
-        <img src="{% static 'core/icons/bigisland.webp' %}" alt="">
-        <div>
-            <span class="island">HAWAI'I</span>
-            <span class="city">BIG ISLAND</span>
-        </div>
-    </a>
-    <a class="logo-link" href="{% url 'core:home' %}">
-        <img class="logo" src="https://hawaii-travel-tips.s3.us-east-2.amazonaws.com/logo_mobile.webp"
-            alt="website logo">
-    </a>
-    <a href="{% url 'core:change-island' 'maui' %}" class="island-link">
+    <a href="{% url 'core:change-island' 'maui' %}" class="island-link d-none d-lg-flex">
         <img src="{% static 'core/icons/maui.webp' %}" alt="">
         <div>
             <span class="island">MAUI</span>
             <span class="city">KAHULUI</span>
         </div>
     </a>
-    <a href="{% url 'core:change-island' 'kauai' %}" class="island-link">
+    <a href="{% url 'core:change-island' 'kauai' %}" class="island-link d-none d-lg-flex">
         <img src="{% static 'core/icons/kauai.webp' %}" alt="">
         <div>
             <span class="island">KAUA'I</span>

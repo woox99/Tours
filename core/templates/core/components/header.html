@@ -1,5 +1,5 @@
 {% load static %}
-<section id="header" class="bg-dark text-light px-3">
+<section id="header" class="bg-dark text-light">
     {% if not current_category %}
     <h1>{{current_island.page_title}}</h1>
     {% else %}
@@ -22,19 +22,4 @@
         {% endif %}
     </details>
     {% endif %}
-
-    <!-- <div class="header-photos">
-        {% if current_island.sm_featured_URL %}
-        <div class="sm-photo-container d-flex flex-column">
-            <img class="sm-photo" src="{{current_island.sm_featured_URL}}" alt="">
-            <span class="fw-semibold text-dark ms-1 text-center">{{current_island.sm_featured_company}}</span>
-        </div>
-        {% endif %}
-        {% if current_island.lg_featured_URL %}
-        <div class="d-flex flex-column">
-            <span class="me-2 text-center">{{current_island.lg_featured_company}}</span>
-            <img class="lg-photo" src="{{current_island.lg_featured_URL}}" alt="">
-        </div>
-        {% endif %}
-    </div> -->
 </section>

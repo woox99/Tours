@@ -86,7 +86,6 @@
         #hero {
             position: relative;
             width: 100%;
-            /* height: calc(100vh - 60px); */
             height: calc(100vh - 200px);
             overflow: hidden;
             display: flex;
@@ -106,9 +105,11 @@
             background: linear-gradient(rgba(0, 0, 0, 0.15), #00000080);
             z-index: -1;
         }
+
         #hero .hero-text {
             display: flex;
             flex-direction: column;
+            justify-content: center;
         }
 
         #hero .hero-text span {
@@ -123,6 +124,7 @@
             font-weight: 800;
             line-height: 1;
             text-transform: uppercase;
+            margin: 0;
         }
 
 
@@ -135,43 +137,29 @@
         }
 
 
-
-
         @media (max-width: 992px) {
             #hero {
-                height: 480px;
-                justify-content: start;
-            }
-
-            #hero .hero-text {
-                margin-top: 80px;
-                border: 1px solid red;
+                height: 380px;
             }
 
             #hero .island-name {
-                margin-top: 2rem;
                 font-size: 90px;
             }
-
-
-
-            #hero .title {
-                font-size: 28px;
-            }
-
-
         }
 
         @media (max-width: 768px) {
             #hero .island-name {
-                margin-top: 2rem;
                 font-size: 70px;
             }
+        }
 
-    
+        @media (max-width: 576px) {
+            #hero .island-name {
+                font-size: 50px;
+            }
 
             #hero .title {
-                font-size: 18px;
+                font-size: 16px;
             }
         }
 
@@ -195,34 +183,50 @@
         <!-- Header -->
         {% include 'core/components/header.html' %}
 
-        {% if jumbotron %}
         <!-- Hero (placed above header in css)-->
+        {% if jumbotron %}
         {% include 'core/components/hero.html' %}
         {% endif %}
+
+        <!-- Mobile Island Links -->
+        <div id="mobile-island-links" class="d-lg-none bg-none px-2">
+            <a href="{% url 'core:change-island' 'oahu' %}" class="island-link d-flex d-lg-none">
+                <img src="{% static 'core/icons/oahu.webp' %}" alt="">
+                <div>
+                    <span class="island">OAH'U</span>
+                    <span class="city">WAIKIKI</span>
+                </div>
+            </a>
+            <a href="{% url 'core:change-island' 'big island' %}" class="island-link d-flex d-lg-none">
+                <img src="{% static 'core/icons/bigisland.webp' %}" alt="">
+                <div>
+                    <span class="island">HAWAI'I</span>
+                    <span class="city">BIG ISLAND</span>
+                </div>
+            </a>
+            <a href="{% url 'core:change-island' 'maui' %}" class="island-link d-flex d-lg-none">
+                <img src="{% static 'core/icons/maui.webp' %}" alt="">
+                <div>
+                    <span class="island">MAUI</span>
+                    <span class="city">KAHULUI</span>
+                </div>
+            </a>
+            <a href="{% url 'core:change-island' 'kauai' %}" class="island-link d-flex d-lg-none">
+                <img src="{% static 'core/icons/kauai.webp' %}" alt="">
+                <div>
+                    <span class="island">KAUA'I</span>
+                    <span class="city">LIHUE</span>
+                </div>
+            </a>
+        </div>
     </header>
 
     <!-- Main Content -->
     <main id="main" class="d-flex">
         <!-- Side Menu-->
-        <div id="side-menu" class="side-bar bg-white border-end d-none d-xl-flex flex-column pt-4 pb-5 ps-2">
-            <!-- <div class="d-flex flex-column">
-                <p class="type fs-5 ms-3 me-4 mt-2 mb-2 text-black" style="letter-spacing: 1.5px;">ISLAND</p>
-                {% for island in islands %}
-                {% if current_island == island %}
-                <a href="{% url 'core:change-island' island %}"
-                    class="category ps-4 fs-6 py-1 text-black text-decoration-underline">{{island}}
-                </a>
-                {% else %}
-                <a href="{% url 'core:change-island' island %}"
-                    class="category ps-4 fs-6 py-1 fw-light text-black text-decoration-none">{{island}}
-                </a>
-                {% endif %}
-                {% endfor %}
-            </div> -->
-
+        <div id="side-menu" class="side-bar bg-white border-end d-none d-lg-flex flex-column pt-4 pb-5 ps-2">
             {% for type in types %}
             {% if type.filtered_categories %}
-            <!-- <hr class="mx-4 text-body-tertiary"> -->
             <p class="type fs-5 ps-3 py-2 m-0 text-black text-uppercase" style="letter-spacing: 1.5px;">{{type}}</p>
             {% endif %}
             {% for category in type.filtered_categories %}
@@ -243,17 +247,6 @@
         </div>
 
         <div class="right">
-            <!-- Buttons -->
-            <!-- <div class="change-island py-3 d-block d-xl-none text-center">
-                <p class="fw-5 text-dark">Not the Island you are looking for?</p>
-                <span class="btn text-decoration-underline" data-bs-toggle="offcanvas"
-                    data-bs-target="#offcanvas">{{current_island}}</span>
-                {% if current_category %}
-                <span class="">|</span>
-                <div class="btn text-black text-decoration-underline" data-bs-toggle="offcanvas"
-                    data-bs-target="#offcanvas">{{current_category}}</div>
-                {% endif %}
-            </div> -->
             <div class="d-flex justify-content-center my-3 fw-semibold">
                 {% if current_category %}
                 <span>{{bookings.count}} results for {{current_island.name}} {{current_category}}</span>
@@ -268,6 +261,7 @@
                 {% include "core/components/booking_card.html" %}
                 {% endfor %}
             </div>
+
             <!-- Pagination Bar -->
             <div class="mt-4 pb-5 d-flex justify-content-center">
                 <nav aria-label="pagination">
