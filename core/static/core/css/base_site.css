@@ -147,7 +147,7 @@ body p {
 }
 
 #mobile-island-links .island-link .city {
-    opacity: 0.5 !important;
+    opacity: 0.75 !important;
     font-size: 12px;
     letter-spacing: 1.5px;
 }
@@ -162,12 +162,6 @@ body p {
 
     #mobile-island-links img {
         height: 23px;
-    }
-
-    #mobile-island-links .island-link .city {
-        opacity: 0.75;
-        font-size: 9px;
-        letter-spacing: 1px;
     }
 }
 
@@ -216,7 +210,7 @@ header {
     content: "";
     position: absolute;
     inset: 0;
-    background-image: url("../assets/hibiscus_dark_texture.webp");
+    background-image: url("../assets/textures/hibiscus_dark.webp");
     background-repeat: no-repeat;
     background-size: 300px;
     background-position: center;
@@ -299,7 +293,7 @@ header {
     content: "";
     position: absolute;
     inset: 0;
-    background-image: url("../assets/hibiscus_texture.webp");
+    background-image: url("../assets/textures/hibiscus.webp");
     background-repeat: repeat;
     background-size: auto;
     opacity: 0.03;

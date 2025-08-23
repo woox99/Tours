@@ -192,31 +192,34 @@
         <!-- Mobile Island Links (placed above #hero in css) -->
         <div id="mobile-island-links" class="d-lg-none bg-none bg-light">
             <a href="{% url 'core:change-island' 'Oahu' %}" class="island-link d-flex d-lg-none">
-                <img src="{% static 'core/icons/oahu.webp' %}" alt="">
+                <img src="{% static 'core/assets/icons/oahu.webp' %}" alt="">
                 <div>
                     <span class="island">O'AHU</span>
-                    <span class="city">WAIKIKI</span>
+                    <span class="city d-none d-sm-block">WAIKIKI</span>
                 </div>
             </a>
+            <span class="text-secondary d-flex align-items-center">|</span>
             <a href="{% url 'core:change-island' 'big island' %}" class="island-link d-flex d-lg-none">
-                <img class="hawaii" src="{% static 'core/icons/bigisland.webp' %}" alt="">
+                <img class="hawaii" src="{% static 'core/assets/icons/bigisland.webp' %}" alt="">
                 <div>
                     <span class="island">HAWAI'I</span>
-                    <span class="city">BIG ISLAND</span>
+                    <span class="city d-none d-sm-block">BIG ISLAND</span>
                 </div>
             </a>
+            <span class="text-secondary d-flex align-items-center">|</span>
             <a href="{% url 'core:change-island' 'maui' %}" class="island-link d-flex d-lg-none">
-                <img src="{% static 'core/icons/maui.webp' %}" alt="">
+                <img src="{% static 'core/assets/icons/maui.webp' %}" alt="">
                 <div>
                     <span class="island">MAUI</span>
-                    <span class="city">KAHULUI</span>
+                    <span class="city d-none d-sm-block">KAHULUI</span>
                 </div>
             </a>
+            <span class="text-secondary d-flex align-items-center">|</span>
             <a href="{% url 'core:change-island' 'kauai' %}" class="island-link d-flex d-lg-none">
-                <img class="kauai" src="{% static 'core/icons/kauai.webp' %}" alt="">
+                <img class="kauai" src="{% static 'core/assets/icons/kauai.webp' %}" alt="">
                 <div>
                     <span class="island">KAUA'I</span>
-                    <span class="city">LIHUE</span>
+                    <span class="city d-none d-sm-block">LIHUE</span>
                 </div>
             </a>
         </div>
@@ -228,7 +231,7 @@
         <div id="side-menu" class="side-bar bg-white border-end d-none d-lg-flex flex-column pt-4 pb-5 ps-2">
             {% for type in types %}
             {% if type.filtered_categories %}
-            <p class="type fs-5 ps-3 py-2 m-0 text-black text-uppercase" style="letter-spacing: 1.5px;">{{type}}</p>
+            <p class="type fs-5 ps-3 py-2 m-0 text-black fw-semibold text-uppercase" style="letter-spacing: 1.5px;">{{type}}</p>
             {% endif %}
             {% for category in type.filtered_categories %}
             {% if current_category == category %}

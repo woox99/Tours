@@ -1,18 +1,22 @@
-
 <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvas" aria-labelledby="offcanvas">
     <div class="offcanvas-header">
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body py-0 pb-5">
         <div class="d-flex flex-column">
+            <p class="type fs-5 ps-3 py-2 m-0 mt-3 text-uppercase fw-semibold" style="letter-spacing: 1.5px;">ISLAND</p>
+            {% for island in islands %}
+            <a href="{% url 'core:change-island' island=island.name %}"
+                class="category ps-4 fs-6 py-1 fw-light text-black">{{island.name}}</a>
+            {% endfor %}
+
             {% for type in types %}
             {% if type.filtered_categories %}
-            <p class="type fs-5 ps-3 py-2 m-0 mt-3 text-uppercase" style="letter-spacing: 1.5px;">{{type}}</p>
+            <p class="type fs-5 fw-semibold ps-3 py-2 m-0 mt-3 text-uppercase" style="letter-spacing: 1.5px;">{{type}}</p>
             {% endif %}
             {% for category in type.filtered_categories %}
             {% if current_category == category %}
-            <p class="m-0 ps-4 fs-6 py-1 text-decoration-underline"><i
-                    class="bi bi-dot"></i>{{category}}
+            <p class="m-0 ps-4 fs-6 py-1 text-decoration-underline">{{category}}
             </p>
             {% elif category.is_popular %}
             <a href="{% url 'core:change-cat' current_island category %}"
