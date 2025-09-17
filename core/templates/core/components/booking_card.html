@@ -1,99 +1,71 @@
-
-
 <article id="{{booking.fh_id}}" class="booking-card border bg-white">
     <!-- Image -->
-    <a class="text-decoration-none" href="{{booking.referral_link}}&back={{back_url}}" rel="sponsored" aria-label="View details for {{ booking.title }}">
-        <div class="image-container py-1 px-2 d-flex flex-column justify-content-between">
-            <div class="company-info text-white">
-                <span class="company-name">{{booking.company_name}}</span>
+    <a class="text-decoration-none" href="{{booking.referral_link}}&back={{back_url}}" rel="sponsored"
+        aria-label="View details for {{ booking.title }}">
+        <div class="image-container p-3">
+            <div class="company-info text-white rounded px-2 py-1">
                 <div class="d-flex flex-column">
                     {% if booking.company_rating %}
                     {% include 'core/components/star_rating.html' %}
                     {% endif %}
                     {% if booking.company_reviews %}
-                    <span class="company-reviews">{{booking.company_reviews}} Google Reviews</span>
+                    <span class="fs-xs">{{booking.company_reviews}} Google Reviews</span>
                     {% endif %}
                 </div>
-            </div>
-            <div class="badges d-flex justify-content-end gap-2">
-                {% if booking.is_promo %}
-                <div class="promo-badge bg-theme rounded-1 text-white py-1 px-2 fw-semibold">
-                    {{booking.promo_amount}} OFF Promo Code
-                </div>
-                {% endif %}
-                {% if booking.is_popular %}
-                <div class="popular bg-primary rounded-1 text-white py-1 px-2 fw-semibold">Popular!
-                </div>
-                {% endif %}
             </div>
             <img src="{{booking.image_URL}}" alt="{{booking.title}}">
         </div>
     </a>
     <!-- Card Body -->
-    <div class="d-flex flex-column gap-2 p-3" {% if not booking.is_public %}style="opacity: .6;"{% endif %}>
-        <h2 class="title fw-semibold fs-6 m-0">{{booking.title}}</h2>
-        <span class="city text-secondary">{{booking.city}}, {{booking.island}}</span>
+    <div class="d-flex flex-column gap-2 p-3" {% if not booking.is_public %}style="opacity: .6;" {% endif %}>
+        <div class="d-flex justify-content-between">
+            <p class="company-name fw-semibold text-secondary">{{booking.company_name}}</p>
+            <div class="badges">
+                {% if booking.is_popular %}
+                <span class="px-2 py-1 rounded-pill text-primary bg-primary-subtle">Popular</span>
+                {% endif %}
+                {% if booking.is_promo %}
+                <span class="px-2 py-1 rounded-pill text-primary bg-primary-subtle">Promo</span>
+                {% endif %}
+            </div>
+        </div>
+        <h2 class="title fw-bold">{{booking.title}}</h2>
         {% if booking.details %}
-        <p class="details">{{booking.details}}{% if booking.details %}<a class="ellipsis" href="{{booking.referral_link}}&back={{back_url}}" rel="sponsored" aria-label="Learn more about {{ booking.title }}">Learn More</a>{% endif %}</p>
+        <p class="details">{{booking.details}}</p>
         {% endif %}
-        <div class="tags d-flex gap-2 pe-2">
-            {% for tag in booking.tags.all %}
-            <div
-                class="tag bg-body-tertiary text-black rounded-1 d-flex align-items-center justify-content-center py-1 px-2">
-                {{tag}}
-            </div>
-            {% endfor %}
-        </div>
-        <div class="d-flex justify-content-around mt-3">
-            {% if booking.duration %}
-            <div class="d-flex align-items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clock"
-                    viewBox="0 0 16 16">
-                    <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71z" />
-                    <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0" />
-                </svg>
-                <div class="duration d-flex flex-column">
-                    <span class="fs-3 fw-semibold ms-1">{{booking.duration}}</span>
-                    <span class="duration-text text-secondary">duration</span>
+        <div class="d-flex justify-content-between align-items-center mb-2">
+            <div>
+                <p class="fs-xs text-secondary">{{booking.city}}, {{booking.island}}</p>
+                {% if booking.duration %}
+                <div class="d-flex align-items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-clock me-1" viewBox="0 0 16 16">
+                        <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71z" />
+                        <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0" />
+                    </svg>
+                    <p>{{booking.duration}}</p>
                 </div>
+                {% endif %}
             </div>
-            {% endif %}
-            {% if booking.duration and booking.price %}
-            <div class="border-start" style="height: 50px;"></div>
-            {% endif %}
             {% if booking.price %}
-            <div class="d-flex align-items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                    class="bi bi-currency-dollar" viewBox="0 0 16 16">
-                    <path
-                        d="M4 10.781c.148 1.667 1.513 2.85 3.591 3.003V15h1.043v-1.216c2.27-.179 3.678-1.438 3.678-3.3 0-1.59-.947-2.51-2.956-3.028l-.722-.187V3.467c1.122.11 1.879.714 2.07 1.616h1.47c-.166-1.6-1.54-2.748-3.54-2.875V1H7.591v1.233c-1.939.23-3.27 1.472-3.27 3.156 0 1.454.966 2.483 2.661 2.917l.61.162v4.031c-1.149-.17-1.94-.8-2.131-1.718zm3.391-3.836c-1.043-.263-1.6-.825-1.6-1.616 0-.944.704-1.641 1.8-1.828v3.495l-.2-.05zm1.591 1.872c1.287.323 1.852.859 1.852 1.769 0 1.097-.826 1.828-2.2 1.939V8.73z" />
-                </svg>
-                <div class="price d-flex flex-column">
-                    <span class="fs-3 fw-semibold">{{booking.price}}</span>
-                    <span class="from-text text-secondary">from</span>
-                </div>
+            <div class="text-end">
+                <p class="fs-xs text-secondary">from</p>
+                <p class="price text-primary fw-bold">${{booking.price}}</p>
             </div>
             {% endif %}
         </div>
-        {% if user.is_authenticated %}
-        {% if booking.is_public %}
-        <a class="detail-button text-dark text-center py-3 bg-warning text-decoration-none fw-semibold"
-            href="{% url 'core:booking-update' booking.pk %}?island={{current_island|urlencode}}&category={{current_category|urlencode}}&page={{page_obj.number}}" >Update <span class="text-white">Public</span>
-        </a>
-        {% else %}
-        <a class="detail-button text-black text-center py-3 bg-warning text-decoration-none fw-semibold"
-            href="{% url 'core:booking-update' booking.pk %}?island={{current_island|urlencode}}&category={{current_category|urlencode}}&page={{page_obj.number}}" >Update <span class="text-danger">HIDDEN</span>
-        </a>
-        {% endif %}
-        {% else %}
-        <a class="detail-button text-white text-center py-3 bg-primary text-decoration-none fw-semibold"
-            href="{{booking.referral_link}}&back={{back_url}}" rel="sponsored" aria-label="View details for {{ booking.title }}">MORE
-            DETAILS
-        </a>
-        {% endif %}
-        {% if booking.is_promo %}
-        <span class="text-center mt-2">Promo Code <span
-                class="promo-code-text text-theme fw-bold">{{booking.promo_code}}</span></span>
-        {% endif %}
+        <div class="d-flex justify-content-between">
+            <div class="d-flex align-items-center">
+                {% if booking.is_promo %}
+                    <p class="bg-light fs-xs p-2 rounded">Use Code: <span class="text-primary fw-bold">{{booking.promo_code}}</span></p>
+                {% endif %}
+            </div>
+            <a href="" class="btn btn-primary fw-semibold">Learn More
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                    class="bi bi-arrow-right-short" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                        d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8" />
+                </svg></a>
+        </div>
     </div>
 </article>
