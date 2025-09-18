@@ -49,6 +49,7 @@ def view_by_island(request, island):
 
     context = {
         'types' : filter_categories(island, request),
+        'popular_categories' : Category.objects.filter(is_popular=True),
         'page_obj' : page_obj,
         'islands': Island.objects.all().order_by('modified'),
         'current_island': island,

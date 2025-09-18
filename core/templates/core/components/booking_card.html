@@ -81,6 +81,11 @@
             <span class="text-danger">HIDDEN</span>
         </a>
         {% endif %}
+        <div class="d-flex gap-2">
+            {% for tag in booking.tags.all %}
+            <p class="bg-warning-subtle fs-xs px-2 py-1 rounded">{{tag}}</p>
+            {% endfor %}
+        </div>
         {% endif %}
     </div>
 </article>

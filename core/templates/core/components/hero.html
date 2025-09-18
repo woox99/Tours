@@ -1,9 +1,11 @@
 
 
 <div id="hero">
-    <div class="hero-text">
-        <span class="island-name">{{ current_island.name_title }}</span>
-        <span class="title">HAWAII TRAVEL TIPS</span>
+    <div class="hero-text p-5">
+        <!-- <span class="island-name">{{ current_island.name_title }}</span> -->
+        <!-- <span class="title">HAWAII TRAVEL TIPS</span> -->
+        <span class="title">Discover the Magic <br>of {{current_island.name}}.</span>
+        <span class="description">From world-famous beaches to breathtaking hikes, Oahu offers <br>unforgettable experiences for every traveler.</span>
     </div>
     <picture>
         <source media="(max-width: 576px)" srcset="{{ current_island.hero_mobile_URL }}">
