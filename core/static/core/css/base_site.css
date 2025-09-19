@@ -118,9 +118,7 @@ body p {
 
 
 #navbar .island-link .city {
-    opacity: 0.7;
-    font-size: 14px;
-    letter-spacing: 1.5px;
+    letter-spacing: 0.075rem;
 }
 
 /* Mobile Island Links */
@@ -329,6 +327,7 @@ header {
     /* gap: 1rem; */
 }
 .beach-card{
+    position: relative;
     width: 300px;
     box-shadow: 0px 0px 5px #00000050;
     border-radius: 0.5rem;
@@ -336,15 +335,37 @@ header {
     /* Change */
     width: 32%;
 }
+.beach-card .img-container{
+    position: relative;
+    /* overflow: hidden; */
+    /* border-radius: 8px 8px 8px 0px; */
+    /* border: 1px solid red; */
+}
 .beach-card img{
     width: 100%;
     aspect-ratio: 2/1;
 }
+.beach-card .location{
+    position: absolute;
+    /* top: 1rem; */
+    bottom: 0;
+    border-radius: 0px 0.25rem 0 0;
+    background-color: #fff2cf;
+}
+.beach-card .drive-time{
+    /* height: 100%; */
+    /* display: flex; */
+    /* align-items: end; */
+}
+/* .beach-card .card-body{
+    position: relative;
+} */
 
 /* Booking Cards */
 #booking-cards {
-    justify-content: center;
+    justify-content: space-between;
     align-items: flex-start;
+    gap: 1rem;
 }
 
 .booking-card {
@@ -356,7 +377,7 @@ header {
 
 @media (max-width: 1300px) {
     .booking-card {
-        width: 47%;
+        /* width: 47%; */
     }
 }
 
