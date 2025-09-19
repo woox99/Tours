@@ -40,6 +40,36 @@ def view_by_island(request, island):
     island = get_object_or_404(Island, name=island)
     request.session['island'] = island.name
     if request.user.is_authenticated:
+        bookings = Booking.objects.filter(island=island).order_by('weight')[:3]
+    else:
+        bookings = Booking.objects.filter(island=island, is_public=True).order_by('weight')[:3]
+    page_obj, page_range = paginate_bookings(bookings, request)
+
+    back_url = f'www.hawaiitraveltips.com/{quote(island.name)}/?page={page_obj.number}'
+
+    context = {
+        'types' : filter_categories(island, request),
+        'popular_categories' : Category.objects.filter(is_popular=True),
+        'page_obj' : page_obj,
+        'islands': Island.objects.all().order_by('modified'),
+        'current_island': island,
+        'current_category' : None,
+        'breadcrumb' : 'All Bookings',
+        'page_range': page_range,
+        'back_url': quote(back_url),
+        'bookings' : bookings,
+
+    }
+
+    if page_obj.number == 1:
+        context.update({'jumbotron':True})
+    return render(request, 'core/island.html', context)
+
+
+def view_activities(request, island):
+    island = get_object_or_404(Island, name=island)
+    request.session['island'] = island.name
+    if request.user.is_authenticated:
         bookings = Booking.objects.filter(island=island).order_by('weight')
     else:
         bookings = Booking.objects.filter(island=island, is_public=True).order_by('weight')
@@ -63,7 +93,8 @@ def view_by_island(request, island):
 
     if page_obj.number == 1:
         context.update({'jumbotron':True})
-    return render(request, 'core/base_site.html', context)
+    return render(request, 'core/activities.html', context)
+
 
 
 def info(request):
@@ -103,7 +134,7 @@ def view_by_cat(request, island, category):
 
     if page_obj.number == 1:
         context.update({'jumbotron':True})
-    return render(request, 'core/base_site.html', context)
+    return render(request, 'core/activities.html', context)
 
 
 # Log the query and count of results for each search

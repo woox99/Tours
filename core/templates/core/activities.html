@@ -1,0 +1,71 @@
+{% extends 'core/base_site.html' %}
+
+{% block side_menu %}
+<!-- Side Menu-->
+<div id="side-menu" class="side-bar bg-white border-end d-none d-lg-flex flex-column pt-4 pb-5 ps-2">
+    {% for type in types %}
+    {% if type.filtered_categories %}
+    <p class="type fs-5 ps-3 py-2 m-0 text-black fw-semibold text-uppercase" style="letter-spacing: 1.5px;">
+        {{type}}</p>
+    {% endif %}
+    {% for category in type.filtered_categories %}
+    {% if current_category == category %}
+    <a href="{% url 'core:change-cat' current_island category %}"
+        class="ps-4 pe-2 fs-6 py-1 text-black text-decoration-underline m-0">{{category}}
+    </a>
+    {% elif category.is_popular %}
+    <a href="{% url 'core:change-cat' current_island category %}"
+        class="category ps-4 pe-2 fs-6 py-1 fw-light text-black text-decoration-none">{{category}} <small
+            class="fw-bold text-primary" style="font-size: 10px;">Popular!</small></a>
+    {% else %}
+    <a href="{% url 'core:change-cat' current_island category %}"
+        class="category ps-4 pe-2 fs-6 py-1 fw-light text-black text-decoration-none">{{category}}</a>
+    {% endif %}
+    {% endfor %}
+    {% endfor %}
+</div>
+{% endblock %}
+
+{% block pagination %}
+<!-- Pagination Bar -->
+<div class="mt-4 pb-5 d-flex justify-content-center">
+    <nav aria-label="pagination">
+        <ul class="pagination">
+            {% if page_obj.has_previous %}
+            <li class="page-item">
+                <a class="page-link" rel="prev" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+            </li>
+            {% else %}
+            <li class="page-item disabled">
+                <span class="page-link">Previous</span>
+            </li>
+            {% endif %}
+
+            {% for page_number in page_range %}
+            {% if page_number == page_obj.number %}
+            <li class="page-item active" aria-current="page">
+                <span class="page-link">{{page_number}}</span>
+            </li>
+            {% elif page_number == "…" or page_number == None %}
+            <li class="page-item" aria-current="page">
+                <span class="page-link">{{page_number}}</span>
+            </li>
+            {% else %}
+            <li class="page-item"><a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
+            </li>
+            {% endif %}
+            {% endfor %}
+
+            {% if page_obj.has_next %}
+            <li class="page-item">
+                <a class="page-link" rel="next" href="?page={{ page_obj.next_page_number }}">Next</a>
+            </li>
+            {% else %}
+            <li class="page-item disabled">
+                <a class="page-link" href="">Next</a>
+            </li>
+            {% endif %}
+        </ul>
+    </nav>
+</div>
+{% endblock %}

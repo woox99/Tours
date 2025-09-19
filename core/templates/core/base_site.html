@@ -198,10 +198,8 @@
         <!-- Header -->
         <!-- {% include 'core/components/header.html' %} -->
 
-        {% if not request.GET.page %}
-        <!-- Hero (placed above #header in css)-->
-        {% include 'core/components/hero.html' %}
-        {% endif %}
+        {% block hero %}
+        {% endblock %}
 
         <!-- Mobile Island Links (placed above #hero in css) -->
         <div id="mobile-island-links" class="d-lg-none bg-none bg-light">
@@ -239,122 +237,20 @@
         </div>
     </header>
 
+    <!-- <div class="sub-header bg-warning-subtle">
+        <div class="container py-3">
+            <p class="text" style="font-size: 2.25rem; font-weight: 800;">Join our community</p>
+            <p class="fw-semibold fs-sm">315,000+ members</p>
+        </div>
+    </div> -->
+
     <!-- Main Content -->
     <main id="main" class="d-flex">
-        {% if request.GET.page %}
-        <!-- Side Menu-->
-        <div id="side-menu" class="side-bar bg-white border-end d-none d-lg-flex flex-column pt-4 pb-5 ps-2">
-            {% for type in types %}
-            {% if type.filtered_categories %}
-            <p class="type fs-5 ps-3 py-2 m-0 text-black fw-semibold text-uppercase" style="letter-spacing: 1.5px;">
-                {{type}}</p>
-            {% endif %}
-            {% for category in type.filtered_categories %}
-            {% if current_category == category %}
-            <a href="{% url 'core:change-cat' current_island category %}"
-                class="ps-4 pe-2 fs-6 py-1 text-black text-decoration-underline m-0">{{category}}
-            </a>
-            {% elif category.is_popular %}
-            <a href="{% url 'core:change-cat' current_island category %}"
-                class="category ps-4 pe-2 fs-6 py-1 fw-light text-black text-decoration-none">{{category}} <small
-                    class="fw-bold text-primary" style="font-size: 10px;">Popular!</small></a>
-            {% else %}
-            <a href="{% url 'core:change-cat' current_island category %}"
-                class="category ps-4 pe-2 fs-6 py-1 fw-light text-black text-decoration-none">{{category}}</a>
-            {% endif %}
-            {% endfor %}
-            {% endfor %}
-        </div>
-        {% endif %}
+        {% block side_menu %}{% endblock %}
 
         <div class="container right py-5">
-            <!-- <div class="d-flex justify-content-center my-3 fw-semibold">
-                {% if current_category %}
-                <span>{{bookings.count}} results for {{current_island.name}} {{current_category}}</span>
-                {% else %}
-                <span>{{bookings.count}} results for {{current_island.name}}</span>
-                {% endif %}
-            </div> -->
 
-            {% if not request.GET.page %}
-            <!-- Beaches -->
-            <div class="beaches">
-                <div class="mb-4">
-                    <p class="text-primary fw-semibold ls-1 text-uppercase">{{current_island.name}}'S FINEST</p>
-                    <p class="beaches-text">World-Famous Beaches</p>
-                    <p class="fs-lg">Discover the stunning shorelines that make Hawaii a tropical paradise.</p>
-                </div>
-                <div class="beach-cards">
-                    <div class="beach-card bg-white">
-                        <div class="img-container">
-                            <img src="{% static '/core/assets/beaches/waikiki.jpg' %}" alt="">
-                            <div class="location d-flex align-items-center gap-1 ps-3 pe-4 py-2 fs-xs fw-semibold">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                    class="bi bi-geo-alt" viewBox="0 0 16 16">
-                                    <path
-                                        d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A32 32 0 0 1 8 14.58a32 32 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10" />
-                                    <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
-                                </svg>
-                                <p>South Shore</p>
-                            </div>
-                        </div>
-                        <div class="card-body p-3">
-                            <h2 class="fs-lg fw-bold">Waikiki Beach</h2>
-                            <p class="text-secondary">The most famous beach in Hawaii with gentle waves perfect for
-                                surfing lessons and stunning Diamond Head views.</p>
-                            <p class="drive-time fs-xs mt-2">Drive Time <span class="text-secondary">|</span> <span class="text-primary fw-semibold">6min</span></p>
-                        </div>
-                    </div>
-                    <div class="beach-card bg-white">
-                        <div class="img-container">
-                            <img src="{% static '/core/assets/beaches/sunset.jpg' %}" alt="">
-                            <div class="location d-flex align-items-center gap-1 ps-3 pe-4 py-2 fs-xs fw-semibold">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                    class="bi bi-geo-alt" viewBox="0 0 16 16">
-                                    <path
-                                        d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A32 32 0 0 1 8 14.58a32 32 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10" />
-                                    <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
-                                </svg>
-                                <p>North Shore</p>
-                            </div>
-                        </div>
-                        <div class="card-body p-3">
-                            <h2 class="fs-lg fw-bold">Sunset Beach</h2>
-                            <p class="text-secondary">Famous for its massive winter waves and spectacular sunsets, a must-visit for surf enthusiasts.</p>
-                            <p class="drive-time fs-xs mt-2">Drive Time <span class="text-secondary">|</span> <span class="text-primary fw-semibold">50min</span></p>
-                        </div>
-                    </div>
-                    <div class="beach-card bg-white">
-                        <div class="img-container">
-                            <img src="{% static '/core/assets/beaches/lanikai.png' %}" alt="">
-                            <div class="location d-flex align-items-center gap-1 ps-3 pe-4 py-2 fs-xs fw-semibold">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                    class="bi bi-geo-alt" viewBox="0 0 16 16">
-                                    <path
-                                        d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A32 32 0 0 1 8 14.58a32 32 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10" />
-                                    <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
-                                </svg>
-                                <p>Kailua</p>
-                            </div>
-                        </div>
-                        <div class="card-body p-3">
-                            <h2 class="fs-lg fw-bold">Lanikai Beach</h2>
-                            <p class="text-secondary">Powder-soft white sand and turquoise waters make this one of the most beautiful beaches in the world.</p>
-                            <p class="drive-time fs-xs mt-2">Drive Time <span class="text-secondary">|</span> <span class="text-primary fw-semibold">35min</span></p>
-                        </div>
-                    </div>
-                </div>
-                <div class="d-flex justify-content-end mt-3">
-                    <a href="" class="btn fs-sm fw-semibold">View More Beaches
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                            class="bi bi-arrow-right-short" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd"
-                                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8" />
-                        </svg>
-                    </a>
-                </div>
-            </div>
-            {% endif %}
+            {% block beach_section %}{% endblock %}
 
             <!-- Booking Cards -->
             <div class="bookings">
@@ -362,284 +258,37 @@
                     <p class="text-primary fw-semibold ls-1">MUST-DO EXPERIENCES</p>
                     <div class="d-flex align-items-center gap-3">
                         <p class="beaches-text">Top Activities in {{current_island.name}}</p>
-                        {% if not request.GET.page %}
-                        <a href="?page=2" class="btn btn-dark fw-semibold rounded-pill fs-sm">See More
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                class="bi bi-arrow-right-short" viewBox="0 0 16 16">
-                                <path fill-rule="evenodd"
-                                    d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8" />
-                            </svg>
-                        </a>
-                        {% endif %}
+                        {% block see_more_button %}{% endblock %}
                     </div>
+                    {% block category_description %}
+                    <blockquote class="fs-lg d-flex align-items-center">
+                        <p>"Book now or it didn't happen." - <cite class="fs-6">Hawaii Travel Tips</cite></p>
+                    </blockquote>
+                    {% endblock %}
                 </div>
                 <div id="booking-cards" class="d-flex flex-wrap">
                     {% for booking in page_obj %}
                     {% include "core/components/booking_card.html" %}
                     {% endfor %}
                 </div>
-                {% if not request.GET.page %}
-                <!-- See More Buttons -->
-                <div class="d-flex justify-content-end mt-3 gap-2">
-                    {% for cat in popular_categories %}
-                    <a href="" class="btn btn-outline-dark bg-light rounded-pill fs-sm fw-semibold">{{cat.name}}
-                        Activities
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                            class="bi bi-arrow-right-short" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd"
-                                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8" />
-                        </svg>
-                    </a>
-                    {% endfor %}
-                    <a href="?page=2" class="btn btn-dark rounded-pill fs-sm fw-semibold px-3">See All
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                            class="bi bi-arrow-right-short" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd"
-                                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8" />
-                        </svg>
-                    </a>
-                </div>
-                {% endif %}
-                <div class="d-flex justify-content-center mt-2">
-                </div>
-                {% if request.GET.page %}
-                <!-- Pagination Bar -->
-                <div class="mt-4 pb-5 d-flex justify-content-center">
-                    <nav aria-label="pagination">
-                        <ul class="pagination">
-                            {% if page_obj.has_previous %}
-                            <li class="page-item">
-                                <a class="page-link" rel="prev"
-                                    href="?page={{ page_obj.previous_page_number }}">Previous</a>
-                            </li>
-                            {% else %}
-                            <li class="page-item disabled">
-                                <span class="page-link">Previous</span>
-                            </li>
-                            {% endif %}
-    
-                            {% for page_number in page_range %}
-                            {% if page_number == page_obj.number %}
-                            <li class="page-item active" aria-current="page">
-                                <span class="page-link">{{page_number}}</span>
-                            </li>
-                            {% elif page_number == "…" or page_number == None %}
-                            <li class="page-item" aria-current="page">
-                                <span class="page-link">{{page_number}}</span>
-                            </li>
-                            {% else %}
-                            <li class="page-item"><a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
-                            </li>
-                            {% endif %}
-                            {% endfor %}
-    
-                            {% if page_obj.has_next %}
-                            <li class="page-item">
-                                <a class="page-link" rel="next" href="?page={{ page_obj.next_page_number }}">Next</a>
-                            </li>
-                            {% else %}
-                            <li class="page-item disabled">
-                                <a class="page-link" href="">Next</a>
-                            </li>
-                            {% endif %}
-                        </ul>
-                    </nav>
-                </div>
-                {% endif %}
+                {% block see_all_buttons %}{% endblock %}
+                {% block pagination %}{% endblock %}
             </div>
 
-            {% if not request.GET.page %}
-            <!-- Hiking Cards -->
-            <div class="beaches">
-                <div class="my-4">
-                    <p class="text-primary fw-semibold ls-1 text-uppercase">SCENIC {{current_island.name}}</p>
-                    <p class="beaches-text">Our Favorite Hikes</p>
-                    <p class="fs-lg">Breathtaking trails that showcase the island’s natural beauty.</p>
-                </div>
-                <div class="beach-cards">
-                    <div class="beach-card bg-white">
-                        <img src="{% static '/core/assets/hikes/diamondhead.jpg' %}" alt="">
-                        <div class="card-body p-3">
-                            <!-- <div class="d-flex align-items-center fs-xs text-secondary fw-semibold mb-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                    class="bi bi-geo-alt" viewBox="0 0 16 16">
-                                    <path
-                                        d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A32 32 0 0 1 8 14.58a32 32 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10" />
-                                    <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
-                                </svg>
-                                <p>South Shore</p>
-                            </div> -->
-                            <div class="d-flex align-items-center fs-xs text-secondary fw-semibold mb-2">
-                                <p>Honolulu</p>
-                            </div>
-                            <h2 class="fs-lg fw-bold">Diamond Head</h2>
-                            <p class="text-secondary">The most famous beach in Hawaii with gentle waves perfect for
-                                surfing lessons and stunning Diamond Head views.</p>
-                            <div class="d-flex justify-content-between align-items-center mt-2">
-                                <div>
-                                    <p class="fs-xs text-secondary">Duration</p>
-                                    <div class="d-flex align-items-center">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                            fill="currentColor" class="bi bi-clock me-1" viewBox="0 0 16 16">
-                                            <path
-                                                d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71z" />
-                                            <path
-                                                d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0" />
-                                        </svg>
-                                        <p>1hr 30m</p>
-                                    </div>
-                                </div>
-                                <div class="text-end">
-                                    <p class="fs-xs text-secondary">Difficulty</p>
-                                    <p class="price text-primary fw-bold">2/10</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="beach-card bg-white">
-                        <img src="{% static '/core/assets/beaches/sunset.jpg' %}" alt="">
-                        <div class="card-body p-3">
-                            <div class="d-flex align-items-center fs-xs text-secondary fw-semibold mb-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                    class="bi bi-geo-alt" viewBox="0 0 16 16">
-                                    <path
-                                        d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A32 32 0 0 1 8 14.58a32 32 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10" />
-                                    <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
-                                </svg>
-                                <p>North Shore</p>
-                            </div>
-                            <h2 class="fs-lg fw-bold">Sunset Beach</h2>
-                            <p class="text-secondary">Famous for its massive winter waves and spectacular sunsets, a
-                                must-visit for surf enthusiasts.</p>
-                        </div>
-                    </div>
-                    <div class="beach-card bg-white">
-                        <img src="{% static '/core/assets/beaches/lanikai.png' %}" alt="">
-                        <div class="card-body p-3">
-                            <div class="d-flex align-items-center fs-xs text-secondary fw-semibold mb-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                    class="bi bi-geo-alt" viewBox="0 0 16 16">
-                                    <path
-                                        d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A32 32 0 0 1 8 14.58a32 32 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10" />
-                                    <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
-                                </svg>
-                                <p>Kailua</p>
-                            </div>
-                            <h2 class="fs-lg fw-bold">Lanikai Beach</h2>
-                            <p class="text-secondary">Powder-soft white sand and turquoise waters make this one of the
-                                most beautiful beaches in the world.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="d-flex justify-content-end mt-3">
-                    <a href="" class="btn fs-sm fw-semibold">View More Hikes
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                            class="bi bi-arrow-right-short" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd"
-                                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8" />
-                        </svg>
-                    </a>
-                </div>
-            </div>
-            {% endif %}
+            {% block hike_section %}{% endblock %}
 
-            {% if not request.GET.page %}
-            <!-- Restaurant Cards -->
-            <div class="beaches">
-                <div class="my-4">
-                    <p class="text-primary fw-semibold ls-1">FOR THE FOODIES</p>
-                    <p class="beaches-text">Hidden Gem Bites</p>
-                    <p class="fs-lg">Make every meal an experience to remember.</p>
-                </div>
-                <div class="beach-cards">
-                    <div class="beach-card bg-white">
-                        <img src="{% static '/core/assets/restaurants/tamuras.jpg' %}" alt="">
-                        <div class="card-body p-3">
-                            <div class="d-flex align-items-center fs-xs text-secondary fw-semibold mb-2">
-                                <p>Honolulu</p>
-                            </div>
-                            <h2 class="fs-lg fw-bold">Tamura's Fine Wine & Liquors</h2>
-                            <p class="text-secondary">A liquor store with the best poke bowls on the island? Yup.</p>
-                            <div class="d-flex justify-content-between mt-2">
-                                <div class="d-flex align-items-center gap-1 text-secondary">
-                                    4.6
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                        class="bi bi-star-fill text-warning" viewBox="0 0 16 16">
-                                        <path
-                                            d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-                                    </svg>
-                                    <span class="fs-sm">
-                                        (935 Reviews)
-                                    </span>
-                                </div>
-                                <a href="" class="btn btn-primary fs-sm fw-semibold">Location
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                        class="bi bi-arrow-right-short" viewBox="0 0 16 16">
-                                        <path fill-rule="evenodd"
-                                            d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8" />
-                                    </svg>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="beach-card bg-white">
-                        <img src="{% static '/core/assets/beaches/sunset.jpg' %}" alt="">
-                        <div class="card-body p-3">
-                            <div class="d-flex align-items-center fs-xs text-secondary fw-semibold mb-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                    class="bi bi-geo-alt" viewBox="0 0 16 16">
-                                    <path
-                                        d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A32 32 0 0 1 8 14.58a32 32 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10" />
-                                    <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
-                                </svg>
-                                <p>North Shore</p>
-                            </div>
-                            <h2 class="fs-lg fw-bold">Sunset Beach</h2>
-                            <p class="text-secondary">Famous for its massive winter waves and spectacular sunsets, a
-                                must-visit for surf enthusiasts.</p>
-                        </div>
-                    </div>
-                    <div class="beach-card bg-white">
-                        <img src="{% static '/core/assets/beaches/lanikai.png' %}" alt="">
-                        <div class="card-body p-3">
-                            <div class="d-flex align-items-center fs-xs text-secondary fw-semibold mb-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                    class="bi bi-geo-alt" viewBox="0 0 16 16">
-                                    <path
-                                        d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A32 32 0 0 1 8 14.58a32 32 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10" />
-                                    <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
-                                </svg>
-                                <p>Kailua</p>
-                            </div>
-                            <h2 class="fs-lg fw-bold">Lanikai Beach</h2>
-                            <p class="text-secondary">Powder-soft white sand and turquoise waters make this one of the
-                                most beautiful beaches in the world.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="d-flex justify-content-end mt-3">
-                    <a href="" class="btn fs-sm fw-semibold">View More Restaurants
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                            class="bi bi-arrow-right-short" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd"
-                                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8" />
-                        </svg>
-                    </a>
-                </div>
-            </div>
-            {% endif %}
-
-
+            {% block restaurant_section %}{% endblock %}
         </div>
     </main>
 
+    <!-- Footer -->
+    {% block sub-footer %}{% endblock %}
+    {% include 'core/components/footer.html' %}
 
     <!-- Nav Bar -->
     {% include "core/components/navbar.html" %}
     <!-- Offcanvas (md screens)-->
     {% include 'core/components/off_canvas.html' %}
-    <!-- Footer -->
-    {% include 'core/components/footer.html' %}
     {% if user.is_authenticated %}
     <!-- Admin Buttons -->
     <div class="admin-buttons">
@@ -647,6 +296,8 @@
         <a class="btn btn-warning border border-dark" href="{% url 'core:logout' current_island %}">Logout</a>
     </div>
     {% endif %}
+
+    
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"

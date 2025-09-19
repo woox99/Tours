@@ -15,6 +15,7 @@ urlpatterns = [
     path('booking-delete/<int:pk>/', views.booking_delete, name='booking-delete'),
     path('contact-garett/', views.contact_garett, name='contact-garett'),
     path('test-site/', views.test_site, name='test-site'),
+    path('<str:island>/top-activities/', views.view_activities, name='activities'),
     path('<str:island>/', views.view_by_island, name='change-island'),
     path('<str:island>/search-log/', views.log_search, name='search'),
     path('<str:island>/search/', views.search_results, name='search-results'),
