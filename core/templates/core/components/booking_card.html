@@ -5,12 +5,13 @@
         <div class="image-container p-3">
             <div class="company-info text-white rounded px-2 py-1">
                 <div class="d-flex flex-column">
+                    <span class="fs-sm fw-bold">{{booking.company_name}}</span>
                     {% if booking.company_rating %}
                     {% include 'core/components/star_rating.html' %}
                     {% endif %}
-                    {% if booking.company_reviews %}
+                    <!-- {% if booking.company_reviews %}
                     <span class="fs-xs">{{booking.company_reviews}} Google Reviews</span>
-                    {% endif %}
+                    {% endif %} -->
                 </div>
             </div>
             <img src="{{booking.image_URL}}" alt="{{booking.title}}">
@@ -19,7 +20,7 @@
     <!-- Card Body -->
     <div class="d-flex flex-column gap-2 p-3" {% if not booking.is_public %}style="opacity: .6;" {% endif %}>
         <div class="d-flex justify-content-between">
-            <p class="company-name fw-semibold text-secondary">{{booking.company_name}}</p>
+            <p class="fs-xs fw-semibold text-secondary">{{booking.city}}, {{booking.island.name}}</p>
             <div class="badges">
                 {% if booking.is_popular %}
                 <span class="px-2 py-1 rounded-pill text-primary bg-primary-subtle">Popular</span>
@@ -35,8 +36,8 @@
         {% endif %}
         <div class="d-flex justify-content-between align-items-center mb-2">
             <div>
-                <p class="fs-xs text-secondary">{{booking.city}}, {{booking.island}}</p>
                 {% if booking.duration %}
+                <p class="fs-xs text-secondary">Duration</p>
                 <div class="d-flex align-items-center">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                         class="bi bi-clock me-1" viewBox="0 0 16 16">

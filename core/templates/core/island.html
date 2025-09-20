@@ -36,7 +36,7 @@
     </a>
     {% endfor %}
     <a href="{% url 'core:activities' island=current_island %}?page=2"
-        class="btn btn-dark rounded-pill fs-sm fw-semibold px-3">See All
+        class="btn btn-dark rounded-pill fs-sm fw-semibold px-3">More Categories
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
             class="bi bi-arrow-right-short" viewBox="0 0 16 16">
             <path fill-rule="evenodd"
@@ -63,7 +63,7 @@
 <div class="sub-footer bg-primary text-white">
     <div class="container py-5 d-flex align-items-center justify-content-between">
         <!-- <p class="ls-1 fw-semibold">RECOMMENDED</p> -->
-        <p class="text">Ready to explore {{current_island.name}}? <br> Start planning your Hawaiian adventures today.
+        <p class="text text">Ready to explore {{current_island.name}}? <br> Start planning your Hawaiian adventures today.
         </p>
         <a href="{% url 'core:activities' island=current_island %}" class="btn btn-light text-primary fw-semibold px-4 py-3">Explore Activities
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
