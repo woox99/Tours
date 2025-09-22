@@ -195,9 +195,6 @@
 
 <body class="bg-body-tertiary">
     <header>
-        <!-- Header -->
-        <!-- {% include 'core/components/header.html' %} -->
-
         {% block hero %}
         {% endblock %}
 
@@ -237,13 +234,6 @@
         </div>
     </header>
 
-    <!-- <div class="sub-header bg-warning-subtle">
-        <div class="container py-3">
-            <p class="text" style="font-size: 2.25rem; font-weight: 800;">Join our community</p>
-            <p class="fw-semibold fs-sm">315,000+ members</p>
-        </div>
-    </div> -->
-
     <!-- Main Content -->
     <main id="main" class="d-flex">
         {% block side_menu %}{% endblock %}
@@ -253,18 +243,22 @@
             {% block beach_section %}{% endblock %}
 
             <!-- Booking Cards -->
-            <div class="bookings">
+            <section class="bookings">
                 <div class="py-3">
                     <p class="text-primary fw-semibold ls-1">MUST-DO EXPERIENCES</p>
                     <div class="d-flex align-items-center gap-3">
-                        <p class="beaches-text">Top Activities in {{current_island.name}}</p>
+                        <h2 class="title">
+                            {% block bookings_title %}
+                            Top Activities in {{current_island.name}}
+                            {% endblock %}
+                        </h2>
                         {% block see_more_button %}{% endblock %}
                     </div>
-                    {% block category_description %}
                     <blockquote class="fs-lg d-flex align-items-center">
+                        {% block bookings_description %}
                         <p>"Book now or it didn't happen." - <cite class="fs-6">Hawaii Travel Tips</cite></p>
+                        {% endblock %}
                     </blockquote>
-                    {% endblock %}
                 </div>
                 <div id="booking-cards" class="d-flex flex-wrap">
                     {% for booking in page_obj %}
@@ -273,7 +267,7 @@
                 </div>
                 {% block see_all_buttons %}{% endblock %}
                 {% block pagination %}{% endblock %}
-            </div>
+            </section>
 
             {% block hike_section %}{% endblock %}
 
@@ -297,7 +291,7 @@
     </div>
     {% endif %}
 
-    
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"

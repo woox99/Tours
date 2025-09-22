@@ -7,12 +7,12 @@
 
 {% block beach_section %}
 <!-- Beaches -->
-{% include 'core/components/beach_section.html' %}
+{% include 'core/sections/beaches.html' %}
 {% endblock %}
 
 <!-- See More Button -->
 {% block see_more_button %}
-<a href="{% url 'core:activities' island=current_island %}?page=2"
+<a href="{% url 'core:activities' island=current_island %}"
     class="btn btn-dark fw-semibold rounded-pill fs-sm">See More
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right-short"
         viewBox="0 0 16 16">
@@ -35,7 +35,7 @@
         </svg>
     </a>
     {% endfor %}
-    <a href="{% url 'core:activities' island=current_island %}?page=2"
+    <a href="{% url 'core:activities' island=current_island %}"
         class="btn btn-dark rounded-pill fs-sm fw-semibold px-3">More Categories
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
             class="bi bi-arrow-right-short" viewBox="0 0 16 16">
@@ -50,13 +50,13 @@
 
 {% block hike_section %}
 <!-- Hiking Cards -->
-{% include 'core/components/hike_section.html' %}
+{% include 'core/sections/hikes.html' %}
 {% endblock %}
 
 
 {% block restaurant_section %}
 <!-- Restaurant Cards -->
-{% include 'core/components/restaurant_section.html' %}
+{% include 'core/sections/food_spots.html' %}
 {% endblock %}
 
 {% block sub-footer %}

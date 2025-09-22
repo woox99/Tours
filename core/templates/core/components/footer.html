@@ -1,41 +1,15 @@
 <footer id="footer" class="bg-dark text-white p-4">
-    <!-- <div class="logo bg-dark">
-        <img src="https://hawaii-travel-tips.s3.us-east-2.amazonaws.com/favicon_180_180.png" alt="">
-    </div> -->
-    <!-- <a href="https://www.facebook.com/groups/1747780178610364" class="fb-logo" target="_blank"
-        aria-label="Join our Facebook group" rel="noopener noreferrer">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-            class="bi bi-facebook text-primary" viewBox="0 0 16 16">
-            <path
-                d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951" />
-        </svg>
-    </a> -->
-    <!-- <div class="body text-center d-flex justify-content-between">
-        <div class="footer-left d-flex flex-column text-start">
-            <p class="opacity-75 mb-1">All prices are in USD.</p>
-            <hr class="d-none d-md-block">
-            <a href="{% url 'core:info' %}">About Us</a>
-            <a href="{% url 'core:info' %}#cancellation-policy">Cancellation Policy</a>
-            <a href="{% url 'core:info' %}#become-an-affiliate">Become an Affiliate</a>
-            <a href="{% url 'core:info' %}#contact-us">Contact Us</a>
-        </div>
-        <div class="footer-right d-flex flex-column justify-content-end text-end fw-light">
-            <p class="web-service-text">Web services <a class="garett-link fw-normal"
-                    href="{% url 'core:contact-garett' %}">Garett Joseph</a></p>
-            <p class="copyright mb-0">&copy; 2025 <span class="title">Hawaii Travel Tips</span></p>
-        </div>
-    </div> -->
     <div class="container">
-        <div class="d-flex align-items-center justify-content-between">
-            <img class="logo" src="https://hawaii-travel-tips.s3.us-east-2.amazonaws.com/logo_mobile.webp"
-                alt="website logo">
-            <a class="text-decoration-none link-light fs-sm fw-semibold ls-1" href="">About Us</a>
-            <a class="text-decoration-none link-light fs-sm fw-semibold ls-1" href="">Cancellation Policy</a>
-            <a class="text-decoration-none link-light fs-sm fw-semibold ls-1" href="">Become an Affiliate</a>
-            <a class="text-decoration-none link-light fs-sm fw-semibold ls-1" href="">Contact Us</a>
+        <div class="d-flex align-items-center justify-content-center gap-3">
+            <!-- <img class="logo" src="https://hawaii-travel-tips.s3.us-east-2.amazonaws.com/logo_mobile.webp"
+                alt="website logo"> -->
+            <a class="text-decoration-none link-light fw-semibold ls-1" href="{% url 'core:info' %}">About Us</a>
+            <a class="text-decoration-none link-light fw-semibold ls-1" href="{% url 'core:info' %}#cancellation-policy">Cancellation Policy</a>
+            <a class="text-decoration-none link-light fw-semibold ls-1" href="{% url 'core:info' %}#become-an-affiliate">Become an Affiliate</a>
+            <a class="text-decoration-none link-light fw-semibold ls-1" href="{% url 'core:info' %}#contact-us">Contact Us</a>
         </div>
         <div class="text-center mt-4">
-            <p class="fs-xs">Web services CloudHawaii</p>
+            <p class="fs-sm">Web services CloudHawaii</p>
             <p class="fs-sm">© 2025 Hawaii Travel Tips. All rights reserved.</p>
         </div>
 </footer>

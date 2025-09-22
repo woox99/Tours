@@ -1,0 +1,196 @@
+{% extends 'core/base_site.html' %}
+{% load static %}
+
+{% block beach_section %}
+<div class="article-page mb-5">
+    <div class="mb-4">
+        <p class="text-primary text-uppercase ls-1 fw-semibold">{{current_island.name}}'S FINEST</p>
+        <h1 class="fw-800 title">Top Beaches in {{current_island.name}}</h1>
+        <p class="description fs-lg text-secondary">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione,
+            esse. Corrupti
+            mollitia magni animi aliquid obcaecati quae perspiciatis molestiae facilis voluptas sunt pariatur, impedit
+            nostrum voluptate ipsa eius dolores hic.</p>
+    </div>
+    <div class="d-flex gap-2 mb-5">
+        <a href="" class="btn btn-outline-dark rounded-pill fs-sm fw-semibold disabled">Top Beaches</a>
+        <a href="" class="btn btn-outline-dark rounded-pill fs-sm fw-semibold">Top Activities
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                class="bi bi-arrow-right-short" viewBox="0 0 16 16">
+                <path fill-rule="evenodd"
+                    d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8" />
+            </svg>
+        </a>
+        <a href="" class="btn btn-outline-dark rounded-pill fs-sm fw-semibold">Top Hikes
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                class="bi bi-arrow-right-short" viewBox="0 0 16 16">
+                <path fill-rule="evenodd"
+                    d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8" />
+            </svg>
+        </a>
+        <a href="" class="btn btn-outline-dark rounded-pill fs-sm fw-semibold">Top Food Spots
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                class="bi bi-arrow-right-short" viewBox="0 0 16 16">
+                <path fill-rule="evenodd"
+                    d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8" />
+            </svg>
+        </a>
+    </div>
+    <div class="items d-flex flex-column align-items-start">
+        <div class="item d-flex align-items-center gap-5">
+            <div>
+                <img src="{% static 'core/assets/beaches/waikiki.jpg' %}" alt="">
+            </div>
+            <div class="item-info">
+                <h2 class="item-title fw-800 mb-3"><span class="text-secondary">1.</span> Waikiki Beach</h2>
+                <!-- <p class="fw-semibold text-secondary mb-2">South Shore</p> -->
+                <p class="text-secondary">Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Enim harum reiciendis
+                    minus veniam ratione quibusdam ducimus ab nobis et excepturi voluptas id modi distinctio, sunt
+                    minima quia libero, deserunt cupiditate. Error non, optio quidem repudiandae assumenda quasi hic
+                    quia accusamus nihil laborum sunt consectetur deleniti voluptatibus eligendi enim nulla eum
+                    reiciendis. <br><br>Eligendi eveniet alias veritatis possimus dolor magnam ex atque? Ratione
+                    distinctio,
+                    consectetur accusamus perferendis recusandae iure ipsam labore nihil praesentium quod quisquam iusto
+                    alias ducimus. Quas quibusdam debitis temporibus expedita quasi, porro beatae perspiciatis quis in
+                    dolorem sit laudantium numquam nulla quisquam, id doloremque! Quia debitis vero nemo vel?</p>
+                <p class="fw-semibold text-secondary mt-3"><span class="btn btn-outline-primary rounded-pill">View
+                        Map</span></p>
+
+            </div>
+        </div>
+        <hr class="w-50 m-5">
+        <div class="item d-flex align-items-center gap-5">
+            <div class="item-info">
+                <h2 class="item-title fw-bold mb-3"><span class="text-secondary fs-2">2.</span> Sunset Beach</h2>
+                <p class="fw-semibold text-secondary mb-2">North Shore<span class="opacity-25"> | </span><span
+                        class="text-primary">Directions</span></p>
+                <p class="text-secondary description fs-lg">Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Enim harum reiciendis
+                    minus veniam ratione quibusdam ducimus ab nobis et excepturi voluptas id modi distinctio, sunt
+                    minima quia libero, deserunt cupiditate. Error non, optio quidem repudiandae assumenda quasi hic
+                    quia accusamus nihil laborum sunt consectetur deleniti voluptatibus eligendi enim nulla eum
+                    reiciendis. <br><br>Eligendi eveniet alias veritatis possimus dolor magnam ex atque? Ratione
+                    distinctio,
+                    consectetur accusamus perferendis recusandae iure ipsam labore nihil praesentium quod quisquam iusto
+                    alias ducimus. Quas quibusdam debitis temporibus expedita quasi, porro beatae perspiciatis quis in
+                    dolorem sit laudantium numquam nulla quisquam, id doloremque! Quia debitis vero nemo vel?</p>
+            </div>
+            <div class="">
+                <img src="{% static 'core/assets/beaches/sunset.jpg' %}" alt="">
+            </div>
+        </div>
+        <hr class="w-50 m-5">
+        <div class="item d-flex align-items-center gap-5">
+            <div class="">
+                <img src="{% static 'core/assets/beaches/lanikai.png' %}" alt="">
+            </div>
+            <div class="item-info">
+                <h2 class="item-title fw-bold mb-3"><span class="text-secondary fs-2">3.</span> Lanikai Beach</h2>
+                <p class="fw-semibold text-secondary mb-2">Kailua<span class="opacity-25"> | </span><span
+                        class="text-primary">Directions</span></p>
+                <p class="text-secondary description fs-lg">Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Enim harum reiciendis
+                    minus veniam ratione quibusdam ducimus ab nobis et excepturi voluptas id modi distinctio, sunt
+                    minima quia libero, deserunt cupiditate. Error non, optio quidem repudiandae assumenda quasi hic
+                    quia accusamus nihil laborum sunt consectetur deleniti voluptatibus eligendi enim nulla eum
+                    reiciendis. <br><br>Eligendi eveniet alias veritatis possimus dolor magnam ex atque? Ratione
+                    distinctio,
+                    consectetur accusamus perferendis recusandae iure ipsam labore nihil praesentium quod quisquam iusto
+                    alias ducimus. Quas quibusdam debitis temporibus expedita quasi, porro beatae perspiciatis quis in
+                    dolorem sit laudantium numquam nulla quisquam, id doloremque! Quia debitis vero nemo vel?</p>
+            </div>
+        </div>
+        <hr class="w-50 m-5">
+        <div class="item d-flex align-items-center gap-5">
+            <div class="item-info">
+                <h2 class="item-title fw-bold mb-3"><span class="text-secondary fs-2">4.</span> Sandy Beach</h2>
+                <p class="fw-semibold text-secondary mb-2">East Side<span class="opacity-25"> | </span><span
+                        class="text-primary">Directions</span></p>
+                <p class="text-secondary description fs-lg">Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Enim harum reiciendis
+                    minus veniam ratione quibusdam ducimus ab nobis et excepturi voluptas id modi distinctio, sunt
+                    minima quia libero, deserunt cupiditate. Error non, optio quidem repudiandae assumenda quasi hic
+                    quia accusamus nihil laborum sunt consectetur deleniti voluptatibus eligendi enim nulla eum
+                    reiciendis. <br><br>Eligendi eveniet alias veritatis possimus dolor magnam ex atque? Ratione
+                    distinctio,
+                    consectetur accusamus perferendis recusandae iure ipsam labore nihil praesentium quod quisquam iusto
+                    alias ducimus. Quas quibusdam debitis temporibus expedita quasi, porro beatae perspiciatis quis in
+                    dolorem sit laudantium numquam nulla quisquam, id doloremque! Quia debitis vero nemo vel?</p>
+            </div>
+            <div class="">
+                <img src="{% static 'core/assets/beaches/sandy.webp' %}" alt="">
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+<!-- See More Button -->
+{% block see_more_button %}
+<a href="{% url 'core:change-cat' island=current_island category='Boat' %}"
+    class="btn btn-dark fw-semibold rounded-pill fs-sm">See More
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right-short"
+        viewBox="0 0 16 16">
+        <path fill-rule="evenodd"
+            d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8" />
+    </svg>
+</a>
+{% endblock %}
+
+<!-- See All Buttons -->
+{% block see_all_buttons %}
+<div class="d-flex justify-content-end mt-3 gap-2">
+    <!-- {% for cat in popular_categories %}
+    <a href="" class="btn btn-outline-dark bg-light rounded-pill fs-sm fw-semibold">{{cat.name}}
+        Activities
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+            class="bi bi-arrow-right-short" viewBox="0 0 16 16">
+            <path fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8" />
+        </svg>
+    </a>
+    {% endfor %} -->
+    <a href="{% url 'core:change-cat' island=current_island category='Boat' %}"
+        class="text-decoration-none fs-sm fw-semibold px-3">View All
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+            class="bi bi-arrow-right-short" viewBox="0 0 16 16">
+            <path fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8" />
+        </svg>
+    </a>
+</div>
+{% endblock %}
+
+{% block sub-footer %}
+<div class="sub-footer bg-primary text-white">
+    <div class="container py-5 d-flex align-items-center justify-content-between">
+        <!-- <p class="ls-1 fw-semibold">RECOMMENDED</p> -->
+        <p class="text">Visit our community. <br> <span class="fs-lg fw-normal">Share and discuss your experiences with
+                over 300k+ active members.</span>
+        </p>
+        <a href="{% url 'core:activities' island=current_island %}"
+            class="btn btn-light d-flex align-items-center gap-3 rounded-pill text-primary fw-semibold px-4 py-3">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                class="bi bi-facebook text-primary" viewBox="0 0 16 16">
+                <path
+                    d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951" />
+            </svg>
+            Visit us on Facebook
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                class="bi bi-arrow-right-short" viewBox="0 0 16 16">
+                <path fill-rule="evenodd"
+                    d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8" />
+            </svg>
+        </a>
+    </div>
+</div>
+{% endblock %}
+
+{% block bookings_title %}
+Top Boating Activities in {{current_island}}
+{% endblock %}
+
+{% block bookings_description %}
+Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium reiciendis ea inventore quos accusamus, quaerat
+error rem consectetur nostrum iusto animi, ducimus rerum nulla. Sed, neque? Magnam eaque nisi adipisci.
+{% endblock %}
