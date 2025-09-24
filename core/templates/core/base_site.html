@@ -103,7 +103,7 @@
             content: '';
             position: absolute;
             inset: 0;
-            background: linear-gradient(rgba(0, 0, 0, 0.45), #00000080);
+            background: linear-gradient(rgba(0, 0, 0, 0.0), rgba(0, 0, 0, 0.55) 60%);
             z-index: -1;
         }
 
@@ -238,13 +238,13 @@
     <main id="main" class="d-flex">
         {% block side_menu %}{% endblock %}
 
-        <div class="container right py-5">
+        <div class="container right pb-5">
 
             {% block beach_section %}{% endblock %}
 
             <!-- Booking Cards -->
             <section class="bookings">
-                <div class="py-3">
+                <div class="py-4">
                     <p class="text-primary fw-semibold ls-1">MUST-DO EXPERIENCES</p>
                     <div class="d-flex align-items-center gap-3">
                         <h2 class="title">
@@ -254,7 +254,7 @@
                         </h2>
                         {% block see_more_button %}{% endblock %}
                     </div>
-                    <blockquote class="fs-lg d-flex align-items-center">
+                    <blockquote class="fs-lg d-flex align-items-center m-0">
                         {% block bookings_description %}
                         <p>"Book now or it didn't happen." - <cite class="fs-6">Hawaii Travel Tips</cite></p>
                         {% endblock %}

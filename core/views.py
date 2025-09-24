@@ -28,7 +28,7 @@ def home(request):
     return redirect(f'/{island.name}/')
 
 
-def view_by_island(request, island):
+def view_island(request, island):
     # Randomize booking weights periodically
     last_weight_randomization = BookingRandomization.objects.last()
     if not last_weight_randomization:
@@ -60,10 +60,7 @@ def view_by_island(request, island):
         'bookings' : bookings,
 
     }
-
-    # if page_obj.number == 1:
-    #     context.update({'jumbotron':True})
-    return render(request, 'core/island.html', context)
+    return render(request, 'core/views/island.html', context)
 
 def view_beaches(request, island):
     island = get_object_or_404(Island, name=island)
@@ -92,10 +89,10 @@ def view_beaches(request, island):
     }
 
 
-    return render(request, 'core/beaches.html', context)
+    return render(request, 'core/views/beaches.html', context)
 
 
-def view_activities(request, island):
+def view_bookings(request, island):
     island = get_object_or_404(Island, name=island)
     request.session['island'] = island.name
     if request.user.is_authenticated:
@@ -122,7 +119,7 @@ def view_activities(request, island):
 
     if page_obj.number == 1:
         context.update({'jumbotron':True})
-    return render(request, 'core/activities.html', context)
+    return render(request, 'core/views/bookings.html', context)
 
 
 
@@ -130,12 +127,12 @@ def info(request):
     context = {
         'islands': Island.objects.all().order_by('modified'),
     }
-    return render(request, 'core/info.html', context)
+    return render(request, 'core/views/info.html', context)
 
 
 def error_404_view(request, exception):
     islands = Island.objects.all().order_by('modified')
-    return render(request, 'core/404.html', {'islands':islands}, status=404)
+    return render(request, 'core/views/404.html', {'islands':islands}, status=404)
 
 
 def view_by_cat(request, island, category):
@@ -163,59 +160,59 @@ def view_by_cat(request, island, category):
 
     if page_obj.number == 1:
         context.update({'jumbotron':True})
-    return render(request, 'core/activities.html', context)
+    return render(request, 'core/views/bookings.html', context)
 
 
-# Log the query and count of results for each search
-def log_search(request, island):
-    island = get_object_or_404(Island, name=island)
-    query = request.GET.get('q', '')
+# # Log the query and count of results for each search
+# def log_search(request, island):
+#     island = get_object_or_404(Island, name=island)
+#     query = request.GET.get('q', '')
 
-    if request.user.is_authenticated:
-        return redirect(reverse('core:search-results', kwargs={'island': island.name}) + f'?q={query}')
+#     if request.user.is_authenticated:
+#         return redirect(reverse('core:search-results', kwargs={'island': island.name}) + f'?q={query}')
     
-    search_queries = SearchQuery.objects.filter(query=query, island=island)
+#     search_queries = SearchQuery.objects.filter(query=query, island=island)
 
-    if search_queries.exists():
-        query_count = search_queries.count() + 1
-        search_queries.update(count=query_count)
-    else:
-        query_count = 1
+#     if search_queries.exists():
+#         query_count = search_queries.count() + 1
+#         search_queries.update(count=query_count)
+#     else:
+#         query_count = 1
 
-    # Save new query
-    new_search_query = SearchQuery.objects.create(
-        query=query, 
-        island=island,
-        count=query_count, 
-    )
-    # Get results count
-    results = get_search_results(request, island, query).count()
-    new_search_query.results = results
-    new_search_query.save()
+#     # Save new query
+#     new_search_query = SearchQuery.objects.create(
+#         query=query, 
+#         island=island,
+#         count=query_count, 
+#     )
+#     # Get results count
+#     results = get_search_results(request, island, query).count()
+#     new_search_query.results = results
+#     new_search_query.save()
 
-    return redirect(reverse('core:search-results', kwargs={'island': island.name}) + f'?q={query}')
+#     return redirect(reverse('core:search-results', kwargs={'island': island.name}) + f'?q={query}')
 
 
-def search_results(request, island):
-    island = get_object_or_404(Island, name=island)
-    query = request.GET.get('q', '')
-    bookings = get_search_results(request, island, query)
-    page_obj, page_range = paginate_bookings(bookings, request)
+# def search_results(request, island):
+#     island = get_object_or_404(Island, name=island)
+#     query = request.GET.get('q', '')
+#     bookings = get_search_results(request, island, query)
+#     page_obj, page_range = paginate_bookings(bookings, request)
 
-    back_url = f'www.hawaiitraveltips.com/{quote(island.name)}/search/?page={page_obj.number}&q={quote(query)}'
+#     back_url = f'www.hawaiitraveltips.com/{quote(island.name)}/search/?page={page_obj.number}&q={quote(query)}'
 
-    context = {
-        'types' : filter_categories(island, request),
-        'page_obj' : page_obj,
-        'islands':Island.objects.all().order_by('modified'),
-        'current_island': island,
-        'current_category': None,
-        'breadcrumb' : query,
-        'page_range': page_range,
-        'query':query,
-        'back_url': quote(back_url),
-    }
-    return render(request, 'core/search.html', context)
+#     context = {
+#         'types' : filter_categories(island, request),
+#         'page_obj' : page_obj,
+#         'islands':Island.objects.all().order_by('modified'),
+#         'current_island': island,
+#         'current_category': None,
+#         'breadcrumb' : query,
+#         'page_range': page_range,
+#         'query':query,
+#         'back_url': quote(back_url),
+#     }
+#     return render(request, 'core/search.html', context)
 
 
 @staff_member_required
@@ -238,7 +235,7 @@ def booking_update(request, pk):
             'back_url': quote(back_url),
 
         }
-        return render(request, 'core/update.html', context)
+        return render(request, 'core/views/update.html', context)
     else:
         booking = get_object_or_404(Booking, pk=pk)
         update_booking(request, booking)
@@ -267,33 +264,5 @@ def logout_admin(request, island):
     return redirect('core:change-island', island=island)
 
 
-# @staff_member_required
-def test_site(request):
-    island = get_object_or_404(Island, name="Oahu")
-    # island = get_object_or_404(Island, name=island)
-    request.session['island'] = island.name
-    if request.user.is_authenticated:
-        bookings = Booking.objects.filter(island=island).order_by('weight')
-    else:
-        bookings = Booking.objects.filter(island=island, is_public=True).order_by('weight')
-    page_obj, page_range = paginate_bookings(bookings, request)
-
-    back_url = f'www.hawaiitraveltips.com/{quote(island.name)}/?page={page_obj.number}'
-
-    context = {
-        'types' : filter_categories(island, request),
-        'page_obj' : page_obj,
-        'islands': Island.objects.all().order_by('modified'),
-        'current_island': island,
-        'current_category' : None,
-        'breadcrumb' : 'All Bookings',
-        'page_range': page_range,
-        'back_url': quote(back_url),
-        'bookings' : bookings,
-    }
-
-    if page_obj.number == 1:
-        context.update({'jumbotron':True})
-    return render(request, 'core/test_site.html', context)
 
 
