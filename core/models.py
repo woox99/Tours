@@ -38,10 +38,10 @@ class Island(models.Model):
     hero_mobile_URL = models.URLField()
     page_title = models.CharField(max_length=80, default='Page Title')
     page_description = models.TextField(default='Page Description')
-    sm_featured_URL = models.URLField(blank=True)
-    sm_featured_company = models.CharField(max_length=50, blank=True)
-    lg_featured_URL = models.URLField(blank=True)
-    lg_featured_company = models.CharField(max_length=50, blank=True)
+    # sm_featured_URL = models.URLField(blank=True)
+    # sm_featured_company = models.CharField(max_length=50, blank=True)
+    # lg_featured_URL = models.URLField(blank=True)
+    # lg_featured_company = models.CharField(max_length=50, blank=True)
 
     modified = models.DateTimeField(auto_now=True)
 
@@ -60,7 +60,7 @@ class Island(models.Model):
 class Booking(models.Model):
     title = models.CharField(max_length=100)
     company_name = models.CharField(max_length=100, blank=True)
-    company_rating = models.CharField(max_length=10, blank=True)
+    # company_rating = models.IntegerField(max_length=10, blank=True)
     company_reviews = models.CharField(max_length=10, blank=True)
     city = models.CharField(max_length=100)
     tags = models.ManyToManyField('Category', related_name='bookings')
