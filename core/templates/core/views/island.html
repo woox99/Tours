@@ -32,8 +32,8 @@
 {% block see_all_buttons %}
 <div class="d-flex justify-content-end mt-3 gap-2">
     {% for cat in popular_categories %}
-    <a href="" class="btn btn-outline-dark rounded-pill fs-sm fw-semibold">{{cat.name}}
-        Activities
+    <a href="{% url 'core:change-cat' current_island cat %}" class="d-none d-sm-block btn btn-outline-dark rounded-pill fs-sm fw-semibold">
+        {{cat.name}} Activities
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
             class="bi bi-arrow-right-short" viewBox="0 0 16 16">
             <path fill-rule="evenodd"

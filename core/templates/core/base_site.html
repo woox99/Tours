@@ -60,7 +60,7 @@
     <!-- Manifest -->
     <link rel="manifest" href="{% static 'core/site.webmanifest' %}">
 
-    <link rel="stylesheet" href="{% static 'core/css/base_site.css' %}?v=11">
+    <link rel="stylesheet" href="{% static 'core/css/base_site.css' %}?v=12">
     {% block style_sheet %}{% endblock %}
 
     <!-- Preconnect Bootstrap-->
@@ -185,34 +185,31 @@
                 <div>
                     <span class="island">O'AHU</span>
                     <span class="line"></span>
-                    <span class="city d-none d-sm-block fs-xs text-secondary ls-1 fw-bold">WAIKIKI</span>
+                    <span class="city text-secondary ls-1 fw-bold">WAIKIKI</span>
                 </div>
             </a>
-            <!-- <span class="text-secondary d-flex align-items-center">|</span> -->
             <a href="{% url 'core:change-island' 'big island' %}" class="island-link d-flex d-lg-none">
                 <img class="hawaii" src="{% static 'core/assets/icons/bigisland.webp' %}" alt="">
                 <div>
                     <span class="island">HAWAI'I</span>
                     <span class="line"></span>
-                    <span class="city d-none d-sm-block fs-xs text-secondary ls-1 fw-bold">BIG ISLAND</span>
+                    <span class="city text-secondary ls-1 fw-bold">BIG ISLAND</span>
                 </div>
             </a>
-            <!-- <span class="text-secondary d-flex align-items-center">|</span> -->
             <a href="{% url 'core:change-island' 'maui' %}" class="island-link d-flex d-lg-none">
                 <img src="{% static 'core/assets/icons/maui.webp' %}" alt="">
                 <div>
                     <span class="island">MAUI</span>
                     <span class="line"></span>
-                    <span class="city d-none d-sm-block fs-xs text-secondary ls-1 fw-bold">KAHULUI</span>
+                    <span class="city text-secondary ls-1 fw-bold">KAHULUI</span>
                 </div>
             </a>
-            <!-- <span class="text-secondary d-flex align-items-center">|</span> -->
             <a href="{% url 'core:change-island' 'kauai' %}" class="island-link d-flex d-lg-none">
                 <img class="kauai" src="{% static 'core/assets/icons/kauai.webp' %}" alt="">
                 <div>
                     <span class="island">KAUA'I</span>
                     <span class="line"></span>
-                    <span class="city d-none d-sm-block fs-xs text-secondary ls-1 fw-bold">LIHUE</span>
+                    <span class="city text-secondary ls-1 fw-bold">LIHUE</span>
                 </div>
             </a>
         </div>
