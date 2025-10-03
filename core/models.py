@@ -38,6 +38,8 @@ class Island(models.Model):
     hero_mobile_URL = models.URLField()
     island_page_title = models.CharField(max_length=80, default='Page Title')
     island_page_description = models.TextField(default='Page Description')
+    bookings_page_title = models.CharField(max_length=80, default='Page Title')
+    bookings_page_description = models.TextField(default='Page Description')
     # sm_featured_URL = models.URLField(blank=True)
     # sm_featured_company = models.CharField(max_length=50, blank=True)
     # lg_featured_URL = models.URLField(blank=True)
