@@ -63,7 +63,7 @@
 {% if current_category %}
 {{current_category.page_title}} in {{current_island.name}}
 {% else %}
-{{current_island.page_title}}
+{{current_island.bookings_page_title}}
 {% endif %}
 {% endblock %}
 
@@ -71,7 +71,7 @@
 {% if current_category %}
 {{current_category.page_description}}
 {% else %}
-{{current_island.page_description}}
+{{current_island.bookings_page_description}}
 {% endif %}
 {% endblock %}
 
