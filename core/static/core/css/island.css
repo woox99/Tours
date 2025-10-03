@@ -1,0 +1,14 @@
+@media (max-width: 992px) {
+    #booking-cards{
+        justify-content: center;
+    }
+    .booking-card {
+        width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .booking-card {
+        width: 100%;
+    }
+}

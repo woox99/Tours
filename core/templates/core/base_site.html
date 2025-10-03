@@ -61,6 +61,7 @@
     <link rel="manifest" href="{% static 'core/site.webmanifest' %}">
 
     <link rel="stylesheet" href="{% static 'core/css/base_site.css' %}?v=9">
+    {% block style_sheet %}{% endblock %}
 
     <!-- Preconnect Bootstrap-->
     <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
@@ -82,20 +83,21 @@
     </script>
 
     <style>
+        header{
+            /* island links order is reversed in style sheet */
+            display: flex;
+            flex-direction: column;
+        }
+
         /* Hero */
         #hero {
             position: relative;
             width: 100%;
-            /* height: calc(100vh - 200px); */
             height: 500px;
             overflow: hidden;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            /* align-items: center; */
-            /* text-align: center; */
-            /* places #hero above #header */
-            order: -1;
         }
 
         /* Gradient */
@@ -110,71 +112,48 @@
         #hero .hero-text {
             display: flex;
             flex-direction: column;
-            /* justify-content: center; */
         }
-
-        #hero .hero-text span {
-            position: relative;
-            z-index: 0;
-            color: white;
-            /* text-align: center; */
-        }
-
-        /* #hero .island-name {
-            font-size: 125px;
-            font-weight: 800;
-            line-height: 1;
-            text-transform: uppercase;
-            margin: 0;
-        }
-
 
         #hero .title {
-            text-align: center;
             color: white;
-            font-weight: 600;
-            font-size: 28px;
-            letter-spacing: 3px;
-        } */
-
-        #hero .title {
             font-size: 4.25rem;
             font-weight: 800;
             letter-spacing: -0.125rem;
             line-height: 1;
-            /* text-align: center; */
         }
 
         #hero .description {
+            color: white;
             font-size: 1.5rem;
             margin-top: 1.5rem;
-            /* text-align: center; */
         }
 
-
-        @media (max-width: 992px) {
-            #hero {
-                height: 380px;
-            }
-
-            #hero .island-name {
-                font-size: 90px;
-            }
-        }
 
         @media (max-width: 768px) {
-            #hero .island-name {
-                font-size: 70px;
-            }
-        }
-
-        @media (max-width: 576px) {
-            #hero .island-name {
-                font-size: 50px;
-            }
-
             #hero .title {
-                font-size: 16px;
+                font-size: 3.5rem;
+            }
+
+            #hero .description {
+                font-size: 1.25rem;
+                margin-top: 0.75rem;
+            }
+            
+        }
+        
+        @media (max-width: 576px) {
+            #hero .hero-text{
+                text-align: center;
+            }
+            #hero .title {
+                font-size: 3rem;
+            }
+
+            #hero .description {
+                font-size: 1.125em;
+            }
+            #hero a{
+                align-self: center !important;
             }
         }
 
@@ -195,43 +174,49 @@
 
 <body class="bg-body-tertiary">
     <header>
+        
         {% block hero %}
         {% endblock %}
 
         <!-- Mobile Island Links (placed above #hero in css) -->
-        <div id="mobile-island-links" class="d-lg-none bg-none bg-light">
+        <div id="mobile-island-links" class="px-4 d-lg-none bg-none bg-light border-bottom">
             <a href="{% url 'core:change-island' 'Oahu' %}" class="island-link d-flex d-lg-none">
                 <img src="{% static 'core/assets/icons/oahu.webp' %}" alt="">
                 <div>
                     <span class="island">O'AHU</span>
-                    <span class="city d-none d-sm-block">WAIKIKI</span>
+                    <span class="line"></span>
+                    <span class="city d-none d-sm-block fs-xs text-secondary ls-1 fw-bold">WAIKIKI</span>
                 </div>
             </a>
-            <span class="text-secondary d-flex align-items-center">|</span>
+            <!-- <span class="text-secondary d-flex align-items-center">|</span> -->
             <a href="{% url 'core:change-island' 'big island' %}" class="island-link d-flex d-lg-none">
                 <img class="hawaii" src="{% static 'core/assets/icons/bigisland.webp' %}" alt="">
                 <div>
                     <span class="island">HAWAI'I</span>
-                    <span class="city d-none d-sm-block">BIG ISLAND</span>
+                    <span class="line"></span>
+                    <span class="city d-none d-sm-block fs-xs text-secondary ls-1 fw-bold">BIG ISLAND</span>
                 </div>
             </a>
-            <span class="text-secondary d-flex align-items-center">|</span>
+            <!-- <span class="text-secondary d-flex align-items-center">|</span> -->
             <a href="{% url 'core:change-island' 'maui' %}" class="island-link d-flex d-lg-none">
                 <img src="{% static 'core/assets/icons/maui.webp' %}" alt="">
                 <div>
                     <span class="island">MAUI</span>
-                    <span class="city d-none d-sm-block">KAHULUI</span>
+                    <span class="line"></span>
+                    <span class="city d-none d-sm-block fs-xs text-secondary ls-1 fw-bold">KAHULUI</span>
                 </div>
             </a>
-            <span class="text-secondary d-flex align-items-center">|</span>
+            <!-- <span class="text-secondary d-flex align-items-center">|</span> -->
             <a href="{% url 'core:change-island' 'kauai' %}" class="island-link d-flex d-lg-none">
                 <img class="kauai" src="{% static 'core/assets/icons/kauai.webp' %}" alt="">
                 <div>
                     <span class="island">KAUA'I</span>
-                    <span class="city d-none d-sm-block">LIHUE</span>
+                    <span class="line"></span>
+                    <span class="city d-none d-sm-block fs-xs text-secondary ls-1 fw-bold">LIHUE</span>
                 </div>
             </a>
         </div>
+
     </header>
 
     <!-- Main Content -->
@@ -292,6 +277,8 @@
     {% endif %}
 
 
+    <!-- Article Script -->
+    <script src="{% static 'core/js/article.js' %}"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"

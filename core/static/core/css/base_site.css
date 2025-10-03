@@ -151,8 +151,8 @@ figure {
 #mobile-island-links {
     height: 60px;
     display: flex;
-    justify-content: space-around;
-    order: -1;
+    justify-content: space-between;
+    order: -1 !important;
 }
 
 #mobile-island-links .island-link {
@@ -161,9 +161,9 @@ figure {
     align-items: center;
     text-decoration: none;
     color: black;
-    width: 25%;
+    /* width: 25%; */
     height: 100%;
-    gap: 1rem;
+    gap: 0.5rem;
     font-weight: 800;
     line-height: 16px;
     font-size: 14px;
@@ -173,6 +173,11 @@ figure {
     height: 22px !important;
 }
 
+#mobile-island-links .line{
+    border-bottom: 2px solid pink;
+    width: 50%;
+    margin-top: 2px;
+}
 #mobile-island-links .hawaii {
     height: 25px !important;
 }
@@ -188,8 +193,6 @@ figure {
 }
 
 #mobile-island-links .island-link .city {
-    opacity: 0.75 !important;
-    font-size: 12px;
     letter-spacing: 1.5px;
 }
 
@@ -228,81 +231,6 @@ figure {
     text-overflow: ellipsis;
 }
 
-/* Header ELEMENT */
-header {
-    display: flex;
-    flex-direction: column;
-}
-
-/* Header */
-#header {
-    position: relative;
-    padding-top: 40px;
-    padding-bottom: 50px;
-    z-index: 2;
-    padding-left: 200px;
-    border-top: 5px solid black;
-    border-bottom: 5px solid black;
-    box-sizing: border-box;
-    /* background-color: #131313 !important; */
-}
-
-/* #header::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background-image: url("../assets/textures/hibiscus_dark.webp");
-    background-repeat: no-repeat;
-    background-size: 300px;
-    background-position: center;
-    opacity: 0.2;
-    z-index: -1;
-} */
-
-#header h1 {
-    font-size: 60px;
-    width: 580px;
-    font-weight: 800;
-}
-
-#header p {
-    width: 90%;
-    font-size: 26px;
-}
-
-@media (max-width: 992px) {
-    #header {
-        padding-left: 0;
-        padding: 2rem;
-    }
-
-    #header p {
-        width: 100%;
-        font-size: 22px;
-    }
-}
-
-@media (max-width: 768px) {
-    #header h1 {
-        width: 80%;
-        font-size: 50px;
-    }
-}
-
-@media (max-width: 576px) {
-    #header::before {
-        background-size: 200px;
-    }
-
-    #header h1 {
-        font-size: 2rem;
-        width: 100%;
-    }
-
-    #header p {
-        font-size: 1rem;
-    }
-}
 
 
 
@@ -404,11 +332,11 @@ section .title {
 
 /* Booking Cards */
 #booking-cards {
-    justify-content: space-between;
     align-items: flex-start;
     gap: 1rem;
 }
 
+/* Mobile card sizes are in individual style sheets */
 .booking-card {
     width: 32%;
     box-shadow: 0px 0px 5px #00000050;
@@ -416,23 +344,7 @@ section .title {
     overflow: hidden;
 }
 
-@media (max-width: 1300px) {
-    .booking-card {
-        /* width: 47%; */
-    }
-}
 
-@media (max-width: 768px) {
-    .booking-card {
-        width: 350px;
-    }
-}
-
-@media (max-width: 576px) {
-    .booking-card {
-        width: 100%;
-    }
-}
 
 .booking-card .image-container {
     position: relative;
@@ -557,15 +469,17 @@ section .title {
 
 .sub-footer .text {
     font-size: 2.25rem;
-    line-height: 2.5rem;
     font-weight: 800;
 }
 
 /* Footer */
-#footer .logo {
-    height: 60px;
+@media (max-width: 768px) {
+    #footer .links{
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem !important; 
+    }
 }
-
 #footer .link-light {
     transition: ease 0.2s;
 }

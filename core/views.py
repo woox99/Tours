@@ -29,6 +29,7 @@ def home(request):
 
 
 def view_island(request, island):
+
     # Randomize booking weights periodically
     last_weight_randomization = BookingRandomization.objects.last()
     if not last_weight_randomization:
