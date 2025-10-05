@@ -203,14 +203,16 @@ figure {
     #mobile-island-links .island-link {
         gap: 5px;
         line-height: 11px;
-        font-size: 10px;
+        font-size: 12px;
     }
-
+    #mobile-island-links .line{
+        margin-bottom: 1px;
+    }
     #mobile-island-links .city{
-        font-size: 9px !important;
+        font-size: 10px !important;
     }
     #mobile-island-links img {
-        height: 23px;
+        display: none;
     }
 }
 
