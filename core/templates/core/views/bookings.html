@@ -1,6 +1,20 @@
 {% extends 'core/base_site.html' %}
 {% load static %}
 
+{% block title_and_description_header %}
+{% if current_category %}
+<title>{{current_category.page_title}} in {{current_island.name}}</title>
+<meta property="og:title" content="{{current_category.page_title}} in {{current_island.name}}">
+<meta name="description" content="{{current_category.page_description}}">
+<meta property="og:description" content="{{current_category.page_description}}">
+{% else %}
+<title>{{current_island.bookings_page_title}}</title>
+<meta property="og:title" content="{{current_island.bookings_page_title}}">
+<meta name="description" content="{{current_island.bookings_page_description}}">
+<meta property="og:description" content="{{current_island.bookings_page_description}}">
+{% endif %}
+{% endblock %}
+
 {% block style_sheet %}
 <link rel="stylesheet" href="{% static 'core/css/bookings.css' %}?v=11">
 {% endblock %}
