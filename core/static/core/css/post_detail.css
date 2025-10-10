@@ -1,0 +1,29 @@
+*{
+    /* border: 1px solid red; */
+}
+
+h1{
+    font-size: 4rem !important;
+
+}
+h2{
+    /* font-size: 4rem !important; */
+}
+.featured-img{
+    width: 100%;
+    border-radius: 2rem;
+}
+
+.content hr{
+    margin: 3rem;
+}
+.content strong{
+    font-weight: normal;
+}
+.content p{
+    margin-top: 1rem;
+}
+.content img{
+    width: 100%;
+    border-radius: 1rem;
+}

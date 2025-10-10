@@ -1,0 +1,75 @@
+{% extends 'core/base_site.html' %}
+{% load static %}
+
+{% block style_sheet %}
+<link rel="stylesheet" href="{% static 'core/css/post_detail.css' %}?v=14">
+{% endblock %}
+
+
+{% block main_content %}
+<div class="">
+    <h1 class="text-center px-5 pt-5">{{wp_post.title.rendered|safe}}</h1>
+    <div class="d-flex gap-2 justify-content-center">
+        <p class="d-flex align-items-center fs-sm text-theme border bg-white rounded-pill px-3 py-1">Oahu</p>
+        <p class="d-flex align-items-center fs-sm text-theme border bg-white rounded-pill px-3 py-1">Vacation</p>
+        <p class="d-flex align-items-center fs-sm text-theme border bg-white rounded-pill px-3 py-1">Beaches</p>
+    </div>
+    <img class="featured-img mt-4" src="{{wp_post.jetpack_featured_media_url}}" alt="">
+    <div class="content d-flex justify-content-center fs-lg">
+        <div class="w-75">
+            {{wp_post.content.rendered|safe}}
+        </div>
+    </div>
+</div>
+
+{% include 'core/sections/bookings.html' %}
+
+<!-- See All Buttons -->
+<div class="d-flex justify-content-end mt-3 gap-2">
+    {% for cat in popular_categories %}
+    <a href="{% url 'core:change-cat' current_island cat %}"
+        class="d-none d-sm-block btn btn-outline-dark rounded-pill fs-sm fw-semibold">
+        {{cat.name}} Activities
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+            class="bi bi-arrow-right-short" viewBox="0 0 16 16">
+            <path fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8" />
+        </svg>
+    </a>
+    {% endfor %}
+    <a href="{% url 'core:bookings' island=current_island %}"
+        class="btn btn-dark rounded-pill fs-sm fw-semibold px-3">See All
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+            class="bi bi-arrow-right-short" viewBox="0 0 16 16">
+            <path fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8" />
+        </svg>
+    </a>
+</div>
+{% endblock %}
+
+{% block sub-footer %}
+<div class="sub-footer bg-primary text-white">
+    <div class="container py-5 d-flex align-items-center justify-content-between">
+        <div>
+            <p class="text mb-1">Visit our community.</p>
+            <p class="fs-lg">Share and discuss your experiences with
+                over 300k+ active members.</p>
+        </div>
+        <a href="https://www.facebook.com/groups/1747780178610364/" target="_blank" rel="noopener noreferrer"
+            class="btn btn-light d-flex align-items-center gap-3 rounded-pill text-primary fw-semibold px-4 py-3">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                class="bi bi-facebook text-primary" viewBox="0 0 16 16">
+                <path
+                    d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951" />
+            </svg>
+            Visit us on Facebook
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                class="bi bi-arrow-right-short" viewBox="0 0 16 16">
+                <path fill-rule="evenodd"
+                    d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8" />
+            </svg>
+        </a>
+    </div>
+</div>
+{% endblock %}

@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block style_sheet %}
-<link rel="stylesheet" href="{% static 'core/css/island.css' %}?v=11">
+<link rel="stylesheet" href="{% static 'core/css/views/island.css' %}?v=11">
 {% endblock %}
 
 {% block hero %}
@@ -10,69 +10,93 @@
 {% include 'core/components/hero.html' %}
 {% endblock %}
 
-{% block beach_section %}
-<!-- Beaches -->
-<!-- {% include 'core/sections/beaches.html' %} -->
-<!-- <hr class="w-50"> -->
+{% block main_content %}
+
+<section>
+    <div class="py-4">
+        <p class="text-primary fw-semibold ls-1 text-uppercase">Featured Posts</p>
+        <h2 class="title">Tips and Advise for {{current_island.name}}</h2>
+        <p class="fs-lg">Planning a trip to Hawaiʻi can be as exciting as it is overwhelming. To help you make the most
+            of
+            your island adventure, we’ve gathered featured articles covering everything from hidden gems to must-see
+            attractions.</p>
+    </div>
+
+    {% include 'core/sections/posts.html' %}
+
+    <div class="d-flex justify-content-end mt-3">
+        <a href="{% url 'core:posts' current_island %}" class="link-secondary text-decoration-none">More Posts
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                class="bi bi-arrow-right-short" viewBox="0 0 16 16">
+                <path fill-rule="evenodd"
+                    d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8" />
+            </svg>
+        </a>
+    </div>
+</section>
+
+<section>
+    <div class="py-4">
+        <p class="text-primary fw-semibold ls-1">MUST-DO EXPERIENCES</p>
+        <div class="d-flex align-items-center gap-3">
+            <h2 class="title">
+                {% block bookings_title %}
+                {{current_island.bookings_page_title}}
+                {% endblock %}
+            </h2>
+        </div>
+        <blockquote class="fs-lg d-flex align-items-center m-0">
+            {% block bookings_description %}
+            <p>"Book now or it didn't happen." - <cite class="fs-6">Hawaii Travel Tips</cite></p>
+            {% endblock %}
+        </blockquote>
+    </div>
+
+    {% include 'core/sections/bookings.html' %}
+
+    <!-- See All Buttons -->
+    <div class="d-flex justify-content-end mt-3 gap-2">
+        {% for cat in popular_categories %}
+        <a href="{% url 'core:change-cat' current_island cat %}"
+            class="d-none d-sm-block btn btn-outline-dark rounded-pill fs-sm fw-semibold">
+            {{cat.name}} Activities
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                class="bi bi-arrow-right-short" viewBox="0 0 16 16">
+                <path fill-rule="evenodd"
+                    d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8" />
+            </svg>
+        </a>
+        {% endfor %}
+        <a href="{% url 'core:bookings' island=current_island %}"
+            class="btn btn-dark rounded-pill fs-sm fw-semibold px-3">See All
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                class="bi bi-arrow-right-short" viewBox="0 0 16 16">
+                <path fill-rule="evenodd"
+                    d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8" />
+            </svg>
+        </a>
+    </div>
+</section>
+
 {% endblock %}
 
-<!-- See More Button -->
-{% block see_more_button %}
-<a href="{% url 'core:bookings' island=current_island %}"
-    class="d-none d-sm-block btn btn-dark fw-semibold rounded-pill fs-sm">See More
-    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right-short"
-        viewBox="0 0 16 16">
-        <path fill-rule="evenodd"
-            d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8" />
-    </svg>
-</a>
-{% endblock %}
-
-<!-- See All Buttons -->
-{% block see_all_buttons %}
-<div class="d-flex justify-content-end mt-3 gap-2">
-    {% for cat in popular_categories %}
-    <a href="{% url 'core:change-cat' current_island cat %}" class="d-none d-sm-block btn btn-outline-dark rounded-pill fs-sm fw-semibold">
-        {{cat.name}} Activities
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-            class="bi bi-arrow-right-short" viewBox="0 0 16 16">
-            <path fill-rule="evenodd"
-                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8" />
-        </svg>
-    </a>
-    {% endfor %}
-    <a href="{% url 'core:bookings' island=current_island %}"
-        class="btn btn-dark rounded-pill fs-sm fw-semibold px-3">See All
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-            class="bi bi-arrow-right-short" viewBox="0 0 16 16">
-            <path fill-rule="evenodd"
-                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8" />
-        </svg>
-    </a>
-</div>
-{% endblock %}
-
-
-
-{% block hike_section %}
-<!-- Hiking Cards -->
-<!-- <hr class="w-50"> -->
-<!-- {% include 'core/sections/hikes.html' %} -->
-{% endblock %}
-
-
-{% block restaurant_section %}
-<!-- Restaurant Cards -->
-<!-- <hr class="w-50"> -->
-<!-- {% include 'core/sections/food_spots.html' %} -->
-{% endblock %}
 
 {% block sub-footer %}
-<!-- <div class="sub-footer text-white">
+<div class="sub-footer bg-primary text-white">
     <div class="container py-5 d-flex align-items-center justify-content-between">
-        <p class="text text">Ready to explore {{current_island.name}}? <br> Start planning your Hawaiian adventures today.
-        </p>
-        <a href="{% url 'core:bookings' island=current_island %}" class="btn btn-light text-primary fw-semibold px-4 py-3">Explore Activities
+        <div>
+            <p class="text mb-1">Visit our community.</p>
+            <p class="fs-lg">Share and discuss your experiences with
+                over 300k+ active members.</p>
+        </div>
+        <a href="https://www.facebook.com/groups/1747780178610364/" target="_blank" rel="noopener noreferrer"
+            class="btn btn-light d-flex align-items-center gap-3 rounded-pill text-primary fw-semibold px-4 py-3">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                class="bi bi-facebook text-primary" viewBox="0 0 16 16">
+                <path
+                    d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951" />
+            </svg>
+            Visit us on Facebook
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
                 class="bi bi-arrow-right-short" viewBox="0 0 16 16">
                 <path fill-rule="evenodd"
@@ -80,5 +104,5 @@
             </svg>
         </a>
     </div>
-</div> -->
+</div>
 {% endblock %}

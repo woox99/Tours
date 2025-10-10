@@ -4,6 +4,9 @@ from django.contrib.auth.models import User
 from django.urls import reverse
 from django.contrib.admin.views.decorators import staff_member_required
 
+import requests
+from django.shortcuts import render
+
 from core.utils import *
 from core.models import *
 
@@ -40,6 +43,18 @@ def view_island(request, island):
 
     island = get_object_or_404(Island, name=island)
     request.session['island'] = island.name
+
+    # WordPress.com REST API endpoint - Limit = 3
+    WP_API_URL = "https://public-api.wordpress.com/wp/v2/sites/team92d3a5e49bc-kctlm.wordpress.com/posts?per_page=3"
+
+    try:
+        response = requests.get(WP_API_URL, timeout=5)
+        response.raise_for_status()
+        wp_posts = response.json()
+    except requests.exceptions.RequestException as e:
+        print("Error fetching WordPress posts:", e)
+        wp_posts = []
+
     if request.user.is_authenticated:
         bookings = Booking.objects.filter(island=island).order_by('weight')[:3]
     else:
@@ -59,38 +74,10 @@ def view_island(request, island):
         'page_range': page_range,
         'back_url': quote(back_url),
         'bookings' : bookings,
+        'wp_posts' : wp_posts,
 
     }
     return render(request, 'core/views/island.html', context)
-
-def view_beaches(request, island):
-    island = get_object_or_404(Island, name=island)
-    request.session['island'] = island.name
-
-    if request.user.is_authenticated:
-        bookings = Booking.objects.filter(island=island).order_by('weight')[:3]
-    else:
-        bookings = Booking.objects.filter(island=island, is_public=True).order_by('weight')[:3]
-    page_obj, page_range = paginate_bookings(bookings, request)
-
-    back_url = f'www.hawaiitraveltips.com/{quote(island.name)}/?page={page_obj.number}'
-
-    context = {
-        'types' : filter_categories(island, request),
-        'popular_categories' : Category.objects.filter(is_popular=True),
-        'page_obj' : page_obj,
-        'islands': Island.objects.all().order_by('modified'),
-        'current_island': island,
-        'current_category' : None,
-        'breadcrumb' : 'All Bookings',
-        'page_range': page_range,
-        'back_url': quote(back_url),
-        'bookings' : bookings,
-
-    }
-
-
-    return render(request, 'core/views/beaches.html', context)
 
 
 def view_bookings(request, island):
@@ -120,20 +107,7 @@ def view_bookings(request, island):
 
     if page_obj.number == 1:
         context.update({'jumbotron':True})
-    return render(request, 'core/views/bookings.html', context)
-
-
-
-def info(request):
-    context = {
-        'islands': Island.objects.all().order_by('modified'),
-    }
-    return render(request, 'core/views/info.html', context)
-
-
-def error_404_view(request, exception):
-    islands = Island.objects.all().order_by('modified')
-    return render(request, 'core/views/404.html', {'islands':islands}, status=404)
+    return render(request, 'core/views/booking_list.html', context)
 
 
 def view_by_cat(request, island, category):
@@ -161,7 +135,92 @@ def view_by_cat(request, island, category):
 
     if page_obj.number == 1:
         context.update({'jumbotron':True})
-    return render(request, 'core/views/bookings.html', context)
+    return render(request, 'core/views/booking_list.html', context)
+
+def post_list(request, island):
+    island = get_object_or_404(Island, name=island)
+    request.session['island'] = island.name
+
+    # WordPress.com REST API endpoint
+    WP_API_URL = "https://public-api.wordpress.com/wp/v2/sites/team92d3a5e49bc-kctlm.wordpress.com/posts"
+
+    try:
+        response = requests.get(WP_API_URL, timeout=5)
+        response.raise_for_status()
+        wp_posts = response.json()
+    except requests.exceptions.RequestException as e:
+        print("Error fetching WordPress posts:", e)
+        wp_posts = []
+
+    bookings = Booking.objects.filter(island=island, is_public=True).order_by('weight')[:3]
+    page_obj, page_range = paginate_bookings(bookings, request)
+
+    back_url = f'www.hawaiitraveltips.com/{quote(island.name)}/?page={page_obj.number}'
+
+    context = {
+        'types' : filter_categories(island, request),
+        'popular_categories' : Category.objects.filter(is_popular=True),
+        'page_obj' : page_obj,
+        'islands': Island.objects.all().order_by('modified'),
+        'current_island': island,
+        'current_category' : None,
+        'breadcrumb' : 'All Bookings',
+        'page_range': page_range,
+        'back_url': quote(back_url),
+        'bookings' : bookings,
+        'wp_posts' : wp_posts,
+
+    }
+    return render(request, 'core/views/post_list.html', context)
+
+def post_detail(request, island, post_slug):
+    island = get_object_or_404(Island, name=island)
+    request.session['island'] = island.name
+
+    # WordPress.com REST API endpoint
+    WP_API_URL = f"https://public-api.wordpress.com/wp/v2/sites/team92d3a5e49bc-kctlm.wordpress.com/posts?slug={post_slug}"
+
+    try:
+        response = requests.get(WP_API_URL, timeout=5)
+        response.raise_for_status()
+        wp_data = response.json()
+        wp_post = wp_data[0] if wp_data else None
+    except requests.exceptions.RequestException as e:
+        print("Error fetching WordPress post:", e)
+        wp_post = None
+
+    bookings = Booking.objects.filter(island=island, is_public=True).order_by('weight')[:3]
+    page_obj, page_range = paginate_bookings(bookings, request)
+
+    back_url = f'www.hawaiitraveltips.com/{quote(island.name)}/?page={page_obj.number}'
+
+    context = {
+        'types' : filter_categories(island, request),
+        'popular_categories' : Category.objects.filter(is_popular=True),
+        'page_obj' : page_obj,
+        'islands': Island.objects.all().order_by('modified'),
+        'current_island': island,
+        'current_category' : None,
+        'breadcrumb' : 'All Bookings',
+        'page_range': page_range,
+        'back_url': quote(back_url),
+        'bookings' : bookings,
+        'wp_post' : wp_post,
+
+    }
+    return render(request, 'core/views/post_detail.html', context)
+
+
+def info(request):
+    context = {
+        'islands': Island.objects.all().order_by('modified'),
+    }
+    return render(request, 'core/views/info.html', context)
+
+
+def error_404_view(request, exception):
+    islands = Island.objects.all().order_by('modified')
+    return render(request, 'core/views/404.html', {'islands':islands}, status=404)
 
 
 # # Log the query and count of results for each search
@@ -263,7 +322,4 @@ def contact_garett(request):
 def logout_admin(request, island):
     logout(request)
     return redirect('core:change-island', island=island)
-
-
-
 

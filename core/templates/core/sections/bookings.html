@@ -1,0 +1,13 @@
+
+{% load static %}
+
+{% block style_sheet %}
+<link rel="stylesheet" href="{% static 'core/css/sections/bookings.css' %}?v=11">
+{% endblock %}
+
+<!-- Booking Cards -->
+    <div id="booking-cards" class="d-flex flex-wrap">
+        {% for booking in page_obj %}
+        {% include "core/components/booking_card.html" %}
+        {% endfor %}
+    </div>

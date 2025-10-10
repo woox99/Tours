@@ -217,39 +217,7 @@
         {% block side_menu %}{% endblock %}
 
         <div class="container right pb-5">
-
-            {% block beach_section %}{% endblock %}
-
-            <!-- Booking Cards -->
-            <section class="bookings">
-                <div class="py-4">
-                    <p class="text-primary fw-semibold ls-1">MUST-DO EXPERIENCES</p>
-                    <div class="d-flex align-items-center gap-3">
-                        <h2 class="title">
-                            {% block bookings_title %}
-                            {{current_island.bookings_page_title}}
-                            {% endblock %}
-                        </h2>
-                        {% block see_more_button %}{% endblock %}
-                    </div>
-                    <blockquote class="fs-lg d-flex align-items-center m-0">
-                        {% block bookings_description %}
-                        <p>"Book now or it didn't happen." - <cite class="fs-6">Hawaii Travel Tips</cite></p>
-                        {% endblock %}
-                    </blockquote>
-                </div>
-                <div id="booking-cards" class="d-flex flex-wrap">
-                    {% for booking in page_obj %}
-                    {% include "core/components/booking_card.html" %}
-                    {% endfor %}
-                </div>
-                {% block see_all_buttons %}{% endblock %}
-                {% block pagination %}{% endblock %}
-            </section>
-
-            {% block hike_section %}{% endblock %}
-
-            {% block restaurant_section %}{% endblock %}
+            {% block main_content %}{% endblock %}
         </div>
     </main>
 
