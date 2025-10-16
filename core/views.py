@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.urls import reverse
 from django.contrib.admin.views.decorators import staff_member_required
 
-import requests
+
 from django.shortcuts import render
 
 from core.utils import *
@@ -45,15 +45,8 @@ def view_island(request, island):
     request.session['island'] = island.name
 
     # WordPress.com REST API endpoint - Limit = 3
-    WP_API_URL = "https://public-api.wordpress.com/wp/v2/sites/team92d3a5e49bc-kctlm.wordpress.com/posts?per_page=3"
-
-    try:
-        response = requests.get(WP_API_URL, timeout=5)
-        response.raise_for_status()
-        wp_posts = response.json()
-    except requests.exceptions.RequestException as e:
-        print("Error fetching WordPress posts:", e)
-        wp_posts = []
+    WP_API_URL = f"https://public-api.wordpress.com/wp/v2/sites/team92d3a5e49bc-kctlm.wordpress.com/posts?categories={island.wp_category_id}&per_page=3&_embed"
+    wp_posts = get_wp_posts(WP_API_URL)
 
     if request.user.is_authenticated:
         bookings = Booking.objects.filter(island=island).order_by('weight')[:3]
@@ -142,15 +135,8 @@ def post_list(request, island):
     request.session['island'] = island.name
 
     # WordPress.com REST API endpoint
-    WP_API_URL = "https://public-api.wordpress.com/wp/v2/sites/team92d3a5e49bc-kctlm.wordpress.com/posts"
-
-    try:
-        response = requests.get(WP_API_URL, timeout=5)
-        response.raise_for_status()
-        wp_posts = response.json()
-    except requests.exceptions.RequestException as e:
-        print("Error fetching WordPress posts:", e)
-        wp_posts = []
+    WP_API_URL = f"https://public-api.wordpress.com/wp/v2/sites/team92d3a5e49bc-kctlm.wordpress.com/posts?categories={island.wp_category_id}&per_page=3&_embed"
+    wp_posts = get_wp_posts(WP_API_URL)
 
     bookings = Booking.objects.filter(island=island, is_public=True).order_by('weight')[:3]
     page_obj, page_range = paginate_bookings(bookings, request)
@@ -178,16 +164,9 @@ def post_detail(request, island, post_slug):
     request.session['island'] = island.name
 
     # WordPress.com REST API endpoint
-    WP_API_URL = f"https://public-api.wordpress.com/wp/v2/sites/team92d3a5e49bc-kctlm.wordpress.com/posts?slug={post_slug}"
-
-    try:
-        response = requests.get(WP_API_URL, timeout=5)
-        response.raise_for_status()
-        wp_data = response.json()
-        wp_post = wp_data[0] if wp_data else None
-    except requests.exceptions.RequestException as e:
-        print("Error fetching WordPress post:", e)
-        wp_post = None
+    WP_API_URL = f"https://public-api.wordpress.com/wp/v2/sites/team92d3a5e49bc-kctlm.wordpress.com/posts?slug={post_slug}&_embed"
+    wp_posts = get_wp_posts(WP_API_URL)
+    wp_post = wp_posts[0]
 
     bookings = Booking.objects.filter(island=island, is_public=True).order_by('weight')[:3]
     page_obj, page_range = paginate_bookings(bookings, request)

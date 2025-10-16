@@ -43,6 +43,9 @@ figure {
 .fs-lg {
     font-size: 1.125rem !important;
 }
+.fs-xl {
+    font-size: 1.5rem !important;
+}
 
 .fw-800 {
     font-weight: 800 !important;
@@ -251,7 +254,7 @@ figure {
     content: "";
     position: absolute;
     inset: 0;
-    background-image: url("../assets/textures/hibiscus.webp");
+    /* background-image: url("../assets/textures/hibiscus.webp"); */
     background-repeat: repeat;
     background-size: auto;
     opacity: 0.015;
@@ -287,30 +290,6 @@ figure {
     width: 100%;
 }
 
-
-
-
-
-
-/* Article Page */
-.article-page .title {
-    font-size: 4.25rem;
-}
-
-
-.article-page .item img {
-    width: 100%;
-    width: 450px;
-    aspect-ratio: 3/2;
-    border-radius: 0.75rem;
-    object-fit: cover;
-    object-position: center;
-    transform: rotate(-5deg);
-}
-
-.article-page .item-info {
-    /* width: 600px; */
-}
 
 
 /* Sub-Footer */

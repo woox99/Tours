@@ -2,19 +2,64 @@
 {% load static %}
 
 {% block style_sheet %}
-<link rel="stylesheet" href="{% static 'core/css/post_list.css' %}?v=14">
+<link rel="stylesheet" href="{% static 'core/css/views/post_list.css' %}?v=14">
 {% endblock %}
 
 {% block main_content %}
-{% include 'core/sections/posts.html' %}
+<div class="header d-flex my-5">
+    <img class="" src="{{ current_island.hero_URL }}" alt="Hero Image" fetchpriority="high">
+    <div class="d-flex flex-column justify-content-center gap-3 p-4">
+        <h1 class="">Explore Our Posts for {{current_island.name}}</h1>
+        <p class="fs-xl">Find everything you'll need to have a successfull vacation right here.</p>
+    </div>
+</div>
+
+<div class="posts d-flex flex-wrap">
+    {% for post in wp_posts %}
+    <a href="{% url 'core:post' current_island post.slug %}" class="post d-flex text-decoration-none">
+        <img class="media" src="{{post.jetpack_featured_media_url}}" alt="">
+        <div class="post-body d-flex flex-column justify-content-between px-4 text-dark">
+            <div>
+                <h2 class="title">{{post.title.rendered|safe}}</h2>
+                <div class="excerpt">
+                    {{post.excerpt.rendered|safe}}
+                </div>
+            </div>
+            <div class="d-flex gap-2">
+                {% for tag in post.tag_names|slice:":3" %}
+                <p class="d-flex align-items-center fs-xs text-theme rounded-pill border px-2 py-1">{{tag}}</p>
+                {% endfor %}
+            </div>
+            <div class="author d-flex gap-2">
+                {% if post.id|divisibleby:"2" %}
+                <img src="{% static 'core/assets/spencer.webp' %}" alt="">
+                <div>
+                    <p class="fw-bold fs-sm">by Spencer Keenan</p>
+                    <p class="fs-xs">{{post.modified|date:"M j, Y"}}</p>
+                </div>
+                {% else %}
+                <img src="{% static 'core/assets/koda.webp' %}" alt="">
+                <div>
+                    <p class="fw-bold fs-sm">by Koda Tague</p>
+                    <p class="fs-xs">{{post.modified|date:"M j, Y"}}</p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </a>
+    {% endfor %}
+</div>
+
 {% endblock %}
 
 {% block sub-footer %}
 <div class="sub-footer text-white">
     <div class="container py-5 d-flex align-items-center justify-content-between">
-        <p class="text text">Ready to explore {{current_island.name}}? <br> Start planning your Hawaiian adventures today.
+        <p class="text text">Ready to explore {{current_island.name}}? <br> Start planning your Hawaiian adventures
+            today.
         </p>
-        <a href="{% url 'core:bookings' island=current_island %}" class="btn btn-light text-primary fw-semibold px-4 py-3">Explore Activities
+        <a href="{% url 'core:bookings' island=current_island %}"
+            class="btn btn-light text-primary fw-semibold px-4 py-3">Explore Activities
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
                 class="bi bi-arrow-right-short" viewBox="0 0 16 16">
                 <path fill-rule="evenodd"

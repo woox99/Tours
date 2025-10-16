@@ -1,24 +1,20 @@
-section .title {
-    font-size: 2.25rem;
-    font-weight: 800;
-}
+
 
 .post-cards {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    /* gap: 1rem; */
 }
 
 .post-card {
     position: relative;
-    width: 300px;
     box-shadow: 0px 0px 5px #00000050;
     border-radius: 12px;
     overflow: hidden;
     width: 32%;
 
 }
+
 
 .post-card figure {
     position: relative;
@@ -31,7 +27,7 @@ section .title {
     border-radius: 12px !important;
 }
 
-.post-card .location {
+.post-card .read-time {
     position: absolute;
     bottom: 0;
     border-radius: 0px 0.25rem 0 0;
@@ -45,7 +41,6 @@ section .title {
     overflow: hidden;
 }
 .post-card .author img{
-    height: 32px;
-    aspect-ratio: 1/1;
     border-radius: 9999px;
+    height: 45px;
 }

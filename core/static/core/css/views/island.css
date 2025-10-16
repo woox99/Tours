@@ -1,14 +1,25 @@
+section .title {
+    font-size: 2.25rem;
+    font-weight: 800;
+}
+
+
+/* Booking Cards for Island View (3 count) */
+#booking-cards{
+    justify-content: space-between;
+}
+
+@media (max-width: 1200px) {
+    #booking-cards{
+        justify-content: center;
+    }
+}
 @media (max-width: 992px) {
     #booking-cards{
         justify-content: center;
     }
     .booking-card {
-        width: 100%;
+        width: 100% !important;
     }
 }
 
-@media (max-width: 768px) {
-    .booking-card {
-        width: 100%;
-    }
-}

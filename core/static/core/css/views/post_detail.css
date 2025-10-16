@@ -13,7 +13,13 @@ h2{
     width: 100%;
     border-radius: 2rem;
 }
-
+.author img{
+    border-radius: 9999px;
+    width: 45px;
+}
+.content .column{
+    width: 65%;
+}
 .content hr{
     margin: 3rem;
 }
@@ -26,4 +32,6 @@ h2{
 .content img{
     width: 100%;
     border-radius: 1rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
 }

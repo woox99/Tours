@@ -34,6 +34,7 @@ class Category(models.Model):
 class Island(models.Model):
     name = models.CharField(max_length=50, unique=True)
     name_title = models.CharField(max_length=50, blank=True)
+    wp_category_id = models.IntegerField(null=True, blank=True)
     hero_URL = models.URLField()
     hero_mobile_URL = models.URLField()
     island_page_title = models.CharField(max_length=80, default='Page Title')
