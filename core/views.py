@@ -163,10 +163,14 @@ def post_detail(request, island, post_slug):
     island = get_object_or_404(Island, name=island)
     request.session['island'] = island.name
 
-    # WordPress.com REST API endpoint
+    # Get current post
     WP_API_URL = f"https://public-api.wordpress.com/wp/v2/sites/team92d3a5e49bc-kctlm.wordpress.com/posts?slug={post_slug}&_embed"
     wp_posts = get_wp_posts(WP_API_URL)
     wp_post = wp_posts[0]
+    # Get all but current post for pagination
+    # WP_API_URL = f"https://public-api.wordpress.com/wp/v2/sites/team92d3a5e49bc-kctlm.wordpress.com/posts?_embed"
+    # wp_posts = get_wp_posts(WP_API_URL)
+    # wp_posts = [post for post in wp_posts if post['slug'] != post_slug]
 
     bookings = Booking.objects.filter(island=island, is_public=True).order_by('weight')[:3]
     page_obj, page_range = paginate_bookings(bookings, request)
@@ -185,6 +189,7 @@ def post_detail(request, island, post_slug):
         'back_url': quote(back_url),
         'bookings' : bookings,
         'wp_post' : wp_post,
+        # 'wp_posts' : wp_posts,
 
     }
     return render(request, 'core/views/post_detail.html', context)

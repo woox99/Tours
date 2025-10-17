@@ -7,8 +7,16 @@
 
 
 {% block main_content %}
-<div class="">
-    <h1 class="text-center px-5 pt-5">{{wp_post.title.rendered|safe}}</h1>
+<div class="post-detail">
+    <a href="{% url 'core:posts' current_island %}" class="d-inline-flex align-items-center btn btn-dark rounded-pill fs-sm fw-semibold my-4">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+            class="bi bi-arrow-left-short" viewBox="0 0 16 16">
+            <path fill-rule="evenodd"
+                d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5" />
+        </svg>
+        Explore Posts
+    </a>
+    <h1 class="text-center px-5">{{wp_post.title.rendered|safe}}</h1>
     <div class="author d-flex justify-content-center gap-2 my-4">
         {% if wp_post.id|divisibleby:"2" %}
         <img src="{% static 'core/assets/spencer.webp' %}" alt="">
@@ -34,35 +42,63 @@
         <div class="column">
             {{wp_post.content.rendered|safe}}
         </div>
+        <a href="{% url 'core:posts' current_island %}" class="btn border rounded-pill text-theme fs-sm fw-semibold bg-white mt-4">
+            More Posts
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                class="bi bi-arrow-right-short" viewBox="0 0 16 16">
+                <path fill-rule="evenodd"
+                    d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8" />
+            </svg>
+        </a>
     </div>
 </div>
 
-<div class="booking-section mt-5">
-    {% include 'core/sections/bookings.html' %}
-</div>
 
-<!-- See All Buttons -->
-<div class="d-flex justify-content-end mt-3 gap-2">
-    {% for cat in popular_categories %}
-    <a href="{% url 'core:change-cat' current_island cat %}"
-        class="d-none d-sm-block btn btn-outline-dark rounded-pill fs-sm fw-semibold">
-        {{cat.name}} Activities
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-            class="bi bi-arrow-right-short" viewBox="0 0 16 16">
-            <path fill-rule="evenodd"
-                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8" />
-        </svg>
-    </a>
-    {% endfor %}
-    <a href="{% url 'core:bookings' island=current_island %}"
-        class="btn btn-dark rounded-pill fs-sm fw-semibold px-3">See All
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-            class="bi bi-arrow-right-short" viewBox="0 0 16 16">
-            <path fill-rule="evenodd"
-                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8" />
-        </svg>
-    </a>
-</div>
+<hr class="my-5">
+
+<!-- Bookings Sections -->
+<section>
+    <div class="mb-4">
+        <p class="text-primary fw-semibold ls-1">MUST-DO EXPERIENCES</p>
+        <div class="d-flex align-items-center gap-3">
+            <h2 class="title">
+                {{current_island.bookings_page_title}}
+            </h2>
+            <a href="{% url 'core:bookings' current_island %}"
+                class="btn btn-dark rounded-pill px-3 fs-sm fw-semibold">See More</a>
+        </div>
+        <blockquote class="fs-lg d-flex align-items-center m-0">
+            {% block bookings_description %}
+            <p>"Book now or it didn't happen." - <cite class="fs-6">Hawaii Travel Tips</cite></p>
+            {% endblock %}
+        </blockquote>
+    </div>
+
+    {% include 'core/sections/bookings.html' %}
+
+    <!-- See All Buttons -->
+    <div class="d-flex justify-content-end mt-3 gap-2">
+        {% for cat in popular_categories %}
+        <a href="{% url 'core:change-cat' current_island cat %}"
+            class="d-none d-sm-block btn btn-outline-dark rounded-pill fs-sm fw-semibold">
+            {{cat.name}} Activities
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                class="bi bi-arrow-right-short" viewBox="0 0 16 16">
+                <path fill-rule="evenodd"
+                    d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8" />
+            </svg>
+        </a>
+        {% endfor %}
+        <a href="{% url 'core:bookings' island=current_island %}"
+            class="btn btn-dark rounded-pill fs-sm fw-semibold px-3">See All
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                class="bi bi-arrow-right-short" viewBox="0 0 16 16">
+                <path fill-rule="evenodd"
+                    d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8" />
+            </svg>
+        </a>
+    </div>
+</section>
 {% endblock %}
 
 {% block sub-footer %}
