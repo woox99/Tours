@@ -3,7 +3,8 @@
 .post-cards {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
 }
 
 .post-card {
@@ -12,8 +13,21 @@
     border-radius: 12px;
     overflow: hidden;
     width: 32%;
-
 }
+
+@media (max-width: 1200px) {
+    .post-card {
+        width: 48%;
+    }
+}
+
+@media (max-width: 992px) {
+    .post-card {
+        width: 100%;
+    }
+}
+
+
 
 
 .post-card figure {

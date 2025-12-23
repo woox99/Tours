@@ -21,13 +21,13 @@
         {% if wp_post.id|divisibleby:"2" %}
         <img src="{% static 'core/assets/spencer.webp' %}" alt="">
         <div>
-            <p class="fw-bold fs-sm">by Spencer Keenan</p>
+            <p class="fw-bold fs-sm">by Spencer</p>
             <p class="fs-xs">{{wp_post.modified|date:"M j, Y"}}</p>
         </div>
         {% else %}
         <img src="{% static 'core/assets/koda.webp' %}" alt="">
         <div>
-            <p class="fw-bold fs-sm">by Koda Tague</p>
+            <p class="fw-bold fs-sm">by Koda</p>
             <p class="fs-xs">{{wp_post.modified|date:"M j, Y"}}</p>
         </div>
         {% endif %}

@@ -10,15 +10,16 @@ section .title {
 }
 
 @media (max-width: 1200px) {
-    #booking-cards{
+    #booking-cards, 
+    .post-cards{
         justify-content: center;
     }
 }
 @media (max-width: 992px) {
-    #booking-cards{
+    /* #booking-cards{
         justify-content: center;
-    }
-    .booking-card {
+    } */
+    .booking-card{
         width: 100% !important;
     }
 }
