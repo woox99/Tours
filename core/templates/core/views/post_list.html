@@ -9,8 +9,8 @@
 <div class="header d-flex my-5">
     <img class="" src="{{ current_island.hero_URL }}" alt="Hero Image" fetchpriority="high">
     <div class="d-flex flex-column justify-content-center gap-3 p-4">
-        <h1 class="">Explore Our Posts for {{current_island.name}}</h1>
-        <p class="fs-xl">Find everything you'll need to have a successfull vacation right here.</p>
+        <h1 class="fw-800">Explore Guides for {{current_island.name}}</h1>
+        <p class="">Successful visits start with research.</p>
     </div>
 </div>
 
@@ -55,9 +55,10 @@
 {% block sub-footer %}
 <div class="sub-footer text-white">
     <div class="container py-5 d-flex align-items-center justify-content-between">
-        <p class="text text">Ready to explore {{current_island.name}}? <br> Start planning your Hawaiian adventures
-            today.
-        </p>
+        <div>
+            <p class="text">Ready to explore {{current_island.name}}?</p>
+            <p class="text text-2">Start planning your Hawaiian adventures today.</p>
+        </div>
         <a href="{% url 'core:bookings' island=current_island %}"
             class="btn btn-light text-primary fw-semibold px-4 py-3">Explore Activities
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"

@@ -15,7 +15,7 @@
 <section class="mt-4">
     <div class="py-4">
         <p class="text-primary fw-semibold ls-1 text-uppercase">Featured Posts</p>
-        <h2 class="title">Tips and Advice for {{current_island.name}}</h2>
+        <h2 class="title">Guides for {{current_island.name}}</h2>
         <p class="fs-lg">Planning a trip to Hawaiʻi can be as exciting as it is overwhelming. To help you make the most
             of
             your island adventure, we’ve gathered featured articles covering everything from hidden gems to must-see
@@ -25,7 +25,7 @@
     {% include 'core/sections/posts.html' %}
 
     <div class="d-flex justify-content-end mt-3">
-        <a href="{% url 'core:posts' current_island %}" class="link-secondary text-decoration-none">Explore Posts
+        <a href="{% url 'core:posts' current_island %}" class="link-secondary text-decoration-none">Explore Guides
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                 class="bi bi-arrow-right-short" viewBox="0 0 16 16">
                 <path fill-rule="evenodd"
