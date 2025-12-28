@@ -14,7 +14,7 @@
             <path fill-rule="evenodd"
                 d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5" />
         </svg>
-        Explore Posts
+        Guides
     </a>
     <h1 class="text-center px-5">{{wp_post.title.rendered|safe}}</h1>
     <div class="author d-flex justify-content-center gap-2 my-4">
@@ -32,7 +32,7 @@
         </div>
         {% endif %}
     </div>
-    <div class="d-flex gap-2 justify-content-center">
+    <div class="d-flex flex-wrap gap-2 justify-content-center">
         {% for tag in wp_post.tag_names %}
         <p class="d-flex align-items-center fs-sm text-theme border bg-white rounded-pill px-3 py-1">{{tag}}</p>
         {% endfor %}
@@ -43,7 +43,7 @@
             {{wp_post.content.rendered|safe}}
         </div>
         <a href="{% url 'core:posts' current_island %}" class="btn border rounded-pill text-theme fs-sm fw-semibold bg-white mt-4">
-            More Posts
+            More Guides
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                 class="bi bi-arrow-right-short" viewBox="0 0 16 16">
                 <path fill-rule="evenodd"
@@ -61,7 +61,7 @@
     <div class="mb-4">
         <p class="text-primary fw-semibold ls-1">MUST-DO EXPERIENCES</p>
         <div class="d-flex align-items-center gap-3">
-            <h2 class="title">
+            <h2 class="title fw-800">
                 {{current_island.bookings_page_title}}
             </h2>
             <a href="{% url 'core:bookings' current_island %}"

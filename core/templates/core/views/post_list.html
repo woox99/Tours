@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block style_sheet %}
-<link rel="stylesheet" href="{% static 'core/css/views/post_list.css' %}?v=18">
+<link rel="stylesheet" href="{% static 'core/css/views/post_list.css' %}?v=19">
 {% endblock %}
 
 {% block main_content %}
@@ -56,7 +56,7 @@
 <div class="sub-footer text-white">
     <div class="container py-5 d-flex align-items-center justify-content-between">
         <div>
-            <p class="text">Ready to explore {{current_island.name}}?</p>
+            <p class="text text-1">Ready to explore {{current_island.name}}?</p>
             <p class="text text-2">Start planning your Hawaiian adventures today.</p>
         </div>
         <a href="{% url 'core:bookings' island=current_island %}"

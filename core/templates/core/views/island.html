@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block style_sheet %}
-<link rel="stylesheet" href="{% static 'core/css/views/island.css' %}?v=11">
+<link rel="stylesheet" href="{% static 'core/css/views/island.css' %}?v=19">
 {% endblock %}
 
 {% block hero %}
@@ -41,7 +41,7 @@
             <h2 class="title">
                 {{current_island.bookings_page_title}}
             </h2>
-            <!-- <a href="{% url 'core:bookings' current_island %}" class="btn btn-dark rounded-pill px-3 fs-sm fw-semibold">See More</a> -->
+            <a href="{% url 'core:bookings' current_island %}" class="btn btn-dark rounded-pill px-3 fs-sm fw-semibold">See More</a>
         </div>
         <blockquote class="fs-lg d-flex align-items-center m-0">
             {% block bookings_description %}

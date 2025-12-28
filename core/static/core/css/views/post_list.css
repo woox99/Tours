@@ -87,6 +87,7 @@
     width: 45px;
 }
 
+
 .sub-footer .text-2 {
     font-size: 1.5rem;
     font-weight: unset;
@@ -95,5 +96,10 @@
 @media (max-width:992px) {
     .sub-footer .container {
         flex-direction: column;
+    }
+}
+@media (max-width:576px) {
+    .sub-footer .container{
+        padding: 2rem;
     }
 }
