@@ -16,10 +16,9 @@
     <div class="py-4">
         <p class="text-primary fw-semibold ls-1 text-uppercase">Featured Posts</p>
         <h2 class="title">Guides for {{current_island.name}}</h2>
-        <p class="fs-lg">Planning a trip to Hawaiʻi can be as exciting as it is overwhelming. To help you make the most
+        <p class="fs-lg">Successful visits start with research. We’ve made these guides to help you make the most
             of
-            your island adventure, we’ve gathered featured articles covering everything from hidden gems to must-see
-            attractions.</p>
+            your island adventure.</p>
     </div>
 
     {% include 'core/sections/posts.html' %}
@@ -42,7 +41,7 @@
             <h2 class="title">
                 {{current_island.bookings_page_title}}
             </h2>
-            <a href="{% url 'core:bookings' current_island %}" class="btn btn-dark rounded-pill px-3 fs-sm fw-semibold">See More</a>
+            <!-- <a href="{% url 'core:bookings' current_island %}" class="btn btn-dark rounded-pill px-3 fs-sm fw-semibold">See More</a> -->
         </div>
         <blockquote class="fs-lg d-flex align-items-center m-0">
             {% block bookings_description %}

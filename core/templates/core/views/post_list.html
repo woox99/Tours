@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block style_sheet %}
-<link rel="stylesheet" href="{% static 'core/css/views/post_list.css' %}?v=16">
+<link rel="stylesheet" href="{% static 'core/css/views/post_list.css' %}?v=17">
 {% endblock %}
 
 {% block main_content %}
@@ -16,7 +16,7 @@
 
 <div class="posts d-flex flex-wrap">
     {% for post in wp_posts %}
-    <a href="{% url 'core:post' current_island post.slug %}" class="post d-flex text-decoration-none">
+    <!-- <a href="{% url 'core:post' current_island post.slug %}" class="post d-flex text-decoration-none">
         <img class="media" src="{{post.jetpack_featured_media_url}}" alt="">
         <div class="post-body d-flex flex-column justify-content-between px-4 text-dark">
             <div>
@@ -46,7 +46,7 @@
                 {% endif %}
             </div>
         </div>
-    </a>
+    </a> -->
     {% endfor %}
 </div>
 
