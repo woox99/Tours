@@ -135,7 +135,7 @@ def post_list(request, island):
     request.session['island'] = island.name
 
     # WordPress.com REST API endpoint
-    WP_API_URL = f"https://public-api.wordpress.com/wp/v2/sites/team92d3a5e49bc-kctlm.wordpress.com/posts?categories={island.wp_category_id}&per_page=3&_embed"
+    WP_API_URL = f"https://public-api.wordpress.com/wp/v2/sites/team92d3a5e49bc-kctlm.wordpress.com/posts?categories={island.wp_category_id}&_embed"
     wp_posts = get_wp_posts(WP_API_URL)
 
     bookings = Booking.objects.filter(island=island, is_public=True).order_by('weight')[:3]

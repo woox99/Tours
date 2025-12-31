@@ -25,8 +25,9 @@
                     {% endfor %}
                 </div>
                 <h3 class="fs-lg fw-bold mt-2">{{post.title.rendered|safe}}</h3>
-                <p class="text-secondary description">Oahu’s world-famous beaches offer something for every traveler,
-                    from sunbathing and swimming to surfing and breathtaking sunsets.</p>
+                <div class="excerpt">
+                    {{post.excerpt.rendered|safe}}
+                </div>
                 <hr>
                 <div class="d-flex justify-content-between">
                     <div class="author d-flex gap-2">
