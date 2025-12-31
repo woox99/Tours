@@ -63,8 +63,8 @@ class Island(models.Model):
 class Booking(models.Model):
     title = models.CharField(max_length=100)
     company_name = models.CharField(max_length=100, blank=True)
-    # company_rating = models.DecimalField(max_digits=2, decimal_places=1, blank=True, null=True, default=0)
-    # company_reviews = models.IntegerField(blank=True, null=True, default=0)
+    company_rating = models.DecimalField(max_digits=2, decimal_places=1, blank=True, null=True, default=0.0)
+    company_reviews = models.IntegerField(blank=True, null=True, default=0)
     city = models.CharField(max_length=100)
     tags = models.ManyToManyField('Category', related_name='bookings')
     island = models.ForeignKey(Island, on_delete=models.CASCADE)
