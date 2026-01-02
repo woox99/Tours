@@ -225,11 +225,11 @@
             <div class="exit-button">
                 {% if current_category == "None" %}
                 <a class="btn btn-warning px-4"
-                    href="{% url 'core:change-island' island=current_island %}?page={{page}}#{{booking.fh_id}}"
+                    href="{% url 'core:bookings' island=current_island %}?page={{page}}#{{booking.fh_id}}"
                     class="text-light mt-3 text-decoration-none">Exit</a>
                 {% else %}
                 <a class="btn btn-warning px-4"
-                    href="{% url 'core:view-by-cat' island=current_island category=current_category %}?page={{page}}#{{booking.fh_id}}"
+                    href="{% url 'core:change-cat' island=current_island category=current_category %}?page={{page}}#{{booking.fh_id}}"
                     class="text-light mt-3 text-decoration-none">Exit</a>
                 {% endif %}
             </div>
