@@ -83,6 +83,11 @@ class Booking(models.Model):
     weight = models.IntegerField(default=10000)
     modified = models.DateTimeField(auto_now=True)
 
+    @property
+    def adjusted_price(self):
+        discounted = self.price - (self.price * self.promo_amount / 100)
+        return max(round(discounted), 0)
+    
     def __str__(self):
         return self.title
     

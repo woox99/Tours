@@ -59,8 +59,10 @@
             {% if booking.price %}
             <div class="text-end">
                 <p class="fs-xs text-secondary">from</p>
+                {% if booking.is_promo %}
                 <p class="price text-decoration-line-through fs-sm text-secondary">${{booking.price}}</p>
-                <p class="price text-primary fw-bold">${{booking.price}}</p>
+                {% endif %}
+                <p class="price text-primary fw-bold">${{booking.adjusted_price}}</p>
             </div>
             {% endif %}
         </div>
