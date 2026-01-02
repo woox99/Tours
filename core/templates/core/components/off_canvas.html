@@ -4,15 +4,20 @@
     </div>
     <div class="offcanvas-body py-0 pb-5">
         <div class="d-flex flex-column">
-            <!-- <p class="type fs-5 ps-3 py-2 m-0 mt-3 text-uppercase fw-semibold" style="letter-spacing: 1.5px;">ISLAND</p>
-            {% for island in islands %}
-            <a href="{% url 'core:change-island' island=island.name %}"
-                class="category ps-4 fs-6 py-1 fw-light text-black">{{island.name}}</a>
-            {% endfor %} -->
+            <a href="{% url 'core:posts' island=current_island %}" class="text-black">
+                <p class="d-flex align-items-center gap-1 type fs-5 fw-semibold ps-3 py-2 m-0 mt-3 text-uppercase" style="letter-spacing: 1.5px;">Guides
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                        class="bi bi-arrow-right-circle-fill" viewBox="0 0 16 16">
+                        <path
+                            d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0M4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5z" />
+                    </svg>
+                </p>
+            </a>
 
             {% for type in types %}
             {% if type.filtered_categories %}
-            <p class="type fs-5 fw-semibold ps-3 py-2 m-0 mt-3 text-uppercase" style="letter-spacing: 1.5px;">{{type}}</p>
+            <p class="type fs-5 fw-semibold ps-3 py-2 m-0 mt-3 text-uppercase" style="letter-spacing: 1.5px;">{{type}}
+            </p>
             {% endif %}
             {% for category in type.filtered_categories %}
             {% if current_category == category %}
