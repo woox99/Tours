@@ -102,7 +102,7 @@
                     {% else %}
                     <input type="checkbox" id="is_pinned" name="is_pinned" value="true">
                     {% endif %}
-                    <label class="btn btn-outline-dark" for="is_pinned">Pinned to Start</label>
+                    <label class="btn btn-outline-dark" for="is_pinned">Pinned to Front Page</label>
                 </div>
 
                 <hr>
@@ -120,10 +120,11 @@
                         size="10">
                 </div>
                 <!-- company_reviews-->
-                <div>
+                <div class="d-flex gap-1">
                     <label for="company_reviews">No. of Reviews</label>
                     <input type="text" id="company_reviews" name="company_reviews" value="{{booking.company_reviews}}"
                         size="10">
+                    <p class="fs-sm">Do NOT include comma ",".</p>
                 </div>
 
                 <hr>
@@ -155,6 +156,7 @@
                 <div class="d-flex flex-column">
                     <label for="details">Details</label>
                     <textarea name="details" id="details">{{booking.details}}</textarea>
+                    <p class="fs-sm">Details should be around 40-50 words and packed with keywords for SEO.</p>
                 </div>
 
                 <hr>
@@ -163,13 +165,14 @@
                 <div>
                     <label for="duration">Duration</label>
                     <input type="text" id="duration" name="duration" value="{{booking.duration}}">
+                    <p class="fs-sm">Format example: 2hr 45m</p>
                 </div>
                 <!-- price -->
                 <div>
                     <label for="price">Price $</label>
                     <input type="text" id="price" name="price" value="{{booking.price}}">
+                    <p class="fs-sm">Base price before promo discount is applied.</p>
                 </div>
-
                 <hr>
 
                 <!-- is_popular -->
@@ -182,9 +185,9 @@
                     <input class="form-check-input" type="checkbox" value="true" id="popularCheckbox{{booking.pk}}"
                         name="is_popular">
                     {% endif %}
-                    <label class="form-check-label bg-primary text-white px-2 py-1 rounded-1 fw-semibold"
+                    <label class="form-check-label d-flex align-items-center fs-xs text-theme rounded-pill border px-2 py-1"
                         for="popularCheckbox{{booking.pk}}">
-                        Popular!
+                        Popular
                     </label>
                 </div>
                 <!-- is_promo -->
@@ -197,10 +200,11 @@
                     <input class="form-check-input" type="checkbox" value="true" id="promoCheckbox{{booking.pk}}"
                         name="is_promo">
                     {% endif %}
-                    <label class="form-check-label bg-theme text-white px-2 py-1 rounded-1 fw-semibold"
+                    <label class="form-check-label d-flex align-items-center fs-xs text-theme rounded-pill border px-2 py-1"
                         for="promoCheckbox{{booking.pk}}">
-                        % OFF Promo Code
+                        % Off
                     </label>
+                    <p class="fs-sm">Needs to be selected to appear in promo category section.</p>
                 </div>
                 <!-- promo_amount -->
                 <div>

@@ -29,12 +29,12 @@
     <div class="d-flex flex-column gap-2 p-3" {% if not booking.is_public %}style="opacity: .6;" {% endif %}>
         <div class="d-flex justify-content-between">
             <p class="fs-xs fw-semibold text-secondary">{{booking.city}}, {{booking.island.name}}</p>
-            <div class="badges">
+            <div class="badges d-flex gap-2">
                 {% if booking.is_popular %}
-                <span class="px-2 py-1 rounded-pill text-primary bg-primary-subtle">Popular</span>
+                    <p class="d-flex align-items-center fs-xs text-theme rounded-pill border px-2 py-1">Popular</p>
                 {% endif %}
-                {% if booking.is_promo %}
-                <span class="px-2 py-1 rounded-pill text-primary bg-primary-subtle">Promo</span>
+                {% if booking.promo_amount %}
+                    <p class="d-flex align-items-center fs-xs text-theme rounded-pill border px-2 py-1">{{booking.promo_amount}}% Off</p>
                 {% endif %}
             </div>
         </div>
@@ -59,7 +59,7 @@
             {% if booking.price %}
             <div class="text-end">
                 <p class="fs-xs text-secondary">from</p>
-                {% if booking.is_promo %}
+                {% if booking.promo_amount %}
                 <p class="price text-decoration-line-through fs-sm text-secondary">${{booking.price}}</p>
                 {% endif %}
                 <p class="price text-primary fw-bold">${{booking.adjusted_price}}</p>
