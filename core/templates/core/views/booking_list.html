@@ -73,24 +73,38 @@
 </div>
 {% endblock %}
 
-{% block bookings_title %}
-{% if current_category %}
-{{current_category.page_title}} in {{current_island.name}}
-{% else %}
-{{current_island.bookings_page_title}}
-{% endif %}
-{% endblock %}
 
-{% block bookings_description %}
-{% if current_category %}
-{{current_category.page_description}}
-{% else %}
-{{current_island.bookings_page_description}}
-{% endif %}
-{% endblock %}
+
 
 {% block main_content %}
+
+<div class="py-4">
+    <p class="text-primary fw-semibold ls-1">MUST-DO EXPERIENCES</p>
+    <div class="d-flex align-items-center gap-3">
+        <h2 class="title">
+            {% if current_category %}
+            {{current_category.page_title}} in {{current_island.name}}
+            {% else %}
+            {{current_island.bookings_page_title}}
+            {% endif %}
+        </h2>
+    </div>
+    {% if page_obj.number == 1 %}
+    <p class="d-flex align-items-center text-secondary m-0">
+        {% block bookings_description %}
+        {% if current_category %}
+        {{current_category.page_description}}
+        {% else %}
+        {{current_island.bookings_page_description}}
+        {% endif %}
+        {% endblock %}
+    </p>
+    {% endif %}
+</div>
+
+<!-- Bookings -->
 {% include 'core/sections/bookings.html' %}
+
 <!-- Pagination Bar -->
 <div class="mt-4 d-flex justify-content-center">
     <nav aria-label="pagination">
